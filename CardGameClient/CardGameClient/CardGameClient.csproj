@@ -190,6 +190,16 @@
     <Resource Include="Images\cardmin_enemy_border.png" />
     <Resource Include="Images\cardmin_my_border.png" />
   </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\login_text.png" />
+    <Resource Include="Images\password_text.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\btn_exit_normal.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\btn_login_normal.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
