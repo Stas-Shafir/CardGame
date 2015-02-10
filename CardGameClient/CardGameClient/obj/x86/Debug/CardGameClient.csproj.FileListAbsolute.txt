@@ -41,3 +41,5 @@ D:\CardsKurs\CardGameClient\CardGameClient\obj\x86\Debug\LoginScreen.baml
 D:\CardsKurs\CardGameClient\CardGameClient\obj\x86\Debug\LoginScreen.g.cs
 D:\CardsKurs\CardGameClient\CardGameClient\obj\x86\Debug\CardPlace.baml
 D:\CardsKurs\CardGameClient\CardGameClient\obj\x86\Debug\CardPlace.g.cs
+D:\CardsKurs\CardGameClient\CardGameClient\obj\x86\Debug\StyledBtn.baml
+D:\CardsKurs\CardGameClient\CardGameClient\obj\x86\Debug\StyledBtn.g.cs

@@ -19,6 +19,12 @@ namespace CardGameClient
     /// </summary>
     public partial class LoginScreen : Window
     {
+        BitmapImage myCardBorder = new BitmapImage(
+            new Uri("pack://application:,,,/CardGameClient;component/Images/cardmin_my_border.png"));
+        BitmapImage enemyCardBorder = new BitmapImage(
+            new Uri("pack://application:,,,/CardGameClient;component/Images/cardmin_enemy_border.png"));
+
+
         public LoginScreen()
         {
             InitializeComponent();
@@ -26,6 +32,21 @@ namespace CardGameClient
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
+        }
+
+        private void btn_login_MouseEnter(object sender, MouseEventArgs e)
+        {
+
+        }
+
+        private void btn_login_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+
+        }
+
+        private void btn_login_MouseLeave(object sender, MouseEventArgs e)
+        {
+
         }
     }
 }

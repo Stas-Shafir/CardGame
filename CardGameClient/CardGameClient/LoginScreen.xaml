@@ -1,6 +1,7 @@
 ﻿<Window x:Class="CardGameClient.LoginScreen"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:dc="clr-namespace:CardGameClient"
         Title="LoginScreen" MinHeight="768" MinWidth="1024" Height="768" Width="1024" Cursor="/CardGameClient;component/Images/cursor.cur"  WindowStyle="None" WindowStartupLocation="CenterScreen" ResizeMode="NoResize" WindowState="Maximized" Loaded="Window_Loaded">
     <Grid RenderOptions.BitmapScalingMode="Fant">
         <Grid.Background>
@@ -15,17 +16,15 @@
                     <ImageBrush ImageSource="/CardGameClient;component/Images/textbox.png"  />
                 </TextBox.Background>
             </TextBox>
-            <TextBox Height="26" HorizontalAlignment="Left" Cursor="/CardGameClient;component/Images/cursor.cur" Padding="5, 3, 3, 5" Margin="166,96,0,0" Name="textBox2" VerticalAlignment="Top" Width="150" Foreground="White" TabIndex="1" BorderThickness="0" FontSize="13" TextAlignment="Justify" FontFamily="Tahoma">
-                <TextBox.Background>
+            <PasswordBox Height="26" HorizontalAlignment="Left" Cursor="/CardGameClient;component/Images/cursor.cur" Padding="5, 3, 3, 5" Margin="166,96,0,0" Name="textBox2" VerticalAlignment="Top" Width="150" Foreground="White" TabIndex="1" BorderThickness="0" FontSize="13" FontFamily="Tahoma">
+                <PasswordBox.Background>
                     <ImageBrush ImageSource="/CardGameClient;component/Images/textbox.png"/>
-                </TextBox.Background>
-            </TextBox>
+                </PasswordBox.Background>
+            </PasswordBox>
             <Image RenderOptions.BitmapScalingMode="Fant" Height="25" HorizontalAlignment="Left" Margin="88,57,0,0" Name="login_text" VerticalAlignment="Top" Width="71" Source="/CardGameClient;component/Images/login_text.png" />
             <Image RenderOptions.BitmapScalingMode="Fant" Height="25" HorizontalAlignment="Left" Margin="77,97,0,0" Name="password_text" VerticalAlignment="Top" Width="82" Source="/CardGameClient;component/Images/password_text.png" />
-
-            <Image RenderOptions.BitmapScalingMode="Fant" Height="34" HorizontalAlignment="Left" Margin="49,156,0,0" Name="btn_login" VerticalAlignment="Top" Width="130" Source="/CardGameClient;component/Images/btn_login_normal.png" />
-            <Image RenderOptions.BitmapScalingMode="Fant" Height="34" HorizontalAlignment="Right" Margin="0,156,47,0" Name="btn_exit" VerticalAlignment="Top" Width="130" Source="/CardGameClient;component/Images/btn_exit_normal.png" />
-
+            <dc:StyledBtn Text="Войти" Height="34" Width="130" Margin="56,156,209,40"></dc:StyledBtn>
+            <dc:StyledBtn Text="Выйти" Height="34" Width="130" Margin="212,156,53,40"></dc:StyledBtn>
         </Grid>
         <Image Name="LogoImg" Height="149" HorizontalAlignment="Center" VerticalAlignment="Top" Width="492" Source="/CardGameClient;component/Images/logo.png" Margin="0,70,0,0" />
     </Grid>

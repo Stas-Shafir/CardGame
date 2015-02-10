@@ -60,6 +60,9 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="StyledBtn.xaml.cs">
+      <DependentUpon>StyledBtn.xaml</DependentUpon>
+    </Compile>
     <Page Include="CardPlace.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -89,6 +92,10 @@
     <Page Include="Simple Styles.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="StyledBtn.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
   </ItemGroup>
   <ItemGroup>
@@ -195,10 +202,10 @@
     <Resource Include="Images\password_text.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Images\btn_exit_normal.png" />
+    <Resource Include="Images\btn_ui.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Images\btn_login_normal.png" />
+    <Resource Include="Images\btn_ui_hover.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
