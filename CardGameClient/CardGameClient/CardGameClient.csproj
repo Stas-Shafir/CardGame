@@ -38,11 +38,8 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Microsoft.Expression.Effects" />
-    <Reference Include="Microsoft.Expression.Interactions" />
     <Reference Include="System" />
     <Reference Include="System.Data" />
-    <Reference Include="System.Windows.Interactivity" />
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Core" />
@@ -60,10 +57,27 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="StyledBtn.xaml.cs">
+    <Compile Include="Controls\CharacterCard.xaml.cs">
+      <DependentUpon>CharacterCard.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="CharacterCreateScreen.xaml.cs">
+      <DependentUpon>CharacterCreateScreen.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\StyledBtn.xaml.cs">
       <DependentUpon>StyledBtn.xaml</DependentUpon>
     </Compile>
-    <Page Include="CardPlace.xaml">
+    <Compile Include="Controls\StyledTextBox.xaml.cs">
+      <DependentUpon>StyledTextBox.xaml</DependentUpon>
+    </Compile>
+    <Page Include="Controls\CharacterCard.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\CardPlace.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="CharacterCreateScreen.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -79,7 +93,7 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="CardPlace.xaml.cs">
+    <Compile Include="Controls\CardPlace.xaml.cs">
       <DependentUpon>CardPlace.xaml</DependentUpon>
     </Compile>
     <Compile Include="LoginScreen.xaml.cs">
@@ -89,11 +103,11 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Page Include="Simple Styles.xaml">
-      <Generator>MSBuild:Compile</Generator>
+    <Page Include="Controls\StyledBtn.xaml">
       <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="StyledBtn.xaml">
+    <Page Include="Controls\StyledTextBox.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -206,6 +220,18 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Images\btn_ui_hover.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\ruin_zamok01.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\myCardNormalfls.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\character_border.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\myCharacterCard.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

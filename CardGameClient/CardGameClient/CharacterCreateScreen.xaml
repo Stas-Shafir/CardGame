@@ -1,0 +1,20 @@
+﻿<Window x:Class="CardGameClient.CharacterCreateScreen"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:dc="clr-namespace:CardGameClient"
+        Title="CharacterCreateScreen" MinHeight="768" MinWidth="1024" Height="768" Width="1024" Cursor="/CardGameClient;component/Images/cursor.cur"  WindowStyle="None" WindowStartupLocation="CenterScreen" ResizeMode="NoResize" WindowState="Maximized">
+    <Window.Background>
+        <ImageBrush ImageSource="/CardGameClient;component/Images/ruin_zamok01.jpg" Stretch="UniformToFill" TileMode="None" />
+    </Window.Background>
+    <Grid>
+        <dc:StyledTextBox Height="26" Width="200" Text="CharacterName" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="0, 0, 0, 130"></dc:StyledTextBox>
+        <dc:StyledBtn HorizontalAlignment="Right" Text="Выйти"  Height="34" Width="130" VerticalAlignment="Bottom" Margin="0,0,12,12"></dc:StyledBtn>
+        <dc:StyledBtn HorizontalAlignment="Center" Text="Создать"  Height="34" Width="140" VerticalAlignment="Bottom" Margin="0, 0, 0, 70"></dc:StyledBtn>
+
+        <dc:CharacterCard Height="368" Width="244" Margin="262,190,496,0" HorizontalAlignment="Center" VerticalAlignment="Top"></dc:CharacterCard>
+        <dc:CharacterCard Height="368" Width="244" Margin="496,190,262,0" HorizontalAlignment="Center" VerticalAlignment="Top"></dc:CharacterCard>
+        <dc:CharacterCard Height="368" Width="244" Margin="12,190,746,0" HorizontalAlignment="Center" VerticalAlignment="Top"></dc:CharacterCard>
+        <dc:CharacterCard Height="368" Width="244" Margin="746,190,12,0" HorizontalAlignment="Center" VerticalAlignment="Top"></dc:CharacterCard>
+        
+    </Grid>
+</Window>

@@ -46,9 +46,8 @@
 
 <!-- My Cards-->
 
-        <Grid Grid.Row="4" Name="MyHeroPlace" Grid.RowSpan="3" Grid.Column="2" Margin="0, 22.5, 0, 22.5" MaxWidth="131" MaxHeight="175" MinHeight="165" Background="#70000000">
-            <Image RenderOptions.BitmapScalingMode="Fant" Name="MyHeroImage" Source="/CardGameClient;component/Images/card-template1.png" Stretch="Fill" Visibility="Visible"></Image>
-        </Grid>
+
+        <dc:CardPlace IsMineCard="True" Card="/CardGameClient;component/Images/warr.png" x:Name="MyHeroPlace" Grid.RowSpan="3" Grid.Column="2" Grid.Row="4" Margin="0, 52.5, 0, 52.5"></dc:CardPlace>
 
         <dc:CardPlace IsMineCard="True" x:Name="MyPlace0_0" Grid.Column="4" Grid.Row="2" Margin="0, 2.5, 0, 2.5"></dc:CardPlace>
 
@@ -68,9 +67,7 @@
 
         <!--Enemy Cards-->
 
-        <Grid Grid.Row="4" Name="EnemyHeroPlace" Grid.RowSpan="3" Grid.Column="12" Margin="0, 22.5, 0, 22.5" MaxWidth="131" MaxHeight="175" Background="#70000000">
-            <Image RenderOptions.BitmapScalingMode="Fant" Name="EnemyHeroImage" Source="/CardGameClient;component/Images/card-template1.png" Stretch="Fill" Visibility="Visible"></Image>
-        </Grid>
+        <dc:CardPlace Margin="0, 52.5, 0, 52.5" Card="/CardGameClient;component/Images/Fire_mage_by_Eliag1101.png" x:Name="EnemyHeroPlace" Grid.RowSpan="3" Grid.Row="4" Grid.Column="12"></dc:CardPlace>
 
         <dc:CardPlace x:Name="EnemyPlace0_0" Grid.Column="10" Grid.Row="2" Margin="0, 2.5, 0, 2.5" ></dc:CardPlace>
 
