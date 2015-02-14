@@ -1,0 +1,5 @@
+D:\CardsKurs\CardGameServer\CardGameServer\bin\Debug\CardGameServer.exe.config
+D:\CardsKurs\CardGameServer\CardGameServer\bin\Debug\CardGameServer.exe
+D:\CardsKurs\CardGameServer\CardGameServer\bin\Debug\CardGameServer.pdb
+D:\CardsKurs\CardGameServer\CardGameServer\obj\x86\Debug\CardGameServer.exe
+D:\CardsKurs\CardGameServer\CardGameServer\obj\x86\Debug\CardGameServer.pdb
