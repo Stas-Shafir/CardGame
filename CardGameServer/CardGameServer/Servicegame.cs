@@ -6,55 +6,18 @@ using System.ServiceModel;
 using System.Data.SqlClient;
 using System.Data;
 using System.Data.SqlTypes;
+using CardGameServer.Security;
 
 namespace CardGameServer
 {
     [ServiceContract]
     public class Servicegame
     {
-        string[] sqlInjectionWords = 
-        { 
-            "--",
-            "\"",
-             "'",
-            ";--",
-            ";",
-            "/*",
-            "*/",
-            "@@",
-            "@",
-            "char",
-            "nchar",
-            "varchar",
-            "nvarchar",
-            "alter",
-            "begin",
-            "cast",
-            "create",
-            "cursor",
-            "declare",
-            "delete",
-            "drop",
-            "end",
-            "exec",
-            "execute",
-            "fetch",
-            "insert",
-            "kill",
-            "select",
-            "sys",
-            "sysobjects",
-            "syscolumns",
-            "table",
-            "update"
-        };
-
-
         [OperationContract]
         public bool Login(string user, string pass)
         {
             //check for sqlInjection
-            if (sqlInjectionWords.Any(word => user.IndexOf(word, StringComparison.OrdinalIgnoreCase) >= 0 ||
+            if (sqlInjection.Words.Any(word => user.IndexOf(word, StringComparison.OrdinalIgnoreCase) >= 0 ||
                 pass.IndexOf(word, StringComparison.OrdinalIgnoreCase) >= 0)) return false;
 
             SqlConnection db_connection = new SqlConnection(Properties.Settings.Default.avalon_dbConnectionString);
@@ -90,7 +53,7 @@ namespace CardGameServer
         public bool isAccountContainsAnyCharacter(string user)
         {
             //check for sqlInjection
-            if (sqlInjectionWords.Any(word => user.IndexOf(word, StringComparison.OrdinalIgnoreCase) >= 0)) return false;
+            if (sqlInjection.Words.Any(word => user.IndexOf(word, StringComparison.OrdinalIgnoreCase) >= 0)) return false;
 
             SqlConnection db_connection = new SqlConnection(Properties.Settings.Default.avalon_dbConnectionString);
 
@@ -109,7 +72,7 @@ namespace CardGameServer
         public bool createCharacter(string user, string name, int heroCardId)
         {
             //check for sqlInjection
-            if (sqlInjectionWords.Any(word => user.IndexOf(word, StringComparison.OrdinalIgnoreCase) >= 0
+            if (sqlInjection.Words.Any(word => user.IndexOf(word, StringComparison.OrdinalIgnoreCase) >= 0
                 || name.IndexOf(word, StringComparison.OrdinalIgnoreCase) >= 0)) return false;
 
             SqlConnection db_connection = new SqlConnection(Properties.Settings.Default.avalon_dbConnectionString);
