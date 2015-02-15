@@ -11,6 +11,9 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using System.Windows.Media.Animation;
+using CardGameServer;
+using System.ServiceModel;
+using System.IO;
 
 namespace CardGameClient
 {
@@ -19,34 +22,79 @@ namespace CardGameClient
     /// </summary>
     public partial class LoginScreen : Window
     {
-        BitmapImage myCardBorder = new BitmapImage(
-            new Uri("pack://application:,,,/CardGameClient;component/Images/cardmin_my_border.png"));
-        BitmapImage enemyCardBorder = new BitmapImage(
-            new Uri("pack://application:,,,/CardGameClient;component/Images/cardmin_enemy_border.png"));
-
-
         public LoginScreen()
         {
             InitializeComponent();
         }
 
+
+        private void loginBtn_MouseUp(object sender, MouseButtonEventArgs e)
+        {
+            try
+            {
+                string user = loginTextBox.Text;
+                string pass = passwordTextBox.Password;
+
+                if (user == "" || pass == "" || sqlInjection.Words.Any(word => user.IndexOf(word, StringComparison.OrdinalIgnoreCase) >= 0                      ||  pass.IndexOf(word, StringComparison.OrdinalIgnoreCase) >= 0))
+                {
+                    errorText.Content = "Поля заполнены некорректно";
+                    return;
+                }
+
+                ChannelFactory<Servicegame> cf =
+                        new ChannelFactory<Servicegame>("MyEndpoint");
+
+                ServiceProxy.Proxy = cf.CreateChannel();
+
+                if (ServiceProxy.Proxy.Login(user, pass))
+                {
+                    App.UserName = user;
+                    if (!ServiceProxy.Proxy.isAccountContainsAnyCharacter(loginTextBox.Text))
+                    {
+                        CharacterCreateScreen ccs = new CharacterCreateScreen(this);
+                        ccs.Show();
+                        Hide();
+                    }
+                    else
+                    {
+                        errorText.Content = "Вход успешен. На аккаунте уже есть персонаж. Лобби...";
+                    }
+                }
+                else
+                {
+                    errorText.Content = "Неверная пара логин-пароль либо поля заполнены некорректно";
+                }
+            }
+            catch (Exception exc)
+            {
+                MessageBox.Show(exc.Message + "\n\n" + exc.InnerException.Message, "Критическая ошибка!");
+            }
+        }
+
+        private void exitBtn_MouseUp(object sender, MouseButtonEventArgs e)
+        {
+            Application.Current.Shutdown();
+        }
+
+        private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            Application.Current.Shutdown();
+        }
+
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-        }
+            foreach (var item in Directory.GetFiles("Images/Cards/", "*.png", SearchOption.AllDirectories))
+            {
+                BitmapImage img = new BitmapImage();
+                img.BeginInit();
+                img.UriSource = new Uri(item, UriKind.Relative);
+                img.CacheOption = BitmapCacheOption.OnLoad;
+                img.EndInit();
 
-        private void btn_login_MouseEnter(object sender, MouseEventArgs e)
-        {
 
-        }
-
-        private void btn_login_MouseDown(object sender, MouseButtonEventArgs e)
-        {
-
-        }
-
-        private void btn_login_MouseLeave(object sender, MouseEventArgs e)
-        {
-
+                App.cardImages.Add(Int32.Parse(System.IO.Path.GetFileNameWithoutExtension(item)), img);
+            }
+            
         }
     }
 }

@@ -11,6 +11,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using CardGameServer;
 
 namespace CardGameClient
 {
@@ -22,6 +23,8 @@ namespace CardGameClient
 
         private bool containsCard = false;
         private bool isMineCard;
+
+        public Card CardInfo {get; set;}
         
         ImageBrush myCardBg = new ImageBrush(new BitmapImage(
             new Uri("pack://application:,,,/CardGameClient;component/Images/cardmin_my_bg.png" )));

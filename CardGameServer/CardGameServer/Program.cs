@@ -13,6 +13,7 @@ namespace CardGameServer
     {
         public static Dictionary<int, int> character_templates = new Dictionary<int,int>();
         public static List<Card> cards = new List<Card>();
+        public static List<Card> template_cards = new List<Card>();
 
         static void Main(string[] args)
         {
@@ -59,6 +60,11 @@ namespace CardGameServer
 
                 db_connection.Close();
 
+                //create card Heroes Template list
+                foreach (var item in character_templates.Keys)
+                {
+                    template_cards.Add(cards.Find(c => c.id == item));
+                }           
 
                 Console.WriteLine("INFO: Load " + cards.Count + " cards from database");
 

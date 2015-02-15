@@ -28,9 +28,9 @@ namespace CardGameServer
 
             SqlDataReader res = cmd.ExecuteReader();
 
-            if (res.HasRows)
+            if (res.Read())
             {
-                string password = res.GetSqlString(0).ToString();
+                string password = res[0].ToString();
                 res.Close();
                 db_connection.Close();
 
@@ -61,7 +61,11 @@ namespace CardGameServer
 
             SqlCommand cmd = new SqlCommand("SELECT account FROM characters where account='" + user + "'", db_connection);
 
-            bool contains = cmd.ExecuteNonQuery() >= 1;
+            SqlDataReader res = cmd.ExecuteReader();
+
+            bool contains = res.Read();
+
+            res.Close();
 
             db_connection.Close();
 
@@ -78,8 +82,13 @@ namespace CardGameServer
             SqlConnection db_connection = new SqlConnection(Properties.Settings.Default.avalon_dbConnectionString);
             db_connection.Open();
 
-            SqlCommand cmd = new SqlCommand("SELECT name FROM characters where name='" + user + "'", db_connection);
-            bool exists = cmd.ExecuteNonQuery() >= 1;
+            SqlCommand cmd = new SqlCommand("SELECT name FROM characters where name='" + name + "'", db_connection);
+
+            SqlDataReader res = cmd.ExecuteReader();
+
+            bool exists = res.Read();
+
+            res.Close();
 
             if (exists)
             {
@@ -91,21 +100,36 @@ namespace CardGameServer
             cmd.ExecuteNonQuery();
 
             cmd = new SqlCommand("SELECT id FROM characters where name='" + name + "'", db_connection);
-            SqlDataReader rd = cmd.ExecuteReader();
-            SqlInt32 char_id = rd.GetSqlInt32(0);
-            rd.Close();
+            res = cmd.ExecuteReader();
 
-            cmd = new SqlCommand("INSERT INTO character_cards(char_id, card_id, slot) VALUES" +
-                    "(" + char_id + ", " + heroCardId + ", 0)", db_connection);
-            cmd.ExecuteNonQuery();
+            if (res.Read())
+            {
+                int char_id = (int)res[0];
+                res.Close();
 
-            cmd = new SqlCommand("INSERT INTO character_cards(char_id, card_id, slot) VALUES" +
-                    "(" + char_id + ", " + Program.character_templates[heroCardId] + ", 1)", db_connection);
-            cmd.ExecuteNonQuery();
+                cmd = new SqlCommand("INSERT INTO character_cards(char_id, card_id, slot) VALUES" +
+                        "(" + char_id + ", " + heroCardId + ", 0)", db_connection);
+                cmd.ExecuteNonQuery();
+
+                cmd = new SqlCommand("INSERT INTO character_cards(char_id, card_id, slot) VALUES" +
+                        "(" + char_id + ", " + Program.character_templates[heroCardId] + ", 1)", db_connection);
+                cmd.ExecuteNonQuery();
+            }
+            else
+            {
+                res.Close();
+                return false;
+            }
 
             db_connection.Close();
 
             return true;
+        }
+
+        [OperationContract]
+        public List<Card> getHeroesTemplateAvailableList()
+        {
+            return Program.template_cards;
         }
     }
 }

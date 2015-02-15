@@ -58,6 +58,7 @@ namespace CardGameClient
         private void UserControl_MouseLeave(object sender, MouseEventArgs e)
         {
             Background = normal;
+            textLabel.Margin = normalM;
         }
 
         private void UserControl_MouseUp(object sender, MouseButtonEventArgs e)

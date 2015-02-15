@@ -12,6 +12,13 @@
             <Image Name="HpBar" Source="pack://application:,,,/CardGameClient;component/Images/shar.png" RenderOptions.BitmapScalingMode="Fant" Stretch="Fill" HorizontalAlignment="Left" Height="33" Width="35" Margin="4,0,67,8" VerticalAlignment="Bottom" Visibility="Visible" />
             <Image Name="HpDig1"  Source="pack://application:,,,/CardGameClient;component/Images/Numeric/5.png" RenderOptions.BitmapScalingMode="Fant" Stretch="Fill" HorizontalAlignment="Left" Height="22" Width="18" Margin="8.083,0,0,13.333" Panel.ZIndex="1" VerticalAlignment="Bottom" Visibility="Visible" />
             <Image Name="HpDig2"  Source="pack://application:,,,/CardGameClient;component/Images/Numeric/5.png" RenderOptions.BitmapScalingMode="Fant" Stretch="Fill" HorizontalAlignment="Left" Height="22" Width="18" Margin="19.083,0,0,13.333" Panel.ZIndex="1" VerticalAlignment="Bottom" Visibility="Visible" />
+
+            <Image Name="DefBar" Source="pack://application:,,,/CardGameClient;component/Images/kvadrat.png" RenderOptions.BitmapScalingMode="Fant" Stretch="Fill" HorizontalAlignment="Left" Height="33" Width="35" Margin="4,0,0,44" VerticalAlignment="Bottom" Visibility="Visible" />
+            <Image Name="DefDig1"  Source="pack://application:,,,/CardGameClient;component/Images/Numeric/2.png" RenderOptions.BitmapScalingMode="Fant" Stretch="Fill" HorizontalAlignment="Left" Height="22" Width="18" Margin="12,0,0,50" Panel.ZIndex="1" VerticalAlignment="Bottom" Visibility="Visible" />
+
+            <Image Name="DmgBar" Source="pack://application:,,,/CardGameClient;component/Images/krug.png" RenderOptions.BitmapScalingMode="Fant" Stretch="Fill" HorizontalAlignment="Left" Height="33" Width="35" Margin="4,0,0,83" VerticalAlignment="Bottom" Visibility="Visible" />
+            <Image Name="DmgDig1"  Source="pack://application:,,,/CardGameClient;component/Images/Numeric/4.png" RenderOptions.BitmapScalingMode="Fant" Stretch="Fill" HorizontalAlignment="Left" Height="22" Width="18" Margin="12,0,0,88" Panel.ZIndex="1" VerticalAlignment="Bottom" Visibility="Visible" />
+
         </Grid>
         <Grid.Background>
             <ImageBrush ImageSource="/CardGameClient;component/Images/cardmin_my_bg.png" />
