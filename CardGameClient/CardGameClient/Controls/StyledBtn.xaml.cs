@@ -24,13 +24,51 @@ namespace CardGameClient
         ImageBrush hover = new ImageBrush(new BitmapImage(
             new Uri("pack://application:,,,/CardGameClient;component/Images/btn_ui_hover.png")));
 
-        Thickness normalM = new Thickness(37, 1, 0, 0);
-        Thickness downM = new Thickness(37, 2, 0, 0);
+        Thickness normalM = new Thickness(0);
+        Thickness downM = new Thickness(0, 2, 0, 0);
 
         public StyledBtn()
         {
             InitializeComponent();
         }
+
+
+        public ImageBrush BackgroundNormal
+        {
+            get
+            {
+                return normal;
+            }
+            set
+            {
+                normal = value;
+            }
+        }
+
+        public ImageBrush BackgroundHover
+        {
+            get
+            {
+                return hover;
+            }
+            set
+            {
+                hover = value;
+            }
+        }
+
+        public Double TextFontSize
+        {
+            get
+            {
+                return textLabel.FontSize;
+            }
+            set
+            {
+                textLabel.FontSize = value;
+            }
+        }
+
 
         public string Text
         {

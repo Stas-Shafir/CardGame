@@ -8,9 +8,9 @@
     </Window.Background>
     <Grid>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition MaxWidth="40" MinWidth="40" Width="40" />
+            <ColumnDefinition MaxWidth="20" MinWidth="20" Width="20" />
             <ColumnDefinition />
-            <ColumnDefinition MaxWidth="40" MinWidth="40" Width="40" />            
+            <ColumnDefinition MaxWidth="20" MinWidth="20" Width="20" />            
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition Height="*" />
@@ -36,19 +36,19 @@
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*" />
                 <ColumnDefinition MaxWidth="105" MinWidth="105" Width="105" />
-                <ColumnDefinition Width="10" MinWidth="10" MaxWidth="10" />
+                <ColumnDefinition Width="10" MinWidth="15" MaxWidth="20" />
                 <ColumnDefinition MaxWidth="105" MinWidth="105" Width="105" />
-                <ColumnDefinition Width="10" MinWidth="10" MaxWidth="10" />
+                <ColumnDefinition Width="10" MinWidth="15" MaxWidth="20" />
                 <ColumnDefinition MaxWidth="105" MinWidth="105" Width="105" />
-                <ColumnDefinition Width="10" MinWidth="10" MaxWidth="10" />
+                <ColumnDefinition Width="10" MinWidth="15" MaxWidth="20" />
                 <ColumnDefinition MaxWidth="105" MinWidth="105" Width="105" />
-                <ColumnDefinition Width="10" MinWidth="10" MaxWidth="10" />
+                <ColumnDefinition Width="10" MinWidth="15" MaxWidth="20" />
                 <ColumnDefinition MaxWidth="105" MinWidth="105" Width="105" />
-                <ColumnDefinition Width="10" MinWidth="10" MaxWidth="10" />
+                <ColumnDefinition Width="10" MinWidth="15" MaxWidth="20" />
                 <ColumnDefinition MaxWidth="105" MinWidth="105" Width="105" />
-                <ColumnDefinition Width="10" MinWidth="10" MaxWidth="10" />
+                <ColumnDefinition Width="10" MinWidth="15" MaxWidth="20" />
                 <ColumnDefinition MaxWidth="105" MinWidth="105" Width="105" />
-                <ColumnDefinition Width="10" MinWidth="10" MaxWidth="10" />
+                <ColumnDefinition Width="10" MinWidth="15" MaxWidth="20" />
                 <ColumnDefinition MaxWidth="105" MinWidth="105" Width="105" />
                 <ColumnDefinition Width="*" />
             </Grid.ColumnDefinitions>

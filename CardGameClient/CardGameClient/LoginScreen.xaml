@@ -11,7 +11,7 @@
             <Grid.Background>
                 <ImageBrush ImageSource="/CardGameClient;component/Images/login_form.png" />
             </Grid.Background>
-            <TextBox HorizontalAlignment="Left" Cursor="/CardGameClient;component/Images/cursor.cur" Text="stas51447d" Padding="5, 3, 3, 5" Margin="166,56,0,148" Name="loginTextBox" Width="150" Foreground="White" TabIndex="0" BorderThickness="0" SnapsToDevicePixels="True" FontSize="13" TextAlignment="Justify" FontFamily="Tahoma">
+            <TextBox HorizontalAlignment="Left" Cursor="/CardGameClient;component/Images/cursor.cur" Text="stas514f" Padding="5, 3, 3, 5" Margin="166,56,0,148" Name="loginTextBox" Width="150" Foreground="White" TabIndex="0" BorderThickness="0" SnapsToDevicePixels="True" FontSize="13" TextAlignment="Justify" FontFamily="Tahoma">
                 <TextBox.Background>
                     <ImageBrush ImageSource="/CardGameClient;component/Images/textbox.png"  />
                 </TextBox.Background>

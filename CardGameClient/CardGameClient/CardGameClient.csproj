@@ -71,6 +71,9 @@
     <Compile Include="Controls\StyledTextBox.xaml.cs">
       <DependentUpon>StyledTextBox.xaml</DependentUpon>
     </Compile>
+    <Compile Include="LobbyScreen.xaml.cs">
+      <DependentUpon>LobbyScreen.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Secirity\sqlInjection.cs" />
     <Compile Include="Service\Card.cs" />
     <Compile Include="Service\Servicegame.cs" />
@@ -83,6 +86,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="CharacterCreateScreen.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="LobbyScreen.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -157,7 +164,6 @@
     <Resource Include="Images\first_bg.jpg" />
     <Resource Include="Images\place.jpg" />
     <Resource Include="Images\place.png" />
-    <Resource Include="Images\Без имеdfdfни-1.jpg" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Images\Numeric\5.png" />
@@ -256,6 +262,24 @@
     <None Include="Images\Cards\2.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\bg02.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\lobby.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\findBtn.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\findBtn_hover.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\lobby_heroinfo.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\ranking.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

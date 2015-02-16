@@ -12,6 +12,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using CardGameServer;
+using System.Windows.Media.Animation;
 
 namespace CardGameClient
 {
@@ -23,6 +24,29 @@ namespace CardGameClient
 
         private bool containsCard = false;
         private bool isMineCard;
+
+        private bool isSelected = false;
+
+        public bool selected
+        {
+            get
+            {
+                return isSelected;
+            }
+            set
+            {
+                isSelected = value;
+
+                if (!isSelected)
+                {
+                    borderGrid.Visibility = Visibility.Hidden;
+                    animation.BeginTime = null;
+                    borderGrid.BeginAnimation(MarginProperty, animation);
+                }
+            }
+        }
+
+        ThicknessAnimation animation = new ThicknessAnimation(new Thickness(-7), new Thickness(-5), TimeSpan.FromMilliseconds(600));
 
         public Card CardInfo {get; set;}
         
@@ -80,6 +104,9 @@ namespace CardGameClient
         {
             InitializeComponent();
             GridMain.Background = IsMineCard ? myCardBg : enemyCardBg;
+            animation.RepeatBehavior = RepeatBehavior.Forever;
+            animation.AutoReverse = true;
+            //selected = false;
         }
 
 
@@ -98,19 +125,38 @@ namespace CardGameClient
 
         private void Grid_MouseEnter(object sender, MouseEventArgs e)
         {
-            if (Name.Contains("Hero"))
-                Margin = new Thickness(-2.5, 50, -2.5, 50);
-            else if (ContainsCard)
-                Margin = new Thickness(-2.5, 0, -2.5, 0);
+            if (ContainsCard && !selected)
+            {
+                borderGrid.Visibility = Visibility.Visible;
+                animation.BeginTime = TimeSpan.FromMilliseconds(0);
+                animation.Duration = TimeSpan.FromMilliseconds(600);
+                animation.From = new Thickness(-7);
+                animation.To = new Thickness(-5);
+                borderGrid.BeginAnimation(MarginProperty, animation);
+            }
             
         }
 
         private void GridMain_MouseLeave(object sender, MouseEventArgs e)
         {
-            if (Name.Contains("Hero"))
-                Margin = new Thickness(0, 52.5, 0, 52.5);
-            else if (ContainsCard)
-                Margin = new Thickness(0, 2.5, 0, 2.5);
+            if (ContainsCard && !selected)
+            {
+                borderGrid.Visibility = Visibility.Hidden;
+                animation.BeginTime = null;
+                borderGrid.BeginAnimation(MarginProperty, animation);
+            }
+        }
+
+        private void UserControl_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            if (ContainsCard)
+            {
+                selected = true;
+                animation.Duration = TimeSpan.FromMilliseconds(200);
+                animation.From = new Thickness(-6);
+                animation.To = new Thickness(-5);
+                borderGrid.BeginAnimation(MarginProperty, animation);
+            }
         }
     }
 }

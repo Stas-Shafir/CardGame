@@ -4,7 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              mc:Ignorable="d"
-             d:DesignHeight="127" d:DesignWidth="105">
+             d:DesignHeight="127" d:DesignWidth="105" MouseDown="UserControl_MouseDown">
     <Grid Name="GridMain" Margin="0" Opacity="1" MouseEnter="Grid_MouseEnter" MouseLeave="GridMain_MouseLeave">
         <Grid Name="CardCrid" Visibility="Hidden" ClipToBounds="False">
             <Image RenderOptions.BitmapScalingMode="Fant" Name="Portrait" Stretch="Fill" Visibility="Visible" Panel.ZIndex="0"></Image>
@@ -20,8 +20,10 @@
             <Image Name="DmgDig1"  Source="pack://application:,,,/CardGameClient;component/Images/Numeric/4.png" RenderOptions.BitmapScalingMode="Fant" Stretch="Fill" HorizontalAlignment="Left" Height="22" Width="18" Margin="12,0,0,88" Panel.ZIndex="1" VerticalAlignment="Bottom" Visibility="Visible" />
 
         </Grid>
+        <Border Visibility="Hidden" Name="borderGrid" Margin="-7" BorderThickness="2" BorderBrush="#FFC1C1C1" CornerRadius="7"/>
         <Grid.Background>
             <ImageBrush ImageSource="/CardGameClient;component/Images/cardmin_my_bg.png" />
         </Grid.Background>
+
     </Grid>
 </UserControl>

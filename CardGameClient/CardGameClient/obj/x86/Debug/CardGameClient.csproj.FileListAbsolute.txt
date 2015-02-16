@@ -28,3 +28,5 @@ D:\CardsKurs\CardGameClient\CardGameClient\bin\Debug\Images\Cards\1.png
 D:\CardsKurs\CardGameClient\CardGameClient\bin\Debug\Images\Cards\2.png
 D:\CardsKurs\CardGameClient\CardGameClient\bin\Debug\Images\Cards\3.png
 D:\CardsKurs\CardGameClient\CardGameClient\bin\Debug\Images\Cards\4.png
+D:\CardsKurs\CardGameClient\CardGameClient\obj\x86\Debug\LobbyScreen.baml
+D:\CardsKurs\CardGameClient\CardGameClient\obj\x86\Debug\LobbyScreen.g.cs

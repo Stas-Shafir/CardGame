@@ -9,7 +9,7 @@
         <ImageBrush ImageSource="/CardGameClient;component/Images/btn_ui.png" />
     </UserControl.Background>  
     <Grid>
-        <Label Name="textLabel" Content="Выйти" Height="28" HorizontalAlignment="Left" VerticalAlignment="Top" FontFamily="Myriad Pro" Foreground="White" FontSize="16" RenderTransformOrigin="0.5,0.5" Margin="37,1,0,0">
+        <Label Name="textLabel" Content="Выйти" Height="Auto" HorizontalAlignment="Center" VerticalAlignment="Center" FontFamily="Myriad Pro" Foreground="White" FontSize="16" RenderTransformOrigin="0.5,0.5">
             <Label.Effect>
                 <DropShadowEffect BlurRadius="0" RenderingBias="Quality" Direction="330" ShadowDepth="3"/>
             </Label.Effect>

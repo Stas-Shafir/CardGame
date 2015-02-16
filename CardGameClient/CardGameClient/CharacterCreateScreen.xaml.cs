@@ -93,19 +93,22 @@ namespace CardGameClient
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
             List<Card> templates = ServiceProxy.Proxy.getHeroesTemplateAvailableList();
+            CardPlace cp;
 
             for (int i = 0; i < templates.Count; i++)
             {
-                (gridHeroes.Children[i] as CardPlace).Card = App.cardImages[templates[i].id];
-                (gridHeroes.Children[i] as CardPlace).CardInfo = templates[i];
+                cp = gridHeroes.Children[i] as CardPlace;
+                cp.Card = App.cardImages[templates[i].id];
+                cp.CardInfo = templates[i];
             }
         }
 
         private void CardPlace_MouseUp(object sender, MouseButtonEventArgs e)
         {
-            CardIndex = (sender as CardPlace).CardInfo.id;
-
-            selectedCardPlace = (sender as CardPlace);
+            if (selectedCardPlace != null) selectedCardPlace.selected = false;
+            CardPlace cp = sender as CardPlace;
+            CardIndex = cp.CardInfo.id;
+            selectedCardPlace = cp;
         }
     }
 }
