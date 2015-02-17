@@ -20,7 +20,7 @@ namespace CardGameServer
             if (sqlInjection.Words.Any(word => user.IndexOf(word, StringComparison.OrdinalIgnoreCase) >= 0 ||
                 pass.IndexOf(word, StringComparison.OrdinalIgnoreCase) >= 0)) return false;
 
-            SqlConnection db_connection = new SqlConnection(Properties.Settings.Default.avalon_dbConnectionString);
+            SqlConnection db_connection = new SqlConnection(Program.connectionString);
 
             db_connection.Open();
 
@@ -55,7 +55,7 @@ namespace CardGameServer
             //check for sqlInjection
             if (sqlInjection.Words.Any(word => user.IndexOf(word, StringComparison.OrdinalIgnoreCase) >= 0)) return false;
 
-            SqlConnection db_connection = new SqlConnection(Properties.Settings.Default.avalon_dbConnectionString);
+            SqlConnection db_connection = new SqlConnection(Program.connectionString);
 
             db_connection.Open();
 
@@ -79,7 +79,7 @@ namespace CardGameServer
             if (sqlInjection.Words.Any(word => user.IndexOf(word, StringComparison.OrdinalIgnoreCase) >= 0
                 || name.IndexOf(word, StringComparison.OrdinalIgnoreCase) >= 0)) return false;
 
-            SqlConnection db_connection = new SqlConnection(Properties.Settings.Default.avalon_dbConnectionString);
+            SqlConnection db_connection = new SqlConnection(Program.connectionString);
             db_connection.Open();
 
             SqlCommand cmd = new SqlCommand("SELECT name FROM characters where name='" + name + "'", db_connection);
@@ -96,7 +96,11 @@ namespace CardGameServer
                 return false;
             }
 
-            cmd = new SqlCommand("INSERT INTO characters(account, name) VALUES('" + user + "', '" + name + "')", db_connection);
+            Card card = Program.cards.Find(c => c.id == heroCardId);
+
+            cmd = new SqlCommand("INSERT INTO characters(account, name, hero_name) VALUES('" + user + "', '" + name + "', '"
+                    +  card.card_name + "')", db_connection);
+            //cmd = new SqlCommand("INSERT INTO characters(account, name) VALUES('" + user + "', '" + name + "')", db_connection);
             cmd.ExecuteNonQuery();
 
             cmd = new SqlCommand("SELECT id FROM characters where name='" + name + "'", db_connection);
@@ -130,6 +134,63 @@ namespace CardGameServer
         public List<Card> getHeroesTemplateAvailableList()
         {
             return Program.template_cards;
+        }
+
+        [OperationContract]
+        public CharInfo EnterWorld(string user)
+        {
+            CharInfo chInfo = null;
+            //check for sqlInjection
+            if (sqlInjection.Words.Any(word => user.IndexOf(word, StringComparison.OrdinalIgnoreCase) >= 0))
+                return chInfo;
+
+
+            SqlConnection db_connection = new SqlConnection(Program.connectionString);
+            db_connection.Open();
+
+            SqlCommand cmd = new SqlCommand("SELECT * FROM characters where account='" + user + "'", db_connection);
+
+            SqlDataReader res = cmd.ExecuteReader();
+
+            if (res.Read())
+            {
+                chInfo = new CharInfo(res["name"].ToString(), res["hero_name"].ToString(), (int)res["character_level"],
+                            (int)res["exp"], (int)res["games"], (int)res["wins"]);
+            }
+                
+            res.Close();
+
+            db_connection.Close();
+
+            return chInfo;
+        }
+
+
+        [OperationContract]
+        public List<CharInfo> getRanking()
+        {
+            List<CharInfo> ch = new List<CharInfo>();
+
+            SqlConnection db_connection = new SqlConnection(Program.connectionString);
+            db_connection.Open();
+
+            SqlCommand cmd = new SqlCommand("SELECT TOP 10 * FROM characters ORDER BY character_level DESC, wins, games", db_connection);
+
+            SqlDataReader res = cmd.ExecuteReader();
+
+            while (res.Read())
+            {
+                ch.Add(new CharInfo(res["name"].ToString(), res["hero_name"].ToString(), (int)res["character_level"],
+                            (int)res["exp"], (int)res["games"], (int)res["wins"]));
+            }
+
+            res.Close();
+
+            ch.AddRange(ch);
+
+            db_connection.Close();
+
+            return ch;
         }
     }
 }

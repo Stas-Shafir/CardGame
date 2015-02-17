@@ -76,7 +76,10 @@ namespace CardGameClient
                 App.NickName = charName;
                 if (ServiceProxy.Proxy.createCharacter(App.UserName, App.NickName, CardIndex))
                 {
-                    errorText.Content = "Персонаж успешно создан...";
+                    LobbyScreen ls = new LobbyScreen(LoginWindow);
+                    ls.Show();
+                    App.ForceClosing = false;
+                    Close();
                 }
 
                 else

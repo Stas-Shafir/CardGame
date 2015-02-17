@@ -11,6 +11,10 @@ namespace CardGameServer
 {
     public class Program
     {
+        public static string connectionString;
+
+        static bool useRemoteSQLConnetion = false;
+
         public static Dictionary<int, int> character_templates = new Dictionary<int,int>();
         public static List<Card> cards = new List<Card>();
         public static List<Card> template_cards = new List<Card>();
@@ -22,7 +26,12 @@ namespace CardGameServer
             {
                 host = new ServiceHost(typeof(Servicegame));
 
-                SqlConnection db_connection = new SqlConnection(Properties.Settings.Default.avalon_dbConnectionString);
+                if (useRemoteSQLConnetion)
+                    connectionString = Properties.Settings.Default.avalon_dbConnectionStringWithSqlAuth;
+                else
+                    connectionString = Properties.Settings.Default.avalon_dbConnectionString;
+
+                SqlConnection db_connection = new SqlConnection(Program.connectionString);
 
                 //Load all Character Templates from DB
                 db_connection.Open();

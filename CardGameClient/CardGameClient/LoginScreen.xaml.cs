@@ -57,7 +57,9 @@ namespace CardGameClient
                     }
                     else
                     {
-                        errorText.Content = "Вход успешен. На аккаунте уже есть персонаж. Лобби...";
+                        LobbyScreen ls = new LobbyScreen(this);
+                        ls.Show();
+                        Hide();
                     }
                 }
                 else

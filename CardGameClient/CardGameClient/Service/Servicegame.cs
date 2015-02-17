@@ -26,5 +26,11 @@ namespace CardGameServer
 
         [OperationContract]
         List<Card> getHeroesTemplateAvailableList();
+
+        [OperationContract]
+        CharInfo EnterWorld(string user);
+
+        [OperationContract]
+        List<CharInfo> getRanking();
     }
 }

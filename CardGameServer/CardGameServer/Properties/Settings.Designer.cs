@@ -32,5 +32,15 @@ namespace CardGameServer.Properties {
                 return ((string)(this["avalon_dbConnectionString"]));
             }
         }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.SpecialSettingAttribute(global::System.Configuration.SpecialSetting.ConnectionString)]
+        [global::System.Configuration.DefaultSettingValueAttribute("Data Source=10.3.0.5;Initial Catalog=avalon_db;User Id=sp2111;password=sp2111")]
+        public string avalon_dbConnectionStringWithSqlAuth {
+            get {
+                return ((string)(this["avalon_dbConnectionStringWithSqlAuth"]));
+            }
+        }
     }
 }

@@ -76,6 +76,7 @@
     </Compile>
     <Compile Include="Secirity\sqlInjection.cs" />
     <Compile Include="Service\Card.cs" />
+    <Compile Include="Service\CharInfo.cs" />
     <Compile Include="Service\Servicegame.cs" />
     <Page Include="Controls\CharacterCard.xaml">
       <SubType>Designer</SubType>
