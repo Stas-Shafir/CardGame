@@ -19,6 +19,8 @@ namespace CardGameServer
         public static List<Card> cards = new List<Card>();
         public static List<Card> template_cards = new List<Card>();
 
+        public static List<Game> OnlineGames = new List<Game>();
+
         static void Main(string[] args)
         {
             ServiceHost host = null;

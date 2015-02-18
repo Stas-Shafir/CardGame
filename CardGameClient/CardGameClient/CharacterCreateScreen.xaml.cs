@@ -12,6 +12,8 @@ using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using CardGameServer;
 using System.IO;
+using System.Threading;
+using System.Windows.Threading;
 
 namespace CardGameClient
 {
@@ -20,7 +22,6 @@ namespace CardGameClient
     /// </summary>
     public partial class CharacterCreateScreen : Window
     {
-        private LoginScreen LoginWindow;
         int CardIndex = -1;
         CardPlace selectedCardPlace;
 
@@ -28,7 +29,6 @@ namespace CardGameClient
         {
             InitializeComponent();
             this.Owner = ownwin;
-            LoginWindow = Owner as LoginScreen;
         }
 
         private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
@@ -45,8 +45,36 @@ namespace CardGameClient
         private void exitBtn_MouseUp(object sender, MouseButtonEventArgs e)
         {
             App.ForceClosing = false;
-            LoginWindow.Show();
+            App.loginScreen.Show();
             Close();
+        }
+
+
+        private void CreateCharacter()
+        {
+            try
+            {                
+                if (ServiceProxy.Proxy.createCharacter(App.UserName, App.NickName, CardIndex))
+                {
+                    this.Dispatcher.Invoke(new Action(delegate {
+                        LobbyScreen ls = new LobbyScreen(this);
+                        ls.Show();
+                    }));
+                }
+
+                else
+                {
+                    this.Dispatcher.Invoke(new Action( () =>
+                        errorText.Content = "Ошибка при создании персонажа. Персонаж с таким именем уже существует..." 
+                    ));
+                }
+            }
+            catch (Exception exc)
+            {
+                this.Dispatcher.Invoke(new Action( () =>
+                    MessageBox.Show(exc.Message + "\n\n" + exc.InnerException.Message, "Критическая ошибка!")
+                ));
+            }
         }
 
         private void createCharBtn_MouseUp(object sender, MouseButtonEventArgs e)
@@ -59,9 +87,9 @@ namespace CardGameClient
                 return;
             }
 
-            if (charName.Length <= 3 || charName.Length > 16)
+            if (charName.Length <= 2 || charName.Length > 16)
             {
-                errorText.Content = "Имя персонажа: Введите от 4 до 16 символов";
+                errorText.Content = "Ошибка: Введите от 3 до 16 символов";
                 return;
             }
 
@@ -71,38 +99,39 @@ namespace CardGameClient
                 return;
             }
 
-            try
-            {
-                App.NickName = charName;
-                if (ServiceProxy.Proxy.createCharacter(App.UserName, App.NickName, CardIndex))
-                {
-                    LobbyScreen ls = new LobbyScreen(LoginWindow);
-                    ls.Show();
-                    App.ForceClosing = false;
-                    Close();
-                }
+            App.NickName = charName;
 
-                else
-                {
-                    errorText.Content = "Ошибка при создании персонажа. Персонаж с таким именем уже существует...";
-                }
-            }
-            catch(Exception exc)
-            {
-                MessageBox.Show(exc.Message + "\n\n" + exc.InnerException.Message, "Критическая ошибка!");
-            }
+            Thread createCharacter = new Thread(CreateCharacter) { IsBackground = true };
+            createCharacter.Start();            
         }
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-            List<Card> templates = ServiceProxy.Proxy.getHeroesTemplateAvailableList();
-            CardPlace cp;
-
-            for (int i = 0; i < templates.Count; i++)
+            try
             {
-                cp = gridHeroes.Children[i] as CardPlace;
-                cp.Card = App.cardImages[templates[i].id];
-                cp.CardInfo = templates[i];
+                List<Card> templates = ServiceProxy.Proxy.getHeroesTemplateAvailableList();
+                CardPlace cp;
+
+                for (int i = 0; i < templates.Count; i++)
+                {
+                    cp = gridHeroes.Children[i] as CardPlace;
+                    cp.Card = App.cardImages[templates[i].id];
+                    cp.CardInfo = templates[i];
+                }
+
+
+                this.Dispatcher.Invoke(new Action(() =>
+                    App.loginScreen.Hide()
+                ), DispatcherPriority.ContextIdle, null);
+
+            }
+            catch (Exception exc)
+            {
+                this.Dispatcher.Invoke(new Action(() =>
+                    MessageBox.Show(exc.Message + "\n\n" + exc.InnerException.Message, "Критическая ошибка!")
+                ));
+
+                Application.Current.Shutdown();
             }
         }
 

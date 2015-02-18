@@ -27,6 +27,18 @@ namespace CardGameClient
 
         private bool isSelected = false;
 
+        public string Health
+        {
+            get
+            {
+                return HpDig.DigitValue;
+            }
+            set
+            {
+                HpDig.DigitValue = value;
+            }
+        }
+
         public bool selected
         {
             get
@@ -106,7 +118,6 @@ namespace CardGameClient
             GridMain.Background = IsMineCard ? myCardBg : enemyCardBg;
             animation.RepeatBehavior = RepeatBehavior.Forever;
             animation.AutoReverse = true;
-            //selected = false;
         }
 
 

@@ -47,50 +47,48 @@
 <!-- My Cards-->
 
 
-        <dc:CardPlace IsMineCard="True" Card="/CardGameClient;component/Images/warr.png" x:Name="MyHeroPlace" Grid.RowSpan="3" Grid.Column="2" Grid.Row="4" Margin="0, 52.5, 0, 52.5"></dc:CardPlace>
+        <dc:CardPlace IsMineCard="True" Card="/CardGameClient;component/Images/warr.png" x:Name="MyHeroPlace" Grid.RowSpan="3" Grid.Column="2" Grid.Row="4" Margin="0, 52.5, 0, 52.5" MouseUp="myCardPlace_MouseUp"></dc:CardPlace>
 
-        <dc:CardPlace IsMineCard="True" x:Name="MyPlace0_0" Grid.Column="4" Grid.Row="2" Margin="0, 2.5, 0, 2.5"></dc:CardPlace>
+        <dc:CardPlace IsMineCard="True" x:Name="MyPlace0_0" Grid.Column="4" Grid.Row="2" Margin="0, 2.5, 0, 2.5" MouseUp="myCardPlace_MouseUp"></dc:CardPlace>
 
-        <dc:CardPlace IsMineCard="True" x:Name="MyPlace1_0" Grid.Column="4" Grid.Row="4" Margin="0, 2.5, 0, 2.5"></dc:CardPlace>
+        <dc:CardPlace IsMineCard="True" x:Name="MyPlace1_0" Grid.Column="4" Grid.Row="4" Margin="0, 2.5, 0, 2.5" MouseUp="myCardPlace_MouseUp"></dc:CardPlace>
 
-        <dc:CardPlace IsMineCard="True" x:Name="MyPlace2_0" Grid.Column="4" Grid.Row="6" Margin="0, 2.5, 0, 2.5" Card="/CardGameClient;component/Images/warr.png"></dc:CardPlace>
+        <dc:CardPlace IsMineCard="True" x:Name="MyPlace2_0" Grid.Column="4" Grid.Row="6" Margin="0, 2.5, 0, 2.5" Card="/CardGameClient;component/Images/warr.png" MouseUp="myCardPlace_MouseUp"></dc:CardPlace>
 
-        <dc:CardPlace IsMineCard="True" x:Name="MyPlace3_0" Grid.Column="4" Grid.Row="8" Margin="0, 2.5, 0, 2.5" ></dc:CardPlace>
+        <dc:CardPlace IsMineCard="True" x:Name="MyPlace3_0" Grid.Column="4" Grid.Row="8" Margin="0, 2.5, 0, 2.5" MouseUp="myCardPlace_MouseUp"></dc:CardPlace>
 
-        <dc:CardPlace IsMineCard="True" x:Name="MyPlace0_1" Grid.Column="6" Grid.Row="2" Margin="0, 2.5, 0, 2.5"></dc:CardPlace>
+        <dc:CardPlace IsMineCard="True" x:Name="MyPlace0_1" Grid.Column="6" Grid.Row="2" Margin="0, 2.5, 0, 2.5" MouseUp="myCardPlace_MouseUp"></dc:CardPlace>
 
-        <dc:CardPlace  IsMineCard="True" x:Name="MyPlace1_1" Grid.Column="6" Grid.Row="4" Margin="0, 2.5, 0, 2.5"></dc:CardPlace>
+        <dc:CardPlace  IsMineCard="True" x:Name="MyPlace1_1" Grid.Column="6" Grid.Row="4" Margin="0, 2.5, 0, 2.5" MouseUp="myCardPlace_MouseUp"></dc:CardPlace>
 
-        <dc:CardPlace IsMineCard="True" x:Name="MyPlace2_1" Grid.Column="6" Grid.Row="6" Margin="0, 2.5, 0, 2.5" ></dc:CardPlace>
+        <dc:CardPlace IsMineCard="True" x:Name="MyPlace2_1" Grid.Column="6" Grid.Row="6" Margin="0, 2.5, 0, 2.5" MouseUp="myCardPlace_MouseUp"></dc:CardPlace>
 
-        <dc:CardPlace IsMineCard="True" x:Name="MyPlace3_1" Grid.Column="6" Grid.Row="8" Margin="0, 2.5, 0, 2.5"></dc:CardPlace>
+        <dc:CardPlace IsMineCard="True" x:Name="MyPlace3_1" Grid.Column="6" Grid.Row="8" Margin="0, 2.5, 0, 2.5" MouseUp="myCardPlace_MouseUp"></dc:CardPlace>
 
         <!--Enemy Cards-->
 
-        <dc:CardPlace Margin="0, 52.5, 0, 52.5" Card="/CardGameClient;component/Images/Fire_mage_by_Eliag1101.png" x:Name="EnemyHeroPlace" Grid.RowSpan="3" Grid.Row="4" Grid.Column="12"></dc:CardPlace>
+        <dc:CardPlace Margin="0, 52.5, 0, 52.5" Card="/CardGameClient;component/Images/Fire_mage_by_Eliag1101.png" x:Name="EnemyHeroPlace" Grid.RowSpan="3" Grid.Row="4" Grid.Column="12" MouseUp="enemyCardPlace_MouseUp"></dc:CardPlace>
 
-        <dc:CardPlace x:Name="EnemyPlace0_0" Grid.Column="10" Grid.Row="2" Margin="0, 2.5, 0, 2.5" ></dc:CardPlace>
+        <dc:CardPlace x:Name="EnemyPlace0_0" Grid.Column="10" Grid.Row="2" Margin="0, 2.5, 0, 2.5" MouseUp="enemyCardPlace_MouseUp"></dc:CardPlace>
 
-        <dc:CardPlace x:Name="EnemyPlace1_0" Grid.Column="10" Grid.Row="4" Margin="0, 2.5, 0, 2.5" Card="/CardGameClient;component/Images/Fire_mage_by_Eliag1101.png"></dc:CardPlace>
+        <dc:CardPlace x:Name="EnemyPlace1_0" Grid.Column="10" Grid.Row="4" Margin="0, 2.5, 0, 2.5" Card="/CardGameClient;component/Images/Fire_mage_by_Eliag1101.png" MouseUp="enemyCardPlace_MouseUp"></dc:CardPlace>
 
-        <dc:CardPlace x:Name="EnemyPlace2_0" Grid.Column="10" Grid.Row="6" Margin="0, 2.5, 0, 2.5" Card="/CardGameClient;component/Images/warr.png"></dc:CardPlace>
+        <dc:CardPlace x:Name="EnemyPlace2_0" Grid.Column="10" Grid.Row="6" Margin="0, 2.5, 0, 2.5" Card="/CardGameClient;component/Images/warr.png" MouseUp="enemyCardPlace_MouseUp"></dc:CardPlace>
 
-        <dc:CardPlace x:Name="EnemyPlace3_0" Grid.Column="10" Grid.Row="8" Margin="0, 2.5, 0, 2.5" Card="Images/Fire_mage_by_Eliag1101.png"></dc:CardPlace>
+        <dc:CardPlace x:Name="EnemyPlace3_0" Grid.Column="10" Grid.Row="8" Margin="0, 2.5, 0, 2.5" Card="Images/Fire_mage_by_Eliag1101.png" MouseUp="enemyCardPlace_MouseUp"></dc:CardPlace>
 
-        <dc:CardPlace x:Name="EnemyPlace0_1" Grid.Column="8" Grid.Row="2" Margin="0, 2.5, 0, 2.5" Card="/CardGameClient;component/Images/warr.png"></dc:CardPlace>
+        <dc:CardPlace x:Name="EnemyPlace0_1" Grid.Column="8" Grid.Row="2" Margin="0, 2.5, 0, 2.5" Card="/CardGameClient;component/Images/warr.png" MouseUp="enemyCardPlace_MouseUp"></dc:CardPlace>
 
-        <dc:CardPlace x:Name="EnemyPlace1_1" Grid.Column="8" Grid.Row="4" Margin="0, 2.5, 0, 2.5"></dc:CardPlace>
+        <dc:CardPlace x:Name="EnemyPlace1_1" Grid.Column="8" Grid.Row="4" Margin="0, 2.5, 0, 2.5" MouseUp="enemyCardPlace_MouseUp"></dc:CardPlace>
 
-        <dc:CardPlace x:Name="EnemyPlace2_1" Grid.Column="8" Grid.Row="6" Margin="0, 2.5, 0, 2.5"></dc:CardPlace>
+        <dc:CardPlace x:Name="EnemyPlace2_1" Grid.Column="8" Grid.Row="6" Margin="0, 2.5, 0, 2.5" MouseUp="enemyCardPlace_MouseUp"></dc:CardPlace>
 
-        <dc:CardPlace x:Name="EnemyPlace3_1" Grid.Column="8" Grid.Row="8" Margin="0, 2.5, 0, 2.5" Card="Images/Fire_mage_by_Eliag1101.png"></dc:CardPlace>
+        <dc:CardPlace x:Name="EnemyPlace3_1" Grid.Column="8" Grid.Row="8" Margin="0, 2.5, 0, 2.5" Card="Images/Fire_mage_by_Eliag1101.png" MouseUp="enemyCardPlace_MouseUp"></dc:CardPlace>
 
         <Grid Name="Bottom" Grid.Row="10" Grid.Column="2" MaxWidth="686" MaxHeight="90" MinWidth="686" MinHeight="90" Grid.ColumnSpan="11">
             <Grid.Background>
                 <ImageBrush ImageSource="/CardGameClient;component/Images/bottom.png" />
             </Grid.Background>
         </Grid>
-
-
     </Grid>
 </Window>

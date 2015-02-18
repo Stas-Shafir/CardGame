@@ -65,6 +65,12 @@
     <Compile Include="CharacterCreateScreen.xaml.cs">
       <DependentUpon>CharacterCreateScreen.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Controls\Digit.xaml.cs">
+      <DependentUpon>Digit.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\FindButton.xaml.cs">
+      <DependentUpon>FindButton.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Controls\StyledBtn.xaml.cs">
       <DependentUpon>StyledBtn.xaml</DependentUpon>
     </Compile>
@@ -77,6 +83,7 @@
     <Compile Include="Secirity\sqlInjection.cs" />
     <Compile Include="Service\Card.cs" />
     <Compile Include="Service\CharInfo.cs" />
+    <Compile Include="Service\Game.cs" />
     <Compile Include="Service\Servicegame.cs" />
     <Page Include="Controls\CharacterCard.xaml">
       <SubType>Designer</SubType>
@@ -87,6 +94,14 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="CharacterCreateScreen.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\Digit.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\FindButton.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -167,21 +182,41 @@
     <Resource Include="Images\place.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Images\Numeric\5.png" />
+    <None Include="Images\Numeric\5.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Images\5_new.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Images\Numeric\0.png" />
-    <Resource Include="Images\Numeric\1.png" />
-    <Resource Include="Images\Numeric\2.png" />
-    <Resource Include="Images\Numeric\3.png" />
-    <Resource Include="Images\Numeric\4.png" />
-    <Resource Include="Images\Numeric\6.png" />
-    <Resource Include="Images\Numeric\7.png" />
-    <Resource Include="Images\Numeric\8.png" />
-    <Resource Include="Images\Numeric\9.png" />
+    <None Include="Images\Numeric\0.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Images\Numeric\1.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Images\Numeric\2.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Images\Numeric\3.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Images\Numeric\4.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Images\Numeric\6.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Images\Numeric\7.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Images\Numeric\8.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Images\Numeric\9.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Images\Fire_mage_by_Eliag1101.png" />
@@ -281,6 +316,9 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Images\ranking.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\wait_krug.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

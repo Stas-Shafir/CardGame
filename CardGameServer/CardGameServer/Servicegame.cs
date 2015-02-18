@@ -100,7 +100,6 @@ namespace CardGameServer
 
             cmd = new SqlCommand("INSERT INTO characters(account, name, hero_name) VALUES('" + user + "', '" + name + "', '"
                     +  card.card_name + "')", db_connection);
-            //cmd = new SqlCommand("INSERT INTO characters(account, name) VALUES('" + user + "', '" + name + "')", db_connection);
             cmd.ExecuteNonQuery();
 
             cmd = new SqlCommand("SELECT id FROM characters where name='" + name + "'", db_connection);
@@ -186,11 +185,60 @@ namespace CardGameServer
 
             res.Close();
 
-            ch.AddRange(ch);
-
             db_connection.Close();
 
             return ch;
+        }
+
+        [OperationContract]
+        public Game findGame(string nickname)
+        {
+
+            //check for sqlInjection
+            if (sqlInjection.Words.Any(word => nickname.IndexOf(word, StringComparison.OrdinalIgnoreCase) >= 0)) return null;
+
+            int char_id = -1;
+
+            List<Card> gamerCard = new List<Card>();
+
+            SqlConnection db_connection = new SqlConnection(Program.connectionString);
+            db_connection.Open();
+
+            SqlCommand cmd = new SqlCommand("SELECT id FROM characters where name='" + nickname + "'", db_connection);
+
+            SqlDataReader res = cmd.ExecuteReader();
+
+            if (res.Read())
+            {
+                char_id = (int)res["id"];
+                res.Close();
+
+                cmd = new SqlCommand("SELECT id FROM character_cards where char_id=" + char_id + " AND slot >= 0", db_connection);
+
+                res = cmd.ExecuteReader();
+
+                while (res.Read())
+                {
+                    Card currcard = Program.cards.Find(ccc => ccc.id == (int)res["id"]);
+                    if (currcard != null) 
+                        gamerCard.Add(new Card(currcard.id, currcard.card_name, currcard.hp, currcard.dmg, currcard.def));
+                }
+
+            }
+            res.Close();
+
+            db_connection.Close();
+
+            Game game = Program.OnlineGames.Find(g => g.gameState == 1);
+
+            if (game != null)
+            {
+                game.AddSecondUser(nickname, gamerCard);
+                return game;
+            }
+
+            game = new Game(nickname, gamerCard);
+            return game;
         }
     }
 }

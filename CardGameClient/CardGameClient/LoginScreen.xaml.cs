@@ -14,6 +14,7 @@ using System.Windows.Media.Animation;
 using CardGameServer;
 using System.ServiceModel;
 using System.IO;
+using System.Threading;
 
 namespace CardGameClient
 {
@@ -22,50 +23,84 @@ namespace CardGameClient
     /// </summary>
     public partial class LoginScreen : Window
     {
+        //login and password temp
+        private string login, passw;
+
         public LoginScreen()
         {
             InitializeComponent();
         }
 
 
+        private void Login()
+        {
+            try
+            {
+                ChannelFactory<Servicegame> cf =
+                            new ChannelFactory<Servicegame>("MyEndpoint");
+
+                ServiceProxy.Proxy = cf.CreateChannel();
+
+                if (ServiceProxy.Proxy.Login(login, passw))
+                {
+                    App.UserName = login;
+                    if (!ServiceProxy.Proxy.isAccountContainsAnyCharacter(login))
+                    {
+                        this.Dispatcher.Invoke(new Action(delegate
+                        {
+                            CharacterCreateScreen ccs = new CharacterCreateScreen(this);
+                            ccs.Show();                            
+                        }));
+                    }
+                    else
+                    {
+                        this.Dispatcher.Invoke(new Action(delegate
+                        {
+                            LobbyScreen ls = new LobbyScreen(this);
+                            ls.Show();
+                        }));
+
+                        Thread.Sleep(3000);
+
+                        this.Dispatcher.Invoke(new Action(() =>
+                            Hide()
+                        ));
+                    }
+                }
+                else
+                {
+                    this.Dispatcher.Invoke(new Action(() =>
+                        errorText.Content = "Неверная пара логин-пароль либо поля заполнены некорректно"
+                    ));
+                }
+            }
+            catch (Exception exc)
+            {
+                this.Dispatcher.Invoke(new Action(() =>
+                    MessageBox.Show(exc.Message + "\n\n" + exc.InnerException.Message, "Критическая ошибка!")
+                ));
+            }
+        }
+
         private void loginBtn_MouseUp(object sender, MouseButtonEventArgs e)
         {
             try
             {
-                string user = loginTextBox.Text;
-                string pass = passwordTextBox.Password;
+                login = loginTextBox.Text;
+                passw = passwordTextBox.Password;
 
-                if (user == "" || pass == "" || sqlInjection.Words.Any(word => user.IndexOf(word, StringComparison.OrdinalIgnoreCase) >= 0                      ||  pass.IndexOf(word, StringComparison.OrdinalIgnoreCase) >= 0))
+                if (login == "" || passw == "" 
+                    || sqlInjection.Words.Any(word => login.IndexOf(word, StringComparison.OrdinalIgnoreCase) >= 0
+                    || passw.IndexOf(word, StringComparison.OrdinalIgnoreCase) >= 0))
                 {
                     errorText.Content = "Поля заполнены некорректно";
                     return;
                 }
 
-                ChannelFactory<Servicegame> cf =
-                        new ChannelFactory<Servicegame>("MyEndpoint");
 
-                ServiceProxy.Proxy = cf.CreateChannel();
-
-                if (ServiceProxy.Proxy.Login(user, pass))
-                {
-                    App.UserName = user;
-                    if (!ServiceProxy.Proxy.isAccountContainsAnyCharacter(loginTextBox.Text))
-                    {
-                        CharacterCreateScreen ccs = new CharacterCreateScreen(this);
-                        ccs.Show();
-                        Hide();
-                    }
-                    else
-                    {
-                        LobbyScreen ls = new LobbyScreen(this);
-                        ls.Show();
-                        Hide();
-                    }
-                }
-                else
-                {
-                    errorText.Content = "Неверная пара логин-пароль либо поля заполнены некорректно";
-                }
+                Thread loginThread = new Thread(Login);
+                loginThread.Start();
+                
             }
             catch (Exception exc)
             {
@@ -85,16 +120,42 @@ namespace CardGameClient
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-            foreach (var item in Directory.GetFiles("Images/Cards/", "*.png", SearchOption.AllDirectories))
+            try
             {
-                BitmapImage img = new BitmapImage();
-                img.BeginInit();
-                img.UriSource = new Uri(item, UriKind.Relative);
-                img.CacheOption = BitmapCacheOption.OnLoad;
-                img.EndInit();
+                foreach (var item in Directory.GetFiles("Images/Cards/", "*.png", SearchOption.AllDirectories))
+                {
+                    BitmapImage img = new BitmapImage();
+                    img.BeginInit();
+                    img.UriSource = new Uri(item, UriKind.Relative);
+                    img.CacheOption = BitmapCacheOption.OnLoad;
+                    img.EndInit();
 
 
-                App.cardImages.Add(Int32.Parse(System.IO.Path.GetFileNameWithoutExtension(item)), img);
+                    App.cardImages.Add(Int32.Parse(System.IO.Path.GetFileNameWithoutExtension(item)), img);
+                }
+
+
+                foreach (var item in Directory.GetFiles("Images/Numeric/", "*.png", SearchOption.AllDirectories))
+                {
+                    BitmapImage img = new BitmapImage();
+                    img.BeginInit();
+                    img.UriSource = new Uri(item, UriKind.Relative);
+                    img.CacheOption = BitmapCacheOption.OnLoad;
+                    img.EndInit();
+
+
+                    App.digitImages.Add(Int32.Parse(System.IO.Path.GetFileNameWithoutExtension(item)), img);
+                }
+
+                App.loginScreen = this;
+            }
+            catch (Exception exc)
+            {
+                this.Dispatcher.Invoke(new Action(() =>
+                    MessageBox.Show(exc.Message + "\n\n" + exc.InnerException.Message, "Критическая ошибка!")
+                ));
+
+                Application.Current.Shutdown();
             }
             
         }

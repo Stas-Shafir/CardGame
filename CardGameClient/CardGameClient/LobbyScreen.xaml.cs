@@ -11,6 +11,8 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using System.Windows.Threading;
+using System.Threading;
 
 namespace CardGameClient
 {
@@ -19,14 +21,12 @@ namespace CardGameClient
     /// </summary>
     public partial class LobbyScreen : Window
     {
-        private LoginScreen LoginWindow;
-
+        bool inFindProgress = false;
 
         public LobbyScreen(Window ownwin)
         {
             InitializeComponent();
             this.Owner = ownwin;
-            LoginWindow = Owner as LoginScreen;
         }
 
         private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
@@ -43,13 +43,13 @@ namespace CardGameClient
         private void exitBtn_MouseUp(object sender, MouseButtonEventArgs e)
         {
             App.ForceClosing = false;
-            LoginWindow.Show();
+            App.loginScreen.Show();
             Close();
         }
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-            if (ServiceProxy.Proxy != null)
+            try
             {
                 CharInfo ch = ServiceProxy.Proxy.EnterWorld(App.UserName);
 
@@ -133,6 +133,84 @@ namespace CardGameClient
                     Grid.SetRow(tx, i+1);
                     Grid.SetColumn(tx, 4);
                 }
+
+                
+
+                this.Dispatcher.Invoke(new Action(delegate 
+                {
+                    /*if ((Owner as LoginScreen) != null)
+                        Owner.Hide();
+                    else
+                    {
+                        App.ForceClosing = false;
+                        Owner.Close(); 
+                    }*/
+
+                    //TODO: Closing CreateCharacterScreen need...
+                    Owner.Hide();
+                }), DispatcherPriority.ContextIdle, null);
+            }
+            catch (Exception exc)
+            {
+                this.Dispatcher.Invoke(new Action(() =>
+                    MessageBox.Show(exc.Message + "\n\n" + exc.InnerException.Message, "Критическая ошибка!")
+                ));
+
+                Application.Current.Shutdown();
+            }
+        }
+
+        private void FindGame()
+        {
+            try
+            {
+                //imitation of the search process)))
+                Thread.Sleep(2000);
+
+                Game game = ServiceProxy.Proxy.findGame(App.NickName);
+                if (game == null) throw new Exception("Некорректные данные или была обнаружена попытка взлома.\n"
+                 + "Действие было записано...");
+
+                Thread gameThread = new Thread(getGame) { IsBackground = true };
+                gameThread.Start();
+
+            }
+            catch (Exception exc)
+            {
+                this.Dispatcher.Invoke(new Action(() =>
+                    MessageBox.Show(exc.Message + "\n\n" + exc.InnerException.Message, "Критическая ошибка!")
+                ));
+                Application.Current.Shutdown();
+            }
+        }
+
+        private void findBtn_MouseUp(object sender, MouseButtonEventArgs e)
+        {
+            inFindProgress = !inFindProgress;
+
+            if (!inFindProgress) return;
+
+            //TODO: cancel search???
+
+            Thread findGameThread = new Thread(FindGame) { IsBackground = true };
+            findGameThread.Start();
+        }
+
+        private void getGame()
+        {
+            while (true)
+            {
+                Game game = ServiceProxy.Proxy.findGame(App.NickName);
+                if (game != null)
+                {
+
+                    if (game.gameState == 2 || game.gameState == 3)
+                    {
+                        //TODO: Game Window show and play...
+                        break;
+                    }
+                }
+                
             }
         }
     }

@@ -16,7 +16,9 @@ namespace CardGameClient
         public static bool ForceClosing = true;
         public static string UserName { get; set; }
         public static string NickName { get; set; }
+        public static LoginScreen loginScreen { get; set; }
 
         public static Dictionary<int, BitmapImage> cardImages = new Dictionary<int, BitmapImage>();
+        public static Dictionary<int, BitmapImage> digitImages = new Dictionary<int, BitmapImage>();
     }
 }

@@ -19,7 +19,6 @@
         <dc:StyledTextBox Grid.Row="1" Grid.ColumnSpan="3" x:Name="characterNameTextBox" Height="26" Width="200" Text="" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="0,0,0,162"></dc:StyledTextBox>
         <dc:StyledBtn x:Name="exitBtn" Grid.ColumnSpan="3" HorizontalAlignment="Right" Text="Выйти"  Height="34" Width="130" VerticalAlignment="Bottom" Margin="0,0,12,44" MouseUp="exitBtn_MouseUp" Grid.Row="1"></dc:StyledBtn>
         <dc:StyledBtn x:Name="createCharBtn" Grid.ColumnSpan="3" HorizontalAlignment="Center" Text="Создать"  Height="34" Width="140" VerticalAlignment="Bottom" Margin="0,0,0,102" MouseUp="createCharBtn_MouseUp" Grid.Row="1"></dc:StyledBtn>
-        <!--<dc:CharacterCard Height="368" Width="244" Margin="746,158,12,0" HorizontalAlignment="Center" VerticalAlignment="Top"></dc:CharacterCard>-->
         <Grid Height="38" HorizontalAlignment="Stretch" Grid.ColumnSpan="3" Name="grid2" VerticalAlignment="Bottom" Background="#C5000000" Grid.Row="1">
             <Label Name="errorText" Content="Имя персонажа: Введите от 4 до 16 символов" Height="Auto" HorizontalAlignment="Center" Margin="317,8,317,6" VerticalAlignment="Center" Foreground="#FFFCFCFC" />
         </Grid>

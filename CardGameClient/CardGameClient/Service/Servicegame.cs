@@ -32,5 +32,8 @@ namespace CardGameServer
 
         [OperationContract]
         List<CharInfo> getRanking();
+
+        [OperationContract]
+        Game findGame(string nickname);
     }
 }
