@@ -24,7 +24,8 @@ namespace CardGameServer
         [DataMember]
         public int def { get; set; }
 
-
+        [DataMember]
+        public int slot { get; set; }
     }
 }
 

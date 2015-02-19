@@ -22,6 +22,22 @@ namespace CardGameClient
     public partial class CardPlace : UserControl
     {
 
+        Card thisCard;
+
+        public Card ThisCard
+        {
+            get 
+            {
+                return thisCard; 
+            }
+            set 
+            {
+                thisCard = value;
+                CardImage = App.cardImages[thisCard.id];
+                Health = thisCard.hp.ToString();
+            }
+        }
+
         private bool containsCard = false;
         private bool isMineCard;
 
@@ -60,8 +76,6 @@ namespace CardGameClient
 
         ThicknessAnimation animation = new ThicknessAnimation(new Thickness(-7), new Thickness(-5), TimeSpan.FromMilliseconds(600));
 
-        public Card CardInfo {get; set;}
-        
         ImageBrush myCardBg = new ImageBrush(new BitmapImage(
             new Uri("pack://application:,,,/CardGameClient;component/Images/cardmin_my_bg.png" )));
         ImageBrush enemyCardBg = new ImageBrush(new BitmapImage(
@@ -72,7 +86,7 @@ namespace CardGameClient
         BitmapImage enemyCardBorder = new BitmapImage(
             new Uri("pack://application:,,,/CardGameClient;component/Images/cardmin_enemy_border.png"));
 
-        public ImageSource Card
+        public ImageSource CardImage
         {
             get
             {
@@ -123,14 +137,15 @@ namespace CardGameClient
 
         public void setCard(BitmapImage img)
         {
-            Card = img;
+            CardImage = img;
             ContainsCard = true;
         }
 
         public void removeCard()
         {
-            Card = null;
+            CardImage = null;
             ContainsCard = false;
+            thisCard = null;
         }
 
 
@@ -168,6 +183,30 @@ namespace CardGameClient
                 animation.To = new Thickness(-5);
                 borderGrid.BeginAnimation(MarginProperty, animation);
             }
+        }
+
+        public void AnimateDmg(string dmg)
+        {
+            dmgLabel.Content = dmg;
+
+            dmgLabel.Opacity = 1;
+
+            ThicknessAnimation th = new ThicknessAnimation();
+            th.From = dmgLabel.Margin;
+            th.FillBehavior = FillBehavior.Stop;
+            th.To = new Thickness(dmgLabel.Margin.Left, dmgLabel.Margin.Top - 70, dmgLabel.Margin.Right, dmgLabel.Margin.Bottom);
+            th.Duration = TimeSpan.FromMilliseconds(500);
+            th.Completed += new EventHandler(th_Completed);
+            th.BeginTime = TimeSpan.FromMilliseconds(200);
+            dmgLabel.BeginAnimation(MarginProperty, th);
+        }
+
+        void th_Completed(object sender, EventArgs e)
+        {
+            dmgLabel.Opacity = 0;
+            dmgLabel.Content = "";
+
+            dmgLabel.Margin = new Thickness(0, 6, 6, 0);
         }
     }
 }

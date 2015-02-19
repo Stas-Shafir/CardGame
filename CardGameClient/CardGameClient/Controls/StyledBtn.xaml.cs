@@ -88,7 +88,7 @@ namespace CardGameClient
             textLabel.Margin = downM;
         }
 
-        private void UserControl_MouseEnter(object sender, MouseEventArgs e)
+        public void UserControl_MouseEnter(object sender, MouseEventArgs e)
         {
             Background = hover;
         }

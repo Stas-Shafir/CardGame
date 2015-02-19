@@ -115,32 +115,36 @@ namespace CardGameClient
                 for (int i = 0; i < templates.Count; i++)
                 {
                     cp = gridHeroes.Children[i] as CardPlace;
-                    cp.Card = App.cardImages[templates[i].id];
-                    cp.CardInfo = templates[i];
+                    cp.ThisCard = templates[i];
                 }
 
 
-                this.Dispatcher.Invoke(new Action(() =>
+               /* this.Dispatcher.Invoke(new Action(() =>
                     App.loginScreen.Hide()
-                ), DispatcherPriority.ContextIdle, null);
+                ), DispatcherPriority.ContextIdle, null);*/
 
             }
             catch (Exception exc)
             {
-                this.Dispatcher.Invoke(new Action(() =>
-                    MessageBox.Show(exc.Message + "\n\n" + exc.InnerException.Message, "Критическая ошибка!")
-                ));
-
-                Application.Current.Shutdown();
+                this.Dispatcher.Invoke(new Action(delegate
+                {
+                    MessageBox.Show(exc.Message + "\n\n" + exc.InnerException.Message, "Критическая ошибка!");
+                    Application.Current.Shutdown();
+                }));     
             }
         }
 
         private void CardPlace_MouseUp(object sender, MouseButtonEventArgs e)
         {
-            if (selectedCardPlace != null) selectedCardPlace.selected = false;
             CardPlace cp = sender as CardPlace;
-            CardIndex = cp.CardInfo.id;
+            if (selectedCardPlace != null && selectedCardPlace != cp) selectedCardPlace.selected = false;
+            CardIndex = cp.ThisCard.id;
             selectedCardPlace = cp;
+        }
+
+        private void Window_ContentRendered(object sender, EventArgs e)
+        {
+            App.loginScreen.Hide();
         }
     }
 }

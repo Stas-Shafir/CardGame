@@ -21,8 +21,6 @@ namespace CardGameClient
     /// </summary>
     public partial class LobbyScreen : Window
     {
-        bool inFindProgress = false;
-
         public LobbyScreen(Window ownwin)
         {
             InitializeComponent();
@@ -65,6 +63,8 @@ namespace CardGameClient
 
 
                 List<CharInfo> RankingList = ServiceProxy.Proxy.getRanking();
+
+                ratingGrid.Children.Clear();
 
                 for (int i = 0; i < RankingList.Count; i++)
                 {
@@ -132,31 +132,15 @@ namespace CardGameClient
                     ratingGrid.Children.Add(tx);
                     Grid.SetRow(tx, i+1);
                     Grid.SetColumn(tx, 4);
-                }
-
-                
-
-                this.Dispatcher.Invoke(new Action(delegate 
-                {
-                    /*if ((Owner as LoginScreen) != null)
-                        Owner.Hide();
-                    else
-                    {
-                        App.ForceClosing = false;
-                        Owner.Close(); 
-                    }*/
-
-                    //TODO: Closing CreateCharacterScreen need...
-                    Owner.Hide();
-                }), DispatcherPriority.ContextIdle, null);
+                }  
             }
             catch (Exception exc)
             {
-                this.Dispatcher.Invoke(new Action(() =>
-                    MessageBox.Show(exc.Message + "\n\n" + exc.InnerException.Message, "Критическая ошибка!")
-                ));
-
-                Application.Current.Shutdown();
+                this.Dispatcher.Invoke(new Action(delegate
+                {
+                    MessageBox.Show(exc.Message + "\n\n" + exc.InnerException.Message, "Критическая ошибка!");
+                    Application.Current.Shutdown();
+                }));     
             }
         }
 
@@ -164,54 +148,97 @@ namespace CardGameClient
         {
             try
             {
-                //imitation of the search process)))
-                Thread.Sleep(2000);
-
                 Game game = ServiceProxy.Proxy.findGame(App.NickName);
-                if (game == null) throw new Exception("Некорректные данные или была обнаружена попытка взлома.\n"
-                 + "Действие было записано...");
+                if (game == null)
+                {
 
-                Thread gameThread = new Thread(getGame) { IsBackground = true };
-                gameThread.Start();
+                    this.Dispatcher.Invoke(new Action(delegate {
+                        MessageBox.Show("Некорректные данные или была обнаружена попытка взлома.\n"
+                      + "Действие было записано...");
+                        findBtn.InProgress = false;
+                    }));
+
+                     return;
+                }
+
+                this.Dispatcher.Invoke(new Action(delegate
+                {
+                    findBtn.Enabled = true;
+                    findBtn.InProgress = true;
+                }));  
+
+                if (game.gameState == 2)
+                {
+                    this.Dispatcher.Invoke(new Action(delegate
+                    {
+                        findBtn.Enabled = false;
+                        findBtn.textLabel.Content = "Игра готова. Загрузка...";
+                    }));
+
+                    Thread.Sleep(2000); //emulate find proccess
+
+                    this.Dispatcher.Invoke(new Action(delegate
+                    {
+                        findBtn.InProgress = false;
+                        MainWindow mw = new MainWindow(this);
+                        mw.Show();
+                    }));
+                }
+                else if (game.gameState == 1)
+                {
+                    while (true)
+                    {
+                        game = ServiceProxy.Proxy.getGame(App.NickName);
+                        if (game != null && game.gameState == 2)
+                        {
+                            this.Dispatcher.Invoke(new Action(delegate
+                            {
+                                findBtn.Enabled = false;
+                                findBtn.textLabel.Content = "Игра готова. Загрузка...";
+                            }));
+
+                            Thread.Sleep(2000); //emulate find proccess
+
+                            this.Dispatcher.Invoke(new Action(delegate
+                            {
+                                findBtn.InProgress = false;
+                                MainWindow mw = new MainWindow(this);
+                                mw.Show();
+                            }));  
+                            break;
+                        }
+                    }
+                }
 
             }
             catch (Exception exc)
             {
-                this.Dispatcher.Invoke(new Action(() =>
-                    MessageBox.Show(exc.Message + "\n\n" + exc.InnerException.Message, "Критическая ошибка!")
-                ));
-                Application.Current.Shutdown();
+                this.Dispatcher.Invoke(new Action(delegate {
+                    MessageBox.Show(exc.Message + "\n\n" + exc.InnerException.Message, "Критическая ошибка!");
+                    Application.Current.Shutdown();
+                }));                
             }
         }
 
         private void findBtn_MouseUp(object sender, MouseButtonEventArgs e)
         {
-            inFindProgress = !inFindProgress;
+            if (findBtn.InProgress)
+            {
+                findBtn.InProgress = false;
+                ServiceProxy.Proxy.cancelSearch(App.NickName);
+                return;
+            }
 
-            if (!inFindProgress) return;
-
-            //TODO: cancel search???
+            findBtn.Enabled = false;
+            findBtn.textLabel.Content = "Ожидание 2-го игрока";
 
             Thread findGameThread = new Thread(FindGame) { IsBackground = true };
             findGameThread.Start();
         }
 
-        private void getGame()
-        {
-            while (true)
-            {
-                Game game = ServiceProxy.Proxy.findGame(App.NickName);
-                if (game != null)
-                {
-
-                    if (game.gameState == 2 || game.gameState == 3)
-                    {
-                        //TODO: Game Window show and play...
-                        break;
-                    }
-                }
-                
-            }
-        }
+        private void Window_ContentRendered_1(object sender, EventArgs e)
+        { 
+            Owner.Hide();
+        }      
     }
 }

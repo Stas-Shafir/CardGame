@@ -24,17 +24,21 @@ namespace CardGameServer
         [DataMember]
         public int def { get; set; }
 
+        [DataMember]
+        public int slot { get; set; }
+
         public Card()
         {
         }
 
-        public Card(int id, string cn, int hp, int dmg, int def)
+        public Card(int id, string cn, int hp, int dmg, int def, int sl = -1)
         {
             this.id = id;
             this.card_name = cn;
             this.hp = hp;
             this.dmg = dmg;
             this.def = def;
+            this.slot = sl;
         }
     }
 }

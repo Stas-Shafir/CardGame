@@ -16,6 +16,11 @@
             
             <Image Name="HpBar" Source="pack://application:,,,/CardGameClient;component/Images/shar.png" RenderOptions.BitmapScalingMode="Fant" Stretch="Fill" HorizontalAlignment="Left" Height="33" Width="35" Margin="10,0,0,8" VerticalAlignment="Bottom" Visibility="Visible" />
             <dc:Digit x:Name="HpDig" HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="13,0,0,12" Visibility="Visible" />
+            <Label Content="55" Margin="0,6,6,0" Name="dmgLabel" VerticalAlignment="Top" Foreground="Red" FontSize="32" FontWeight="Normal" HorizontalAlignment="Right" FlowDirection="LeftToRight" FontFamily="Verdana" Opacity="0">
+                <Label.Background>
+                    <ImageBrush ImageSource="/CardGameClient;component/Images/dmg_label_back.png" Stretch="Fill" />
+                </Label.Background>
+            </Label>
         </Grid>
         <Grid.Background>
             <ImageBrush ImageSource="/CardGameClient;component/Images/cardmin_my_bg.png" />

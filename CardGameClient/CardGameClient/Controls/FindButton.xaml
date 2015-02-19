@@ -7,7 +7,7 @@
              mc:Ignorable="d" 
              d:DesignHeight="83" d:DesignWidth="300">
     <Grid>
-        <dc:StyledBtn x:Name="mainBtn" Text="Поиск игры" TextFontSize="23" HorizontalAlignment="Center" VerticalAlignment="Bottom" Width="300" Height="52" MouseUp="findBtn_MouseUp">
+        <dc:StyledBtn x:Name="mainBtn" Text="Начать игру" TextFontSize="23" HorizontalAlignment="Center" VerticalAlignment="Bottom" Width="300" Height="52" MouseUp="findBtn_MouseUp">
             <dc:StyledBtn.Background>
                 <ImageBrush ImageSource="/CardGameClient;component/Images/findBtn.png" />
             </dc:StyledBtn.Background>
@@ -18,11 +18,11 @@
                 <ImageBrush ImageSource="/CardGameClient;component/Images/findBtn_hover.png" />
             </dc:StyledBtn.BackgroundHover>
         </dc:StyledBtn>
-        <Grid Height="30" HorizontalAlignment="Center" Margin="0,0,0,52" Name="infoGrid" VerticalAlignment="Bottom" Width="190" Visibility="Hidden" Background="#82000000">
+        <Grid Height="30" HorizontalAlignment="Center" Margin="0,0,0,52" Name="infoGrid" VerticalAlignment="Bottom" Width="245" Background="#82000000" Visibility="Hidden">
             <Grid.Clip>
-                <RectangleGeometry RadiusX="15" RadiusY="15" Rect="0,0,190,45"/>
+                <RectangleGeometry RadiusX="15" RadiusY="15" Rect="0,0,245,45"/>
             </Grid.Clip>
-            <Label Name="textLabel" Content="Идёт поиск..." Height="Auto" HorizontalAlignment="Center" VerticalAlignment="Center" FontFamily="Myriad Pro" Foreground="White" FontSize="14" RenderTransformOrigin="0.5,0.5" Margin="25,0,0,0" Width="Auto">
+            <Label Name="textLabel" Content="Ожидание 2-го игрока" Height="Auto" HorizontalAlignment="Center" VerticalAlignment="Center" FontFamily="Myriad Pro" Foreground="White" FontSize="14" RenderTransformOrigin="0.5,0.5" Margin="59,2,30,2" Width="Auto">
                 <Label.Effect>
                     <DropShadowEffect BlurRadius="0" RenderingBias="Quality" Direction="334" ShadowDepth="1.7"/>
                 </Label.Effect>

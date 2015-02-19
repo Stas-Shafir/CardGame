@@ -14,11 +14,19 @@ namespace CardGameServer
     public class Servicegame
     {
         [OperationContract]
-        public bool Login(string user, string pass)
+        public int Login(string user, string pass)
         {
+            //0 success
+            //1 incorrect pass
+            //2 already online 
+            //3 hacking attempt
+
+            if (Program.OnlineUsers.Find(u => u == user) != null)
+                return 2;
+
             //check for sqlInjection
             if (sqlInjection.Words.Any(word => user.IndexOf(word, StringComparison.OrdinalIgnoreCase) >= 0 ||
-                pass.IndexOf(word, StringComparison.OrdinalIgnoreCase) >= 0)) return false;
+                pass.IndexOf(word, StringComparison.OrdinalIgnoreCase) >= 0)) return 3;
 
             SqlConnection db_connection = new SqlConnection(Program.connectionString);
 
@@ -34,8 +42,12 @@ namespace CardGameServer
                 res.Close();
                 db_connection.Close();
 
-                if (password == pass) return true;
-                return false;
+                if (password == pass)
+                {
+                    Program.OnlineUsers.Add(user);
+                    return 0;
+                }
+                return 1;
             }
 
             res.Close();
@@ -46,7 +58,9 @@ namespace CardGameServer
 
             db_connection.Close();
 
-            return true;
+            Program.OnlineUsers.Add(user);
+
+            return 0;
         }
 
         [OperationContract]
@@ -213,17 +227,19 @@ namespace CardGameServer
                 char_id = (int)res["id"];
                 res.Close();
 
-                cmd = new SqlCommand("SELECT id FROM character_cards where char_id=" + char_id + " AND slot >= 0", db_connection);
+                cmd = new SqlCommand("SELECT card_id, slot FROM character_cards where char_id=" + char_id + 
+                    " AND slot >= 0", db_connection);
 
                 res = cmd.ExecuteReader();
 
                 while (res.Read())
                 {
-                    Card currcard = Program.cards.Find(ccc => ccc.id == (int)res["id"]);
-                    if (currcard != null) 
-                        gamerCard.Add(new Card(currcard.id, currcard.card_name, currcard.hp, currcard.dmg, currcard.def));
-                }
+                    Card currcard = Program.cards.Find(ccc => ccc.id == (int)res["card_id"]);
 
+                    if (currcard != null) 
+                        gamerCard.Add(new Card(currcard.id, currcard.card_name, currcard.hp, 
+                            currcard.dmg, currcard.def, (int)res["slot"]));    
+                }
             }
             res.Close();
 
@@ -238,7 +254,36 @@ namespace CardGameServer
             }
 
             game = new Game(nickname, gamerCard);
+            Program.OnlineGames.Add(game);
             return game;
+        }
+
+
+        [OperationContract]
+        public Game getGame(string nickname)
+        {
+            Game game = Program.OnlineGames.Find(g => g.Gamers.Contains(nickname));
+
+            if (game != null)
+            {
+                if (nickname == game.Gamers[0])
+                    game.FuLastAct = 0;
+                else game.SuLastAct = 0;
+            }
+
+            return Program.OnlineGames.Find(g => g.Gamers.Contains(nickname));
+        }
+
+        [OperationContract]
+        public void cancelSearch(string nickname)
+        {
+            Game game = Program.OnlineGames.Find(g => g.Gamers.Contains(nickname));
+
+            //TODO: finish this on client side...
+            if (game != null && game.gameState == 1)
+            {
+                game.gameState = 7; //canceled
+            }
         }
     }
 }

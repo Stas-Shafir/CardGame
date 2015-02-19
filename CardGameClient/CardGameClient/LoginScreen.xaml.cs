@@ -41,7 +41,14 @@ namespace CardGameClient
 
                 ServiceProxy.Proxy = cf.CreateChannel();
 
-                if (ServiceProxy.Proxy.Login(login, passw))
+                //0 success
+                //1 incorrect pass
+                //2 already online 
+                //3 hacking attempt
+
+                int res = ServiceProxy.Proxy.Login(login, passw);
+
+                if (res == 0)
                 {
                     App.UserName = login;
                     if (!ServiceProxy.Proxy.isAccountContainsAnyCharacter(login))
@@ -67,11 +74,23 @@ namespace CardGameClient
                         ));
                     }
                 }
-                else
+                else if (res == 1)
                 {
                     this.Dispatcher.Invoke(new Action(() =>
-                        errorText.Content = "Неверная пара логин-пароль либо поля заполнены некорректно"
+                       errorText.Content = "Неправельный логин или пароль!"
+                   ));
+                }
+                else if (res == 2)
+                {
+                    this.Dispatcher.Invoke(new Action(() =>
+                        errorText.Content = "Кто-то другой использует ваш аккаунт! Если это не вы, смените пароль и обратитесь к администрации"
                     ));
+                }
+                else if (res == 3)
+                {
+                    this.Dispatcher.Invoke(new Action(() =>
+                       errorText.Content = "Поля заполнены некорректено!"
+                   ));
                 }
             }
             catch (Exception exc)
@@ -151,11 +170,11 @@ namespace CardGameClient
             }
             catch (Exception exc)
             {
-                this.Dispatcher.Invoke(new Action(() =>
-                    MessageBox.Show(exc.Message + "\n\n" + exc.InnerException.Message, "Критическая ошибка!")
-                ));
-
-                Application.Current.Shutdown();
+                this.Dispatcher.Invoke(new Action(delegate
+                {
+                    MessageBox.Show(exc.Message + "\n\n" + exc.InnerException.Message, "Критическая ошибка!");
+                    Application.Current.Shutdown();
+                }));     
             }
             
         }

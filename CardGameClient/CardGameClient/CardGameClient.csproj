@@ -71,6 +71,9 @@
     <Compile Include="Controls\FindButton.xaml.cs">
       <DependentUpon>FindButton.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Controls\inGameTopInfo.xaml.cs">
+      <DependentUpon>inGameTopInfo.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Controls\StyledBtn.xaml.cs">
       <DependentUpon>StyledBtn.xaml</DependentUpon>
     </Compile>
@@ -102,6 +105,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Controls\FindButton.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\inGameTopInfo.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -319,6 +326,30 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Images\wait_krug.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Images\Cards\5.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Images\Cards\6.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Images\Cards\7.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\menu.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\btnTurn.png" />
+    <Resource Include="Images\btnTurn_hover.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\findBtn_disabled.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\dmg_label_back.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

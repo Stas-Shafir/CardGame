@@ -16,7 +16,7 @@ namespace CardGameServer
     public interface Servicegame
     {
         [OperationContract]
-        bool Login(string user, string pass);
+        int Login(string user, string pass);
 
         [OperationContract]
         bool isAccountContainsAnyCharacter(string user);
@@ -35,5 +35,11 @@ namespace CardGameServer
 
         [OperationContract]
         Game findGame(string nickname);
+
+        [OperationContract]
+        Game getGame(string nickname);
+
+        [OperationContract]
+        void cancelSearch(string nickname);
     }
 }
