@@ -26,6 +26,9 @@ namespace CardGameServer
 
         [DataMember]
         public int slot { get; set; }
+
+        [DataMember]
+        public bool Enabled { get; set; }
     }
 }
 

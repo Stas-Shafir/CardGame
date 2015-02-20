@@ -27,6 +27,9 @@ namespace CardGameServer
         [DataMember]
         public int slot { get; set; }
 
+        [DataMember]
+        public bool Enabled { get; set; }
+
         public Card()
         {
         }
@@ -39,6 +42,7 @@ namespace CardGameServer
             this.dmg = dmg;
             this.def = def;
             this.slot = sl;
+            this.Enabled = true;
         }
     }
 }

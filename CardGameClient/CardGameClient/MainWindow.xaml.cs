@@ -14,6 +14,7 @@ using System.Windows.Shapes;
 using System.IO;
 using CardGameServer;
 using System.Windows.Threading;
+using System.Threading;
 
 namespace CardGameClient
 {
@@ -47,6 +48,7 @@ namespace CardGameClient
 
             foreach (var item in enemyCardPlases.Values)
             {
+                if (item.ContainsCard && item.ThisCard.Enabled)
                 item.IsEnabled = true;
             }
         }
@@ -71,17 +73,98 @@ namespace CardGameClient
             }
 
             //attack
-            enemySelectedCardPlace.AnimateDmg("55");
-            //if success
-            //
+            int dmg = ServiceProxy.Proxy.DoAttack(App.NickName, mySelectedCardPlace.ThisCard.id, 
+                enemySelectedCardPlace.ThisCard.id);
 
+            //if success
+            if (dmg != -1) enemySelectedCardPlace.AnimateDmg(dmg.ToString());
+            
             enemySelectedCardPlace.selected = mySelectedCardPlace.selected = false;
 
             foreach (var item in myCardPlases.Values)
             {
-                item.IsEnabled = true;
+                if (item.ContainsCard && item.ThisCard.Enabled)
+                    item.IsEnabled = true;
             }
-        }       
+        }
+
+
+        public void DoGame()
+        {
+            while (true)
+            {
+                Thread.Sleep(500);
+                game = ServiceProxy.Proxy.getGame(App.NickName);
+
+                if (game != null)
+                {
+                    this.Dispatcher.Invoke(new Action(delegate
+                    {
+                        foreach (var item in game.firstGamerCards)
+                        {
+                            if (game.Gamers[0] == App.NickName)
+                            {
+                                myCardPlases[item.slot].ThisCard = item;
+                                myCardPlases[item.slot].IsEnabled = item.Enabled;
+                            }
+                            else
+                                enemyCardPlases[item.slot].ThisCard = item;
+                        }
+
+                        foreach (var item in game.twoGamerCards)
+                        {
+                            if (game.Gamers[0] != App.NickName)
+                            {
+                                myCardPlases[item.slot].ThisCard = item;
+                                myCardPlases[item.slot].IsEnabled = item.Enabled;
+                            }
+                            else
+                                enemyCardPlases[item.slot].ThisCard = item;
+                        }
+
+
+                        if (game.gameState == 2 || game.gameState == 3)
+                        {
+                            if (game.currUsr == App.NickName)
+                            {
+                                menuTop.btnText = "Ваш\nХод";
+
+                                foreach (var item in myCardPlases.Values)
+                                {
+                                    if (item.ContainsCard && item.ThisCard.Enabled)
+                                        item.IsEnabled = true;
+                                }
+                            }
+                            else
+                            {
+                                menuTop.btnText = "Ход\nсоперника";
+
+                                foreach (var item in myCardPlases.Values)
+                                {
+                                    item.IsEnabled = false;
+                                }
+                            }
+                        }
+                        else if (game.gameState == 4)
+                        {
+                            this.Dispatcher.Invoke(new Action(delegate 
+                            {
+                                if (game.currUsr == App.NickName)
+                                    MessageBox.Show("Победа за вами","Победа");
+                                else MessageBox.Show("Ваша армия повержена :(", "Поражение");
+
+                                Owner.Show();
+                                (Owner as LobbyScreen).UpdateInfo();
+                                App.ForceClosing = false;
+                                Close();
+                            }));
+
+                            return;
+                        }
+                    }));
+                }
+            }
+        }
 
         private void Window_Loaded_1(object sender, RoutedEventArgs e)
         {
@@ -102,23 +185,6 @@ namespace CardGameClient
 
                 game = ServiceProxy.Proxy.getGame(App.NickName);
 
-
-                foreach (var item in game.firstGamerCards)
-                {
-                    if (game.currUsr == App.NickName)
-                        myCardPlases[item.slot].ThisCard = item;
-                    else
-                        enemyCardPlases[item.slot].ThisCard = item;
-                }
-
-                foreach (var item in game.twoGamerCards)
-                {
-                    if (game.currUsr != App.NickName)
-                        myCardPlases[item.slot].ThisCard = item;
-                    else
-                        enemyCardPlases[item.slot].ThisCard = item;
-                }
-
                 if (App.NickName == game.Gamers[0])
                 {
                     menuTop.firstUserNickname = App.NickName;
@@ -128,11 +194,10 @@ namespace CardGameClient
                 {
                     menuTop.firstUserNickname = App.NickName;
                     menuTop.twoUserNickname = game.Gamers[0];
-                }
+                }                
 
-                if (game.currUsr == App.NickName)
-                    menuTop.btnText = "Ваш\nХод";
-                else menuTop.btnText = "Ход\nсоперника";
+                Thread gameThread = new Thread(DoGame) { IsBackground = true};
+                gameThread.Start();
 
 
 

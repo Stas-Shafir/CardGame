@@ -45,6 +45,96 @@ namespace CardGameClient
             Close();
         }
 
+        public void UpdateInfo()
+        {
+            CharInfo ch = ServiceProxy.Proxy.EnterWorld(App.UserName);
+
+            NickNameLevel.Text = ch.nickname + ", " + ch.heroname + " " + ch.character_level + "-го уровня";
+            Exp.Text = "Опыт: " + ch.exp;
+            Games.Text = "Кол-во Игр: " + ch.games;
+            Wins.Text = "Кол-во Побед: " + ch.wins;
+            Rating.Text = "Ваш рейтинг: " + ch.rating;
+
+            UpdateRanking();
+
+        }
+
+        private void UpdateRanking()
+        {
+            Thickness mrg = new Thickness(5, 5, 0, 5);
+
+
+            List<CharInfo> RankingList = ServiceProxy.Proxy.getRanking();
+
+            ratingGrid.Children.Clear();
+
+            for (int i = 0; i < RankingList.Count; i++)
+            {
+                CharInfo currCharInf = RankingList[i];
+
+                Label tx = new Label()
+                {
+                    Content = (i + 1).ToString(),
+                    Foreground = Brushes.Wheat,
+                    HorizontalAlignment = HorizontalAlignment.Center,
+                    VerticalAlignment = VerticalAlignment.Center
+                };
+                ratingGrid.Children.Add(tx);
+                Grid.SetRow(tx, i + 1);
+                Grid.SetColumn(tx, 0);
+
+                tx = new Label()
+                {
+                    Content = currCharInf.nickname,
+                    Foreground = Brushes.Wheat,
+                    HorizontalAlignment = HorizontalAlignment.Center,
+                    VerticalAlignment = VerticalAlignment.Center
+                };
+                ratingGrid.Children.Add(tx);
+                Grid.SetRow(tx, i + 1);
+                Grid.SetColumn(tx, 1);
+
+
+                tx = new Label()
+                {
+                    Content = currCharInf.heroname + " "
+                        + currCharInf.character_level + "-го уровня",
+                    Foreground = Brushes.Wheat,
+                    HorizontalAlignment = HorizontalAlignment.Center,
+                    VerticalAlignment = VerticalAlignment.Center
+
+                };
+                ratingGrid.Children.Add(tx);
+                Grid.SetRow(tx, i + 1);
+                Grid.SetColumn(tx, 2);
+
+
+                tx = new Label()
+                {
+                    Content = currCharInf.games.ToString(),
+                    Foreground = Brushes.Wheat,
+                    HorizontalAlignment = HorizontalAlignment.Center,
+                    VerticalAlignment = VerticalAlignment.Center
+
+                };
+                ratingGrid.Children.Add(tx);
+                Grid.SetRow(tx, i + 1);
+                Grid.SetColumn(tx, 3);
+
+
+                tx = new Label()
+                {
+                    Content = currCharInf.wins.ToString(),
+                    Foreground = Brushes.Wheat,
+                    HorizontalAlignment = HorizontalAlignment.Center,
+                    VerticalAlignment = VerticalAlignment.Center
+                };
+                ratingGrid.Children.Add(tx);
+                Grid.SetRow(tx, i + 1);
+                Grid.SetColumn(tx, 4);
+            }  
+        }
+
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
             try
@@ -59,80 +149,8 @@ namespace CardGameClient
                 Wins.Text = "Кол-во Побед: " + ch.wins;
                 Rating.Text = "Ваш рейтинг: " + ch.rating;
 
-                Thickness mrg = new Thickness(5, 5, 0, 5);
-
-
-                List<CharInfo> RankingList = ServiceProxy.Proxy.getRanking();
-
-                ratingGrid.Children.Clear();
-
-                for (int i = 0; i < RankingList.Count; i++)
-                {
-                    CharInfo currCharInf = RankingList[i];
-
-                    Label tx = new Label()
-                    {
-                        Content = (i+1).ToString(),
-                        Foreground = Brushes.Wheat,
-                        HorizontalAlignment = HorizontalAlignment.Center,
-                        VerticalAlignment = VerticalAlignment.Center
-                    };
-                    ratingGrid.Children.Add(tx);
-                    Grid.SetRow(tx, i+1);
-                    Grid.SetColumn(tx, 0);
-
-
-
-                    tx = new Label()
-                    {
-                        Content = currCharInf.nickname,
-                        Foreground = Brushes.Wheat,
-                        HorizontalAlignment = HorizontalAlignment.Center,
-                        VerticalAlignment = VerticalAlignment.Center
-                    };
-                    ratingGrid.Children.Add(tx);
-                    Grid.SetRow(tx, i+1);
-                    Grid.SetColumn(tx, 1);
-
-
-                    tx = new Label()
-                    {
-                        Content = currCharInf.heroname + " " 
-                            + currCharInf.character_level + "-го уровня",
-                        Foreground = Brushes.Wheat,
-                        HorizontalAlignment = HorizontalAlignment.Center,
-                        VerticalAlignment = VerticalAlignment.Center
-
-                    };
-                    ratingGrid.Children.Add(tx);
-                    Grid.SetRow(tx, i+1);
-                    Grid.SetColumn(tx, 2);
-
-
-                    tx = new Label()
-                    {
-                        Content = currCharInf.games.ToString(),
-                        Foreground = Brushes.Wheat,
-                        HorizontalAlignment = HorizontalAlignment.Center,
-                        VerticalAlignment = VerticalAlignment.Center
-
-                    };
-                    ratingGrid.Children.Add(tx);
-                    Grid.SetRow(tx, i+1);
-                    Grid.SetColumn(tx, 3);
-
-
-                    tx = new Label()
-                    {
-                        Content = currCharInf.wins.ToString(),
-                        Foreground = Brushes.Wheat,
-                        HorizontalAlignment = HorizontalAlignment.Center,
-                        VerticalAlignment = VerticalAlignment.Center
-                    };
-                    ratingGrid.Children.Add(tx);
-                    Grid.SetRow(tx, i+1);
-                    Grid.SetColumn(tx, 4);
-                }  
+                UpdateRanking();
+                
             }
             catch (Exception exc)
             {
@@ -181,6 +199,12 @@ namespace CardGameClient
                     {
                         findBtn.InProgress = false;
                         MainWindow mw = new MainWindow(this);
+
+                        mw.Closing += delegate(object sender, System.ComponentModel.CancelEventArgs e)
+                        {
+                            Show();
+                        };
+
                         mw.Show();
                     }));
                 }
@@ -203,6 +227,10 @@ namespace CardGameClient
                             {
                                 findBtn.InProgress = false;
                                 MainWindow mw = new MainWindow(this);
+                                mw.Closing += delegate(object sender, System.ComponentModel.CancelEventArgs e)
+                                {
+                                    Show();
+                                };
                                 mw.Show();
                             }));  
                             break;

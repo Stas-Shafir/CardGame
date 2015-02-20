@@ -34,6 +34,7 @@ namespace CardGameClient
             {
                 thisCard = value;
                 CardImage = App.cardImages[thisCard.id];
+                if (thisCard.hp <= 0) CardDeath();
                 Health = thisCard.hp.ToString();
             }
         }
@@ -141,11 +142,10 @@ namespace CardGameClient
             ContainsCard = true;
         }
 
-        public void removeCard()
+        public void CardDeath()
         {
             CardImage = null;
             ContainsCard = false;
-            thisCard = null;
         }
 
 

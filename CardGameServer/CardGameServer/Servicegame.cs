@@ -245,12 +245,25 @@ namespace CardGameServer
 
             db_connection.Close();
 
-            Game game = Program.OnlineGames.Find(g => g.gameState == 1);
+            bool find = false;
 
-            if (game != null)
+            Game game = null;
+
+            while (!find)
             {
-                game.AddSecondUser(nickname, gamerCard);
-                return game;
+                game = Program.OnlineGames.Find(g => g.gameState == 1);
+
+                if (game != null)
+                {
+                    lock (game)
+                    {
+                        if (game.gameState != 1) continue;
+
+                        game.AddSecondUser(nickname, gamerCard);
+                        return game;
+                    }
+                }
+                else find = true;
             }
 
             game = new Game(nickname, gamerCard);
@@ -266,12 +279,15 @@ namespace CardGameServer
 
             if (game != null)
             {
-                if (nickname == game.Gamers[0])
-                    game.FuLastAct = 0;
-                else game.SuLastAct = 0;
+                lock (game)
+                {
+                    if (nickname == game.Gamers[0])
+                        game.FuLastAct = 0;
+                    else game.SuLastAct = 0;
+                }
             }
 
-            return Program.OnlineGames.Find(g => g.Gamers.Contains(nickname));
+            return game;
         }
 
         [OperationContract]
@@ -280,10 +296,90 @@ namespace CardGameServer
             Game game = Program.OnlineGames.Find(g => g.Gamers.Contains(nickname));
 
             //TODO: finish this on client side...
-            if (game != null && game.gameState == 1)
+            if (game != null)
             {
-                game.gameState = 7; //canceled
+                lock (game)
+                {
+                    if (game.gameState == 1)
+                        game.gameState = 7; //canceled
+                }
             }
+        }
+
+
+        [OperationContract]
+        public int DoAttack(string nickname, int myId, int enId)
+        {
+            Game game = Program.OnlineGames.Find(g => g.Gamers.Contains(nickname));
+            
+            int dmg = -1;
+
+            if (game != null)
+            {
+                lock (game)
+                {
+                    if (game.currUsr != nickname) return dmg;
+
+                    if (game.gameState == 2)
+                    {
+                        Card myC = game.firstGamerCards.Find(cc => cc.id == myId);
+                        Card enC = game.twoGamerCards.Find(cc => cc.id == enId);
+
+                        myC.Enabled = false;
+
+                        dmg = myC.dmg - (enC.def / 2);
+
+                        enC.hp = enC.hp - dmg;
+
+                        if (enC.hp <= 0)
+                        {
+                            enC.hp = 0;
+                            enC.Enabled = false;
+                        }
+
+                        if (!game.CheckWinner() && game.firstGamerCards.Find(cc=>cc.Enabled == true) == null)
+                        {
+                            foreach (var item in game.firstGamerCards)
+                            {
+                                if (item.hp > 0) item.Enabled = true;
+                            }
+
+
+                            game.currUsr = game.Gamers[1];
+                            game.gameState = 3;
+                        }
+                    }
+                    else if (game.gameState == 3)
+                    {
+                        Card myC = game.twoGamerCards.Find(cc => cc.id == myId);
+                        Card enC = game.firstGamerCards.Find(cc => cc.id == enId);
+
+                        myC.Enabled = false;
+
+                        dmg = myC.dmg - (enC.def / 2);
+
+                        enC.hp = enC.hp - dmg;
+
+                        if (enC.hp <= 0)
+                        {
+                            enC.hp = 0;
+                            enC.Enabled = false;
+                        }
+
+                        if (!game.CheckWinner() && game.twoGamerCards.Find(cc => cc.Enabled == true) == null)
+                        {
+                            foreach (var item in game.twoGamerCards)
+                            {
+                                if (item.hp > 0) item.Enabled = true;
+                            }
+
+                            game.currUsr = game.Gamers[0];
+                            game.gameState = 2;
+                        }
+                    }
+                }
+            }
+            return dmg;
         }
     }
 }

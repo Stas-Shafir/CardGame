@@ -41,5 +41,8 @@ namespace CardGameServer
 
         [OperationContract]
         void cancelSearch(string nickname);
+
+        [OperationContract]
+        int DoAttack(string nickname, int myId, int enId);
     }
 }

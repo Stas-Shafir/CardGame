@@ -63,23 +63,23 @@
 
         <!--Enemy Cards-->
 
-        <dc:CardPlace Margin="0, 52.5, 0, 52.5" x:Name="EnemyPlace0" Grid.RowSpan="3" Grid.Row="4" Grid.Column="12" MouseUp="enemyCardPlace_MouseUp" Tag="0"></dc:CardPlace>
+        <dc:CardPlace Margin="0, 52.5, 0, 52.5" x:Name="EnemyPlace0" Grid.RowSpan="3" Grid.Row="4" Grid.Column="12" MouseUp="enemyCardPlace_MouseUp" Tag="0" IsEnabled="False"></dc:CardPlace>
 
-        <dc:CardPlace x:Name="EnemyPlace1" Grid.Column="10" Grid.Row="2" Margin="0, 2.5, 0, 2.5" MouseUp="enemyCardPlace_MouseUp" Tag="1"></dc:CardPlace>
+        <dc:CardPlace x:Name="EnemyPlace1" Grid.Column="10" Grid.Row="2" Margin="0, 2.5, 0, 2.5" MouseUp="enemyCardPlace_MouseUp" Tag="1" IsEnabled="False"></dc:CardPlace>
 
-        <dc:CardPlace x:Name="EnemyPlace3" Grid.Column="10" Grid.Row="4" Margin="0, 2.5, 0, 2.5" MouseUp="enemyCardPlace_MouseUp" Tag="3"></dc:CardPlace>
+        <dc:CardPlace x:Name="EnemyPlace3" Grid.Column="10" Grid.Row="4" Margin="0, 2.5, 0, 2.5" MouseUp="enemyCardPlace_MouseUp" Tag="3" IsEnabled="False"></dc:CardPlace>
 
-        <dc:CardPlace x:Name="EnemyPlace5" Grid.Column="10" Grid.Row="6" Margin="0, 2.5, 0, 2.5" MouseUp="enemyCardPlace_MouseUp" Tag="5"></dc:CardPlace>
+        <dc:CardPlace x:Name="EnemyPlace5" Grid.Column="10" Grid.Row="6" Margin="0, 2.5, 0, 2.5" MouseUp="enemyCardPlace_MouseUp" Tag="5" IsEnabled="False"></dc:CardPlace>
 
-        <dc:CardPlace x:Name="EnemyPlace7" Grid.Column="10" Grid.Row="8" Margin="0, 2.5, 0, 2.5" MouseUp="enemyCardPlace_MouseUp" Tag="7"></dc:CardPlace>
+        <dc:CardPlace x:Name="EnemyPlace7" Grid.Column="10" Grid.Row="8" Margin="0, 2.5, 0, 2.5" MouseUp="enemyCardPlace_MouseUp" Tag="7" IsEnabled="False"></dc:CardPlace>
 
-        <dc:CardPlace x:Name="EnemyPlace2" Grid.Column="8" Grid.Row="2" Margin="0, 2.5, 0, 2.5" MouseUp="enemyCardPlace_MouseUp" Tag="2"></dc:CardPlace>
+        <dc:CardPlace x:Name="EnemyPlace2" Grid.Column="8" Grid.Row="2" Margin="0, 2.5, 0, 2.5" MouseUp="enemyCardPlace_MouseUp" Tag="2" IsEnabled="False"></dc:CardPlace>
 
-        <dc:CardPlace x:Name="EnemyPlace4" Grid.Column="8" Grid.Row="4" Margin="0, 2.5, 0, 2.5" MouseUp="enemyCardPlace_MouseUp" Tag="4"></dc:CardPlace>
+        <dc:CardPlace x:Name="EnemyPlace4" Grid.Column="8" Grid.Row="4" Margin="0, 2.5, 0, 2.5" MouseUp="enemyCardPlace_MouseUp" Tag="4" IsEnabled="False"></dc:CardPlace>
 
-        <dc:CardPlace x:Name="EnemyPlace6" Grid.Column="8" Grid.Row="6" Margin="0, 2.5, 0, 2.5" MouseUp="enemyCardPlace_MouseUp" Tag="6"></dc:CardPlace>
+        <dc:CardPlace x:Name="EnemyPlace6" Grid.Column="8" Grid.Row="6" Margin="0, 2.5, 0, 2.5" MouseUp="enemyCardPlace_MouseUp" Tag="6" IsEnabled="False"></dc:CardPlace>
 
-        <dc:CardPlace x:Name="EnemyPlace8" Grid.Column="8" Grid.Row="8" Margin="0, 2.5, 0, 2.5" MouseUp="enemyCardPlace_MouseUp" Tag="8"></dc:CardPlace>
+        <dc:CardPlace x:Name="EnemyPlace8" Grid.Column="8" Grid.Row="8" Margin="0, 2.5, 0, 2.5" MouseUp="enemyCardPlace_MouseUp" Tag="8" IsEnabled="False"></dc:CardPlace>
 
         <Grid Name="Bottom" Grid.Row="10" Grid.Column="2" MaxWidth="686" MaxHeight="90" MinWidth="686" MinHeight="90" Grid.ColumnSpan="11">
             <Grid.Background>

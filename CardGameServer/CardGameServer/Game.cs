@@ -38,15 +38,20 @@ namespace CardGameServer
 
         public void AddSecondUser(string user, List<Card> tgc)
         {
-            Gamers.Add(user);
-            twoGamerCards = new List<Card>(tgc);
             gameState = 2;
+            Gamers.Add(user);
+            twoGamerCards = new List<Card>(tgc);           
         }
 
         public bool CheckWinner()
         {
-            return (firstGamerCards.FindAll(c => c.hp > 0).Count == 0 
-                || twoGamerCards.FindAll(c => c.hp > 0).Count == 0);
+            if (firstGamerCards.FindAll(c => c.hp > 0).Count == 0
+                || twoGamerCards.FindAll(c => c.hp > 0).Count == 0)
+            {
+                gameState = 4;
+                return true;
+            }
+            return false;
         }
     }
 }
