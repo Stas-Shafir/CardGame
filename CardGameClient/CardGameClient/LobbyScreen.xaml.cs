@@ -162,6 +162,14 @@ namespace CardGameClient
             }
         }
 
+        private void OnGameEnd(object sender, System.ComponentModel.CancelEventArgs e)
+        {          
+            findBtn.Enabled = true; 
+            Show();
+            UpdateInfo();
+
+        }
+
         private void FindGame()
         {
             try
@@ -170,27 +178,28 @@ namespace CardGameClient
                 if (game == null)
                 {
 
-                    this.Dispatcher.Invoke(new Action(delegate {
+                    this.Dispatcher.Invoke(new Action(delegate
+                    {
                         MessageBox.Show("Некорректные данные или была обнаружена попытка взлома.\n"
                       + "Действие было записано...");
                         findBtn.InProgress = false;
                     }));
 
-                     return;
+                    return;
                 }
 
                 this.Dispatcher.Invoke(new Action(delegate
                 {
                     findBtn.Enabled = true;
                     findBtn.InProgress = true;
-                }));  
+                }));
 
                 if (game.gameState == 2)
                 {
                     this.Dispatcher.Invoke(new Action(delegate
                     {
                         findBtn.Enabled = false;
-                        findBtn.textLabel.Content = "Игра готова. Загрузка...";
+                        findBtn.textLabel.Content = "Противник найден...";
                     }));
 
                     Thread.Sleep(2000); //emulate find proccess
@@ -200,10 +209,7 @@ namespace CardGameClient
                         findBtn.InProgress = false;
                         MainWindow mw = new MainWindow(this);
 
-                        mw.Closing += delegate(object sender, System.ComponentModel.CancelEventArgs e)
-                        {
-                            Show();
-                        };
+                        mw.Closing += OnGameEnd;
 
                         mw.Show();
                     }));
@@ -218,7 +224,7 @@ namespace CardGameClient
                             this.Dispatcher.Invoke(new Action(delegate
                             {
                                 findBtn.Enabled = false;
-                                findBtn.textLabel.Content = "Игра готова. Загрузка...";
+                                findBtn.textLabel.Content = "Противник найден...";
                             }));
 
                             Thread.Sleep(2000); //emulate find proccess
@@ -227,12 +233,9 @@ namespace CardGameClient
                             {
                                 findBtn.InProgress = false;
                                 MainWindow mw = new MainWindow(this);
-                                mw.Closing += delegate(object sender, System.ComponentModel.CancelEventArgs e)
-                                {
-                                    Show();
-                                };
+                                mw.Closing += OnGameEnd;
                                 mw.Show();
-                            }));  
+                            }));
                             break;
                         }
                     }
@@ -241,10 +244,11 @@ namespace CardGameClient
             }
             catch (Exception exc)
             {
-                this.Dispatcher.Invoke(new Action(delegate {
+                this.Dispatcher.Invoke(new Action(delegate
+                {
                     MessageBox.Show(exc.Message + "\n\n" + exc.InnerException.Message, "Критическая ошибка!");
                     Application.Current.Shutdown();
-                }));                
+                }));
             }
         }
 
@@ -258,7 +262,7 @@ namespace CardGameClient
             }
 
             findBtn.Enabled = false;
-            findBtn.textLabel.Content = "Ожидание 2-го игрока";
+            findBtn.textLabel.Content = "Поиск противника...";
 
             Thread findGameThread = new Thread(FindGame) { IsBackground = true };
             findGameThread.Start();

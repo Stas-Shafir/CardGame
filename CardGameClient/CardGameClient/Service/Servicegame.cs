@@ -40,9 +40,15 @@ namespace CardGameServer
         Game getGame(string nickname);
 
         [OperationContract]
-        void cancelSearch(string nickname);
+        bool cancelSearch(string nickname);
 
         [OperationContract]
         int DoAttack(string nickname, int myId, int enId);
+
+        [OperationContract]
+        void leaveGame(string nickname);
+
+        [OperationContract]
+        void Logout(string nickname);
     }
 }

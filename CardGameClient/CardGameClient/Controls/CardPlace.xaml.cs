@@ -32,10 +32,16 @@ namespace CardGameClient
             }
             set 
             {
-                thisCard = value;
-                CardImage = App.cardImages[thisCard.id];
-                if (thisCard.hp <= 0) CardDeath();
-                Health = thisCard.hp.ToString();
+                if (thisCard != null && thisCard.hp <= 0) return;
+
+
+                    if (thisCard != null && value.hp < thisCard.hp && isMineCard)
+                        AnimateDmg((thisCard.hp - value.hp).ToString());
+
+                    thisCard = value;
+                    CardImage = App.cardImages[thisCard.id];
+                    if (thisCard.hp <= 0) CardDeath();
+                    Health = thisCard.hp.ToString();
             }
         }
 
@@ -144,8 +150,17 @@ namespace CardGameClient
 
         public void CardDeath()
         {
-            CardImage = null;
-            ContainsCard = false;
+            DoubleAnimation da = new DoubleAnimation();
+            da.From = 1;
+            da.To = 0;
+            da.Duration = TimeSpan.FromMilliseconds(500);
+            da.FillBehavior = FillBehavior.Stop;
+            da.Completed += delegate(object sender, EventArgs e)
+            {
+                CardImage = null;
+                ContainsCard = false;
+            };
+            BeginAnimation(OpacityProperty, da);            
         }
 
 
@@ -197,7 +212,7 @@ namespace CardGameClient
             th.To = new Thickness(dmgLabel.Margin.Left, dmgLabel.Margin.Top - 70, dmgLabel.Margin.Right, dmgLabel.Margin.Bottom);
             th.Duration = TimeSpan.FromMilliseconds(500);
             th.Completed += new EventHandler(th_Completed);
-            th.BeginTime = TimeSpan.FromMilliseconds(200);
+            //th.BeginTime = TimeSpan.FromMilliseconds(200);
             dmgLabel.BeginAnimation(MarginProperty, th);
         }
 

@@ -277,6 +277,8 @@ namespace CardGameServer
         {
             Game game = Program.OnlineGames.Find(g => g.Gamers.Contains(nickname));
 
+            bool remove = false;
+
             if (game != null)
             {
                 lock (game)
@@ -284,6 +286,21 @@ namespace CardGameServer
                     if (nickname == game.Gamers[0])
                         game.FuLastAct = 0;
                     else game.SuLastAct = 0;
+
+
+                    if (game.gameState == 4 || game.gameState == 5)
+                    {
+                        game.Gamers.Remove(nickname);
+                        if (game.Gamers.Count == 0)
+                        {
+                            remove = true;
+                        }
+                    }
+                }
+
+                if (remove)
+                {
+                    Program.OnlineGames.Remove(game);
                 }
             }
 
@@ -291,7 +308,7 @@ namespace CardGameServer
         }
 
         [OperationContract]
-        public void cancelSearch(string nickname)
+        public bool cancelSearch(string nickname)
         {
             Game game = Program.OnlineGames.Find(g => g.Gamers.Contains(nickname));
 
@@ -301,9 +318,14 @@ namespace CardGameServer
                 lock (game)
                 {
                     if (game.gameState == 1)
+                    {
                         game.gameState = 7; //canceled
+                        return true;
+                    }
                 }
             }
+
+            return false;
         }
 
 
@@ -380,6 +402,29 @@ namespace CardGameServer
                 }
             }
             return dmg;
+        }
+
+        [OperationContract]
+        public void leaveGame(string nickname)
+        {
+            Game game = Program.OnlineGames.Find(g => g.Gamers.Contains(nickname));
+
+            if (game != null)
+            {
+                lock (game)
+                {
+                    game.Gamers.Remove(nickname);
+                    game.gameState = 5;
+                    //game.currUsr = game.Gamers[0];
+                }
+            }
+
+        }
+
+        [OperationContract]
+        public void Logout(string nickname)
+        {
+            Program.OnlineUsers.Remove(nickname);
         }
     }
 }
