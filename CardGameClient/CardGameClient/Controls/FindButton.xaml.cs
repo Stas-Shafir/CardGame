@@ -39,6 +39,7 @@ namespace CardGameClient
             {
                 IsEnabled = value;
                 mainBtn.BackgroundNormal = IsEnabled ? normal : disabled;
+                mainBtn.Background = mainBtn.BackgroundNormal;
             }
         }
 

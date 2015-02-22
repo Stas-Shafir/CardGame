@@ -6,6 +6,7 @@ using System.ServiceModel;
 using System.Data.SqlClient;
 using System.Configuration;
 using System.Data;
+using System.Threading;
 
 namespace CardGameServer
 {
@@ -21,6 +22,8 @@ namespace CardGameServer
 
         public static List<string> OnlineUsers = new List<string>();
         public static List<Game> OnlineGames = new List<Game>();
+
+        public static ReaderWriterLockSlim GameThreadLock = new ReaderWriterLockSlim();
 
         static void Main(string[] args)
         {

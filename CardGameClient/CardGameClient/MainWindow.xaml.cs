@@ -99,37 +99,37 @@ namespace CardGameClient
                     game = ServiceProxy.Proxy.getGame(App.NickName);
 
                     if (game != null)
-                    {
-                        foreach (var item in game.firstGamerCards)
-                        {
-                            this.Dispatcher.Invoke(new Action(delegate
-                            {
-                                if (game.Gamers[0] == App.NickName)
-                                {
-                                    myCardPlases[item.slot].ThisCard = item;
-                                    myCardPlases[item.slot].IsEnabled = item.Enabled;
-                                }
-                                else
-                                    enemyCardPlases[item.slot].ThisCard = item;
-                            }));
-                        }
-
-                        foreach (var item in game.twoGamerCards)
-                        {
-                            this.Dispatcher.Invoke(new Action(delegate
-                            {
-                                if (game.Gamers[0] != App.NickName)
-                                {
-                                    myCardPlases[item.slot].ThisCard = item;
-                                    myCardPlases[item.slot].IsEnabled = item.Enabled;
-                                }
-                                else
-                                    enemyCardPlases[item.slot].ThisCard = item;
-                            }));
-                        }
-
+                    {  
                         if (game.gameState == 2 || game.gameState == 3)
                         {
+                            foreach (var item in game.firstGamerCards)
+                            {
+                                this.Dispatcher.Invoke(new Action(delegate
+                                {
+                                    if (game.Gamers[0] == App.NickName)
+                                    {
+                                        myCardPlases[item.slot].ThisCard = item;
+                                        myCardPlases[item.slot].IsEnabled = item.Enabled;
+                                    }
+                                    else
+                                        enemyCardPlases[item.slot].ThisCard = item;
+                                }));
+                            }
+
+                            foreach (var item in game.twoGamerCards)
+                            {
+                                this.Dispatcher.Invoke(new Action(delegate
+                                {
+                                    if (game.Gamers[0] != App.NickName)
+                                    {
+                                        myCardPlases[item.slot].ThisCard = item;
+                                        myCardPlases[item.slot].IsEnabled = item.Enabled;
+                                    }
+                                    else
+                                        enemyCardPlases[item.slot].ThisCard = item;
+                                }));
+                            }
+
                             this.Dispatcher.Invoke(new Action(delegate
                             {
                                 if (game.currUsr == App.NickName)
@@ -157,9 +157,45 @@ namespace CardGameClient
                         {
                             this.Dispatcher.Invoke(new Action(delegate
                             {
+
+                                string text = "Награда: \n";
+
+                                if (game.currUsr == App.NickName){
+                                    if (game.WinGamerReward.NewLevel)
+                                    {
+                                        text += "Новый уровень!\n";
+                                    }
+                                    text += "Опыт: " + game.WinGamerReward.Exp;
+                                    if (game.WinGamerReward.NewCard != null )
+                                    {
+                                        text += "Новая карта: " + game.WinGamerReward.NewCard.card_name;
+                                    }
+                                }
+                                else 
+                                {
+                                    if (game.LooseGamerReward.NewLevel)
+                                    {
+                                        text += "Новый уровень!\n";
+                                    }
+                                    text += "Опыт: " + game.LooseGamerReward.Exp;
+                                }
+
+
                                 if (game.currUsr == App.NickName)
-                                    MessageBox.Show("Победа за вами", "Победа");
-                                else MessageBox.Show("Ваша армия повержена :(", "Поражение");
+                                    MessageBox.Show(text, "Победа");
+                                else MessageBox.Show(text, "Поражение");
+
+                                App.ForceClosing = false;
+                                Close();
+                            }));
+
+                            return;
+                        }
+                        else if (game.gameState == 5)
+                        {
+                            this.Dispatcher.Invoke(new Action(delegate
+                            {
+                                MessageBox.Show("Победа за вами", "Противник отключился");
 
                                 App.ForceClosing = false;
                                 Close();
@@ -175,6 +211,7 @@ namespace CardGameClient
                 this.Dispatcher.Invoke(new Action(delegate
                 {
                     MessageBox.Show(exc.Message + "\n\n" + exc.InnerException.Message, "Критическая ошибка!");
+                    App.OnClientClose();
                     Application.Current.Shutdown();
                 }));
             }
@@ -224,6 +261,7 @@ namespace CardGameClient
                 this.Dispatcher.Invoke(new Action(delegate
                 {
                     MessageBox.Show(exc.Message + "\n\n" + exc.InnerException.Message, "Критическая ошибка!");
+                    App.OnClientClose();
                     Application.Current.Shutdown();
                 }));
             }
@@ -236,8 +274,16 @@ namespace CardGameClient
 
         private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
+            if (App.isConnected && ServiceProxy.Proxy != null)
+            {
+                ServiceProxy.Proxy.leaveGame(App.NickName);
+            }
+
             if (App.ForceClosing)
+            {
+                App.OnClientClose();
                 Application.Current.Shutdown();
+            }
         }
 
         private void Window_Closed(object sender, EventArgs e)

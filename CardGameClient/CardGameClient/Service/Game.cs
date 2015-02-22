@@ -23,5 +23,11 @@ namespace CardGameServer
 
         [DataMember]
         public string currUsr;
+
+        [DataMember]
+        public Reward WinGamerReward { get; set; }
+
+        [DataMember]
+        public Reward LooseGamerReward { get; set; }
     }
 }

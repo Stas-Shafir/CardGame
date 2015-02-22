@@ -13,6 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using System.Windows.Threading;
 using System.Threading;
+using System.ServiceModel;
 
 namespace CardGameClient
 {
@@ -21,6 +22,8 @@ namespace CardGameClient
     /// </summary>
     public partial class LobbyScreen : Window
     {
+        Thread findGameThread;
+
         public LobbyScreen(Window ownwin)
         {
             InitializeComponent();
@@ -29,6 +32,8 @@ namespace CardGameClient
 
         private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
+            App.OnClientClose();
+
             if (App.ForceClosing)
                 Application.Current.Shutdown();
         }
@@ -157,6 +162,7 @@ namespace CardGameClient
                 this.Dispatcher.Invoke(new Action(delegate
                 {
                     MessageBox.Show(exc.Message + "\n\n" + exc.InnerException.Message, "Критическая ошибка!");
+                    App.OnClientClose();
                     Application.Current.Shutdown();
                 }));     
             }
@@ -177,7 +183,6 @@ namespace CardGameClient
                 Game game = ServiceProxy.Proxy.findGame(App.NickName);
                 if (game == null)
                 {
-
                     this.Dispatcher.Invoke(new Action(delegate
                     {
                         MessageBox.Show("Некорректные данные или была обнаружена попытка взлома.\n"
@@ -210,6 +215,7 @@ namespace CardGameClient
                         MainWindow mw = new MainWindow(this);
 
                         mw.Closing += OnGameEnd;
+                        findBtn.Enabled = true;
 
                         mw.Show();
                     }));
@@ -219,34 +225,41 @@ namespace CardGameClient
                     while (true)
                     {
                         game = ServiceProxy.Proxy.getGame(App.NickName);
-                        if (game != null && game.gameState == 2)
+                        if (game != null)
                         {
-                            this.Dispatcher.Invoke(new Action(delegate
+                            if (game.gameState == 2)
                             {
-                                findBtn.Enabled = false;
-                                findBtn.textLabel.Content = "Противник найден...";
-                            }));
+                                this.Dispatcher.Invoke(new Action(delegate
+                                {
+                                    findBtn.Enabled = false;
+                                    findBtn.textLabel.Content = "Противник найден...";
+                                }));
 
-                            Thread.Sleep(2000); //emulate find proccess
+                                Thread.Sleep(2000); //emulate find proccess
 
-                            this.Dispatcher.Invoke(new Action(delegate
-                            {
-                                findBtn.InProgress = false;
-                                MainWindow mw = new MainWindow(this);
-                                mw.Closing += OnGameEnd;
-                                mw.Show();
-                            }));
-                            break;
+                                this.Dispatcher.Invoke(new Action(delegate
+                                {
+                                    findBtn.InProgress = false;
+                                    MainWindow mw = new MainWindow(this);
+                                    mw.Closing += OnGameEnd;
+                                    findBtn.Enabled = true;
+                                    mw.Show();
+                                }));
+                                break;
+                            }
+                            else if (game.gameState == 7) return;
                         }
+                        else return;
                     }
                 }
 
             }
-            catch (Exception exc)
+            catch (CommunicationException exc)
             {
                 this.Dispatcher.Invoke(new Action(delegate
                 {
                     MessageBox.Show(exc.Message + "\n\n" + exc.InnerException.Message, "Критическая ошибка!");
+                    App.OnClientClose();
                     Application.Current.Shutdown();
                 }));
             }
@@ -256,15 +269,18 @@ namespace CardGameClient
         {
             if (findBtn.InProgress)
             {
-                findBtn.InProgress = false;
+                //findGameThread.Abort();
+                findBtn.Enabled = false;
                 ServiceProxy.Proxy.cancelSearch(App.NickName);
+                findBtn.InProgress = false;
+                findBtn.Enabled = true;
                 return;
             }
 
             findBtn.Enabled = false;
             findBtn.textLabel.Content = "Поиск противника...";
 
-            Thread findGameThread = new Thread(FindGame) { IsBackground = true };
+            findGameThread = new Thread(FindGame) { IsBackground = true };
             findGameThread.Start();
         }
 

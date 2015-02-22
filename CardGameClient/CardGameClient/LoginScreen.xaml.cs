@@ -48,9 +48,12 @@ namespace CardGameClient
 
                 int res = ServiceProxy.Proxy.Login(login, passw);
 
+                this.Dispatcher.Invoke(new Action(() => loginBtn.IsEnabled = true));
+
                 if (res == 0)
                 {
                     App.UserName = login;
+                    App.isConnected = true;
                     if (!ServiceProxy.Proxy.isAccountContainsAnyCharacter(login))
                     {
                         this.Dispatcher.Invoke(new Action(delegate
@@ -95,9 +98,10 @@ namespace CardGameClient
             }
             catch (Exception exc)
             {
-                this.Dispatcher.Invoke(new Action(() =>
-                    MessageBox.Show(exc.Message + "\n\n" + exc.InnerException.Message, "Критическая ошибка!")
-                ));
+                this.Dispatcher.Invoke(new Action(delegate {
+                    App.isConnected = false;
+                    MessageBox.Show(exc.Message + "\n\n" + exc.InnerException.Message, "Критическая ошибка!");
+                }));
             }
         }
 
@@ -116,6 +120,7 @@ namespace CardGameClient
                     return;
                 }
 
+                loginBtn.IsEnabled = false;
 
                 Thread loginThread = new Thread(Login);
                 loginThread.Start();

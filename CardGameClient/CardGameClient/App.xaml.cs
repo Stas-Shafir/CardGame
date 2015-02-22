@@ -5,6 +5,7 @@ using System.Data;
 using System.Linq;
 using System.Windows;
 using System.Windows.Media.Imaging;
+using CardGameServer;
 
 namespace CardGameClient
 {
@@ -18,7 +19,18 @@ namespace CardGameClient
         public static string NickName { get; set; }
         public static LoginScreen loginScreen { get; set; }
 
+        public static bool isConnected = false;
+
         public static Dictionary<int, BitmapImage> cardImages = new Dictionary<int, BitmapImage>();
         public static Dictionary<int, BitmapImage> digitImages = new Dictionary<int, BitmapImage>();
+
+        public static void OnClientClose()
+        {
+            if (App.isConnected && ServiceProxy.Proxy != null)
+            {
+                ServiceProxy.Proxy.Logout(App.UserName);
+                App.isConnected = false;
+            }
+        }
     }
 }

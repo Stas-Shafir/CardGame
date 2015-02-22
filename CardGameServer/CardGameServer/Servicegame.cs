@@ -251,7 +251,11 @@ namespace CardGameServer
 
             while (!find)
             {
+                Program.GameThreadLock.EnterReadLock();
+
                 game = Program.OnlineGames.Find(g => g.gameState == 1);
+
+                Program.GameThreadLock.ExitReadLock();
 
                 if (game != null)
                 {
@@ -266,8 +270,12 @@ namespace CardGameServer
                 else find = true;
             }
 
+            Program.GameThreadLock.EnterWriteLock();
+
             game = new Game(nickname, gamerCard);
             Program.OnlineGames.Add(game);
+
+            Program.GameThreadLock.ExitWriteLock();
             return game;
         }
 
@@ -275,7 +283,11 @@ namespace CardGameServer
         [OperationContract]
         public Game getGame(string nickname)
         {
+            Program.GameThreadLock.EnterReadLock();
+
             Game game = Program.OnlineGames.Find(g => g.Gamers.Contains(nickname));
+
+            Program.GameThreadLock.ExitReadLock();
 
             bool remove = false;
 
@@ -288,7 +300,7 @@ namespace CardGameServer
                     else game.SuLastAct = 0;
 
 
-                    if (game.gameState == 4 || game.gameState == 5)
+                    if (game.gameState == 4 || game.gameState == 5 || game.gameState == 7)
                     {
                         game.Gamers.Remove(nickname);
                         if (game.Gamers.Count == 0)
@@ -300,7 +312,9 @@ namespace CardGameServer
 
                 if (remove)
                 {
+                    Program.GameThreadLock.EnterWriteLock();
                     Program.OnlineGames.Remove(game);
+                    Program.GameThreadLock.ExitWriteLock();
                 }
             }
 
@@ -310,7 +324,11 @@ namespace CardGameServer
         [OperationContract]
         public bool cancelSearch(string nickname)
         {
+            Program.GameThreadLock.EnterReadLock();
             Game game = Program.OnlineGames.Find(g => g.Gamers.Contains(nickname));
+            Program.GameThreadLock.ExitReadLock();
+
+            bool remove = false;
 
             //TODO: finish this on client side...
             if (game != null)
@@ -320,19 +338,29 @@ namespace CardGameServer
                     if (game.gameState == 1)
                     {
                         game.gameState = 7; //canceled
-                        return true;
+                        remove = true;
                     }
+                }
+                if (remove)
+                {
+                //    Program.GameThreadLock.EnterWriteLock();
+                 //   Program.OnlineGames.Remove(game);
+                 //   Program.GameThreadLock.ExitWriteLock();
                 }
             }
 
-            return false;
+            return remove;
         }
 
 
         [OperationContract]
         public int DoAttack(string nickname, int myId, int enId)
         {
+            bool isWin = false;
+
+            Program.GameThreadLock.EnterReadLock();
             Game game = Program.OnlineGames.Find(g => g.Gamers.Contains(nickname));
+            Program.GameThreadLock.ExitReadLock();
             
             int dmg = -1;
 
@@ -359,7 +387,10 @@ namespace CardGameServer
                             enC.Enabled = false;
                         }
 
-                        if (!game.CheckWinner() && game.firstGamerCards.Find(cc=>cc.Enabled == true) == null)
+
+                        isWin = game.CheckWinner();
+
+                        if (!isWin && game.firstGamerCards.Find(cc => cc.Enabled == true) == null)
                         {
                             foreach (var item in game.firstGamerCards)
                             {
@@ -369,6 +400,12 @@ namespace CardGameServer
 
                             game.currUsr = game.Gamers[1];
                             game.gameState = 3;
+                        }
+
+                        else if (isWin)
+                        {
+                            setReward(game.Gamers[0], game.WinGamerReward, true);
+                            setReward(game.Gamers[1], game.LooseGamerReward, false);
                         }
                     }
                     else if (game.gameState == 3)
@@ -388,7 +425,9 @@ namespace CardGameServer
                             enC.Enabled = false;
                         }
 
-                        if (!game.CheckWinner() && game.twoGamerCards.Find(cc => cc.Enabled == true) == null)
+                        isWin = game.CheckWinner();
+
+                        if (!isWin && game.twoGamerCards.Find(cc => cc.Enabled == true) == null)
                         {
                             foreach (var item in game.twoGamerCards)
                             {
@@ -397,6 +436,12 @@ namespace CardGameServer
 
                             game.currUsr = game.Gamers[0];
                             game.gameState = 2;
+                        }
+
+                        else if (isWin)
+                        {
+                            setReward(game.Gamers[1], game.WinGamerReward, true);
+                            setReward(game.Gamers[0], game.LooseGamerReward, false);
                         }
                     }
                 }
@@ -407,15 +452,35 @@ namespace CardGameServer
         [OperationContract]
         public void leaveGame(string nickname)
         {
+            Program.GameThreadLock.EnterReadLock();
             Game game = Program.OnlineGames.Find(g => g.Gamers.Contains(nickname));
+            Program.GameThreadLock.ExitReadLock();
+
+            bool remove = false;
 
             if (game != null)
             {
                 lock (game)
                 {
-                    game.Gamers.Remove(nickname);
-                    game.gameState = 5;
-                    //game.currUsr = game.Gamers[0];
+                    if (game.gameState != 4 && game.gameState != 5)
+                    {
+                        game.Gamers.Remove(nickname);
+                        game.gameState = 5;
+
+
+                        game.Gamers.Remove(nickname);
+                        if (game.Gamers.Count == 0)
+                        {
+                            remove = true;
+                        }
+                    }
+                }
+
+                if (remove)
+                {
+                    Program.GameThreadLock.EnterWriteLock();
+                    Program.OnlineGames.Remove(game);
+                    Program.GameThreadLock.ExitWriteLock();
                 }
             }
 
@@ -424,7 +489,75 @@ namespace CardGameServer
         [OperationContract]
         public void Logout(string nickname)
         {
+            Program.GameThreadLock.EnterReadLock();
+            Game game = Program.OnlineGames.Find(g => g.Gamers.Contains(nickname));
+            Program.GameThreadLock.ExitReadLock();
+
+            if (game != null) leaveGame(nickname);
+
             Program.OnlineUsers.Remove(nickname);
+        }
+
+        public void setReward(string nickname, Reward reward, bool Winner = false)
+        {
+            //check for sqlInjection
+           // if (sqlInjection.Words.Any(word => nickname.IndexOf(word, StringComparison.OrdinalIgnoreCase) >= 0)) return;
+
+            SqlConnection db_connection = new SqlConnection(Program.connectionString);
+
+            db_connection.Open();
+
+            int c_id;
+            int level;
+            int exp;
+            int games;
+            int wins;
+
+
+            SqlCommand cmd = new SqlCommand("SELECT * FROM characters WHERE name='" + nickname + "'", db_connection);
+
+            SqlDataReader rd = cmd.ExecuteReader();
+
+            if (rd.Read())
+            {
+                c_id = (int)rd["id"];
+                level = (int)rd["character_level"];
+                exp = (int)rd["exp"];
+                games = (int)rd["games"];
+                wins = (int)rd["wins"];
+
+                rd.Close();
+
+                exp += reward.Exp;
+
+                if (exp >= Level.Levels[level + 1])
+                {
+                    reward.NewLevel = true;
+                    level += 1;
+                }
+
+                if (Winner) wins++;
+
+                games++;
+
+                cmd = new SqlCommand("UPDATE characters SET exp=" + exp + ", character_level=" + level + ", games="
+                    + games + ", wins=" + wins + " WHERE id=" + c_id, db_connection);
+
+                cmd.ExecuteNonQuery();
+
+
+                if (reward.NewCard != null)
+                {
+                    cmd = new SqlCommand("INSERT INTO character_card(char_id, card_id) VALUES (" + c_id + ", " 
+                        + reward.NewCard.id + ")", db_connection);
+
+                    cmd.ExecuteNonQuery();
+                }
+
+            }
+            else rd.Close();
+
+            db_connection.Close();
         }
     }
 }
