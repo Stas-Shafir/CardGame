@@ -22,15 +22,6 @@ namespace CardGameClient
         public static bool isConnected = false;
 
         public static Dictionary<int, BitmapImage> cardImages = new Dictionary<int, BitmapImage>();
-        public static Dictionary<int, BitmapImage> digitImages = new Dictionary<int, BitmapImage>();
-
-        public static void OnClientClose()
-        {
-            if (App.isConnected && ServiceProxy.Proxy != null)
-            {
-                ServiceProxy.Proxy.Logout(App.UserName);
-                App.isConnected = false;
-            }
-        }
+        public static Dictionary<int, BitmapImage> digitImages = new Dictionary<int, BitmapImage>();        
     }
 }

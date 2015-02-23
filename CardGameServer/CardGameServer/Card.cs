@@ -15,6 +15,8 @@ namespace CardGameServer
         [DataMember]
         public string card_name { get; set; }
 
+        public int type { get; set; }
+
         [DataMember]
         public int hp {get; set;}
 
@@ -34,10 +36,11 @@ namespace CardGameServer
         {
         }
 
-        public Card(int id, string cn, int hp, int dmg, int def, int sl = -1)
+        public Card(int id, string cn, int t, int hp, int dmg, int def, int sl = -1)
         {
             this.id = id;
             this.card_name = cn;
+            this.type = t;
             this.hp = hp;
             this.dmg = dmg;
             this.def = def;

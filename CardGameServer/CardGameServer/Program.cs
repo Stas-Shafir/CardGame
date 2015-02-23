@@ -67,6 +67,7 @@ namespace CardGameServer
                     cards.Add(new Card(
                         (int)res["id"], 
                         res["card_name"].ToString(), 
+                        (int)res["type"],
                         (int)res["hp"], 
                         (int)res["dmg"], 
                         (int)res["def"]

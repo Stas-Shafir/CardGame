@@ -100,6 +100,7 @@ namespace CardGameClient
             {
                 this.Dispatcher.Invoke(new Action(delegate {
                     App.isConnected = false;
+                    loginBtn.IsEnabled = true;
                     MessageBox.Show(exc.Message + "\n\n" + exc.InnerException.Message, "Критическая ошибка!");
                 }));
             }

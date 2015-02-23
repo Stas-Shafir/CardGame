@@ -36,7 +36,7 @@ namespace CardGameClient
             Owner = own;           
         }
 
-        private void myCardPlace_MouseUp(object sender, MouseButtonEventArgs e)
+        private void myCardPlace_MouseDown(object sender, MouseButtonEventArgs e)
         {
             CardPlace cp = sender as CardPlace;
 
@@ -53,38 +53,50 @@ namespace CardGameClient
             }
         }
 
-        private void enemyCardPlace_MouseUp(object sender, MouseButtonEventArgs e)
+        private void enemyCardPlace_MouseDown(object sender, MouseButtonEventArgs e)
         {
-            CardPlace cp = sender as CardPlace;
-
-            if (enemySelectedCardPlace != null && enemySelectedCardPlace != cp)
-                enemySelectedCardPlace.selected = false;
-
-            enemySelectedCardPlace = cp;
-
-            foreach (var item in enemyCardPlases.Values)
+            try
             {
-                item.IsEnabled = false;
+                CardPlace cp = sender as CardPlace;
+
+                if (enemySelectedCardPlace != null && enemySelectedCardPlace != cp)
+                    enemySelectedCardPlace.selected = false;
+
+                enemySelectedCardPlace = cp;
+
+                foreach (var item in enemyCardPlases.Values)
+                {
+                    item.IsEnabled = false;
+                }
+
+                foreach (var item in myCardPlases.Values)
+                {
+                    item.IsEnabled = false;
+                }
+
+                //attack
+                int dmg = ServiceProxy.Proxy.DoAttack(App.NickName, mySelectedCardPlace.ThisCard.slot,
+                    enemySelectedCardPlace.ThisCard.slot);
+
+                //if success
+                if (dmg != -1) enemySelectedCardPlace.AnimateDmg(dmg.ToString());
+
+                enemySelectedCardPlace.selected = mySelectedCardPlace.selected = false;
+
+                foreach (var item in myCardPlases.Values)
+                {
+                    if (item.ContainsCard && item.ThisCard.Enabled)
+                        item.IsEnabled = true;
+                }
             }
-
-            foreach (var item in myCardPlases.Values)
+            catch (Exception exc)
             {
-                item.IsEnabled = false;
-            }
-
-            //attack
-            int dmg = ServiceProxy.Proxy.DoAttack(App.NickName, mySelectedCardPlace.ThisCard.id, 
-                enemySelectedCardPlace.ThisCard.id);
-
-            //if success
-            if (dmg != -1) enemySelectedCardPlace.AnimateDmg(dmg.ToString());
-            
-            enemySelectedCardPlace.selected = mySelectedCardPlace.selected = false;
-
-            foreach (var item in myCardPlases.Values)
-            {
-                if (item.ContainsCard && item.ThisCard.Enabled)
-                    item.IsEnabled = true;
+                this.Dispatcher.Invoke(new Action(delegate
+                {
+                    MessageBox.Show(exc.Message + "\n\n" + exc.InnerException.Message, "Критическая ошибка!");
+                    App.isConnected = false;
+                    Application.Current.Shutdown();
+                }));
             }
         }
 
@@ -211,7 +223,7 @@ namespace CardGameClient
                 this.Dispatcher.Invoke(new Action(delegate
                 {
                     MessageBox.Show(exc.Message + "\n\n" + exc.InnerException.Message, "Критическая ошибка!");
-                    App.OnClientClose();
+                    App.isConnected = false;
                     Application.Current.Shutdown();
                 }));
             }
@@ -261,7 +273,7 @@ namespace CardGameClient
                 this.Dispatcher.Invoke(new Action(delegate
                 {
                     MessageBox.Show(exc.Message + "\n\n" + exc.InnerException.Message, "Критическая ошибка!");
-                    App.OnClientClose();
+                    App.isConnected = false;
                     Application.Current.Shutdown();
                 }));
             }
@@ -281,7 +293,7 @@ namespace CardGameClient
 
             if (App.ForceClosing)
             {
-                App.OnClientClose();
+                App.isConnected = false;
                 Application.Current.Shutdown();
             }
         }
@@ -289,6 +301,28 @@ namespace CardGameClient
         private void Window_Closed(object sender, EventArgs e)
         {
             App.ForceClosing = true;
+        }
+
+        private void CardPlace_MouseEnter(object sender, MouseEventArgs e)
+        {
+            CardPlace ccp = sender as CardPlace;
+
+            if (!ccp.ContainsCard) return;
+
+            if (ccp.IsMineCard) 
+                ccp.ToolTip = "Характеристики:\nУрон: " + ccp.ThisCard.dmg + "\nЗащита: " + ccp.ThisCard.def;
+        }
+
+
+        private void EnemyCardPlace_MouseEnter(object sender, MouseEventArgs e)
+        {
+            CardPlace ccp = sender as CardPlace;
+
+            if (!ccp.ContainsCard) return;
+
+            if (!ccp.IsMineCard)                
+                ccp.ToolTip = "Характеристики:\nУрон: " + ccp.ThisCard.dmg + "\nЗащита: " + ccp.ThisCard.def +
+                    "\nВы нанесёте " + (mySelectedCardPlace.ThisCard.dmg - (ccp.ThisCard.def / 2)) + " урона.";
         }
     }
 }

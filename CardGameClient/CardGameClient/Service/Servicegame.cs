@@ -43,7 +43,7 @@ namespace CardGameServer
         bool cancelSearch(string nickname);
 
         [OperationContract]
-        int DoAttack(string nickname, int myId, int enId);
+        int DoAttack(string nickname, int myslot, int enslot);
 
         [OperationContract]
         void leaveGame(string nickname);

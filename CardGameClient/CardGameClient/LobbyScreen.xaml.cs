@@ -32,7 +32,11 @@ namespace CardGameClient
 
         private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
-            App.OnClientClose();
+            if (App.isConnected && ServiceProxy.Proxy != null)
+            {
+                App.isConnected = false;
+                ServiceProxy.Proxy.Logout(App.UserName);
+            }
 
             if (App.ForceClosing)
                 Application.Current.Shutdown();
@@ -71,7 +75,7 @@ namespace CardGameClient
 
             List<CharInfo> RankingList = ServiceProxy.Proxy.getRanking();
 
-            ratingGrid.Children.Clear();
+            ratingGrid.Children.RemoveRange(6, ratingGrid.Children.Count - 6);
 
             for (int i = 0; i < RankingList.Count; i++)
             {
@@ -162,7 +166,7 @@ namespace CardGameClient
                 this.Dispatcher.Invoke(new Action(delegate
                 {
                     MessageBox.Show(exc.Message + "\n\n" + exc.InnerException.Message, "Критическая ошибка!");
-                    App.OnClientClose();
+                    App.isConnected = false;
                     Application.Current.Shutdown();
                 }));     
             }
@@ -259,7 +263,7 @@ namespace CardGameClient
                 this.Dispatcher.Invoke(new Action(delegate
                 {
                     MessageBox.Show(exc.Message + "\n\n" + exc.InnerException.Message, "Критическая ошибка!");
-                    App.OnClientClose();
+                    App.isConnected = false;
                     Application.Current.Shutdown();
                 }));
             }

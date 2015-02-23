@@ -128,3 +128,8 @@ D:\CardsKurs\CardGameClient\CardGameClient\bin\Debug\Images\Cards\6.png
 D:\CardsKurs\CardGameClient\CardGameClient\bin\Debug\Images\Cards\7.png
 D:\CardsKurs\CardGameClient\CardGameClient\obj\x86\Debug\Controls\inGameTopInfo.g.cs
 D:\CardsKurs\CardGameClient\CardGameClient\obj\x86\Debug\Controls\inGameTopInfo.baml
+D:\Шаг\CardGameClient\CardGameClient\bin\Debug\Images\Cards\5.png
+D:\Шаг\CardGameClient\CardGameClient\bin\Debug\Images\Cards\6.png
+D:\Шаг\CardGameClient\CardGameClient\bin\Debug\Images\Cards\7.png
+D:\Шаг\CardGameClient\CardGameClient\obj\x86\Debug\Controls\inGameTopInfo.g.cs
+D:\Шаг\CardGameClient\CardGameClient\obj\x86\Debug\Controls\inGameTopInfo.baml

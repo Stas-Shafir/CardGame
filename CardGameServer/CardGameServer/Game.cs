@@ -35,6 +35,17 @@ namespace CardGameServer
         [DataMember]
         public Reward LooseGamerReward { get; set; }
 
+        public Game(Game oldGame)
+        {
+            this.Gamers = new List<string>(oldGame.Gamers);
+            this.firstGamerCards = new List<Card>(oldGame.firstGamerCards);
+            this.twoGamerCards = new List<Card>(oldGame.twoGamerCards);
+            this.gameState = oldGame.gameState;
+            this.currUsr = oldGame.currUsr;
+            this.WinGamerReward = oldGame.WinGamerReward;
+            this.LooseGamerReward = oldGame.LooseGamerReward;
+        }
+
 
         public Game(string user, List<Card> fgc)
         {
@@ -72,9 +83,13 @@ namespace CardGameServer
             if (nickname == currUsr)
             {
                 reward.Exp = Rnd.Next(245, 255);
-                if (Rnd.Next(0, 100) <= 25)
+                if (Rnd.Next(0, 100) <= 35) //drop card %
                 {
-                    reward.NewCard = Program.cards[Rnd.Next(0, Program.cards.Count - 1)];
+                    List<Card> clst = Program.cards.FindAll(ccc => ccc.type != 0);
+                    if (clst.Count > 1)
+                    {
+                        reward.NewCard = clst[Rnd.Next(0, clst.Count - 1)];
+                    }
                 }
                 WinGamerReward = reward;
             }
