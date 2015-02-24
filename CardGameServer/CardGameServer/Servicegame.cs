@@ -23,8 +23,9 @@ namespace CardGameServer
             //2 already online 
             //3 hacking attempt
 
-            if (Program.OnlineUsers.Find(u => u == user) != null)
+            if (Program.OnlineUsers.Find(u => u.login == user) != null)
                 return 2;
+
 
             //check for sqlInjection
             if (sqlInjection.Words.Any(word => user.IndexOf(word, StringComparison.OrdinalIgnoreCase) >= 0 ||
@@ -48,7 +49,7 @@ namespace CardGameServer
 
                     if (password == pass)
                     {
-                        Program.OnlineUsers.Add(user);
+                        Program.OnlineUsers.Add(new Gamer(user));
                         return 0;
                     }
                     return 1;
@@ -71,7 +72,7 @@ namespace CardGameServer
 
             if (!isError)
             {
-                Program.OnlineUsers.Add(user);
+                Program.OnlineUsers.Add(new Gamer(user));
                 return 0;
             }
             else return 4;
@@ -220,6 +221,10 @@ namespace CardGameServer
 
                 res.Close();
 
+
+                Gamer gamer = Program.OnlineUsers.Find(u => u.login == user);
+                if (gamer != null) gamer.nick = chInfo.nickname;
+
             }
             catch (Exception exc)
             {
@@ -229,7 +234,13 @@ namespace CardGameServer
             db_connection.Close();
 
             return chInfo;
+        }
 
+        [OperationContract]
+        public void iAmOnline(string user)
+        {
+            Gamer gamer = Program.OnlineUsers.Find(u => u.login == user);
+            if (gamer != null) gamer.lastAcc = 0;
         }
 
 
@@ -331,15 +342,25 @@ namespace CardGameServer
                             if (game.gameState != 1) continue;
 
                             game.AddSecondUser(nickname, gamerCard);
+
+                            Gamer gamer2 = Program.OnlineUsers.Find(u => u.nick == nickname);
+                            if (gamer2 != null)
+                                game.tGamer = gamer2;
+
                             return game;
                         }
                     }
                     else find = true;
                 }
 
-                Program.GameThreadLock.EnterWriteLock();
+                Gamer gamer1 = Program.OnlineUsers.Find(u => u.nick == nickname);
 
                 game = new Game(nickname, gamerCard);
+                if (gamer1 != null)
+                    game.fGamer = gamer1;
+
+                Program.GameThreadLock.EnterWriteLock();
+               
                 Program.OnlineGames.Add(game);
 
                 Program.GameThreadLock.ExitWriteLock();
@@ -362,7 +383,6 @@ namespace CardGameServer
         public Game getGame(string nickname)
         {
             Game game = null;
-           // Game temp = null;
 
             try
             {
@@ -379,14 +399,12 @@ namespace CardGameServer
                     lock (game)
                     {
                         if (nickname == game.Gamers[0])
-                            game.FuLastAct = 0;
-                        else game.SuLastAct = 0;
+                            game.fGamer.lastAcc = 0;
+                        else game.tGamer.lastAcc = 0;
 
 
                         if (game.gameState == 4 || game.gameState == 5 || game.gameState == 7)
                         {
-                           // temp = new Game(game);
-
                             game.Gamers.Remove(nickname);
                             if (game.Gamers.Count == 0)
                             {
@@ -408,8 +426,6 @@ namespace CardGameServer
                 Console.WriteLine("ERROR: " + exc.Message);
             }
 
-            //if (temp != null) game = temp;
-
             return game;
         }
 
@@ -424,7 +440,6 @@ namespace CardGameServer
                 Game game = Program.OnlineGames.Find(g => g.Gamers.Contains(nickname));
                 Program.GameThreadLock.ExitReadLock();               
 
-                //TODO: finish this on client side...
                 if (game != null)
                 {
                     lock (game)
@@ -606,17 +621,18 @@ namespace CardGameServer
         }
 
         [OperationContract]
-        public void Logout(string nickname)
+        public void Logout(string user)
         {
             try
             {
                 Program.GameThreadLock.EnterReadLock();
-                Game game = Program.OnlineGames.Find(g => g.Gamers.Contains(nickname));
+                Game game = Program.OnlineGames.Find(g => g.Gamers.Contains(user));
                 Program.GameThreadLock.ExitReadLock();
 
-                if (game != null) leaveGame(nickname);
+                if (game != null) leaveGame(user);
 
-                Program.OnlineUsers.Remove(nickname);
+                Gamer gamer = Program.OnlineUsers.Find(u=>u.login == user);
+                if (gamer != null) Program.OnlineUsers.Remove(gamer);
             }
             catch (Exception exc)
             {

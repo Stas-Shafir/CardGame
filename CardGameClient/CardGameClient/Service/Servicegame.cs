@@ -31,6 +31,9 @@ namespace CardGameServer
         CharInfo EnterWorld(string user);
 
         [OperationContract]
+        void iAmOnline(string user);
+
+        [OperationContract]
         List<CharInfo> getRanking();
 
         [OperationContract]
@@ -49,6 +52,6 @@ namespace CardGameServer
         void leaveGame(string nickname);
 
         [OperationContract]
-        void Logout(string nickname);
+        void Logout(string user);
     }
 }

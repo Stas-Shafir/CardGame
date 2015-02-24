@@ -169,7 +169,7 @@ namespace CardGameClient
                         {
                             this.Dispatcher.Invoke(new Action(delegate
                             {
-
+                                App.InGame = false;
                                 string text = "Награда: \n";
 
                                 if (game.currUsr == App.NickName){
@@ -207,6 +207,7 @@ namespace CardGameClient
                         {
                             this.Dispatcher.Invoke(new Action(delegate
                             {
+                                App.InGame = false;
                                 MessageBox.Show("Победа за вами", "Противник отключился");
 
                                 App.ForceClosing = false;
@@ -293,6 +294,11 @@ namespace CardGameClient
 
             if (App.ForceClosing)
             {
+                if (App.isConnected && ServiceProxy.Proxy != null)
+                {
+                    ServiceProxy.Proxy.Logout(App.UserName);
+                }
+
                 App.isConnected = false;
                 Application.Current.Shutdown();
             }
@@ -310,7 +316,7 @@ namespace CardGameClient
             if (!ccp.ContainsCard) return;
 
             if (ccp.IsMineCard) 
-                ccp.ToolTip = "Характеристики:\nУрон: " + ccp.ThisCard.dmg + "\nЗащита: " + ccp.ThisCard.def;
+                ccp.ToolTip = "Характеристики:\nАтака: " + ccp.ThisCard.dmg + "\nЗащита: " + ccp.ThisCard.def;
         }
 
 
@@ -321,7 +327,7 @@ namespace CardGameClient
             if (!ccp.ContainsCard) return;
 
             if (!ccp.IsMineCard)                
-                ccp.ToolTip = "Характеристики:\nУрон: " + ccp.ThisCard.dmg + "\nЗащита: " + ccp.ThisCard.def +
+                ccp.ToolTip = "Характеристики:\nАтака: " + ccp.ThisCard.dmg + "\nЗащита: " + ccp.ThisCard.def +
                     "\nВы нанесёте " + (mySelectedCardPlace.ThisCard.dmg - (ccp.ThisCard.def / 2)) + " урона.";
         }
     }

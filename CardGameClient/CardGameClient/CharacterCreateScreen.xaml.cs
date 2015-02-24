@@ -55,17 +55,52 @@ namespace CardGameClient
             App.loginScreen.Show();
             Close();
         }
-
-
+        
         private void CreateCharacter()
         {
             try
-            {                
-                if (ServiceProxy.Proxy.createCharacter(App.UserName, App.NickName, CardIndex))
+            {
+                bool isError = false;
+                bool result = false;
+
+                App.ProxyMutex.WaitOne();
+                try
+                {
+                    result = ServiceProxy.Proxy.createCharacter(App.UserName, App.NickName, CardIndex);
+                }
+                catch
+                {
+                    this.Dispatcher.Invoke(new Action(delegate
+                    {
+                        App.isConnected = false;
+                        App.loginScreen.loginBtn.IsEnabled = true;
+                        App.loginScreen.errorText.Content = "Связь с сервером неожиданно прервана...";
+                        App.loginScreen.Show();
+                    }));
+                    isError = true;
+                }
+
+                App.ProxyMutex.ReleaseMutex();
+
+                if (isError)
+                {
+                    Thread.Sleep(2000);
+                    this.Dispatcher.Invoke(new Action(delegate
+                    {
+                        App.ForceClosing = false;
+                        Close();
+                    }));
+                    
+                    return;
+                }
+
+
+                if (result)
                 {
                     this.Dispatcher.Invoke(new Action(delegate {
                         LobbyScreen ls = new LobbyScreen(this);
                         ls.Show();
+                        App.WindowList.Add(ls);
                     }));
                 }
 

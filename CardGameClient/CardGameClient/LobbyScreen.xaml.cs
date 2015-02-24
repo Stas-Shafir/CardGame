@@ -56,7 +56,39 @@ namespace CardGameClient
 
         public void UpdateInfo()
         {
-            CharInfo ch = ServiceProxy.Proxy.EnterWorld(App.UserName);
+            bool isError = false;
+            CharInfo ch = null;
+
+            App.ProxyMutex.WaitOne();
+            try
+            {
+                ch = ServiceProxy.Proxy.EnterWorld(App.UserName);
+            }
+            catch
+            {
+                this.Dispatcher.Invoke(new Action(delegate
+                {
+                    App.isConnected = false;
+                    App.loginScreen.loginBtn.IsEnabled = true;
+                    App.loginScreen.errorText.Content = "Связь с сервером неожиданно прервана...";
+                    App.loginScreen.Show();
+                }));
+                isError = true;
+            }
+
+            App.ProxyMutex.ReleaseMutex();
+
+            if (isError)
+            {
+                Thread.Sleep(2000);
+                this.Dispatcher.Invoke(new Action(delegate
+                {
+                    App.ForceClosing = false;
+                    Close();
+                }));
+
+                return;
+            }
 
             NickNameLevel.Text = ch.nickname + ", " + ch.heroname + " " + ch.character_level + "-го уровня";
             Exp.Text = "Опыт: " + ch.exp;
@@ -64,7 +96,8 @@ namespace CardGameClient
             Wins.Text = "Кол-во Побед: " + ch.wins;
             Rating.Text = "Ваш рейтинг: " + ch.rating;
 
-            UpdateRanking();
+            Thread updateRankingThread = new Thread(UpdateRanking) {IsBackground = true};
+            updateRankingThread.Start();
 
         }
 
@@ -73,83 +106,152 @@ namespace CardGameClient
             Thickness mrg = new Thickness(5, 5, 0, 5);
 
 
-            List<CharInfo> RankingList = ServiceProxy.Proxy.getRanking();
+            bool isError = false;
+            List<CharInfo> RankingList = null;
 
-            ratingGrid.Children.RemoveRange(6, ratingGrid.Children.Count - 6);
-
-            for (int i = 0; i < RankingList.Count; i++)
+            App.ProxyMutex.WaitOne();
+            try
             {
-                CharInfo currCharInf = RankingList[i];
-
-                Label tx = new Label()
+                RankingList = ServiceProxy.Proxy.getRanking();
+            }
+            catch
+            {
+                this.Dispatcher.Invoke(new Action(delegate
                 {
-                    Content = (i + 1).ToString(),
-                    Foreground = Brushes.Wheat,
-                    HorizontalAlignment = HorizontalAlignment.Center,
-                    VerticalAlignment = VerticalAlignment.Center
-                };
-                ratingGrid.Children.Add(tx);
-                Grid.SetRow(tx, i + 1);
-                Grid.SetColumn(tx, 0);
+                    App.isConnected = false;
+                    App.loginScreen.loginBtn.IsEnabled = true;
+                    App.loginScreen.errorText.Content = "Связь с сервером неожиданно прервана...";
+                    App.loginScreen.Show();
+                }));
+                isError = true;
+            }
 
-                tx = new Label()
+            App.ProxyMutex.ReleaseMutex();
+
+            if (isError)
+            {
+                Thread.Sleep(2000);
+                this.Dispatcher.Invoke(new Action(delegate
                 {
-                    Content = currCharInf.nickname,
-                    Foreground = Brushes.Wheat,
-                    HorizontalAlignment = HorizontalAlignment.Center,
-                    VerticalAlignment = VerticalAlignment.Center
-                };
-                ratingGrid.Children.Add(tx);
-                Grid.SetRow(tx, i + 1);
-                Grid.SetColumn(tx, 1);
+                    App.ForceClosing = false;
+                    Close();
+                }));
 
+                return;
+            }
 
-                tx = new Label()
+            this.Dispatcher.Invoke(new Action(delegate
                 {
-                    Content = currCharInf.heroname + " "
-                        + currCharInf.character_level + "-го уровня",
-                    Foreground = Brushes.Wheat,
-                    HorizontalAlignment = HorizontalAlignment.Center,
-                    VerticalAlignment = VerticalAlignment.Center
+                    ratingGrid.Children.RemoveRange(6, ratingGrid.Children.Count - 6);
 
-                };
-                ratingGrid.Children.Add(tx);
-                Grid.SetRow(tx, i + 1);
-                Grid.SetColumn(tx, 2);
+                    for (int i = 0; i < RankingList.Count; i++)
+                    {
+                        CharInfo currCharInf = RankingList[i];
+
+                        Label tx = new Label()
+                        {
+                            Content = (i + 1).ToString(),
+                            Foreground = Brushes.Wheat,
+                            HorizontalAlignment = HorizontalAlignment.Center,
+                            VerticalAlignment = VerticalAlignment.Center
+                        };
+                        ratingGrid.Children.Add(tx);
+                        Grid.SetRow(tx, i + 1);
+                        Grid.SetColumn(tx, 0);
+
+                        tx = new Label()
+                        {
+                            Content = currCharInf.nickname,
+                            Foreground = Brushes.Wheat,
+                            HorizontalAlignment = HorizontalAlignment.Center,
+                            VerticalAlignment = VerticalAlignment.Center
+                        };
+                        ratingGrid.Children.Add(tx);
+                        Grid.SetRow(tx, i + 1);
+                        Grid.SetColumn(tx, 1);
 
 
-                tx = new Label()
-                {
-                    Content = currCharInf.games.ToString(),
-                    Foreground = Brushes.Wheat,
-                    HorizontalAlignment = HorizontalAlignment.Center,
-                    VerticalAlignment = VerticalAlignment.Center
+                        tx = new Label()
+                        {
+                            Content = currCharInf.heroname + " "
+                                + currCharInf.character_level + "-го уровня",
+                            Foreground = Brushes.Wheat,
+                            HorizontalAlignment = HorizontalAlignment.Center,
+                            VerticalAlignment = VerticalAlignment.Center
 
-                };
-                ratingGrid.Children.Add(tx);
-                Grid.SetRow(tx, i + 1);
-                Grid.SetColumn(tx, 3);
+                        };
+                        ratingGrid.Children.Add(tx);
+                        Grid.SetRow(tx, i + 1);
+                        Grid.SetColumn(tx, 2);
 
 
-                tx = new Label()
-                {
-                    Content = currCharInf.wins.ToString(),
-                    Foreground = Brushes.Wheat,
-                    HorizontalAlignment = HorizontalAlignment.Center,
-                    VerticalAlignment = VerticalAlignment.Center
-                };
-                ratingGrid.Children.Add(tx);
-                Grid.SetRow(tx, i + 1);
-                Grid.SetColumn(tx, 4);
-            }  
+                        tx = new Label()
+                        {
+                            Content = currCharInf.games.ToString(),
+                            Foreground = Brushes.Wheat,
+                            HorizontalAlignment = HorizontalAlignment.Center,
+                            VerticalAlignment = VerticalAlignment.Center
+
+                        };
+                        ratingGrid.Children.Add(tx);
+                        Grid.SetRow(tx, i + 1);
+                        Grid.SetColumn(tx, 3);
+
+
+                        tx = new Label()
+                        {
+                            Content = currCharInf.wins.ToString(),
+                            Foreground = Brushes.Wheat,
+                            HorizontalAlignment = HorizontalAlignment.Center,
+                            VerticalAlignment = VerticalAlignment.Center
+                        };
+                        ratingGrid.Children.Add(tx);
+                        Grid.SetRow(tx, i + 1);
+                        Grid.SetColumn(tx, 4);
+                    }
+                }));
         }
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
             try
             {
-                CharInfo ch = ServiceProxy.Proxy.EnterWorld(App.UserName);
 
+                bool isError = false;
+                CharInfo ch = null;
+
+                App.ProxyMutex.WaitOne();
+                try
+                {
+                    ch = ServiceProxy.Proxy.EnterWorld(App.UserName);
+                }
+                catch
+                {
+                    this.Dispatcher.Invoke(new Action(delegate
+                    {
+                        App.isConnected = false;
+                        App.loginScreen.loginBtn.IsEnabled = true;
+                        App.loginScreen.errorText.Content = "Связь с сервером неожиданно прервана...";
+                        App.loginScreen.Show();
+                    }));
+                    isError = true;
+                }
+
+                App.ProxyMutex.ReleaseMutex();
+
+                if (isError)
+                {
+                    Thread.Sleep(2000);
+                    this.Dispatcher.Invoke(new Action(delegate
+                    {
+                        App.ForceClosing = false;
+                        Close();
+                    }));
+
+                    return;
+                }
+
+                
                 App.NickName = ch.nickname;
 
                 NickNameLevel.Text = ch.nickname + ", " + ch.heroname + " " + ch.character_level + "-го уровня";
@@ -158,7 +260,8 @@ namespace CardGameClient
                 Wins.Text = "Кол-во Побед: " + ch.wins;
                 Rating.Text = "Ваш рейтинг: " + ch.rating;
 
-                UpdateRanking();
+                Thread updateRankingThread = new Thread(UpdateRanking) { IsBackground = true };
+                updateRankingThread.Start();            
                 
             }
             catch (Exception exc)
@@ -174,17 +277,52 @@ namespace CardGameClient
 
         private void OnGameEnd(object sender, System.ComponentModel.CancelEventArgs e)
         {          
-            findBtn.Enabled = true; 
+            findBtn.Enabled = true;
+            App.InGame = false;
             Show();
             UpdateInfo();
 
         }
-
+        //187 cnhjrf
         private void FindGame()
         {
             try
             {
-                Game game = ServiceProxy.Proxy.findGame(App.NickName);
+                bool isError = false;
+                Game game = null;
+
+                App.ProxyMutex.WaitOne();
+                try
+                {
+                    game = ServiceProxy.Proxy.findGame(App.NickName);
+                }
+                catch
+                {
+                    this.Dispatcher.Invoke(new Action(delegate
+                    {
+                        App.isConnected = false;
+                        App.loginScreen.loginBtn.IsEnabled = true;
+                        App.loginScreen.errorText.Content = "Связь с сервером неожиданно прервана...";
+                        App.loginScreen.Show();
+                    }));
+                    isError = true;
+                }
+
+                App.ProxyMutex.ReleaseMutex();
+
+                if (isError)
+                {
+                    Thread.Sleep(2000);
+                    this.Dispatcher.Invoke(new Action(delegate
+                    {
+                        App.ForceClosing = false;
+                        Close();
+                    }));
+
+                    return;
+                }
+
+                
                 if (game == null)
                 {
                     this.Dispatcher.Invoke(new Action(delegate
@@ -196,6 +334,8 @@ namespace CardGameClient
 
                     return;
                 }
+
+                App.InGame = true;
 
                 this.Dispatcher.Invoke(new Action(delegate
                 {
@@ -222,13 +362,46 @@ namespace CardGameClient
                         findBtn.Enabled = true;
 
                         mw.Show();
+                        App.WindowList.Add(mw);
                     }));
                 }
                 else if (game.gameState == 1)
                 {
                     while (true)
                     {
-                        game = ServiceProxy.Proxy.getGame(App.NickName);
+                        isError = false;
+
+                        App.ProxyMutex.WaitOne();
+                        try
+                        {
+                            game = ServiceProxy.Proxy.getGame(App.NickName);
+                        }
+                        catch
+                        {
+                            this.Dispatcher.Invoke(new Action(delegate
+                            {
+                                App.isConnected = false;
+                                App.loginScreen.loginBtn.IsEnabled = true;
+                                App.loginScreen.errorText.Content = "Связь с сервером неожиданно прервана...";
+                                App.loginScreen.Show();
+                            }));
+                            isError = true;
+                        }
+
+                        App.ProxyMutex.ReleaseMutex();
+
+                        if (isError)
+                        {
+                            Thread.Sleep(2000);
+                            this.Dispatcher.Invoke(new Action(delegate
+                            {
+                                App.ForceClosing = false;
+                                Close();
+                            }));
+
+                            return;
+                        }
+
                         if (game != null)
                         {
                             if (game.gameState == 2)
@@ -248,6 +421,7 @@ namespace CardGameClient
                                     mw.Closing += OnGameEnd;
                                     findBtn.Enabled = true;
                                     mw.Show();
+                                    App.WindowList.Add(mw);
                                 }));
                                 break;
                             }
@@ -275,9 +449,43 @@ namespace CardGameClient
             {
                 //findGameThread.Abort();
                 findBtn.Enabled = false;
-                ServiceProxy.Proxy.cancelSearch(App.NickName);
+
+                bool isError = false;
+
+                App.ProxyMutex.WaitOne();
+                try
+                {
+                    ServiceProxy.Proxy.cancelSearch(App.NickName);
+                }
+                catch
+                {
+                    this.Dispatcher.Invoke(new Action(delegate
+                    {
+                        App.isConnected = false;
+                        App.loginScreen.loginBtn.IsEnabled = true;
+                        App.loginScreen.errorText.Content = "Связь с сервером неожиданно прервана...";
+                        App.loginScreen.Show();
+                    }));
+                    isError = true;
+                }
+
+                App.ProxyMutex.ReleaseMutex();
+
+                if (isError)
+                {
+                    Thread.Sleep(2000);
+                    this.Dispatcher.Invoke(new Action(delegate
+                    {
+                        App.ForceClosing = false;
+                        Close();
+                    }));
+
+                    return;
+                }
+
                 findBtn.InProgress = false;
                 findBtn.Enabled = true;
+                App.InGame = false;
                 return;
             }
 

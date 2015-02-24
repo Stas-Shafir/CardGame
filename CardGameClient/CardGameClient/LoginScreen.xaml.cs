@@ -54,12 +54,42 @@ namespace CardGameClient
                 {
                     App.UserName = login;
                     App.isConnected = true;
-                    if (!ServiceProxy.Proxy.isAccountContainsAnyCharacter(login))
+
+                    App.iamonlineTread = new Thread(App.iAmOnline) { IsBackground = true };
+                    App.iamonlineTread.Start();
+
+                    bool isError = false;
+
+                    bool contains = false;
+
+                    App.ProxyMutex.WaitOne();
+                    try
+                    {
+                        contains = ServiceProxy.Proxy.isAccountContainsAnyCharacter(login);
+                    }
+                    catch
+                    {
+                        this.Dispatcher.Invoke(new Action(delegate
+                        {
+                            App.isConnected = false;
+                            loginBtn.IsEnabled = true;
+                            errorText.Content = "Связь с сервером неожиданно прервана...";
+                        }));
+                        isError = true;
+                    }
+
+                    App.ProxyMutex.ReleaseMutex();
+
+                    if (isError) return;
+
+
+                    if (!contains)
                     {
                         this.Dispatcher.Invoke(new Action(delegate
                         {
                             CharacterCreateScreen ccs = new CharacterCreateScreen(this);
-                            ccs.Show();                            
+                            ccs.Show();
+                            App.WindowList.Add(ccs);
                         }));
                     }
                     else
@@ -68,6 +98,7 @@ namespace CardGameClient
                         {
                             LobbyScreen ls = new LobbyScreen(this);
                             ls.Show();
+                            App.WindowList.Add(ls);
                         }));
 
                         Thread.Sleep(3000);

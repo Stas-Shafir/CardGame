@@ -20,10 +20,62 @@ namespace CardGameServer
         public static List<Card> cards = new List<Card>();
         public static List<Card> template_cards = new List<Card>();
 
-        public static List<string> OnlineUsers = new List<string>();
+        public static List<Gamer> OnlineUsers = new List<Gamer>();
         public static List<Game> OnlineGames = new List<Game>();
 
         public static ReaderWriterLockSlim GameThreadLock = new ReaderWriterLockSlim();
+
+
+        static void detectTimeout()
+        {
+            while (true)
+            {
+                List<Gamer> users = new List<Gamer>(OnlineUsers);
+
+                foreach (var user in users)
+                {
+                    user.lastAcc++;
+
+                    if (user.lastAcc > 20)
+                    {
+                        GameThreadLock.EnterReadLock();
+                        Game game = OnlineGames.Find(g => g.Gamers.Exists(u => u == user.nick));
+                        GameThreadLock.ExitReadLock();
+
+                        bool remove = false;
+
+                        try
+                        {
+                            if (game != null)
+                            {
+                                lock (game)
+                                {
+                                    game.gameState = 5;
+                                    game.Gamers.Remove(user.nick);
+                                    if (game.Gamers.Count == 0)
+                                    {
+                                        remove = true;
+                                    }
+                                }
+                            }
+                        }
+                        catch { }
+
+                        OnlineUsers.Remove(user);
+
+                        if (remove)
+                        {
+                            GameThreadLock.EnterWriteLock();
+                            OnlineGames.Remove(game);
+                            GameThreadLock.ExitWriteLock();
+                        }
+                    }
+                }
+
+                Thread.Sleep(1000);
+            }
+        }
+
 
         static void Main(string[] args)
         {
@@ -87,6 +139,11 @@ namespace CardGameServer
                 Console.WriteLine("===============================");
 
                 host.Open();
+
+
+                Thread detectTimeoutThread = new Thread(detectTimeout) { IsBackground = true };
+                detectTimeoutThread.Start();
+
 
                 Uri startedUri = host.Description.Endpoints[0].Address.Uri;
 

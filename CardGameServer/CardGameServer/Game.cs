@@ -9,8 +9,8 @@ namespace CardGameServer
     [DataContract]
     public class Game
     {
-        public int FuLastAct = 0;
-        public int SuLastAct = 0;
+        public Gamer fGamer = null;
+        public Gamer tGamer = null;
 
         Random Rnd;
 
