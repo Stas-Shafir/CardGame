@@ -75,8 +75,32 @@ namespace CardGameClient
                 }
 
                 //attack
-                int dmg = ServiceProxy.Proxy.DoAttack(App.NickName, mySelectedCardPlace.ThisCard.slot,
-                    enemySelectedCardPlace.ThisCard.slot);
+                bool isError = false;
+                int dmg = -1;
+                App.ProxyMutex.WaitOne();
+                try
+                {
+                    dmg = ServiceProxy.Proxy.DoAttack(App.NickName, mySelectedCardPlace.ThisCard.slot,
+                        enemySelectedCardPlace.ThisCard.slot);
+                }
+                catch
+                {
+                    this.Dispatcher.Invoke(new Action(delegate
+                    {
+                        App.isConnected = false;
+                        App.loginScreen.loginBtn.IsEnabled = true;
+                        App.loginScreen.errorText.Content = "Связь с сервером неожиданно прервана...";
+                        App.loginScreen.Show();
+                    }));
+                    isError = true;
+                }
+                App.ProxyMutex.ReleaseMutex();
+
+                if (isError)
+                {
+                    App.OnConnectionError();
+                    return;
+                }
 
                 //if success
                 if (dmg != -1) enemySelectedCardPlace.AnimateDmg(dmg.ToString());
@@ -93,7 +117,7 @@ namespace CardGameClient
             {
                 this.Dispatcher.Invoke(new Action(delegate
                 {
-                    MessageBox.Show(exc.Message + "\n\n" + exc.InnerException.Message, "Критическая ошибка!");
+                    MessageBox.Show(exc.Message, "Критическая ошибка!");
                     App.isConnected = false;
                     Application.Current.Shutdown();
                 }));
@@ -108,7 +132,33 @@ namespace CardGameClient
                 while (true)
                 {
                     Thread.Sleep(500);
-                    game = ServiceProxy.Proxy.getGame(App.NickName);
+
+                    bool isError = false;
+
+                    App.ProxyMutex.WaitOne();
+                    try
+                    {
+                        game = ServiceProxy.Proxy.getGame(App.NickName);
+                    }
+                    catch
+                    {
+                        this.Dispatcher.Invoke(new Action(delegate
+                        {
+                            App.isConnected = false;
+                            App.loginScreen.loginBtn.IsEnabled = true;
+                            App.loginScreen.errorText.Content = "Связь с сервером неожиданно прервана...";
+                            App.loginScreen.Show();
+                        }));
+                        isError = true;
+                    }
+                    App.ProxyMutex.ReleaseMutex();
+
+                    if (isError)
+                    {
+                        App.OnConnectionError();
+                        return;
+                    }
+
 
                     if (game != null)
                     {  
@@ -223,7 +273,7 @@ namespace CardGameClient
             {
                 this.Dispatcher.Invoke(new Action(delegate
                 {
-                    MessageBox.Show(exc.Message + "\n\n" + exc.InnerException.Message, "Критическая ошибка!");
+                    MessageBox.Show(exc.Message, "Критическая ошибка!");
                     App.isConnected = false;
                     Application.Current.Shutdown();
                 }));
@@ -247,7 +297,31 @@ namespace CardGameClient
                     }
                 }
 
-                game = ServiceProxy.Proxy.getGame(App.NickName);
+                bool isError = false;
+
+                App.ProxyMutex.WaitOne();
+                try
+                {
+                    game = ServiceProxy.Proxy.getGame(App.NickName);
+                }
+                catch
+                {
+                    this.Dispatcher.Invoke(new Action(delegate
+                    {
+                        App.isConnected = false;
+                        App.loginScreen.loginBtn.IsEnabled = true;
+                        App.loginScreen.errorText.Content = "Связь с сервером неожиданно прервана...";
+                        App.loginScreen.Show();
+                    }));
+                    isError = true;
+                }
+                App.ProxyMutex.ReleaseMutex();
+
+                if (isError)
+                {
+                    App.OnConnectionError();
+                    return;
+                }
 
                 if (App.NickName == game.Gamers[0])
                 {
@@ -273,7 +347,7 @@ namespace CardGameClient
             {
                 this.Dispatcher.Invoke(new Action(delegate
                 {
-                    MessageBox.Show(exc.Message + "\n\n" + exc.InnerException.Message, "Критическая ошибка!");
+                    MessageBox.Show(exc.Message, "Критическая ошибка!");
                     App.isConnected = false;
                     Application.Current.Shutdown();
                 }));
@@ -286,21 +360,49 @@ namespace CardGameClient
         }
 
         private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
-        {
+        {     
+            bool isError = false;
             if (App.isConnected && ServiceProxy.Proxy != null)
             {
-                ServiceProxy.Proxy.leaveGame(App.NickName);
+                App.ProxyMutex.WaitOne();
+                try
+                {
+                    ServiceProxy.Proxy.leaveGame(App.NickName);
+                }
+                catch
+                {
+                    this.Dispatcher.Invoke(new Action(delegate
+                    {
+                        App.isConnected = false;
+                        App.loginScreen.loginBtn.IsEnabled = true;
+                        App.loginScreen.errorText.Content = "Связь с сервером неожиданно прервана...";
+                        App.loginScreen.Show();
+                    }));
+                    isError = true;
+                }
+                App.ProxyMutex.ReleaseMutex();
             }
 
             if (App.ForceClosing)
             {
                 if (App.isConnected && ServiceProxy.Proxy != null)
                 {
-                    ServiceProxy.Proxy.Logout(App.UserName);
+                    App.ProxyMutex.WaitOne();
+                    try
+                    {
+                        ServiceProxy.Proxy.Logout(App.UserName);
+                    }
+                    catch {}
+                    App.ProxyMutex.ReleaseMutex();
                 }
 
                 App.isConnected = false;
                 Application.Current.Shutdown();
+            }
+            else if (isError)
+            {
+                App.OnConnectionError();
+                return;
             }
         }
 

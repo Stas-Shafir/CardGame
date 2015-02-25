@@ -38,7 +38,7 @@ namespace CardGameClient
         {
             while (true)
             {
-                if (!App.InGame)
+                if (!App.InGame && App.isConnected)
                 {
                     bool isError = false;
 
@@ -62,26 +62,30 @@ namespace CardGameClient
 
                     if (isError)
                     {
-                        Thread.Sleep(2000);
-                        App.loginScreen.Dispatcher.Invoke(new Action(delegate
-                        {
-                            App.isConnected = false;
-                            foreach (Window window in App.WindowList)
-                            {
-                                try
-                                {
-                                    App.ForceClosing = false;
-                                    window.Close();
-                                }
-                                catch { }
-                            }
-                        }));
-
+                        App.OnConnectionError();
                         return;
                     }
                 }
                 Thread.Sleep(1000);
             }
+        }
+
+        public static void OnConnectionError()
+        {
+            Thread.Sleep(2000);
+            App.loginScreen.Dispatcher.Invoke(new Action(delegate
+            {
+                App.isConnected = false;
+                foreach (Window window in App.WindowList)
+                {
+                    try
+                    {
+                        App.ForceClosing = false;
+                        window.Close();
+                    }
+                    catch { }
+                }
+            }));
         }
     }
 }

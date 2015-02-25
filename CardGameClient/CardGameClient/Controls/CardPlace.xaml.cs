@@ -102,8 +102,11 @@ namespace CardGameClient
             set
             {
                 Portrait.Source = value;
-                ContainsCard = true;
-                borderImg.Source = isMineCard ? myCardBorder : enemyCardBorder;
+                if (value != null)
+                {
+                    ContainsCard = true;
+                    borderImg.Source = isMineCard ? myCardBorder : enemyCardBorder;
+                }
             }
         }
 

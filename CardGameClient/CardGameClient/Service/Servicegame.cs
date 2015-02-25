@@ -53,5 +53,12 @@ namespace CardGameServer
 
         [OperationContract]
         void Logout(string user);
+
+        [OperationContract]
+        List<Card> GetAllCard(string user);
+
+        [OperationContract]
+        bool ChangeCardslot(string user, int oslot, int nSlot);
+        
     }
 }

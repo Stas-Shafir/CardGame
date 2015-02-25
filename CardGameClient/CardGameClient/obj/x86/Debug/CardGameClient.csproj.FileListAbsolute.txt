@@ -184,4 +184,3 @@ F:\Шаг\CardGameClient\CardGameClient\obj\x86\Debug\MainWindow.baml
 F:\Шаг\CardGameClient\CardGameClient\obj\x86\Debug\CardGameClient.g.resources
 F:\Шаг\CardGameClient\CardGameClient\obj\x86\Debug\CardGameClient.Properties.Resources.resources
 F:\Шаг\CardGameClient\CardGameClient\obj\x86\Debug\CardGameClient.csproj.GenerateResource.Cache
-D:\Шаг\CardGameClient\CardGameClient\obj\x86\Debug\CardGameClient.csprojResolveAssemblyReference.cache

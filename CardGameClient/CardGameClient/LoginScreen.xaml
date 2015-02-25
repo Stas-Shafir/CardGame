@@ -23,7 +23,7 @@
             </PasswordBox>
             <Image RenderOptions.BitmapScalingMode="Fant" Height="25" HorizontalAlignment="Left" Margin="88,57,0,0" Name="login_text" VerticalAlignment="Top" Width="71" Source="/CardGameClient;component/Images/login_text.png" />
             <Image RenderOptions.BitmapScalingMode="Fant" Height="25" HorizontalAlignment="Left" Margin="77,97,0,0" Name="password_text" VerticalAlignment="Top" Width="82" Source="/CardGameClient;component/Images/password_text.png" />
-            <dc:StyledBtn x:Name="loginBtn" Text="Войти" Height="34" Width="130" Margin="56,156,209,40" MouseUp="loginBtn_MouseUp"></dc:StyledBtn>
+            <dc:StyledBtn x:Name="loginBtn" Text="Войти" Height="34" Width="130" Margin="56,156,0,40" MouseUp="loginBtn_MouseUp" HorizontalAlignment="Left"></dc:StyledBtn>
             <dc:StyledBtn x:Name="exitBtn" Text="Выйти" Height="34" Width="130" Margin="0,156,53,40" HorizontalAlignment="Right" MouseUp="exitBtn_MouseUp"></dc:StyledBtn>
         </Grid>
         <Image Name="LogoImg" Height="149" HorizontalAlignment="Center" VerticalAlignment="Top" Width="492" Source="/CardGameClient;component/Images/logo.png" Margin="0,70,0,0" />

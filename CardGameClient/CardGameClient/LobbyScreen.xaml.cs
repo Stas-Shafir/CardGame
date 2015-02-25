@@ -32,14 +32,40 @@ namespace CardGameClient
 
         private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
+            bool isError = false;
             if (App.isConnected && ServiceProxy.Proxy != null)
             {
                 App.isConnected = false;
-                ServiceProxy.Proxy.Logout(App.UserName);
+                App.ProxyMutex.WaitOne();
+                try
+                {
+                    if (findBtn.InProgress)
+                    {
+                        ServiceProxy.Proxy.cancelSearch(App.NickName);
+                    }
+                    ServiceProxy.Proxy.Logout(App.UserName);
+                }
+                catch
+                {
+                    this.Dispatcher.Invoke(new Action(delegate
+                    {
+                        App.isConnected = false;
+                        App.loginScreen.loginBtn.IsEnabled = true;
+                        App.loginScreen.errorText.Content = "Связь с сервером неожиданно прервана...";
+                        App.loginScreen.Show();
+                    }));
+                    isError = true;
+                }
+                App.ProxyMutex.ReleaseMutex();
             }
 
             if (App.ForceClosing)
                 Application.Current.Shutdown();
+            else if (isError)
+            {
+                App.OnConnectionError();
+                return;
+            }
         }
 
         private void Window_Closed(object sender, EventArgs e)
@@ -80,13 +106,7 @@ namespace CardGameClient
 
             if (isError)
             {
-                Thread.Sleep(2000);
-                this.Dispatcher.Invoke(new Action(delegate
-                {
-                    App.ForceClosing = false;
-                    Close();
-                }));
-
+                App.OnConnectionError();
                 return;
             }
 
@@ -130,13 +150,7 @@ namespace CardGameClient
 
             if (isError)
             {
-                Thread.Sleep(2000);
-                this.Dispatcher.Invoke(new Action(delegate
-                {
-                    App.ForceClosing = false;
-                    Close();
-                }));
-
+                App.OnConnectionError();
                 return;
             }
 
@@ -216,7 +230,6 @@ namespace CardGameClient
         {
             try
             {
-
                 bool isError = false;
                 CharInfo ch = null;
 
@@ -241,13 +254,7 @@ namespace CardGameClient
 
                 if (isError)
                 {
-                    Thread.Sleep(2000);
-                    this.Dispatcher.Invoke(new Action(delegate
-                    {
-                        App.ForceClosing = false;
-                        Close();
-                    }));
-
+                    App.OnConnectionError();
                     return;
                 }
 
@@ -268,7 +275,7 @@ namespace CardGameClient
             {
                 this.Dispatcher.Invoke(new Action(delegate
                 {
-                    MessageBox.Show(exc.Message + "\n\n" + exc.InnerException.Message, "Критическая ошибка!");
+                    MessageBox.Show(exc.Message, "Критическая ошибка!");
                     App.isConnected = false;
                     Application.Current.Shutdown();
                 }));     
@@ -278,6 +285,8 @@ namespace CardGameClient
         private void OnGameEnd(object sender, System.ComponentModel.CancelEventArgs e)
         {          
             findBtn.Enabled = true;
+            MainLobbyBackBtn.ToolTip = null;
+            AllCardsBtn.ToolTip = null;
             App.InGame = false;
             Show();
             UpdateInfo();
@@ -312,13 +321,7 @@ namespace CardGameClient
 
                 if (isError)
                 {
-                    Thread.Sleep(2000);
-                    this.Dispatcher.Invoke(new Action(delegate
-                    {
-                        App.ForceClosing = false;
-                        Close();
-                    }));
-
+                    App.OnConnectionError();
                     return;
                 }
 
@@ -392,13 +395,7 @@ namespace CardGameClient
 
                         if (isError)
                         {
-                            Thread.Sleep(2000);
-                            this.Dispatcher.Invoke(new Action(delegate
-                            {
-                                App.ForceClosing = false;
-                                Close();
-                            }));
-
+                            App.OnConnectionError();
                             return;
                         }
 
@@ -436,7 +433,7 @@ namespace CardGameClient
             {
                 this.Dispatcher.Invoke(new Action(delegate
                 {
-                    MessageBox.Show(exc.Message + "\n\n" + exc.InnerException.Message, "Критическая ошибка!");
+                    MessageBox.Show(exc.Message, "Критическая ошибка!");
                     App.isConnected = false;
                     Application.Current.Shutdown();
                 }));
@@ -473,23 +470,21 @@ namespace CardGameClient
 
                 if (isError)
                 {
-                    Thread.Sleep(2000);
-                    this.Dispatcher.Invoke(new Action(delegate
-                    {
-                        App.ForceClosing = false;
-                        Close();
-                    }));
-
+                    App.OnConnectionError();
                     return;
                 }
 
                 findBtn.InProgress = false;
                 findBtn.Enabled = true;
+                MainLobbyBackBtn.ToolTip = null;
+                AllCardsBtn.ToolTip = null;
                 App.InGame = false;
                 return;
             }
 
             findBtn.Enabled = false;
+            MainLobbyBackBtn.ToolTip = "Идёт поиск игры. Для того, чтобы выйти требуется его отменить...";
+            AllCardsBtn.ToolTip = "Идёт поиск игры. Для того, чтобы выполнить данное действуе требуется его отменить...";
             findBtn.textLabel.Content = "Поиск противника...";
 
             findGameThread = new Thread(FindGame) { IsBackground = true };
@@ -499,6 +494,153 @@ namespace CardGameClient
         private void Window_ContentRendered_1(object sender, EventArgs e)
         { 
             Owner.Hide();
-        }      
+        }
+
+        private void AllCardPlace_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            CardPlace cp = sender as CardPlace;
+
+            cp.selected = false;
+
+            foreach (CardPlace item in SlotGrid.Children)
+            {
+                if (item.ContainsCard) continue;
+
+                int oslot = cp.ThisCard.slot;
+                int nslot = Int32.Parse(item.Tag.ToString());
+
+                bool isError = false;
+
+                bool res = false;
+
+                App.ProxyMutex.WaitOne();
+                try
+                {
+
+                    res = ServiceProxy.Proxy.ChangeCardslot(App.UserName, oslot, nslot);
+                }
+                catch (CommunicationException exc)
+                {
+                    this.Dispatcher.Invoke(new Action(delegate
+                    {
+                        App.isConnected = false;
+                        App.loginScreen.loginBtn.IsEnabled = true;
+                        App.loginScreen.errorText.Content = "Связь с сервером неожиданно прервана...";
+                        App.loginScreen.Show();
+                    }));
+                    isError = true;
+                }
+
+                App.ProxyMutex.ReleaseMutex();
+
+                if (isError)
+                {
+                    App.OnConnectionError();
+                    return;
+                }
+
+
+                if (res)
+                {
+                    item.ThisCard = cp.ThisCard;
+                    item.ThisCard.slot = nslot;
+                    cp.ContainsCard = false;                    
+                }
+
+                return;
+
+            }
+
+            MessageBox.Show("Все боевые слоты уже заняты\nЧтобы переместить туда эту карту необходимо освободить один...");
+        }
+
+        private void SlotCardPlace_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+
+        }
+
+        public void GetAllCard()
+        {
+            bool isError = false;
+            List<Card> allCards = null;
+
+            App.ProxyMutex.WaitOne();
+            try
+            {
+                allCards = ServiceProxy.Proxy.GetAllCard(App.UserName);
+            }
+            catch (CommunicationException exc)
+            {
+                this.Dispatcher.Invoke(new Action(delegate
+                {
+                    App.isConnected = false;
+                    App.loginScreen.loginBtn.IsEnabled = true;
+                    App.loginScreen.errorText.Content = "Связь с сервером неожиданно прервана...";
+                    App.loginScreen.Show();
+                }));
+                isError = true;
+            }
+
+            App.ProxyMutex.ReleaseMutex();
+
+            if (isError)
+            {
+                App.OnConnectionError();
+                return;
+            }
+
+            if (allCards != null)
+            {
+                this.Dispatcher.Invoke(new Action(delegate
+                {
+                    foreach (var item in allCards)
+                    {
+                        CardPlace cp;
+                        if (item.slot >= 10)
+                        {
+                            cp = AllCardsGrid.Children[item.slot - 10] as CardPlace;
+                            cp.ThisCard = item;
+                        }
+                        else
+                        {
+                            cp = SlotGrid.Children[item.slot - 1] as CardPlace;
+                            cp.ThisCard = item;
+                        }
+                    }
+                }));
+            }
+        }
+
+        private void MyCardsGrid_IsVisibleChanged(object sender, DependencyPropertyChangedEventArgs e)
+        {
+            if (MyCardsGrid.Visibility == Visibility.Visible)
+            {
+                Thread fillMyCardGridThread = new Thread(GetAllCard);
+                fillMyCardGridThread.Start();
+            }
+        }
+
+        private void AllCardsBtn_MouseUp(object sender, MouseButtonEventArgs e)
+        {
+            if (findBtn.InProgress) return;
+
+            MyCardsGrid.Visibility = Visibility.Visible;
+            MainLobbyGrid.Visibility = Visibility.Hidden;
+        }
+
+        private void CardsExitBtn_MouseUp(object sender, MouseButtonEventArgs e)
+        {
+            MyCardsGrid.Visibility = Visibility.Hidden;
+            MainLobbyGrid.Visibility = Visibility.Visible;
+        }
+
+        private void MainLobbyBackBtn_MouseUp(object sender, MouseButtonEventArgs e)
+        {
+            if (findBtn.InProgress) return;
+
+            App.ForceClosing = false;
+            App.loginScreen.Show();
+            Close();
+        }            
     }
 }

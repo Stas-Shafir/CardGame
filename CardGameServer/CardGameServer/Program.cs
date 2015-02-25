@@ -24,13 +24,16 @@ namespace CardGameServer
         public static List<Game> OnlineGames = new List<Game>();
 
         public static ReaderWriterLockSlim GameThreadLock = new ReaderWriterLockSlim();
+        public static ReaderWriterLockSlim UserThreadLock = new ReaderWriterLockSlim();
 
 
         static void detectTimeout()
         {
             while (true)
             {
+                UserThreadLock.EnterReadLock();
                 List<Gamer> users = new List<Gamer>(OnlineUsers);
+                UserThreadLock.ExitReadLock();
 
                 foreach (var user in users)
                 {
@@ -61,7 +64,9 @@ namespace CardGameServer
                         }
                         catch { }
 
+                        UserThreadLock.EnterWriteLock();
                         OnlineUsers.Remove(user);
+                        UserThreadLock.ExitWriteLock();
 
                         if (remove)
                         {

@@ -23,7 +23,11 @@ namespace CardGameServer
             //2 already online 
             //3 hacking attempt
 
-            if (Program.OnlineUsers.Find(u => u.login == user) != null)
+            Program.UserThreadLock.EnterReadLock();
+            Gamer gamer = Program.OnlineUsers.Find(u => u.login == user);
+            Program.UserThreadLock.ExitReadLock();
+
+            if (gamer != null)
                 return 2;
 
 
@@ -49,7 +53,9 @@ namespace CardGameServer
 
                     if (password == pass)
                     {
+                        Program.UserThreadLock.EnterWriteLock();
                         Program.OnlineUsers.Add(new Gamer(user));
+                        Program.UserThreadLock.ExitWriteLock();
                         return 0;
                     }
                     return 1;
@@ -72,7 +78,9 @@ namespace CardGameServer
 
             if (!isError)
             {
+                Program.UserThreadLock.EnterWriteLock();
                 Program.OnlineUsers.Add(new Gamer(user));
+                Program.UserThreadLock.ExitWriteLock();
                 return 0;
             }
             else return 4;
@@ -221,8 +229,9 @@ namespace CardGameServer
 
                 res.Close();
 
-
+                Program.UserThreadLock.EnterReadLock();
                 Gamer gamer = Program.OnlineUsers.Find(u => u.login == user);
+                Program.UserThreadLock.ExitReadLock();
                 if (gamer != null) gamer.nick = chInfo.nickname;
 
             }
@@ -239,7 +248,9 @@ namespace CardGameServer
         [OperationContract]
         public void iAmOnline(string user)
         {
+            Program.UserThreadLock.EnterReadLock();
             Gamer gamer = Program.OnlineUsers.Find(u => u.login == user);
+            Program.UserThreadLock.ExitReadLock();
             if (gamer != null) gamer.lastAcc = 0;
         }
 
@@ -306,7 +317,7 @@ namespace CardGameServer
                     res.Close();
 
                     cmd = new SqlCommand("SELECT card_id, slot FROM character_cards where char_id=" + char_id +
-                        " AND slot >= 0", db_connection);
+                        " AND slot >= 0 AND slot <= 8", db_connection);
 
                     res = cmd.ExecuteReader();
 
@@ -343,7 +354,9 @@ namespace CardGameServer
 
                             game.AddSecondUser(nickname, gamerCard);
 
+                            Program.UserThreadLock.EnterReadLock();
                             Gamer gamer2 = Program.OnlineUsers.Find(u => u.nick == nickname);
+                            Program.UserThreadLock.ExitReadLock();
                             if (gamer2 != null)
                                 game.tGamer = gamer2;
 
@@ -353,7 +366,9 @@ namespace CardGameServer
                     else find = true;
                 }
 
+                Program.UserThreadLock.EnterReadLock();
                 Gamer gamer1 = Program.OnlineUsers.Find(u => u.nick == nickname);
+                Program.UserThreadLock.ExitReadLock();
 
                 game = new Game(nickname, gamerCard);
                 if (gamer1 != null)
@@ -631,8 +646,17 @@ namespace CardGameServer
 
                 if (game != null) leaveGame(user);
 
+                Program.UserThreadLock.EnterReadLock();
                 Gamer gamer = Program.OnlineUsers.Find(u=>u.login == user);
-                if (gamer != null) Program.OnlineUsers.Remove(gamer);
+                Program.UserThreadLock.ExitReadLock();
+
+                if (gamer != null)
+                {
+                    Program.UserThreadLock.EnterWriteLock();
+                    Program.OnlineUsers.Remove(gamer);
+                    Program.UserThreadLock.ExitWriteLock();
+                }
+
             }
             catch (Exception exc)
             {
@@ -691,12 +715,36 @@ namespace CardGameServer
                         int slot = -1;
 
                         if (nickname == game.Gamers[0])
-                            slot = game.firstGamerCards.Max(ccc => ccc.slot);
+                        {
+                            List<Card> cList1 = game.firstGamerCards.FindAll(c => c.slot <= 8);
+                            if (cList1 != null)
+                                slot = cList1.Max(ccc => ccc.slot);
+                        }
                         else
-                            slot = game.twoGamerCards.Max(ccc => ccc.slot);
+                        {
+                            List<Card> cList2 = game.twoGamerCards.FindAll(c => c.slot <= 8);
+                            if (cList2 != null)
+                                slot = cList2.Max(ccc => ccc.slot);
+                        }
 
-                        if (slot >= 8) slot = -1;
-                        else slot++;
+                        if (slot == 8)
+                        {
+                            cmd = new SqlCommand("SELECT MAX(slot) FROM character_cards WHERE char_id=" + c_id + "", db_connection);
+
+                            rd = cmd.ExecuteReader();
+
+                            if (rd.Read())
+                            {
+                                slot = (int)rd[0];
+
+                                if (slot < 10) slot = 10;
+                            }
+
+                            rd.Close();
+
+                        }
+                        
+                        slot++;
 
 
                         cmd = new SqlCommand("INSERT INTO character_cards(char_id, card_id, slot) VALUES (" + c_id + ", "
@@ -714,6 +762,63 @@ namespace CardGameServer
             }
 
             db_connection.Close();
+        }
+
+        [OperationContract]
+        public List<Card> GetAllCard(string user)
+        {
+             //check for sqlInjection
+            if (sqlInjection.Words.Any(word => user.IndexOf(word, StringComparison.OrdinalIgnoreCase) >= 0)) return null;
+
+            int char_id = -1;
+
+            List<Card> gamerCard = new List<Card>();
+
+            SqlConnection db_connection = new SqlConnection(Program.connectionString);
+            try
+            {
+                db_connection.Open();
+
+                SqlCommand cmd = new SqlCommand("SELECT id FROM characters where account='" + user + "'", db_connection);
+
+                SqlDataReader res = cmd.ExecuteReader();
+
+                if (res.Read())
+                {
+                    char_id = (int)res["id"];
+                    res.Close();
+
+                    cmd = new SqlCommand("SELECT card_id, slot FROM character_cards where char_id=" + char_id +
+                        " AND slot > 0", db_connection);
+
+                    res = cmd.ExecuteReader();
+
+                    while (res.Read())
+                    {
+                        Card currcard = Program.cards.Find(ccc => ccc.id == (int)res["card_id"]);
+
+                        if (currcard != null)
+                            gamerCard.Add(new Card(currcard.id, currcard.card_name, currcard.type, currcard.hp,
+                                currcard.dmg, currcard.def, (int)res["slot"]));
+                    }
+                }
+                res.Close();
+
+            }
+            catch (Exception exc)
+            {
+                Console.WriteLine("ERROR: " + exc.Message);
+            }
+
+            db_connection.Close();
+
+            return gamerCard;
+        }
+
+        [OperationContract]
+        bool ChangeCardslot(string user, int oslot, int nSlot)
+        {
+            return true;
         }
     }
 }

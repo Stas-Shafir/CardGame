@@ -33,15 +33,36 @@ namespace CardGameClient
 
         private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
+            bool isError = false;
             if (App.isConnected && ServiceProxy.Proxy != null)
             {
                 App.isConnected = false;
-                ServiceProxy.Proxy.Logout(App.UserName);                
+                App.ProxyMutex.WaitOne();
+                try
+                {
+                    ServiceProxy.Proxy.Logout(App.UserName);
+                }
+                catch
+                {
+                    this.Dispatcher.Invoke(new Action(delegate
+                    {
+                        App.isConnected = false;
+                        App.loginScreen.loginBtn.IsEnabled = true;
+                        App.loginScreen.errorText.Content = "Связь с сервером неожиданно прервана...";
+                        App.loginScreen.Show();
+                    }));
+                    isError = true;
+                }
+                App.ProxyMutex.ReleaseMutex();
             }
-
 
             if (App.ForceClosing)
                 Application.Current.Shutdown();
+            else if (isError)
+            {
+                App.OnConnectionError();
+                return;
+            }
         }
 
         private void Window_Closed(object sender, EventArgs e)
@@ -84,13 +105,7 @@ namespace CardGameClient
 
                 if (isError)
                 {
-                    Thread.Sleep(2000);
-                    this.Dispatcher.Invoke(new Action(delegate
-                    {
-                        App.ForceClosing = false;
-                        Close();
-                    }));
-                    
+                    App.OnConnectionError();
                     return;
                 }
 
@@ -114,7 +129,7 @@ namespace CardGameClient
             catch (Exception exc)
             {
                 this.Dispatcher.Invoke(new Action( delegate {
-                    MessageBox.Show(exc.Message + "\n\n" + exc.InnerException.Message, "Критическая ошибка!");
+                    MessageBox.Show(exc.Message, "Критическая ошибка!");
                     App.isConnected = false;
                     Application.Current.Shutdown();
                 }));
@@ -153,7 +168,34 @@ namespace CardGameClient
         {
             try
             {
-                List<Card> templates = ServiceProxy.Proxy.getHeroesTemplateAvailableList();
+                bool isError = false;
+                List<Card> templates = null;
+
+                App.ProxyMutex.WaitOne();
+                try
+                {
+                    templates = ServiceProxy.Proxy.getHeroesTemplateAvailableList();
+                }
+                catch
+                {
+                    this.Dispatcher.Invoke(new Action(delegate
+                    {
+                        App.isConnected = false;
+                        App.loginScreen.loginBtn.IsEnabled = true;
+                        App.loginScreen.errorText.Content = "Связь с сервером неожиданно прервана...";
+                        App.loginScreen.Show();
+                    }));
+                    isError = true;
+                }
+
+                App.ProxyMutex.ReleaseMutex();
+
+                if (isError)
+                {
+                    App.OnConnectionError();
+                    return;
+                }
+
                 CardPlace cp;
 
                 for (int i = 0; i < templates.Count; i++)
@@ -172,7 +214,7 @@ namespace CardGameClient
             {
                 this.Dispatcher.Invoke(new Action(delegate
                 {
-                    MessageBox.Show(exc.Message + "\n\n" + exc.InnerException.Message, "Критическая ошибка!");
+                    MessageBox.Show(exc.Message, "Критическая ошибка!");
                     App.isConnected = false;
                     Application.Current.Shutdown();
                 }));     

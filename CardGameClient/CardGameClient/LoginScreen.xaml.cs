@@ -132,7 +132,7 @@ namespace CardGameClient
                 this.Dispatcher.Invoke(new Action(delegate {
                     App.isConnected = false;
                     loginBtn.IsEnabled = true;
-                    MessageBox.Show(exc.Message + "\n\n" + exc.InnerException.Message, "Критическая ошибка!");
+                    MessageBox.Show(exc.Message, "Критическая ошибка!");
                 }));
             }
         }
@@ -160,7 +160,7 @@ namespace CardGameClient
             }
             catch (Exception exc)
             {
-                MessageBox.Show(exc.Message + "\n\n" + exc.InnerException.Message, "Критическая ошибка!");
+                MessageBox.Show(exc.Message, "Критическая ошибка!");
             }
         }
 
@@ -209,7 +209,7 @@ namespace CardGameClient
             {
                 this.Dispatcher.Invoke(new Action(delegate
                 {
-                    MessageBox.Show(exc.Message + "\n\n" + exc.InnerException.Message, "Критическая ошибка!");
+                    MessageBox.Show(exc.Message, "Критическая ошибка!");
                     Application.Current.Shutdown();
                 }));     
             }

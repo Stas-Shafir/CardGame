@@ -23,7 +23,7 @@
                 <ImageBrush ImageSource="/CardGameClient;component/Images/btnTurn.png" />
             </dc:StyledBtn.BackgroundHover>
         </dc:StyledBtn>
-        <Label Name="firstUserNick" Content="user1" Height="Auto" HorizontalAlignment="Left" VerticalAlignment="Top" HorizontalContentAlignment="Center" FontFamily="Myriad Pro" Foreground="White" FontSize="13" RenderTransformOrigin="0.5,0.5" Margin="134,40,0,0" Width="82">
+        <Label Name="firstUserNick" Content="user1" Height="Auto" HorizontalAlignment="Left" VerticalAlignment="Top" HorizontalContentAlignment="Center" FontFamily="/CardGameClient;component/Fonts/#Myriad Pro" Foreground="White" FontSize="13" RenderTransformOrigin="0.5,0.5" Margin="134,40,0,0" Width="82">
             <Label.Effect>
                 <DropShadowEffect BlurRadius="0" RenderingBias="Quality" Direction="330" ShadowDepth="3"/>
             </Label.Effect>
@@ -36,7 +36,7 @@
                 </TransformGroup>
             </Label.RenderTransform>
         </Label>
-        <Label Name="twoUserNick" Content="user2" FontFamily="Myriad Pro" FontSize="13" Foreground="White" Height="Auto" HorizontalAlignment="Right" HorizontalContentAlignment="Center" RenderTransformOrigin="0.5,0.5" VerticalAlignment="Top" Width="82" Margin="0,40,134,0">
+        <Label Name="twoUserNick" Content="user2" FontFamily="/CardGameClient;component/Fonts/#Myriad Pro" FontSize="13" Foreground="White" Height="Auto" HorizontalAlignment="Right" HorizontalContentAlignment="Center" RenderTransformOrigin="0.5,0.5" VerticalAlignment="Top" Width="82" Margin="0,40,134,0">
             <Label.Effect>
                 <DropShadowEffect BlurRadius="0" Direction="330" RenderingBias="Quality" ShadowDepth="3" />
             </Label.Effect>
@@ -49,7 +49,7 @@
                 </TransformGroup>
             </Label.RenderTransform>
         </Label>
-        <TextBlock Name="turnLabel" Text="Конец хода" Height="Auto" HorizontalAlignment="Center" VerticalAlignment="Center" FontFamily="Verdana" Foreground="White" FontSize="13" TextWrapping="Wrap" Width="70" TextAlignment="Center" TextTrimming="None" MouseEnter="turnLabel_MouseEnter">
+        <TextBlock Name="turnLabel" Height="Auto" HorizontalAlignment="Center" VerticalAlignment="Center" FontFamily="Verdana" Foreground="White" FontSize="13" TextWrapping="Wrap" Width="75" TextAlignment="Center" TextTrimming="None" MouseEnter="turnLabel_MouseEnter" Margin="0,-6,0,0">
             <TextBlock.Effect>
                 <DropShadowEffect BlurRadius="0" RenderingBias="Quality" Direction="330" ShadowDepth="3" />
             </TextBlock.Effect>
