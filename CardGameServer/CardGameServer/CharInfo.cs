@@ -28,7 +28,7 @@ namespace CardGameServer
         public int wins { get; set; }
 
         [DataMember]
-        public int rating { get; set; }
+        public int score { get; set; }
 
         public CharInfo()
         {
@@ -42,7 +42,7 @@ namespace CardGameServer
             exp = e;
             games = g;
             wins = w;
-            rating = r;
+            score = r;
         }
     }
 

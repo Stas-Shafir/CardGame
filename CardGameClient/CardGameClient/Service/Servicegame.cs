@@ -55,10 +55,16 @@ namespace CardGameServer
         void Logout(string user);
 
         [OperationContract]
-        List<Card> GetAllCard(string user);
+        List<Card> GetAllCard(string user, int page = 1);
 
         [OperationContract]
         bool ChangeCardslot(string user, int oslot, int nSlot);
+
+        [OperationContract]
+        int GetFreeSlotNumberAllCards(string user);
+
+        [OperationContract]
+        Card BuyCard(string user);
         
     }
 }

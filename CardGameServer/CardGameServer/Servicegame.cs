@@ -224,7 +224,7 @@ namespace CardGameServer
                 if (res.Read())
                 {
                     chInfo = new CharInfo(res["name"].ToString(), res["hero_name"].ToString(), (int)res["character_level"],
-                                (int)res["exp"], (int)res["games"], (int)res["wins"]);
+                                (int)res["exp"], (int)res["games"], (int)res["wins"], (int)res["score"]);
                 }
 
                 res.Close();
@@ -509,6 +509,8 @@ namespace CardGameServer
 
                             dmg = myC.dmg - (enC.def / 2); //calc real damage
 
+                            if (dmg == 0) dmg = 1;
+
                             int temp = enC.hp; //save curr hp                          
 
                             enC.hp = enC.hp - dmg;
@@ -549,6 +551,8 @@ namespace CardGameServer
                             myC.Enabled = false;
 
                             dmg = myC.dmg - (enC.def / 2); //calc real damage
+
+                            if (dmg == 0) dmg = 1;
 
                             int temp = enC.hp; //save curr hp                          
 
@@ -677,6 +681,7 @@ namespace CardGameServer
                 int exp;
                 int games;
                 int wins;
+                int score;
 
                 SqlCommand cmd = new SqlCommand("SELECT * FROM characters WHERE name='" + nickname + "'", db_connection);
 
@@ -689,10 +694,13 @@ namespace CardGameServer
                     exp = (int)rd["exp"];
                     games = (int)rd["games"];
                     wins = (int)rd["wins"];
+                    score = (int)rd["score"];
 
                     rd.Close();
 
                     exp += reward.Exp;
+
+                    score += reward.Score;
 
                     if (exp >= Level.Levels[level + 1])
                     {
@@ -705,7 +713,7 @@ namespace CardGameServer
                     games++;
 
                     cmd = new SqlCommand("UPDATE characters SET exp=" + exp + ", character_level=" + level + ", games="
-                        + games + ", wins=" + wins + " WHERE id=" + c_id, db_connection);
+                        + games + ", wins=" + wins + ", score=" + score + " WHERE id=" + c_id, db_connection);
 
                     cmd.ExecuteNonQuery();
 
@@ -737,7 +745,7 @@ namespace CardGameServer
                             {
                                 slot = (int)rd[0];
 
-                                if (slot < 10) slot = 10;
+                                if (slot < 10) slot = 9;
                             }
 
                             rd.Close();
@@ -765,12 +773,14 @@ namespace CardGameServer
         }
 
         [OperationContract]
-        public List<Card> GetAllCard(string user)
+        public List<Card> GetAllCard(string user, int page = 1)
         {
              //check for sqlInjection
             if (sqlInjection.Words.Any(word => user.IndexOf(word, StringComparison.OrdinalIgnoreCase) >= 0)) return null;
 
             int char_id = -1;
+
+            const int cnt_perpage = 24;
 
             List<Card> gamerCard = new List<Card>();
 
@@ -788,8 +798,12 @@ namespace CardGameServer
                     char_id = (int)res["id"];
                     res.Close();
 
+
+                    int l_index = page * cnt_perpage + 10;
+                    int f_index = (l_index - 24);
+
                     cmd = new SqlCommand("SELECT card_id, slot FROM character_cards where char_id=" + char_id +
-                        " AND slot > 0", db_connection);
+                        " AND slot>=" + f_index + " AND slot <" + l_index, db_connection);
 
                     res = cmd.ExecuteReader();
 
@@ -801,6 +815,24 @@ namespace CardGameServer
                             gamerCard.Add(new Card(currcard.id, currcard.card_name, currcard.type, currcard.hp,
                                 currcard.dmg, currcard.def, (int)res["slot"]));
                     }
+
+                    res.Close();
+
+
+                    cmd = new SqlCommand("SELECT card_id, slot FROM character_cards where char_id=" + char_id +
+                        " AND slot>=1 AND slot<=8", db_connection);
+
+                    res = cmd.ExecuteReader();
+
+                    while (res.Read())
+                    {
+                        Card currcard = Program.cards.Find(ccc => ccc.id == (int)res["card_id"]);
+
+                        if (currcard != null)
+                            gamerCard.Add(new Card(currcard.id, currcard.card_name, currcard.type, currcard.hp,
+                                currcard.dmg, currcard.def, (int)res["slot"]));
+                    }
+
                 }
                 res.Close();
 
@@ -816,9 +848,172 @@ namespace CardGameServer
         }
 
         [OperationContract]
-        bool ChangeCardslot(string user, int oslot, int nSlot)
+        public bool ChangeCardslot(string user, int oslot, int nSlot)
         {
-            return true;
+            if (sqlInjection.Words.Any(word => user.IndexOf(word, StringComparison.OrdinalIgnoreCase) >= 0)) return false;
+
+            int char_id = -1;
+
+             SqlConnection db_connection = new SqlConnection(Program.connectionString);
+             try
+             {
+                 db_connection.Open();
+
+                 SqlCommand cmd = new SqlCommand("SELECT id FROM characters where account='" + user + "'", db_connection);
+
+                 SqlDataReader res = cmd.ExecuteReader();
+
+                 if (res.Read())
+                 {
+                     char_id = (int)res["id"];
+                     res.Close();
+
+                    // int oslot_cardid = -1;
+                    // int nslot_cardid = -1;
+
+
+                    // cmd = new SqlCommand("SELECT card_id FROM character_cards where char_id=" + char_id + " AND slot=" + oslot, db_connection);
+                    // res = cmd.ExecuteReader();
+
+                     //if (res.Read())
+                    // {
+                     //    oslot_cardid = (int)res[0];
+                     //    res.Close();                         
+
+                             cmd = new SqlCommand("UPDATE character_cards SET slot=" + nSlot + " where char_id=" + char_id + " AND slot=" + oslot, db_connection);
+                             cmd.ExecuteNonQuery();
+
+                             //cmd = new SqlCommand("UPDATE character_cards SET slot=" + oslot + " where char_id=" + char_id + " AND card_id=" + nslot_cardid, db_connection);
+                             //cmd.ExecuteNonQuery();
+                    // }                      
+                 }
+             }
+             catch (Exception exc)
+             {
+                 Console.WriteLine("ERROR: " + exc.Message);
+             }
+
+             db_connection.Close();
+
+             return true;
+
+        }
+
+        [OperationContract]
+        public int GetFreeSlotNumberAllCards(string user)
+        {
+            if (sqlInjection.Words.Any(word => user.IndexOf(word, StringComparison.OrdinalIgnoreCase) >= 0)) return -1;
+
+            int char_id = -1;
+            int slot = -1;
+
+            List<Card> gamerCard = new List<Card>();
+
+            SqlConnection db_connection = new SqlConnection(Program.connectionString);
+            try
+            {
+                db_connection.Open();
+
+                SqlCommand cmd = new SqlCommand("SELECT id FROM characters where account='" + user + "'", db_connection);
+
+                SqlDataReader res = cmd.ExecuteReader();
+
+                if (res.Read())
+                {
+                    char_id = (int)res["id"];
+                    res.Close();
+
+                    cmd = new SqlCommand("SELECT MAX(slot) FROM character_cards where char_id=" + char_id +
+                        " AND slot >= 8", db_connection);
+
+                    res = cmd.ExecuteReader();
+
+                    if (res.Read())
+                    {
+                        try
+                        {
+                            slot = (int)res[0];
+
+                            if (slot == 8)
+                            {
+                                slot = 9;
+                            }
+                            slot++;
+                        }
+                        catch { }
+                    }
+
+                    if (slot == -1) slot = 10;
+                }
+                res.Close();
+
+            }
+            catch (Exception exc)
+            {
+                Console.WriteLine("ERROR: " + exc.Message);
+            }
+
+            db_connection.Close();
+
+
+            return slot;
+        }
+
+        [OperationContract]
+        public Card BuyCard(string user)
+        {
+            if (sqlInjection.Words.Any(word => user.IndexOf(word, StringComparison.OrdinalIgnoreCase) >= 0)) return null;
+
+            int char_id = -1;
+            Card result = null;
+
+            SqlConnection db_connection = new SqlConnection(Program.connectionString);
+            try
+            {
+                db_connection.Open();
+
+                SqlCommand cmd = new SqlCommand("SELECT id, score FROM characters where account='" + user + "'", db_connection);
+
+                SqlDataReader res = cmd.ExecuteReader();
+
+                if (res.Read())
+                {
+                    char_id = (int)res["id"];
+                    int score = (int)res["score"];
+                    res.Close();
+
+                    if (score >= 1000)
+                    {
+                        int slot = GetFreeSlotNumberAllCards(user);
+
+                        List<Card> cclist = Program.cards.FindAll(c=>c.type != 0);
+                        result = cclist[Program.Rnd.Next(0, cclist.Count - 1)];
+                        int card_id = result.id;
+
+                        score -= 1000;
+
+                        cmd = new SqlCommand("UPDATE characters SET score=" + score + " WHERE id=" + char_id, db_connection);
+
+                        cmd.ExecuteNonQuery();
+
+                        cmd = new SqlCommand("INSERT INTO character_cards(char_id, card_id, slot) VALUES (" + char_id + ", " + 
+                            card_id + ", " + slot + ")", db_connection);
+
+                        cmd.ExecuteNonQuery();
+                    }
+
+                }
+                res.Close();
+
+            }
+            catch (Exception exc)
+            {
+                Console.WriteLine("ERROR: " + exc.Message);
+            }
+
+            db_connection.Close();
+
+            return result;
         }
     }
 }

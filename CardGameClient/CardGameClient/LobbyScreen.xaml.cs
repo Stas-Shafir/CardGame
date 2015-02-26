@@ -24,6 +24,10 @@ namespace CardGameClient
     {
         Thread findGameThread;
 
+        CardPlace selectedCardPlace;
+
+        int curr_page = 1;
+
         public LobbyScreen(Window ownwin)
         {
             InitializeComponent();
@@ -83,12 +87,11 @@ namespace CardGameClient
         public void UpdateInfo()
         {
             bool isError = false;
-            CharInfo ch = null;
 
             App.ProxyMutex.WaitOne();
             try
             {
-                ch = ServiceProxy.Proxy.EnterWorld(App.UserName);
+                App.charInfo = ServiceProxy.Proxy.EnterWorld(App.UserName);
             }
             catch
             {
@@ -110,11 +113,11 @@ namespace CardGameClient
                 return;
             }
 
-            NickNameLevel.Text = ch.nickname + ", " + ch.heroname + " " + ch.character_level + "-го уровня";
-            Exp.Text = "Опыт: " + ch.exp;
-            Games.Text = "Кол-во Игр: " + ch.games;
-            Wins.Text = "Кол-во Побед: " + ch.wins;
-            Rating.Text = "Ваш рейтинг: " + ch.rating;
+            NickNameLevel.Text = App.charInfo.nickname + ", " + App.charInfo.heroname + " " + App.charInfo.character_level + "-го уровня";
+            Exp.Text = "Опыт: " + App.charInfo.exp;
+            Games.Text = "Кол-во Игр: " + App.charInfo.games;
+            Wins.Text = "Кол-во Побед: " + App.charInfo.wins;
+            Rating.Text = "Очки: " + App.charInfo.score;
 
             Thread updateRankingThread = new Thread(UpdateRanking) {IsBackground = true};
             updateRankingThread.Start();
@@ -231,12 +234,11 @@ namespace CardGameClient
             try
             {
                 bool isError = false;
-                CharInfo ch = null;
 
                 App.ProxyMutex.WaitOne();
                 try
                 {
-                    ch = ServiceProxy.Proxy.EnterWorld(App.UserName);
+                    App.charInfo = ServiceProxy.Proxy.EnterWorld(App.UserName);
                 }
                 catch
                 {
@@ -259,13 +261,13 @@ namespace CardGameClient
                 }
 
                 
-                App.NickName = ch.nickname;
+                App.NickName = App.charInfo.nickname;
 
-                NickNameLevel.Text = ch.nickname + ", " + ch.heroname + " " + ch.character_level + "-го уровня";
-                Exp.Text = "Опыт: " + ch.exp;
-                Games.Text = "Кол-во Игр: " + ch.games;
-                Wins.Text = "Кол-во Побед: " + ch.wins;
-                Rating.Text = "Ваш рейтинг: " + ch.rating;
+                NickNameLevel.Text = App.charInfo.nickname + ", " + App.charInfo.heroname + " " + App.charInfo.character_level + "-го уровня";
+                Exp.Text = "Опыт: " + App.charInfo.exp;
+                Games.Text = "Кол-во Игр: " + App.charInfo.games;
+                Wins.Text = "Кол-во Побед: " + App.charInfo.wins;
+                Rating.Text = "Очки: " + App.charInfo.score;
 
                 Thread updateRankingThread = new Thread(UpdateRanking) { IsBackground = true };
                 updateRankingThread.Start();            
@@ -287,12 +289,13 @@ namespace CardGameClient
             findBtn.Enabled = true;
             MainLobbyBackBtn.ToolTip = null;
             AllCardsBtn.ToolTip = null;
+            MainLobbyBackBtn.Enabled = true;
+            AllCardsBtn.Enabled = true;
             App.InGame = false;
             Show();
             UpdateInfo();
 
         }
-        //187 cnhjrf
         private void FindGame()
         {
             try
@@ -476,6 +479,8 @@ namespace CardGameClient
 
                 findBtn.InProgress = false;
                 findBtn.Enabled = true;
+                MainLobbyBackBtn.Enabled = true;
+                AllCardsBtn.Enabled = true;
                 MainLobbyBackBtn.ToolTip = null;
                 AllCardsBtn.ToolTip = null;
                 App.InGame = false;
@@ -483,6 +488,8 @@ namespace CardGameClient
             }
 
             findBtn.Enabled = false;
+            MainLobbyBackBtn.Enabled = false;
+            AllCardsBtn.Enabled = false;
             MainLobbyBackBtn.ToolTip = "Идёт поиск игры. Для того, чтобы выйти требуется его отменить...";
             AllCardsBtn.ToolTip = "Идёт поиск игры. Для того, чтобы выполнить данное действуе требуется его отменить...";
             findBtn.textLabel.Content = "Поиск противника...";
@@ -499,8 +506,6 @@ namespace CardGameClient
         private void AllCardPlace_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
             CardPlace cp = sender as CardPlace;
-
-            cp.selected = false;
 
             foreach (CardPlace item in SlotGrid.Children)
             {
@@ -542,9 +547,9 @@ namespace CardGameClient
 
                 if (res)
                 {
-                    item.ThisCard = cp.ThisCard;
-                    item.ThisCard.slot = nslot;
-                    cp.ContainsCard = false;                    
+                    cp.selected = false;
+                    Thread fillMyCardGridThread = new Thread(GetAllCard) { IsBackground = true };
+                    fillMyCardGridThread.Start();                   
                 }
 
                 return;
@@ -552,10 +557,55 @@ namespace CardGameClient
             }
 
             MessageBox.Show("Все боевые слоты уже заняты\nЧтобы переместить туда эту карту необходимо освободить один...");
+
         }
 
         private void SlotCardPlace_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
+            CardPlace cp = sender as CardPlace;            
+
+                int oslot = cp.ThisCard.slot;
+                int nslot = -1;
+
+                bool isError = false;
+
+                bool res = false;
+
+                App.ProxyMutex.WaitOne();
+                try
+                {
+                    nslot = ServiceProxy.Proxy.GetFreeSlotNumberAllCards(App.UserName);
+                    res = ServiceProxy.Proxy.ChangeCardslot(App.UserName, oslot, nslot);
+                }
+                catch (CommunicationException exc)
+                {
+                    this.Dispatcher.Invoke(new Action(delegate
+                    {
+                        App.isConnected = false;
+                        App.loginScreen.loginBtn.IsEnabled = true;
+                        App.loginScreen.errorText.Content = "Связь с сервером неожиданно прервана...";
+                        App.loginScreen.Show();
+                    }));
+                    isError = true;
+                }
+
+                App.ProxyMutex.ReleaseMutex();
+
+                if (isError)
+                {
+                    App.OnConnectionError();
+                    return;
+                }
+
+
+                if (res)
+                {
+                    cp.selected = false;
+                    Thread fillMyCardGridThread = new Thread(GetAllCard) { IsBackground = true };
+                    fillMyCardGridThread.Start();
+                }
+
+                return;
 
         }
 
@@ -567,7 +617,7 @@ namespace CardGameClient
             App.ProxyMutex.WaitOne();
             try
             {
-                allCards = ServiceProxy.Proxy.GetAllCard(App.UserName);
+                allCards = ServiceProxy.Proxy.GetAllCard(App.UserName, curr_page);
             }
             catch (CommunicationException exc)
             {
@@ -593,12 +643,25 @@ namespace CardGameClient
             {
                 this.Dispatcher.Invoke(new Action(delegate
                 {
+                    //clear 
+                    foreach (CardPlace item in AllCardsGrid.Children)
+                    {
+                        item.ContainsCard = false;
+                    }
+                    foreach (CardPlace item in SlotGrid.Children)
+                    {
+                        item.ContainsCard = false;
+                    }
+
+                    //fill
+
                     foreach (var item in allCards)
                     {
                         CardPlace cp;
                         if (item.slot >= 10)
                         {
-                            cp = AllCardsGrid.Children[item.slot - 10] as CardPlace;
+                            int index = curr_page == 1 ? item.slot - 10 : item.slot - ((curr_page - 1) * 24) - 10;
+                            cp = AllCardsGrid.Children[index] as CardPlace;
                             cp.ThisCard = item;
                         }
                         else
@@ -615,7 +678,7 @@ namespace CardGameClient
         {
             if (MyCardsGrid.Visibility == Visibility.Visible)
             {
-                Thread fillMyCardGridThread = new Thread(GetAllCard);
+                Thread fillMyCardGridThread = new Thread(GetAllCard) { IsBackground = true };
                 fillMyCardGridThread.Start();
             }
         }
@@ -626,6 +689,8 @@ namespace CardGameClient
 
             MyCardsGrid.Visibility = Visibility.Visible;
             MainLobbyGrid.Visibility = Visibility.Hidden;
+
+            CardsScore.Text = "Очки: " + App.charInfo.score;
         }
 
         private void CardsExitBtn_MouseUp(object sender, MouseButtonEventArgs e)
@@ -641,6 +706,97 @@ namespace CardGameClient
             App.ForceClosing = false;
             App.loginScreen.Show();
             Close();
+        }
+
+        private void CardPlace_MouseUp_1(object sender, MouseButtonEventArgs e)
+        {
+            CardPlace cp = sender as CardPlace;
+            if (selectedCardPlace != null && selectedCardPlace != cp) selectedCardPlace.selected = false;           
+            selectedCardPlace = cp;
+        }
+
+        //paginator --
+        private void Image_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            if (curr_page > 1) curr_page--;
+            currPageLabel.Content = curr_page;
+
+            if (selectedCardPlace != null) selectedCardPlace.selected = false;
+
+            if (curr_page >= 10) currPageLabel.Margin = new Thickness(5, 6.5, 50, 0);
+            else currPageLabel.Margin = new Thickness(0,6.5,55,0);
+
+            new Action(delegate
+            {
+                GetAllCard();
+            }).BeginInvoke(new AsyncCallback(delegate(IAsyncResult ar) { }), null);
+        }
+
+        //paginator++
+        private void Image_MouseDown_1(object sender, MouseButtonEventArgs e)
+        {
+            curr_page++;
+            currPageLabel.Content = curr_page;
+
+            if (selectedCardPlace!= null) selectedCardPlace.selected = false;
+
+            if (curr_page >= 10) currPageLabel.Margin = new Thickness(0, 6.5, 50, 0);
+            else currPageLabel.Margin = new Thickness(0, 6.5, 55, 0);
+
+            new Action(delegate
+            {
+                GetAllCard();
+            }).BeginInvoke(new AsyncCallback(delegate(IAsyncResult ar) { }), null);
+        }
+
+        private void CardsShopBtn_MouseUp(object sender, MouseButtonEventArgs e)
+        {
+            new Action(delegate
+            {
+                Card card = null;
+                bool isError = false;
+
+                App.ProxyMutex.WaitOne();
+                try
+                {
+                    card = ServiceProxy.Proxy.BuyCard(App.UserName);
+                    App.charInfo = ServiceProxy.Proxy.EnterWorld(App.UserName);
+                    GetAllCard();
+
+                }
+                catch (CommunicationException exc)
+                {
+                    this.Dispatcher.Invoke(new Action(delegate
+                    {
+                        App.isConnected = false;
+                        App.loginScreen.loginBtn.IsEnabled = true;
+                        App.loginScreen.errorText.Content = "Связь с сервером неожиданно прервана...";
+                        App.loginScreen.Show();
+                    }));
+                    isError = true;
+                }
+
+                App.ProxyMutex.ReleaseMutex();
+
+                if (isError)
+                {
+                    App.OnConnectionError();
+                    return;
+                }
+
+                if (card == null) MessageBox.Show("Для совершения покупки у вас должно быть не менее 1000 очков", "Недостаточно средств");
+                else
+                {
+                    this.Dispatcher.Invoke(new Action(delegate
+                    {
+                       Rating.Text = "Очки: " + App.charInfo.score;
+                       CardsScore.Text = "Очки: " + App.charInfo.score;
+                       NewCardWindow ncw = new NewCardWindow(card, this);
+                       App.WindowList.Add(ncw);
+                       ncw.ShowDialog();
+                    }));
+                }
+            }).BeginInvoke(new AsyncCallback(delegate(IAsyncResult ar) { }), null);
         }            
     }
 }

@@ -184,3 +184,8 @@ F:\Шаг\CardGameClient\CardGameClient\obj\x86\Debug\MainWindow.baml
 F:\Шаг\CardGameClient\CardGameClient\obj\x86\Debug\CardGameClient.g.resources
 F:\Шаг\CardGameClient\CardGameClient\obj\x86\Debug\CardGameClient.Properties.Resources.resources
 F:\Шаг\CardGameClient\CardGameClient\obj\x86\Debug\CardGameClient.csproj.GenerateResource.Cache
+D:\Шаг\CardGameClient\CardGameClient\obj\x86\Debug\MyToolTip.baml
+D:\Шаг\CardGameClient\CardGameClient\obj\x86\Debug\MyToolTip.g.cs
+D:\Шаг\CardGameClient\CardGameClient\obj\x86\Debug\CardGameClient.csprojResolveAssemblyReference.cache
+D:\CardsKurs\CardGameClient\CardGameClient\obj\x86\Debug\NewCardWindow.baml
+D:\CardsKurs\CardGameClient\CardGameClient\obj\x86\Debug\NewCardWindow.g.cs

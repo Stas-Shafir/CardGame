@@ -33,6 +33,8 @@ namespace CardGameClient
         public static Dictionary<int, BitmapImage> cardImages = new Dictionary<int, BitmapImage>();
         public static Dictionary<int, BitmapImage> digitImages = new Dictionary<int, BitmapImage>();
 
+        public static CharInfo charInfo;
+
 
         public static void iAmOnline()
         {

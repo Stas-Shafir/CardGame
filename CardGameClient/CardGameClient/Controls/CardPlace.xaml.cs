@@ -24,6 +24,8 @@ namespace CardGameClient
 
         Card thisCard;
 
+        public bool inGame { get; set; }
+
         public Card ThisCard
         {
             get 
@@ -35,13 +37,16 @@ namespace CardGameClient
                 if (thisCard != null && thisCard.hp <= 0) return;
 
 
-                    if (thisCard != null && value.hp < thisCard.hp && isMineCard)
+                    if (thisCard != null && value.hp < thisCard.hp && isMineCard && inGame)
                         AnimateDmg((thisCard.hp - value.hp).ToString());
 
                     thisCard = value;
                     CardImage = App.cardImages[thisCard.id];
                     if (thisCard.hp <= 0) CardDeath();
                     Health = thisCard.hp.ToString();
+                    AttakDig.DigitValue = thisCard.dmg.ToString();
+                    DefDig.DigitValue = thisCard.def.ToString();
+
             }
         }
 
@@ -142,6 +147,7 @@ namespace CardGameClient
             GridMain.Background = IsMineCard ? myCardBg : enemyCardBg;
             animation.RepeatBehavior = RepeatBehavior.Forever;
             animation.AutoReverse = true;
+            inGame = true;
         }
 
 

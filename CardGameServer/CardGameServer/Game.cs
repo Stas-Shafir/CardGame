@@ -83,6 +83,7 @@ namespace CardGameServer
             if (nickname == currUsr)
             {
                 reward.Exp = Rnd.Next(245, 255);
+                reward.Score = Rnd.Next(123, 133);
                 if (Rnd.Next(0, 100) <= 35) //drop card %
                 {
                     List<Card> clst = Program.cards.FindAll(ccc => ccc.type != 0);
@@ -96,6 +97,7 @@ namespace CardGameServer
             else
             {
                 reward.Exp = Rnd.Next(123, 133);
+                reward.Score = Rnd.Next(62, 72);
                 LooseGamerReward = reward;
             }
         }

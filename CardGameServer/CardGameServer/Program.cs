@@ -26,6 +26,8 @@ namespace CardGameServer
         public static ReaderWriterLockSlim GameThreadLock = new ReaderWriterLockSlim();
         public static ReaderWriterLockSlim UserThreadLock = new ReaderWriterLockSlim();
 
+        public static Random Rnd = new Random();
+
 
         static void detectTimeout()
         {

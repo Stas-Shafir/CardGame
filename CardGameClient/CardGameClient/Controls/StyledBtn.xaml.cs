@@ -23,6 +23,8 @@ namespace CardGameClient
            new Uri("pack://application:,,,/CardGameClient;component/Images/btn_ui.png")));
         ImageBrush hover = new ImageBrush(new BitmapImage(
             new Uri("pack://application:,,,/CardGameClient;component/Images/btn_ui_hover.png")));
+        ImageBrush disabled = new ImageBrush(new BitmapImage(
+            new Uri("pack://application:,,,/CardGameClient;component/Images/btn_ui_disabled.png")));
 
         Thickness normalM = new Thickness(0);
         Thickness downM = new Thickness(0, 2, 0, 0);
@@ -42,6 +44,19 @@ namespace CardGameClient
             set
             {
                 normal = value;
+            }
+        }
+
+        public bool Enabled
+        {
+            get
+            {
+                return IsEnabled;
+            }
+            set
+            {
+                IsEnabled = value;
+                Background = IsEnabled ? normal : disabled;
             }
         }
 

@@ -13,9 +13,23 @@
         <Grid Name="CardCrid" Visibility="Hidden" ClipToBounds="False">
             <Image RenderOptions.BitmapScalingMode="Fant" Name="Portrait" Stretch="Fill" Visibility="Visible" Panel.ZIndex="0"></Image>
             <Image Margin="-0.5" Name="borderImg" Source="pack://application:,,,/CardGameClient;component/Images/cardmin_my_border.png" Stretch="Fill" ></Image>
-            
-            <Image Name="HpBar" Source="pack://application:,,,/CardGameClient;component/Images/shar.png" RenderOptions.BitmapScalingMode="Fant" Stretch="Fill" HorizontalAlignment="Left" Height="33" Width="35" Margin="10,0,0,8" VerticalAlignment="Bottom" Visibility="Visible" />
-            <dc:Digit x:Name="HpDig" HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="13,0,0,12" Visibility="Visible" />
+
+            <Grid HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="10,0,0,60">
+                <Image Name="AttackBar" Source="pack://application:,,,/CardGameClient;component/Images/attackIkon.png" RenderOptions.BitmapScalingMode="Fant" Stretch="Fill" HorizontalAlignment="Left" Height="19" Width="20" VerticalAlignment="Center" Visibility="Visible" />
+                <dc:Digit x:Name="AttakDig" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="18,0,0,0" Visibility="Visible" />
+                
+            </Grid>
+
+            <Grid HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="10,0,0,35">
+                <Image Name="DefBar" Source="pack://application:,,,/CardGameClient;component/Images/defIkon.png" RenderOptions.BitmapScalingMode="Fant" Stretch="Fill" HorizontalAlignment="Left" Height="19" Width="20" VerticalAlignment="Center" Visibility="Visible" />
+                <dc:Digit x:Name="DefDig" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="18,0,0,0" Visibility="Visible" />
+            </Grid>
+
+            <Grid HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="10,0,0,10">
+                <Image Name="HpBar" Source="pack://application:,,,/CardGameClient;component/Images/shar.png" RenderOptions.BitmapScalingMode="Fant" Stretch="Fill" HorizontalAlignment="Left" Height="19" Width="20" VerticalAlignment="Center" Visibility="Visible" />
+                <dc:Digit x:Name="HpDig" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="18,0,0,0" Visibility="Visible" />
+            </Grid>
+
             <Label Content="55" Margin="0,6,6,0" Name="dmgLabel" VerticalAlignment="Top" Foreground="Red" FontSize="32" FontWeight="Normal" HorizontalAlignment="Right" FlowDirection="LeftToRight" FontFamily="Verdana" Opacity="0">
                 <Label.Background>
                     <ImageBrush ImageSource="/CardGameClient;component/Images/dmg_label_back.png" Stretch="Fill" />

@@ -28,6 +28,6 @@ namespace CardGameServer
         public int wins { get; set; }
 
         [DataMember]
-        public int rating { get; set; }
+        public int score { get; set; }
     }
 }

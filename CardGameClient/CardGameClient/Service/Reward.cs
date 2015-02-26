@@ -13,6 +13,9 @@ namespace CardGameServer
         public int Exp { get; set; }
 
         [DataMember]
+        public int Score { get; set; }
+
+        [DataMember]
         public bool NewLevel { get; set; }
 
         [DataMember]

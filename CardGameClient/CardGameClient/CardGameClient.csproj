@@ -16,7 +16,6 @@
     <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <WarningLevel>4</WarningLevel>
     <Utf8Output>true</Utf8Output>
-    <ExpressionBlendVersion>4.0.20525.0</ExpressionBlendVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
     <PlatformTarget>x86</PlatformTarget>
@@ -83,6 +82,9 @@
     <Compile Include="LobbyScreen.xaml.cs">
       <DependentUpon>LobbyScreen.xaml</DependentUpon>
     </Compile>
+    <Compile Include="NewCardWindow.xaml.cs">
+      <DependentUpon>NewCardWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Secirity\sqlInjection.cs" />
     <Compile Include="Service\Card.cs" />
     <Compile Include="Service\CharInfo.cs" />
@@ -144,6 +146,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Controls\StyledTextBox.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="NewCardWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -372,8 +378,27 @@
   <ItemGroup>
     <Resource Include="Images\dmg_label_back.png" />
   </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\attackIkon.png" />
+    <Resource Include="Images\defIkon.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\tooltip.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\str_lv.png" />
+    <Resource Include="Images\str_pr.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\btn_ui_disabled.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\newCardWnd.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\exit_btn.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
-  <Import Project="$(MSBuildExtensionsPath)\Microsoft\Expression\Blend\.NETFramework\v4.0\Microsoft.Expression.Blend.WPF.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">

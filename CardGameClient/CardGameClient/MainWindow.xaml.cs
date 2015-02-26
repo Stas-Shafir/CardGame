@@ -228,9 +228,10 @@ namespace CardGameClient
                                         text += "Новый уровень!\n";
                                     }
                                     text += "Опыт: " + game.WinGamerReward.Exp;
+                                    text += "\nОчки: " + game.WinGamerReward.Score;
                                     if (game.WinGamerReward.NewCard != null )
                                     {
-                                        text += "Новая карта: " + game.WinGamerReward.NewCard.card_name;
+                                        text += "\nНовая карта: " + game.WinGamerReward.NewCard.card_name;
                                     }
                                 }
                                 else 
@@ -240,6 +241,7 @@ namespace CardGameClient
                                         text += "Новый уровень!\n";
                                     }
                                     text += "Опыт: " + game.LooseGamerReward.Exp;
+                                    text += "\nОчки: " + game.LooseGamerReward.Score;
                                 }
 
 
@@ -413,24 +415,29 @@ namespace CardGameClient
 
         private void CardPlace_MouseEnter(object sender, MouseEventArgs e)
         {
-            CardPlace ccp = sender as CardPlace;
+           /* CardPlace ccp = sender as CardPlace;
 
             if (!ccp.ContainsCard) return;
 
-            if (ccp.IsMineCard) 
+            if (ccp.IsMineCard)
+            {
                 ccp.ToolTip = "Характеристики:\nАтака: " + ccp.ThisCard.dmg + "\nЗащита: " + ccp.ThisCard.def;
+            }*/
+
+
         }
 
 
         private void EnemyCardPlace_MouseEnter(object sender, MouseEventArgs e)
         {
-            CardPlace ccp = sender as CardPlace;
+            /*CardPlace ccp = sender as CardPlace;
 
             if (!ccp.ContainsCard) return;
 
-            if (!ccp.IsMineCard)                
-                ccp.ToolTip = "Характеристики:\nАтака: " + ccp.ThisCard.dmg + "\nЗащита: " + ccp.ThisCard.def +
-                    "\nВы нанесёте " + (mySelectedCardPlace.ThisCard.dmg - (ccp.ThisCard.def / 2)) + " урона.";
+            if (!ccp.IsMineCard)
+            {
+                ccp.ToolTip = "Характеристики:\nАтака: " + ccp.ThisCard.dmg + "\nЗащита: " + ccp.ThisCard.def;
+            }*/
         }
     }
 }
