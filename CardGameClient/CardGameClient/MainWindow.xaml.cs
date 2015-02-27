@@ -220,34 +220,24 @@ namespace CardGameClient
                             this.Dispatcher.Invoke(new Action(delegate
                             {
                                 App.InGame = false;
-                                string text = "Награда: \n";
+                                string text = "";
 
-                                if (game.currUsr == App.NickName){
-                                    if (game.WinGamerReward.NewLevel)
-                                    {
-                                        text += "Новый уровень!\n";
-                                    }
-                                    text += "Опыт: " + game.WinGamerReward.Exp;
-                                    text += "\nОчки: " + game.WinGamerReward.Score;
-                                    if (game.WinGamerReward.NewCard != null )
-                                    {
-                                        text += "\nНовая карта: " + game.WinGamerReward.NewCard.card_name;
-                                    }
+                                GameResultWindow grw = null;
+
+                                if (game.currUsr == App.NickName)
+                                {  
+                                    grw = new GameResultWindow(this, "Победа!", game.WinGamerReward.NewLevel, game.WinGamerReward.Exp,
+                                        game.WinGamerReward.Score, game.WinGamerReward.NewCard);
                                 }
                                 else 
                                 {
-                                    if (game.LooseGamerReward.NewLevel)
-                                    {
-                                        text += "Новый уровень!\n";
-                                    }
-                                    text += "Опыт: " + game.LooseGamerReward.Exp;
-                                    text += "\nОчки: " + game.LooseGamerReward.Score;
+                                    grw = new GameResultWindow(this, "Поражение!", game.LooseGamerReward.NewLevel, game.LooseGamerReward.Exp,
+                                        game.LooseGamerReward.Score, null);
                                 }
 
+                                App.WindowList.Add(grw);
 
-                                if (game.currUsr == App.NickName)
-                                    MessageBox.Show(text, "Победа");
-                                else MessageBox.Show(text, "Поражение");
+                                grw.ShowDialog();
 
                                 App.ForceClosing = false;
                                 Close();
@@ -260,7 +250,12 @@ namespace CardGameClient
                             this.Dispatcher.Invoke(new Action(delegate
                             {
                                 App.InGame = false;
-                                MessageBox.Show("Победа за вами", "Противник отключился");
+                                GameResultWindow grw = new GameResultWindow(this, "Победа!", game.WinGamerReward.NewLevel, game.WinGamerReward.Exp,
+                                        game.WinGamerReward.Score, game.WinGamerReward.NewCard);
+
+                                App.WindowList.Add(grw);
+
+                                grw.ShowDialog();
 
                                 App.ForceClosing = false;
                                 Close();
@@ -438,6 +433,16 @@ namespace CardGameClient
             {
                 ccp.ToolTip = "Характеристики:\nАтака: " + ccp.ThisCard.dmg + "\nЗащита: " + ccp.ThisCard.def;
             }*/
+        }
+
+        private void Window_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Escape)
+            {
+                InGameMenuEscWindow igmew = new InGameMenuEscWindow(this);
+                App.WindowList.Add(igmew);
+                igmew.Show();
+            }
         }
     }
 }

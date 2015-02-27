@@ -428,6 +428,8 @@ namespace CardGameClient
                             else if (game.gameState == 7) return;
                         }
                         else return;
+
+                        Thread.Sleep(500);
                     }
                 }
 
@@ -556,7 +558,10 @@ namespace CardGameClient
 
             }
 
-            MessageBox.Show("Все боевые слоты уже заняты\nЧтобы переместить туда эту карту необходимо освободить один...");
+            DialogWin dw = new DialogWin(this, "Все боевые слоты уже заняты\nЧтобы переместить туда эту карту необходимо освободить один...",
+                MessageBoxButton.OK);
+            App.WindowList.Add(dw);
+            dw.Show();
 
         }
 
@@ -685,7 +690,7 @@ namespace CardGameClient
 
         private void AllCardsBtn_MouseUp(object sender, MouseButtonEventArgs e)
         {
-            if (findBtn.InProgress) return;
+            //if (findBtn.InProgress) return;
 
             MyCardsGrid.Visibility = Visibility.Visible;
             MainLobbyGrid.Visibility = Visibility.Hidden;
@@ -701,11 +706,15 @@ namespace CardGameClient
 
         private void MainLobbyBackBtn_MouseUp(object sender, MouseButtonEventArgs e)
         {
-            if (findBtn.InProgress) return;
+            //if (findBtn.InProgress) return;
 
             App.ForceClosing = false;
+            //App.isConnected = false;
             App.loginScreen.Show();
-            Close();
+
+            Window_Closing(this, null);
+            Window_Closed(this, null);
+            Hide();
         }
 
         private void CardPlace_MouseUp_1(object sender, MouseButtonEventArgs e)
@@ -751,52 +760,68 @@ namespace CardGameClient
 
         private void CardsShopBtn_MouseUp(object sender, MouseButtonEventArgs e)
         {
-            new Action(delegate
+            DialogWin dw = new DialogWin(this, "Внимание!\nПокупка карты будет стоить 1000 очков\nЖелаете продолжить?",
+                        MessageBoxButton.YesNo);
+
+            App.WindowList.Add(dw);
+            if (dw.ShowDialog() == true)
             {
-                Card card = null;
-                bool isError = false;
-
-                App.ProxyMutex.WaitOne();
-                try
+                new Action(delegate
                 {
-                    card = ServiceProxy.Proxy.BuyCard(App.UserName);
-                    App.charInfo = ServiceProxy.Proxy.EnterWorld(App.UserName);
-                    GetAllCard();
+                    Card card = null;
+                    bool isError = false;
 
-                }
-                catch (CommunicationException exc)
-                {
-                    this.Dispatcher.Invoke(new Action(delegate
+                    App.ProxyMutex.WaitOne();
+                    try
                     {
-                        App.isConnected = false;
-                        App.loginScreen.loginBtn.IsEnabled = true;
-                        App.loginScreen.errorText.Content = "Связь с сервером неожиданно прервана...";
-                        App.loginScreen.Show();
-                    }));
-                    isError = true;
-                }
+                        card = ServiceProxy.Proxy.BuyCard(App.UserName);
+                        App.charInfo = ServiceProxy.Proxy.EnterWorld(App.UserName);
+                        GetAllCard();
 
-                App.ProxyMutex.ReleaseMutex();
-
-                if (isError)
-                {
-                    App.OnConnectionError();
-                    return;
-                }
-
-                if (card == null) MessageBox.Show("Для совершения покупки у вас должно быть не менее 1000 очков", "Недостаточно средств");
-                else
-                {
-                    this.Dispatcher.Invoke(new Action(delegate
+                    }
+                    catch (CommunicationException exc)
                     {
-                       Rating.Text = "Очки: " + App.charInfo.score;
-                       CardsScore.Text = "Очки: " + App.charInfo.score;
-                       NewCardWindow ncw = new NewCardWindow(card, this);
-                       App.WindowList.Add(ncw);
-                       ncw.ShowDialog();
-                    }));
-                }
-            }).BeginInvoke(new AsyncCallback(delegate(IAsyncResult ar) { }), null);
+                        this.Dispatcher.Invoke(new Action(delegate
+                        {
+                            App.isConnected = false;
+                            App.loginScreen.loginBtn.IsEnabled = true;
+                            App.loginScreen.errorText.Content = "Связь с сервером неожиданно прервана...";
+                            App.loginScreen.Show();
+                        }));
+                        isError = true;
+                    }
+
+                    App.ProxyMutex.ReleaseMutex();
+
+                    if (isError)
+                    {
+                        App.OnConnectionError();
+                        return;
+                    }
+
+                    if (card == null)
+                    {
+                        this.Dispatcher.Invoke(new Action(delegate
+                        {
+                            DialogWin dw2 = new DialogWin(this, "Недостаточно средств.\nДля покупки необходимо не менее 1000 очков",
+                                MessageBoxButton.OK);
+                            App.WindowList.Add(dw2);
+                            dw2.Show();
+                        }));
+                    }
+                    else
+                    {
+                        this.Dispatcher.Invoke(new Action(delegate
+                        {
+                            Rating.Text = "Очки: " + App.charInfo.score;
+                            CardsScore.Text = "Очки: " + App.charInfo.score;
+                            NewCardWindow ncw = new NewCardWindow(card, this);
+                            App.WindowList.Add(ncw);
+                            ncw.ShowDialog();
+                        }));
+                    }
+                }).BeginInvoke(new AsyncCallback(delegate(IAsyncResult ar) { }), null);
+            }
         }            
     }
 }

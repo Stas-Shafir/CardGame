@@ -189,3 +189,9 @@ D:\Шаг\CardGameClient\CardGameClient\obj\x86\Debug\MyToolTip.g.cs
 D:\Шаг\CardGameClient\CardGameClient\obj\x86\Debug\CardGameClient.csprojResolveAssemblyReference.cache
 D:\CardsKurs\CardGameClient\CardGameClient\obj\x86\Debug\NewCardWindow.baml
 D:\CardsKurs\CardGameClient\CardGameClient\obj\x86\Debug\NewCardWindow.g.cs
+D:\CardsKurs\CardGameClient\CardGameClient\obj\x86\Debug\GameResultWindow.g.cs
+D:\CardsKurs\CardGameClient\CardGameClient\obj\x86\Debug\GameResultWindow.baml
+D:\CardsKurs\CardGameClient\CardGameClient\obj\x86\Debug\DialogWin.g.cs
+D:\CardsKurs\CardGameClient\CardGameClient\obj\x86\Debug\DialogWin.baml
+D:\CardsKurs\CardGameClient\CardGameClient\obj\x86\Debug\InGameMenuEscWindow.baml
+D:\CardsKurs\CardGameClient\CardGameClient\obj\x86\Debug\InGameMenuEscWindow.g.cs

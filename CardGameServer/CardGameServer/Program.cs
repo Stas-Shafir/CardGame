@@ -55,16 +55,37 @@ namespace CardGameServer
                             {
                                 lock (game)
                                 {
-                                    game.gameState = 5;
-                                    game.Gamers.Remove(user.nick);
-                                    if (game.Gamers.Count == 0)
+                                    if (game.gameState != 4 || game.gameState != 5)
                                     {
-                                        remove = true;
+                                        game.getReward(user.nick);
+                                        game.Gamers.Remove(user.nick);
+                                        game.getReward(game.Gamers[0], true);
+                                        Servicegame.setReward(game.Gamers[0], game.WinGamerReward, game, true);
+                                        Servicegame.setReward(user.nick, game.LooseGamerReward, game, false);
+                                        game.gameState = 5;                                        
+
+
+                                        if (game.Gamers.Count == 0)
+                                        {
+                                            remove = true;
+                                        }
+                                    }
+                                    else
+                                    {
+                                        game.Gamers.Remove(user.nick);
+
+                                        if (game.Gamers.Count == 0)
+                                        {
+                                            remove = true;
+                                        }
                                     }
                                 }
                             }
                         }
-                        catch { }
+                        catch 
+                        {
+
+                        }
 
                         UserThreadLock.EnterWriteLock();
                         OnlineUsers.Remove(user);

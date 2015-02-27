@@ -3,7 +3,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:dc="clr-namespace:CardGameClient"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" mc:Ignorable="d" x:Class="CardGameClient.LobbyScreen"
-        Title="LobbyScreen" MinHeight="768" MinWidth="1024" Height="768" Width="1024" Cursor="/CardGameClient;component/Images/cursor.cur"  WindowStyle="None" WindowStartupLocation="CenterScreen" ResizeMode="NoResize" WindowState="Maximized" Closing="Window_Closing" Closed="Window_Closed" Loaded="Window_Loaded" ContentRendered="Window_ContentRendered_1">
+        Title="Avalon: Battles for Glory" MinHeight="768" MinWidth="1024" Height="768" Width="1024" Cursor="/CardGameClient;component/Images/cursor.cur"  WindowStyle="None" WindowStartupLocation="CenterScreen" ResizeMode="NoResize" WindowState="Maximized" Closing="Window_Closing" Closed="Window_Closed" Loaded="Window_Loaded" ContentRendered="Window_ContentRendered_1">
     <Window.Background>
         <ImageBrush ImageSource="/CardGameClient;component/Images/bg02.jpg" Stretch="UniformToFill" TileMode="None" />
     </Window.Background>

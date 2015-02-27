@@ -296,6 +296,7 @@ namespace CardGameServer
             if (sqlInjection.Words.Any(word => nickname.IndexOf(word, StringComparison.OrdinalIgnoreCase) >= 0)) return null;
 
             int char_id = -1;
+            int character_level = -1;
 
             List<Card> gamerCard = new List<Card>();
             Game game = null;
@@ -307,13 +308,14 @@ namespace CardGameServer
             {
                 db_connection.Open();
 
-                SqlCommand cmd = new SqlCommand("SELECT id FROM characters where name='" + nickname + "'", db_connection);
+                SqlCommand cmd = new SqlCommand("SELECT id, character_level FROM characters where name='" + nickname + "'", db_connection);
 
                 SqlDataReader res = cmd.ExecuteReader();
 
                 if (res.Read())
                 {
                     char_id = (int)res["id"];
+                    character_level = (int)res["character_level"];
                     res.Close();
 
                     cmd = new SqlCommand("SELECT card_id, slot FROM character_cards where char_id=" + char_id +
@@ -342,7 +344,7 @@ namespace CardGameServer
                 {
                     Program.GameThreadLock.EnterReadLock();
 
-                    game = Program.OnlineGames.Find(g => g.gameState == 1);
+                    game = Program.OnlineGames.Find(g => g.gameState == 1 && g.Level >= (character_level -1) && g.Level <= (character_level + 1));
 
                     Program.GameThreadLock.ExitReadLock();
 
@@ -371,14 +373,17 @@ namespace CardGameServer
                 Program.UserThreadLock.ExitReadLock();
 
                 game = new Game(nickname, gamerCard);
+                game.Level = character_level;
                 if (gamer1 != null)
+                {
                     game.fGamer = gamer1;
 
-                Program.GameThreadLock.EnterWriteLock();
-               
-                Program.OnlineGames.Add(game);
+                    Program.GameThreadLock.EnterWriteLock();
 
-                Program.GameThreadLock.ExitWriteLock();
+                    Program.OnlineGames.Add(game);
+
+                    Program.GameThreadLock.ExitWriteLock();
+                }
             }
 
             catch (Exception exc)
@@ -615,6 +620,13 @@ namespace CardGameServer
                             game.gameState = 5;
 
 
+                            game.getReward(nickname);
+                            game.getReward(game.Gamers[0], true);
+
+                            setReward(game.Gamers[0], game.WinGamerReward, game, true);
+                            setReward(nickname, game.LooseGamerReward, game, false);
+
+
                             game.Gamers.Remove(nickname);
                             if (game.Gamers.Count == 0)
                             {
@@ -668,7 +680,7 @@ namespace CardGameServer
             }
         }
 
-        public void setReward(string nickname, Reward reward, Game game, bool Winner = false)
+        public static void setReward(string nickname, Reward reward, Game game, bool Winner = false)
         {
             SqlConnection db_connection = new SqlConnection(Program.connectionString);
 
@@ -722,7 +734,7 @@ namespace CardGameServer
                     {
                         int slot = -1;
 
-                        if (nickname == game.Gamers[0])
+                        /*if (nickname == game.Gamers[0])
                         {
                             List<Card> cList1 = game.firstGamerCards.FindAll(c => c.slot <= 8);
                             if (cList1 != null)
@@ -736,7 +748,7 @@ namespace CardGameServer
                         }
 
                         if (slot == 8)
-                        {
+                        {*/
                             cmd = new SqlCommand("SELECT MAX(slot) FROM character_cards WHERE char_id=" + c_id + "", db_connection);
 
                             rd = cmd.ExecuteReader();
@@ -750,7 +762,7 @@ namespace CardGameServer
 
                             rd.Close();
 
-                        }
+                        //}
                         
                         slot++;
 
@@ -880,10 +892,12 @@ namespace CardGameServer
                      //    oslot_cardid = (int)res[0];
                      //    res.Close();                         
 
-                             cmd = new SqlCommand("UPDATE character_cards SET slot=" + nSlot + " where char_id=" + char_id + " AND slot=" + oslot, db_connection);
+                             cmd = new SqlCommand("UPDATE character_cards SET slot=" + nSlot + " where char_id=" + char_id + " AND slot=" + oslot,
+                                 db_connection);
                              cmd.ExecuteNonQuery();
 
-                             //cmd = new SqlCommand("UPDATE character_cards SET slot=" + oslot + " where char_id=" + char_id + " AND card_id=" + nslot_cardid, db_connection);
+                             //cmd = new SqlCommand("UPDATE character_cards SET slot=" + oslot + " where char_id=" + char_id + " AND card_id=" +
+                                // + nslot_cardid, db_connection);
                              //cmd.ExecuteNonQuery();
                     // }                      
                  }

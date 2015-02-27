@@ -14,6 +14,8 @@ namespace CardGameServer
 
         Random Rnd;
 
+        public int Level { get; set; }
+
         [DataMember]
         public List<string> Gamers = new List<string>();
 
@@ -68,19 +70,27 @@ namespace CardGameServer
             if (firstGamerCards.FindAll(c => c.hp > 0).Count == 0
                 || twoGamerCards.FindAll(c => c.hp > 0).Count == 0)
             {
-                getReward(Gamers[0]);
-                getReward(Gamers[1]);
+                if (currUsr == Gamers[0])
+                {
+                    getReward(Gamers[0], true);
+                    getReward(Gamers[1]);
+                }
+                else
+                {
+                    getReward(Gamers[0]);
+                    getReward(Gamers[1], true);
+                }
                 gameState = 4;
                 return true;
             }
             return false;
         }
 
-        public void getReward(string nickname)
+        public void getReward(string nickname, bool isWinner = false)
         {
             Reward reward = new Reward();
 
-            if (nickname == currUsr)
+            if (isWinner)
             {
                 reward.Exp = Rnd.Next(245, 255);
                 reward.Score = Rnd.Next(123, 133);

@@ -127,9 +127,19 @@ namespace CardGameClient
                    ));
                 }
             }
+            catch (CommunicationException)
+            {
+                this.Dispatcher.Invoke(new Action(delegate
+                {
+                    App.isConnected = false;
+                    loginBtn.IsEnabled = true;
+                    errorText.Content = "Подключение невозможно. Сервер выключен или недоступен. Попробуйте повторить попытку позже...";
+                }));
+            }
             catch (Exception exc)
             {
-                this.Dispatcher.Invoke(new Action(delegate {
+                this.Dispatcher.Invoke(new Action(delegate
+                {
                     App.isConnected = false;
                     loginBtn.IsEnabled = true;
                     MessageBox.Show(exc.Message, "Критическая ошибка!");

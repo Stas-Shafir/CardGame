@@ -4,7 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              mc:Ignorable="d" 
-             d:DesignHeight="34" d:DesignWidth="130" MouseDown="UserControl_MouseDown" MouseEnter="UserControl_MouseEnter" MouseLeave="UserControl_MouseLeave" MouseUp="UserControl_MouseUp">
+             d:DesignHeight="34" d:DesignWidth="130" UseLayoutRounding="True" SnapsToDevicePixels="True" MouseDown="UserControl_MouseDown" MouseEnter="UserControl_MouseEnter" MouseLeave="UserControl_MouseLeave" MouseUp="UserControl_MouseUp">
     <UserControl.Background>
         <ImageBrush ImageSource="/CardGameClient;component/Images/btn_ui.png" />
     </UserControl.Background>  

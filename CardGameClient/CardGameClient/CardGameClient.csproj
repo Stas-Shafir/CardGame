@@ -79,6 +79,15 @@
     <Compile Include="Controls\StyledTextBox.xaml.cs">
       <DependentUpon>StyledTextBox.xaml</DependentUpon>
     </Compile>
+    <Compile Include="DialogWin.xaml.cs">
+      <DependentUpon>DialogWin.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="GameResultWindow.xaml.cs">
+      <DependentUpon>GameResultWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="InGameMenuEscWindow.xaml.cs">
+      <DependentUpon>InGameMenuEscWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="LobbyScreen.xaml.cs">
       <DependentUpon>LobbyScreen.xaml</DependentUpon>
     </Compile>
@@ -112,6 +121,18 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Controls\inGameTopInfo.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="DialogWin.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="GameResultWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="InGameMenuEscWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -397,6 +418,15 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Images\exit_btn.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\dialogwin.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\winner.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\looser.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

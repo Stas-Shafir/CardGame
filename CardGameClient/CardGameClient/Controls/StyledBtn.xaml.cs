@@ -27,7 +27,7 @@ namespace CardGameClient
             new Uri("pack://application:,,,/CardGameClient;component/Images/btn_ui_disabled.png")));
 
         Thickness normalM = new Thickness(0);
-        Thickness downM = new Thickness(0, 2, 0, 0);
+        Thickness downM = new Thickness(0, 1, 0, 0);
 
         public StyledBtn()
         {
