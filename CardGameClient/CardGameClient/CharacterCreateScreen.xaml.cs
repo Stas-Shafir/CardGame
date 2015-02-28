@@ -202,6 +202,7 @@ namespace CardGameClient
                 {
                     cp = gridHeroes.Children[i] as CardPlace;
                     cp.ThisCard = templates[i];
+                    cp.IsEnabled = true;
                 }
 
 

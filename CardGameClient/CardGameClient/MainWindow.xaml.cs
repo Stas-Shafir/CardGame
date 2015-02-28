@@ -240,7 +240,8 @@ namespace CardGameClient
                                 grw.ShowDialog();
 
                                 App.ForceClosing = false;
-                                Close();
+                                //Hide();
+                                //Close();
                             }));
 
                             return;
@@ -258,7 +259,8 @@ namespace CardGameClient
                                 grw.ShowDialog();
 
                                 App.ForceClosing = false;
-                                Close();
+                                //Hide();
+                                //Close();
                             }));
 
                             return;

@@ -101,11 +101,11 @@ namespace CardGameClient
                             App.WindowList.Add(ls);
                         }));
 
-                        Thread.Sleep(3000);
+                        //Thread.Sleep(3000);
 
-                        this.Dispatcher.Invoke(new Action(() =>
-                            Hide()
-                        ));
+                        //this.Dispatcher.Invoke(new Action(() =>
+                        //    Hide()
+                        //));
                     }
                 }
                 else if (res == 1)

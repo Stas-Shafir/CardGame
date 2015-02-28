@@ -195,3 +195,8 @@ D:\CardsKurs\CardGameClient\CardGameClient\obj\x86\Debug\DialogWin.g.cs
 D:\CardsKurs\CardGameClient\CardGameClient\obj\x86\Debug\DialogWin.baml
 D:\CardsKurs\CardGameClient\CardGameClient\obj\x86\Debug\InGameMenuEscWindow.baml
 D:\CardsKurs\CardGameClient\CardGameClient\obj\x86\Debug\InGameMenuEscWindow.g.cs
+D:\CardsKurs\CardGameClient\CardGameClient\bin\Debug\Images\Cards\10.png
+D:\CardsKurs\CardGameClient\CardGameClient\bin\Debug\Images\Cards\11.png
+D:\CardsKurs\CardGameClient\CardGameClient\bin\Debug\Images\Cards\8.png
+D:\CardsKurs\CardGameClient\CardGameClient\bin\Debug\Images\Cards\9.png
+D:\CardsKurs\CardGameClient\CardGameClient\bin\Debug\Images\Cards\12.png

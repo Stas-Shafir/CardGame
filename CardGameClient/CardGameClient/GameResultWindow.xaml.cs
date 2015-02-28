@@ -51,6 +51,7 @@ namespace CardGameClient
                 ncw.ShowDialog();
             }
             App.WindowList.Remove(this);
+            App.ForceClosing = false;
             Close();
         }
 
@@ -63,6 +64,12 @@ namespace CardGameClient
             //da.FillBehavior = FillBehavior.Stop;
             da.BeginTime = TimeSpan.FromMilliseconds(100);
             BeginAnimation(OpacityProperty, da);
+        }
+
+        private void Window_Closed(object sender, EventArgs e)
+        {
+            App.ForceClosing = false;
+            Owner.Close();
         }
     }
 }

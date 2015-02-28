@@ -328,8 +328,17 @@ namespace CardGameServer
                         Card currcard = Program.cards.Find(ccc => ccc.id == (int)res["card_id"]);
 
                         if (currcard != null)
-                            gamerCard.Add(new Card(currcard.id, currcard.card_name, currcard.type, currcard.hp,
-                                currcard.dmg, currcard.def, (int)res["slot"]));
+                        {
+                            int hp_bust, dmg_bust, def_bust;
+
+                            //test boost
+                                hp_bust = character_level > 1 ? character_level / 2 : 0;
+                                dmg_bust = character_level > 4 ? character_level / 2 - 1 : 0;
+                                def_bust = character_level > 5 ? character_level / 2 - 2 : 0;
+
+                            gamerCard.Add(new Card(currcard.id, currcard.card_name, currcard.type, currcard.hp + hp_bust,
+                                currcard.dmg + dmg_bust, currcard.def + def_bust, (int)res["slot"]));
+                        }
                     }
                 }
                 res.Close();

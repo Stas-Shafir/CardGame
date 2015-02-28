@@ -708,9 +708,10 @@ namespace CardGameClient
         {
             //if (findBtn.InProgress) return;
 
-            App.ForceClosing = false;
             //App.isConnected = false;
             App.loginScreen.Show();
+
+            App.ForceClosing = false;
 
             Window_Closing(this, null);
             Window_Closed(this, null);

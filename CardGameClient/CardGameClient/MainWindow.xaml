@@ -81,7 +81,7 @@
 
         <dc:CardPlace x:Name="EnemyPlace8" Grid.Column="8" Grid.Row="8" Margin="0, 2.5, 0, 2.5" MouseDown="enemyCardPlace_MouseDown" Tag="8" IsEnabled="False" MouseEnter="EnemyCardPlace_MouseEnter"></dc:CardPlace>
 
-        <Grid Name="Bottom" Grid.Row="10" Grid.Column="2" MaxWidth="686" MaxHeight="90" MinWidth="686" MinHeight="90" Grid.ColumnSpan="11">
+        <Grid Name="Bottom" Grid.Row="10" Grid.Column="2" MaxWidth="686" MaxHeight="90" MinWidth="686" MinHeight="90" Grid.ColumnSpan="11" Visibility="Hidden">
             <Grid.Background>
                 <ImageBrush ImageSource="/CardGameClient;component/Images/bottom.png" />
             </Grid.Background>
