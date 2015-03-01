@@ -353,7 +353,10 @@ namespace CardGameServer
                 {
                     Program.GameThreadLock.EnterReadLock();
 
-                    game = Program.OnlineGames.Find(g => g.gameState == 1 && g.Level >= (character_level -1) && g.Level <= (character_level + 1));
+                    //game = Program.OnlineGames.Find(g => g.gameState == 1 && g.Level >= (character_level -1) &&
+                        //g.Level <= (character_level + 1));
+
+                    game = Program.OnlineGames.Find(g => g.gameState == 1); 
 
                     Program.GameThreadLock.ExitReadLock();
 

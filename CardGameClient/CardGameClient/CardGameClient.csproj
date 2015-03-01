@@ -98,6 +98,7 @@
     <Compile Include="Service\Card.cs" />
     <Compile Include="Service\CharInfo.cs" />
     <Compile Include="Service\Game.cs" />
+    <Compile Include="Service\Gamer.cs" />
     <Compile Include="Service\Reward.cs" />
     <Compile Include="Service\Servicegame.cs" />
     <Page Include="Controls\CharacterCard.xaml">

@@ -9,7 +9,10 @@ namespace CardGameServer
     [DataContract]
     public class Game
     {
+        [DataMember]
         public Gamer fGamer = null;
+
+        [DataMember]
         public Gamer tGamer = null;
 
         Random Rnd;
@@ -60,9 +63,9 @@ namespace CardGameServer
 
         public void AddSecondUser(string user, List<Card> tgc)
         {
-            gameState = 2;
             Gamers.Add(user);
-            twoGamerCards = new List<Card>(tgc);           
+            twoGamerCards = new List<Card>(tgc);
+            gameState = 2;
         }
 
         public bool CheckWinner()

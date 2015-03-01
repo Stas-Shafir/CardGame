@@ -279,6 +279,7 @@ namespace CardGameClient
                 {
                     MessageBox.Show(exc.Message, "Критическая ошибка!");
                     App.isConnected = false;
+                    App.dumpException(exc);
                     Application.Current.Shutdown();
                 }));     
             }
@@ -440,6 +441,7 @@ namespace CardGameClient
                 {
                     MessageBox.Show(exc.Message, "Критическая ошибка!");
                     App.isConnected = false;
+                    App.dumpException(exc);
                     Application.Current.Shutdown();
                 }));
             }
@@ -816,7 +818,7 @@ namespace CardGameClient
                         {
                             Rating.Text = "Очки: " + App.charInfo.score;
                             CardsScore.Text = "Очки: " + App.charInfo.score;
-                            NewCardWindow ncw = new NewCardWindow(card, this);
+                            NewCardWindow ncw = new NewCardWindow(card/*, this*/);
                             App.WindowList.Add(ncw);
                             ncw.ShowDialog();
                         }));

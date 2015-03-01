@@ -21,10 +21,10 @@ namespace CardGameClient
     public partial class GameResultWindow : Window
     {
         private Card newCard = null;
-        public GameResultWindow(Window own, string result, bool newLevel, int Exp, int Score, Card newCard = null)
+        public GameResultWindow(/*Window own, */string result, bool newLevel, int Exp, int Score, Card newCard = null)
         {
             InitializeComponent();
-            Owner = own;
+            //Owner = own;
             Opacity = 0;
             GameResultLabel.Content = result;
             LevelLabel.Visibility = newLevel ? Visibility.Visible : Visibility.Hidden;
@@ -41,12 +41,13 @@ namespace CardGameClient
             if (newCard != null)
                 this.newCard = newCard;
         }
+        
 
         private void Image_MouseUp(object sender, MouseButtonEventArgs e)
         {
             if (newCard != null)
             {
-                NewCardWindow ncw = new NewCardWindow(newCard, Owner);
+                NewCardWindow ncw = new NewCardWindow(newCard/*, Owner*/);
                 App.WindowList.Add(ncw);
                 ncw.ShowDialog();
             }
@@ -69,7 +70,7 @@ namespace CardGameClient
         private void Window_Closed(object sender, EventArgs e)
         {
             App.ForceClosing = false;
-            Owner.Close();
+            //Owner.Close();
         }
     }
 }

@@ -13,6 +13,12 @@ namespace CardGameServer
         public List<string> Gamers;
 
         [DataMember]
+        public Gamer fGamer;
+
+        [DataMember]
+        public Gamer tGamer;
+
+        [DataMember]
         public List<Card> firstGamerCards;
 
         [DataMember]

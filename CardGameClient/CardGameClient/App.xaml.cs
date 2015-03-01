@@ -7,6 +7,7 @@ using System.Windows;
 using System.Windows.Media.Imaging;
 using CardGameServer;
 using System.Threading;
+using System.IO;
 
 namespace CardGameClient
 {
@@ -83,11 +84,27 @@ namespace CardGameClient
                     try
                     {
                         App.ForceClosing = false;
-                        window.Close();
+                        //window.Close();
                     }
                     catch { }
                 }
             }));
+        }
+
+
+        public static void dumpException(Exception exc)
+        {
+            try
+            {
+                if (!Directory.Exists("Log")) Directory.CreateDirectory("Log");
+
+                string dir_name = "Log/" + DateTime.Now.ToString("dd_MMM");
+                if (!Directory.Exists(dir_name))
+                    Directory.CreateDirectory(dir_name);
+
+                File.WriteAllText(dir_name + "/error_" + DateTime.Now.ToString("dd_MMM_HH_mm_ss") + ".log", exc.Message + "\n\n" + exc.StackTrace);
+            }
+            catch { }
         }
     }
 }

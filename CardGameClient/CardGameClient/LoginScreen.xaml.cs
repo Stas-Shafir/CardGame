@@ -142,6 +142,7 @@ namespace CardGameClient
                 {
                     App.isConnected = false;
                     loginBtn.IsEnabled = true;
+                    App.dumpException(exc);
                     MessageBox.Show(exc.Message, "Критическая ошибка!");
                 }));
             }
@@ -185,7 +186,7 @@ namespace CardGameClient
         }
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
-        {
+        {           
             try
             {
                 foreach (var item in Directory.GetFiles("Images/Cards/", "*.png", SearchOption.AllDirectories))
@@ -220,6 +221,7 @@ namespace CardGameClient
                 this.Dispatcher.Invoke(new Action(delegate
                 {
                     MessageBox.Show(exc.Message, "Критическая ошибка!");
+                    App.dumpException(exc);
                     Application.Current.Shutdown();
                 }));     
             }

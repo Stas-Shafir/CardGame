@@ -119,6 +119,7 @@ namespace CardGameClient
                 {
                     MessageBox.Show(exc.Message, "Критическая ошибка!");
                     App.isConnected = false;
+                    App.dumpException(exc);
                     Application.Current.Shutdown();
                 }));
             }
@@ -168,7 +169,7 @@ namespace CardGameClient
                             {
                                 this.Dispatcher.Invoke(new Action(delegate
                                 {
-                                    if (game.Gamers[0] == App.NickName)
+                                    if (game.fGamer.nick == App.NickName)
                                     {
                                         myCardPlases[item.slot].ThisCard = item;
                                         myCardPlases[item.slot].IsEnabled = item.Enabled;
@@ -182,7 +183,7 @@ namespace CardGameClient
                             {
                                 this.Dispatcher.Invoke(new Action(delegate
                                 {
-                                    if (game.Gamers[0] != App.NickName)
+                                    if (game.fGamer.nick != App.NickName)
                                     {
                                         myCardPlases[item.slot].ThisCard = item;
                                         myCardPlases[item.slot].IsEnabled = item.Enabled;
@@ -217,6 +218,34 @@ namespace CardGameClient
                         }
                         else if (game.gameState == 4)
                         {
+                            foreach (var item in game.firstGamerCards)
+                            {
+                                this.Dispatcher.Invoke(new Action(delegate
+                                {
+                                    if (game.fGamer.nick == App.NickName)
+                                    {
+                                        myCardPlases[item.slot].ThisCard = item;
+                                        myCardPlases[item.slot].IsEnabled = item.Enabled;
+                                    }
+                                    else
+                                        enemyCardPlases[item.slot].ThisCard = item;
+                                }));
+                            }
+
+                            foreach (var item in game.twoGamerCards)
+                            {
+                                this.Dispatcher.Invoke(new Action(delegate
+                                {
+                                    if (game.fGamer.nick != App.NickName)
+                                    {
+                                        myCardPlases[item.slot].ThisCard = item;
+                                        myCardPlases[item.slot].IsEnabled = item.Enabled;
+                                    }
+                                    else
+                                        enemyCardPlases[item.slot].ThisCard = item;
+                                }));
+                            }
+
                             this.Dispatcher.Invoke(new Action(delegate
                             {
                                 App.InGame = false;
@@ -226,12 +255,12 @@ namespace CardGameClient
 
                                 if (game.currUsr == App.NickName)
                                 {  
-                                    grw = new GameResultWindow(this, "Победа!", game.WinGamerReward.NewLevel, game.WinGamerReward.Exp,
+                                    grw = new GameResultWindow("Победа!", game.WinGamerReward.NewLevel, game.WinGamerReward.Exp,
                                         game.WinGamerReward.Score, game.WinGamerReward.NewCard);
                                 }
                                 else 
                                 {
-                                    grw = new GameResultWindow(this, "Поражение!", game.LooseGamerReward.NewLevel, game.LooseGamerReward.Exp,
+                                    grw = new GameResultWindow("Поражение!", game.LooseGamerReward.NewLevel, game.LooseGamerReward.Exp,
                                         game.LooseGamerReward.Score, null);
                                 }
 
@@ -241,7 +270,7 @@ namespace CardGameClient
 
                                 App.ForceClosing = false;
                                 //Hide();
-                                //Close();
+                                Close();
                             }));
 
                             return;
@@ -251,7 +280,7 @@ namespace CardGameClient
                             this.Dispatcher.Invoke(new Action(delegate
                             {
                                 App.InGame = false;
-                                GameResultWindow grw = new GameResultWindow(this, "Победа!", game.WinGamerReward.NewLevel, game.WinGamerReward.Exp,
+                                GameResultWindow grw = new GameResultWindow("Победа!", game.WinGamerReward.NewLevel, game.WinGamerReward.Exp,
                                         game.WinGamerReward.Score, game.WinGamerReward.NewCard);
 
                                 App.WindowList.Add(grw);
@@ -260,7 +289,7 @@ namespace CardGameClient
 
                                 App.ForceClosing = false;
                                 //Hide();
-                                //Close();
+                                Close();
                             }));
 
                             return;
@@ -274,6 +303,7 @@ namespace CardGameClient
                 {
                     MessageBox.Show(exc.Message, "Критическая ошибка!");
                     App.isConnected = false;
+                    App.dumpException(exc);
                     Application.Current.Shutdown();
                 }));
             }
@@ -322,15 +352,15 @@ namespace CardGameClient
                     return;
                 }
 
-                if (App.NickName == game.Gamers[0])
+                if (App.NickName == game.fGamer.nick)
                 {
                     menuTop.firstUserNickname = App.NickName;
-                    menuTop.twoUserNickname = game.Gamers[1];
+                    menuTop.twoUserNickname = game.tGamer.nick;
                 }
                 else
                 {
                     menuTop.firstUserNickname = App.NickName;
-                    menuTop.twoUserNickname = game.Gamers[0];
+                    menuTop.twoUserNickname = game.fGamer.nick;
                 }                
 
                 Thread gameThread = new Thread(DoGame) { IsBackground = true};
@@ -348,6 +378,7 @@ namespace CardGameClient
                 {
                     MessageBox.Show(exc.Message, "Критическая ошибка!");
                     App.isConnected = false;
+                    App.dumpException(exc);
                     Application.Current.Shutdown();
                 }));
             }

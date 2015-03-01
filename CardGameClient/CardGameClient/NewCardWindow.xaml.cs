@@ -20,14 +20,14 @@ namespace CardGameClient
     /// </summary>
     public partial class NewCardWindow : Window
     {
-        public NewCardWindow(Card card, Window own)
+        public NewCardWindow(Card card/*, Window own*/)
         {
             InitializeComponent();
-            Owner = own;
+            //Owner = own;
             Opacity = 0;
             NewCardPlace.ThisCard = card;
             CardNameLabel.Content = card.card_name;
-        }
+        }        
 
         private void Image_MouseUp(object sender, MouseButtonEventArgs e)
         {

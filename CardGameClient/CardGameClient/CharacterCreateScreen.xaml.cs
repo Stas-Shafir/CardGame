@@ -131,6 +131,7 @@ namespace CardGameClient
                 this.Dispatcher.Invoke(new Action( delegate {
                     MessageBox.Show(exc.Message, "Критическая ошибка!");
                     App.isConnected = false;
+                    App.dumpException(exc);
                     Application.Current.Shutdown();
                 }));
             }
@@ -217,6 +218,7 @@ namespace CardGameClient
                 {
                     MessageBox.Show(exc.Message, "Критическая ошибка!");
                     App.isConnected = false;
+                    App.dumpException(exc);
                     Application.Current.Shutdown();
                 }));     
             }
