@@ -10,6 +10,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using CardGameServer;
 
 namespace CardGameClient
 {
@@ -31,17 +32,47 @@ namespace CardGameClient
 
         private void LeaveBtn_MouseUp(object sender, MouseButtonEventArgs e)
         {
-            App.ForceClosing = false;
-            App.WindowList.Remove(this);
-            Owner.Close();
+
+            bool isError = false;
+            if (App.isConnected && ServiceProxy.Proxy != null)
+            {
+                App.ProxyMutex.WaitOne();
+                try
+                {
+                    ServiceProxy.Proxy.leaveGame(App.NickName);
+                }
+                catch
+                {
+                    this.Dispatcher.Invoke(new Action(delegate
+                    {
+                        App.isConnected = false;
+                        App.loginScreen.loginBtn.IsEnabled = true;
+                        App.loginScreen.errorText.Content = "Связь с сервером неожиданно прервана...";
+                        App.loginScreen.Show();
+                    }));
+                    isError = true;
+                }
+                App.ProxyMutex.ReleaseMutex();
+            }
+
+            if (isError)
+            {
+                App.OnConnectionError();
+                return;
+            }
+
+
+            //App.ForceClosing = false;
+            App.WindowList.Remove(this.Name);
+            Owner.Hide();
+            App.WindowList["LobbyWnd"].Show();
             Close();
         }
 
         private void ExitBtn_MouseUp(object sender, MouseButtonEventArgs e)
         {
             App.ForceClosing = true;
-            Owner.Close();
-            App.WindowList.Remove(this);
+            App.WindowList["MainWnd"].Close();
             Close();
         }
     }

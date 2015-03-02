@@ -7,6 +7,7 @@ using System.Data.SqlClient;
 using System.Configuration;
 using System.Data;
 using System.Threading;
+using System.IO;
 
 namespace CardGameServer
 {
@@ -27,6 +28,8 @@ namespace CardGameServer
         public static ReaderWriterLockSlim UserThreadLock = new ReaderWriterLockSlim();
 
         public static Random Rnd = new Random();
+
+        public static object fs = new object();
 
 
         static void detectTimeout()
@@ -196,6 +199,51 @@ namespace CardGameServer
                 Console.WriteLine("Press any key to exit...");
                 Console.ReadKey();
 
+            }
+        }
+
+
+
+        public static void dumpException(Exception exc)
+        {
+            try
+            {
+                lock (Program.Rnd)
+                {
+                    if (!Directory.Exists("Log")) Directory.CreateDirectory("Log");
+
+                    string dir_name = "Log/" + DateTime.Now.ToString("dd_MMM");
+                    if (!Directory.Exists(dir_name))
+                        Directory.CreateDirectory(dir_name);
+
+                    File.WriteAllText(dir_name + "/error_" + DateTime.Now.ToString("dd_MMM_HH_mm_ss") + ".log", 
+                        exc.Message + "\r\n" + exc.StackTrace);
+                }
+            }
+            catch { }
+        }
+
+        public static void WriteGameLog(Game game)
+        {
+            lock (fs)
+            {
+                FileStream fileStream = new FileStream("game_" + DateTime.Now.ToString("dd_MMM_HH") + ".log", FileMode.OpenOrCreate,
+                    FileAccess.ReadWrite);
+
+                fileStream.Position = fileStream.Length;
+
+                StringBuilder sb = new StringBuilder();
+                sb.AppendLine("===================================");
+                sb.AppendLine("==========" + DateTime.Now.ToString("dd_MMM_HH_mm_ss") + "===========");
+                sb.AppendLine("===================================");
+                sb.AppendLine("Gamers Count: " + game.Gamers.Count);
+                sb.AppendLine("First Gamer: " + game.fGamer.nick);
+                sb.AppendLine("Two Gamer: " + game.tGamer.nick);
+                sb.AppendLine("CurrUsr: " + game.currUsr);
+                sb.AppendLine("===================================\r\n");
+
+                fileStream.Write(Encoding.UTF8.GetBytes(sb.ToString()), 0, Encoding.UTF8.GetBytes(sb.ToString()).Count());
+                fileStream.Close();
             }
         }
     }

@@ -25,15 +25,14 @@ namespace CardGameClient
     {
         CardPlace mySelectedCardPlace;
         CardPlace enemySelectedCardPlace;
-        Game game;
+        public Game game;
 
         Dictionary<int, CardPlace> myCardPlases = new Dictionary<int, CardPlace>();
         Dictionary<int, CardPlace> enemyCardPlases = new Dictionary<int, CardPlace>();
 
-        public MainWindow(Window own)
+        public MainWindow()
         {
             InitializeComponent();
-            Owner = own;           
         }
 
         private void myCardPlace_MouseDown(object sender, MouseButtonEventArgs e)
@@ -162,7 +161,7 @@ namespace CardGameClient
 
 
                     if (game != null)
-                    {  
+                    {
                         if (game.gameState == 2 || game.gameState == 3)
                         {
                             foreach (var item in game.firstGamerCards)
@@ -172,7 +171,7 @@ namespace CardGameClient
                                     if (game.fGamer.nick == App.NickName)
                                     {
                                         myCardPlases[item.slot].ThisCard = item;
-                                        myCardPlases[item.slot].IsEnabled = item.Enabled;
+                                        myCardPlases[item.slot].Enabled = item.Enabled;
                                     }
                                     else
                                         enemyCardPlases[item.slot].ThisCard = item;
@@ -186,7 +185,7 @@ namespace CardGameClient
                                     if (game.fGamer.nick != App.NickName)
                                     {
                                         myCardPlases[item.slot].ThisCard = item;
-                                        myCardPlases[item.slot].IsEnabled = item.Enabled;
+                                        myCardPlases[item.slot].Enabled = item.Enabled;
                                     }
                                     else
                                         enemyCardPlases[item.slot].ThisCard = item;
@@ -199,19 +198,23 @@ namespace CardGameClient
                                 {
                                     menuTop.btnText = "Ваш\nХод";
 
+                                    boardGrid.IsEnabled = true;
+
                                     foreach (var item in myCardPlases.Values)
                                     {
                                         if (item.ContainsCard && item.ThisCard.Enabled)
-                                            item.IsEnabled = true;
+                                            item.Enabled = true;
                                     }
                                 }
                                 else
                                 {
                                     menuTop.btnText = "Ход\nсоперника";
 
+                                    boardGrid.IsEnabled = false;
+
                                     foreach (var item in myCardPlases.Values)
                                     {
-                                        item.IsEnabled = false;
+                                        item.Enabled = false;
                                     }
                                 }
                             }));
@@ -225,7 +228,7 @@ namespace CardGameClient
                                     if (game.fGamer.nick == App.NickName)
                                     {
                                         myCardPlases[item.slot].ThisCard = item;
-                                        myCardPlases[item.slot].IsEnabled = item.Enabled;
+                                        myCardPlases[item.slot].Enabled = item.Enabled;
                                     }
                                     else
                                         enemyCardPlases[item.slot].ThisCard = item;
@@ -239,7 +242,7 @@ namespace CardGameClient
                                     if (game.fGamer.nick != App.NickName)
                                     {
                                         myCardPlases[item.slot].ThisCard = item;
-                                        myCardPlases[item.slot].IsEnabled = item.Enabled;
+                                        myCardPlases[item.slot].Enabled = item.Enabled;
                                     }
                                     else
                                         enemyCardPlases[item.slot].ThisCard = item;
@@ -254,23 +257,24 @@ namespace CardGameClient
                                 GameResultWindow grw = null;
 
                                 if (game.currUsr == App.NickName)
-                                {  
+                                {
                                     grw = new GameResultWindow("Победа!", game.WinGamerReward.NewLevel, game.WinGamerReward.Exp,
                                         game.WinGamerReward.Score, game.WinGamerReward.NewCard);
                                 }
-                                else 
+                                else
                                 {
                                     grw = new GameResultWindow("Поражение!", game.LooseGamerReward.NewLevel, game.LooseGamerReward.Exp,
                                         game.LooseGamerReward.Score, null);
                                 }
 
-                                App.WindowList.Add(grw);
+                                App.WindowList.Add(grw.Name, grw);
 
                                 grw.ShowDialog();
 
-                                App.ForceClosing = false;
-                                //Hide();
-                                Close();
+                                App.WindowList["LobbyWnd"].Show();
+                                (App.WindowList["LobbyWnd"] as LobbyScreen).OnGameEnd();
+                                Hide();
+                                //Close();
                             }));
 
                             return;
@@ -283,18 +287,20 @@ namespace CardGameClient
                                 GameResultWindow grw = new GameResultWindow("Победа!", game.WinGamerReward.NewLevel, game.WinGamerReward.Exp,
                                         game.WinGamerReward.Score, game.WinGamerReward.NewCard);
 
-                                App.WindowList.Add(grw);
+                                App.WindowList.Add(grw.Name, grw);
 
                                 grw.ShowDialog();
 
-                                App.ForceClosing = false;
-                                //Hide();
-                                Close();
+                                App.WindowList["LobbyWnd"].Show();
+                                (App.WindowList["LobbyWnd"] as LobbyScreen).OnGameEnd();
+                                Hide();
+                                //Close();
                             }));
 
                             return;
                         }
                     }
+                    else return;
                 }
             }
             catch (Exception exc)
@@ -326,6 +332,31 @@ namespace CardGameClient
                     }
                 }
 
+                OnWindowShow();
+
+
+
+                /* this.Dispatcher.Invoke(new Action(() =>
+                         Owner.Hide()
+                     ), DispatcherPriority.ContextIdle, null);*/
+            }
+            catch (Exception exc)
+            {
+                this.Dispatcher.Invoke(new Action(delegate
+                {
+                    MessageBox.Show(exc.Message, "Критическая ошибка!");
+                    App.isConnected = false;
+                    App.dumpException(exc);
+                    Application.Current.Shutdown();
+                }));
+            }
+        }
+
+
+        public void OnWindowShow()
+        {
+            new Action(delegate
+            {
                 bool isError = false;
 
                 App.ProxyMutex.WaitOne();
@@ -348,9 +379,24 @@ namespace CardGameClient
 
                 if (isError)
                 {
+                    game = null;
                     App.OnConnectionError();
                     return;
                 }
+            }).Invoke();
+
+            if (game != null)
+            {
+                foreach (var item in myCardPlases.Values)
+                {
+                    item.inGame = true;
+                }
+
+                foreach (var item in enemyCardPlases.Values)
+                {
+                    item.inGame = false;
+                }
+
 
                 if (App.NickName == game.fGamer.nick)
                 {
@@ -361,32 +407,16 @@ namespace CardGameClient
                 {
                     menuTop.firstUserNickname = App.NickName;
                     menuTop.twoUserNickname = game.fGamer.nick;
-                }                
+                }
 
-                Thread gameThread = new Thread(DoGame) { IsBackground = true};
+                Thread gameThread = new Thread(DoGame) { IsBackground = true };
                 gameThread.Start();
-
-
-
-                /* this.Dispatcher.Invoke(new Action(() =>
-                         Owner.Hide()
-                     ), DispatcherPriority.ContextIdle, null);*/
             }
-            catch (Exception exc)
-            {
-                this.Dispatcher.Invoke(new Action(delegate
-                {
-                    MessageBox.Show(exc.Message, "Критическая ошибка!");
-                    App.isConnected = false;
-                    App.dumpException(exc);
-                    Application.Current.Shutdown();
-                }));
-            }
+            else throw new Exception("game is null");
         }
 
         private void Window_ContentRendered(object sender, EventArgs e)
         {
-            Owner.Hide();
         }
 
         private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
@@ -473,9 +503,51 @@ namespace CardGameClient
             if (e.Key == Key.Escape)
             {
                 InGameMenuEscWindow igmew = new InGameMenuEscWindow(this);
-                App.WindowList.Add(igmew);
+                App.WindowList.Add(igmew.Name, igmew);
                 igmew.Show();
             }
         }
+
+        private void MainWnd_IsVisibleChanged(object sender, DependencyPropertyChangedEventArgs e)
+        {
+            /*if (Visibility == Visibility.Visible)
+            {
+                if (myCardPlases.Count() != 0)
+                {
+                    mySelectedCardPlace = null;
+                    enemySelectedCardPlace = null;
+                    game = null;
+
+                    myCardPlases = new Dictionary<int, CardPlace>();
+                    enemyCardPlases = new Dictionary<int, CardPlace>();
+                   // Window_Loaded_1(this, null);
+                }
+            }*/
+            if (Visibility == Visibility.Hidden)
+            {
+                menuTop.btnText = "";
+                boardGrid.IsEnabled = false;
+                menuTop.firstUserNickname = "";
+                menuTop.twoUserNickname = "";
+                mySelectedCardPlace = null;
+                enemySelectedCardPlace = null;
+                game = null;
+
+                foreach (var item in myCardPlases.Values)
+                {
+                    item.inGame = false;
+                    item.ContainsCard = false;
+                    item.ThisCard = null;
+                }
+
+                foreach (var item in enemyCardPlases.Values)
+                {
+                    item.inGame = false;
+                    item.ContainsCard = false;
+                    item.ThisCard = null;
+                }
+            }
+        }
+
     }
 }

@@ -70,7 +70,8 @@ namespace CardGameServer
 
             catch (Exception exc)
             {
-                Console.WriteLine("ERROR: " + exc.Message);
+                Console.WriteLine("ERROR: " + exc.Message + "\r\n" + exc.StackTrace);
+                Program.dumpException(exc);
                 isError = true;
             }
 
@@ -111,7 +112,8 @@ namespace CardGameServer
             }
             catch (Exception exc)
             {
-                Console.WriteLine("ERROR: " + exc.Message);
+                Console.WriteLine("ERROR: " + exc.Message + "\r\n" + exc.StackTrace);
+                Program.dumpException(exc);
             }
 
             db_connection.Close();
@@ -178,8 +180,8 @@ namespace CardGameServer
             }
             catch (Exception exc)
             {
-                Console.WriteLine("ERROR: " + exc.Message);
-                db_connection.Close();
+                Console.WriteLine("ERROR: " + exc.Message + "\r\n" + exc.StackTrace);
+                Program.dumpException(exc);
                 return false;
             }
 
@@ -197,7 +199,8 @@ namespace CardGameServer
             }
             catch (Exception exc)
             {
-                Console.WriteLine("ERROR: " + exc.Message);
+                Console.WriteLine("ERROR: " + exc.Message + "\r\n" + exc.StackTrace);
+                Program.dumpException(exc);
                 return new List<Card>();
             }
         }
@@ -237,7 +240,8 @@ namespace CardGameServer
             }
             catch (Exception exc)
             {
-                Console.WriteLine("ERROR: " + exc.Message);
+                Console.WriteLine("ERROR: " + exc.Message + "\r\n" + exc.StackTrace);
+                Program.dumpException(exc);
             }
             
             db_connection.Close();
@@ -281,7 +285,8 @@ namespace CardGameServer
             }
             catch (Exception exc)
             {
-                Console.WriteLine("ERROR: " + exc.Message);
+                Console.WriteLine("ERROR: " + exc.Message + "\r\n" + exc.StackTrace);
+                Program.dumpException(exc);
             }
 
             db_connection.Close();
@@ -400,7 +405,8 @@ namespace CardGameServer
 
             catch (Exception exc)
             {
-                Console.WriteLine("ERROR: " + exc.Message);
+                Console.WriteLine("ERROR: " + exc.Message + "\r\n" + exc.StackTrace);
+                Program.dumpException(exc);
 
                 if (!sqlConClose) 
                     db_connection.Close();
@@ -443,6 +449,19 @@ namespace CardGameServer
                                 remove = true;
                             }
                         }
+                        else if (game.gameState == 2)
+                        {
+                            if (game.Init1 || game.Init2)
+                                Program.WriteGameLog(game);
+
+
+                            try
+                            {
+                                if (nickname == game.Gamers[0]) game.Init1 = false;
+                                if (nickname == game.Gamers[1]) game.Init2 = false;
+                            }
+                            catch { }
+                        }
                     }
 
                     if (remove)
@@ -455,7 +474,8 @@ namespace CardGameServer
             }
             catch (Exception exc)
             {
-                Console.WriteLine("ERROR: " + exc.Message);
+                Console.WriteLine("ERROR: " + exc.Message + "\r\n" + exc.StackTrace);
+                Program.dumpException(exc);
             }
 
             return game;
@@ -492,7 +512,8 @@ namespace CardGameServer
             }
             catch (Exception exc)
             {
-                Console.WriteLine("ERROR: " + exc.Message);
+                Console.WriteLine("ERROR: " + exc.Message + "\r\n" + exc.StackTrace);
+                Program.dumpException(exc);
             }
 
             return remove;
@@ -606,7 +627,8 @@ namespace CardGameServer
             }
             catch (Exception exc)
             {
-                Console.WriteLine("ERROR: " + exc.Message);
+                Console.WriteLine("ERROR: " + exc.Message + "\r\n" + exc.StackTrace);
+                Program.dumpException(exc);
             }
             return dmg;
         }
@@ -657,7 +679,8 @@ namespace CardGameServer
             }
             catch (Exception exc)
             {
-                Console.WriteLine("ERROR: " + exc.Message);
+                Console.WriteLine("ERROR: " + exc.Message + "\r\n" + exc.StackTrace);
+                Program.dumpException(exc);
             }
 
 
@@ -688,7 +711,8 @@ namespace CardGameServer
             }
             catch (Exception exc)
             {
-                Console.WriteLine("ERROR: " + exc.Message);
+                Console.WriteLine("ERROR: " + exc.Message + "\r\n" + exc.StackTrace);
+                Program.dumpException(exc);
             }
         }
 
@@ -790,7 +814,8 @@ namespace CardGameServer
             }
             catch (Exception exc)
             {
-                Console.WriteLine("ERROR: " + exc.Message);
+                Console.WriteLine("ERROR: " + exc.Message + "\r\n" + exc.StackTrace);
+                Program.dumpException(exc);
             }
 
             db_connection.Close();
@@ -863,7 +888,8 @@ namespace CardGameServer
             }
             catch (Exception exc)
             {
-                Console.WriteLine("ERROR: " + exc.Message);
+                Console.WriteLine("ERROR: " + exc.Message + "\r\n" + exc.StackTrace);
+                Program.dumpException(exc);
             }
 
             db_connection.Close();
@@ -916,7 +942,8 @@ namespace CardGameServer
              }
              catch (Exception exc)
              {
-                 Console.WriteLine("ERROR: " + exc.Message);
+                 Console.WriteLine("ERROR: " + exc.Message + "\r\n" + exc.StackTrace);
+                 Program.dumpException(exc);
              }
 
              db_connection.Close();
@@ -976,7 +1003,8 @@ namespace CardGameServer
             }
             catch (Exception exc)
             {
-                Console.WriteLine("ERROR: " + exc.Message);
+                Console.WriteLine("ERROR: " + exc.Message + "\r\n" + exc.StackTrace);
+                Program.dumpException(exc);
             }
 
             db_connection.Close();
@@ -1034,7 +1062,8 @@ namespace CardGameServer
             }
             catch (Exception exc)
             {
-                Console.WriteLine("ERROR: " + exc.Message);
+                Console.WriteLine("ERROR: " + exc.Message + "\r\n" + exc.StackTrace);
+                Program.dumpException(exc);
             }
 
             db_connection.Close();

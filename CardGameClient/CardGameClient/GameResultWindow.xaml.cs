@@ -48,11 +48,11 @@ namespace CardGameClient
             if (newCard != null)
             {
                 NewCardWindow ncw = new NewCardWindow(newCard/*, Owner*/);
-                App.WindowList.Add(ncw);
+                App.WindowList.Add(ncw.Name, ncw);
                 ncw.ShowDialog();
             }
-            App.WindowList.Remove(this);
-            App.ForceClosing = false;
+            App.WindowList.Remove(this.Name);
+            //App.ForceClosing = false;
             Close();
         }
 
@@ -69,7 +69,7 @@ namespace CardGameClient
 
         private void Window_Closed(object sender, EventArgs e)
         {
-            App.ForceClosing = false;
+            //App.ForceClosing = false;
             //Owner.Close();
         }
     }

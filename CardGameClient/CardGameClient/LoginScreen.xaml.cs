@@ -87,18 +87,36 @@ namespace CardGameClient
                     {
                         this.Dispatcher.Invoke(new Action(delegate
                         {
-                            CharacterCreateScreen ccs = new CharacterCreateScreen(this);
-                            ccs.Show();
-                            App.WindowList.Add(ccs);
+                            if (!App.WindowList.ContainsKey("CharacterCreateWnd"))
+                            {
+                                CharacterCreateScreen ccs = new CharacterCreateScreen();
+                                App.WindowList.Add(ccs.Name, ccs);
+                            }
+                            else
+                                (App.WindowList["CharacterCreateWnd"] as CharacterCreateScreen).OnWindowShow();
+
+                            App.WindowList["CharacterCreateWnd"].Show();
+                            //loginTextBox.Text = "";
+                            passwordTextBox.Password = "";
+                            Hide();
                         }));
                     }
                     else
                     {
                         this.Dispatcher.Invoke(new Action(delegate
                         {
-                            LobbyScreen ls = new LobbyScreen(this);
-                            ls.Show();
-                            App.WindowList.Add(ls);
+                            if (!App.WindowList.ContainsKey("LobbyWnd"))
+                            {
+                                LobbyScreen ls = new LobbyScreen();
+                                App.WindowList.Add(ls.Name, ls);
+                            }
+                            else
+                                (App.WindowList["LobbyWnd"] as LobbyScreen).OnWindowShow();
+
+                            App.WindowList["LobbyWnd"].Show();
+                            //loginTextBox.Text = "";
+                            passwordTextBox.Password = "";
+                            Hide();
                         }));
 
                         //Thread.Sleep(3000);
@@ -189,6 +207,7 @@ namespace CardGameClient
         {           
             try
             {
+                App.WindowList.Add(this.Name, this);
                 foreach (var item in Directory.GetFiles("Images/Cards/", "*.png", SearchOption.AllDirectories))
                 {
                     BitmapImage img = new BitmapImage();
@@ -227,5 +246,12 @@ namespace CardGameClient
             }
             
         }
+
+        private void Window_IsVisibleChanged(object sender, DependencyPropertyChangedEventArgs e)
+        {
+
+        }
+
+        
     }
 }

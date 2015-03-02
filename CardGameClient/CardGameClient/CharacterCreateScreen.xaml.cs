@@ -24,11 +24,11 @@ namespace CardGameClient
     {
         int CardIndex = -1;
         CardPlace selectedCardPlace;
+        List<Card> templates = null;
 
-        public CharacterCreateScreen(Window ownwin)
+        public CharacterCreateScreen()
         {
             InitializeComponent();
-            this.Owner = ownwin;
         }
 
         private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
@@ -72,9 +72,20 @@ namespace CardGameClient
 
         private void exitBtn_MouseUp(object sender, MouseButtonEventArgs e)
         {
+            //logout
             App.ForceClosing = false;
-            App.loginScreen.Show();
-            Close();
+            Window_Closing(this, null);
+            Window_Closed(this, null);
+
+
+            //show loginWnd
+            App.WindowList["LoginWnd"].Show();
+            Hide();
+
+            selectedCardPlace.selected = false;
+            selectedCardPlace = null;
+
+            //Close();
         }
         
         private void CreateCharacter()
@@ -112,10 +123,21 @@ namespace CardGameClient
 
                 if (result)
                 {
-                    this.Dispatcher.Invoke(new Action(delegate {
-                        LobbyScreen ls = new LobbyScreen(this);
-                        ls.Show();
-                        App.WindowList.Add(ls);
+                    this.Dispatcher.Invoke(new Action(delegate 
+                    {
+                        if (!App.WindowList.ContainsKey("LobbyWnd"))
+                        {
+                            LobbyScreen ls = new LobbyScreen();
+                            App.WindowList.Add(ls.Name, ls);
+                        }
+                        App.WindowList["LobbyWnd"].Show();
+
+                        /*selectedCardPlace.selected = false;
+                        characterNameTextBox.Text = "";
+                        CardIndex = -1;
+                        errorText.Content = "Имя персонажа: Введите от 3 до 16 символов";*/
+
+                        Hide();
                     }));
                 }
 
@@ -169,8 +191,31 @@ namespace CardGameClient
         {
             try
             {
+                OnWindowShow();
+
+               /* this.Dispatcher.Invoke(new Action(() =>
+                    App.loginScreen.Hide()
+                ), DispatcherPriority.ContextIdle, null);*/
+
+            }
+            catch (Exception exc)
+            {
+                this.Dispatcher.Invoke(new Action(delegate
+                {
+                    MessageBox.Show(exc.Message, "Критическая ошибка!");
+                    App.isConnected = false;
+                    App.dumpException(exc);
+                    Application.Current.Shutdown();
+                }));     
+            }
+        }
+
+
+        public void OnWindowShow()
+        {
+            new Action(delegate
+            {
                 bool isError = false;
-                List<Card> templates = null;
 
                 App.ProxyMutex.WaitOne();
                 try
@@ -196,7 +241,10 @@ namespace CardGameClient
                     App.OnConnectionError();
                     return;
                 }
+            }).Invoke();
 
+            if (templates != null)
+            {
                 CardPlace cp;
 
                 for (int i = 0; i < templates.Count; i++)
@@ -205,22 +253,6 @@ namespace CardGameClient
                     cp.ThisCard = templates[i];
                     cp.IsEnabled = true;
                 }
-
-
-               /* this.Dispatcher.Invoke(new Action(() =>
-                    App.loginScreen.Hide()
-                ), DispatcherPriority.ContextIdle, null);*/
-
-            }
-            catch (Exception exc)
-            {
-                this.Dispatcher.Invoke(new Action(delegate
-                {
-                    MessageBox.Show(exc.Message, "Критическая ошибка!");
-                    App.isConnected = false;
-                    App.dumpException(exc);
-                    Application.Current.Shutdown();
-                }));     
             }
         }
 
@@ -234,7 +266,26 @@ namespace CardGameClient
 
         private void Window_ContentRendered(object sender, EventArgs e)
         {
-            App.loginScreen.Hide();
         }
+
+        private void CharacterCreateWnd_IsVisibleChanged(object sender, DependencyPropertyChangedEventArgs e)
+        {
+            if (Visibility == Visibility.Hidden)
+            {
+                selectedCardPlace.selected = false;
+                selectedCardPlace = null;
+                characterNameTextBox.Text = "";
+                CardIndex = -1;
+                errorText.Content = "Имя персонажа: Введите от 3 до 16 символов";
+            }
+            else if (Visibility == Visibility.Visible)
+            {
+                if (templates != null)
+                {
+                    Window_Loaded(this, null);
+                }
+            }
+
+        }       
     }
 }

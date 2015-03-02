@@ -26,6 +26,19 @@ namespace CardGameClient
 
         public bool inGame { get; set; }
 
+        public bool Enabled
+        {
+            get
+            {
+                return IsEnabled;
+            }
+            set
+            {
+                IsEnabled = value;
+                //Opacity = value ? 1 : 0.8;
+            }
+        }
+
         public Card ThisCard
         {
             get 
@@ -34,18 +47,32 @@ namespace CardGameClient
             }
             set 
             {
-                if (thisCard != null && thisCard.hp <= 0) return;
 
-
-                    if (thisCard != null && value.hp < thisCard.hp && isMineCard && inGame)
-                        AnimateDmg((thisCard.hp - value.hp).ToString());
-
+                if (value == null)
+                {
                     thisCard = value;
+                    return;
+                }
+
+                if (thisCard != null && thisCard.hp <= 0)
+                {
+                    return;
+                }
+                
+                
+                if (thisCard != null && value.hp < thisCard.hp && isMineCard && inGame)
+                    AnimateDmg((thisCard.hp - value.hp).ToString());
+                
+                thisCard = value;
+                
+                if (value != null)
+                {
                     CardImage = App.cardImages[thisCard.id];
                     if (thisCard.hp <= 0) CardDeath();
                     Health = thisCard.hp.ToString();
                     AttakDig.DigitValue = thisCard.dmg.ToString();
                     DefDig.DigitValue = thisCard.def.ToString();
+                }
 
             }
         }

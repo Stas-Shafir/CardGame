@@ -28,10 +28,9 @@ namespace CardGameClient
 
         int curr_page = 1;
 
-        public LobbyScreen(Window ownwin)
+        public LobbyScreen()
         {
             InitializeComponent();
-            this.Owner = ownwin;
         }
 
         private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
@@ -79,9 +78,10 @@ namespace CardGameClient
 
         private void exitBtn_MouseUp(object sender, MouseButtonEventArgs e)
         {
-            App.ForceClosing = false;
-            App.loginScreen.Show();
-            Close();
+            //App.ForceClosing = false;
+            App.WindowList["LoginWnd"].Show();
+            Hide();
+            //Close();
         }
 
         public void UpdateInfo()
@@ -233,6 +233,25 @@ namespace CardGameClient
         {
             try
             {
+                OnWindowShow();       
+            }
+            catch (Exception exc)
+            {
+                this.Dispatcher.Invoke(new Action(delegate
+                {
+                    MessageBox.Show(exc.Message, "Критическая ошибка!");
+                    App.isConnected = false;
+                    App.dumpException(exc);
+                    Application.Current.Shutdown();
+                }));     
+            }
+        }
+
+
+        public void OnWindowShow()
+        {
+            new Action(delegate
+            {
                 bool isError = false;
 
                 App.ProxyMutex.WaitOne();
@@ -259,8 +278,10 @@ namespace CardGameClient
                     App.OnConnectionError();
                     return;
                 }
+            }).Invoke();
 
-                
+            if (App.charInfo != null)
+            {
                 App.NickName = App.charInfo.nickname;
 
                 NickNameLevel.Text = App.charInfo.nickname + ", " + App.charInfo.heroname + " " + App.charInfo.character_level + "-го уровня";
@@ -270,22 +291,11 @@ namespace CardGameClient
                 Rating.Text = "Очки: " + App.charInfo.score;
 
                 Thread updateRankingThread = new Thread(UpdateRanking) { IsBackground = true };
-                updateRankingThread.Start();            
-                
-            }
-            catch (Exception exc)
-            {
-                this.Dispatcher.Invoke(new Action(delegate
-                {
-                    MessageBox.Show(exc.Message, "Критическая ошибка!");
-                    App.isConnected = false;
-                    App.dumpException(exc);
-                    Application.Current.Shutdown();
-                }));     
+                updateRankingThread.Start();
             }
         }
 
-        private void OnGameEnd(object sender, System.ComponentModel.CancelEventArgs e)
+        public void OnGameEnd()
         {          
             findBtn.Enabled = true;
             MainLobbyBackBtn.ToolTip = null;
@@ -293,7 +303,7 @@ namespace CardGameClient
             MainLobbyBackBtn.Enabled = true;
             AllCardsBtn.Enabled = true;
             App.InGame = false;
-            Show();
+            //Show();
             UpdateInfo();
 
         }
@@ -363,13 +373,19 @@ namespace CardGameClient
                     this.Dispatcher.Invoke(new Action(delegate
                     {
                         findBtn.InProgress = false;
-                        MainWindow mw = new MainWindow(this);
 
-                        mw.Closing += OnGameEnd;
+                        if (!App.WindowList.ContainsKey("MainWnd"))
+                        {
+                            MainWindow mw = new MainWindow();
+                            App.WindowList.Add(mw.Name, mw);
+                        }
+                        else
+                            (App.WindowList["MainWnd"] as MainWindow).OnWindowShow();
+                        
                         findBtn.Enabled = true;
+                        App.WindowList["MainWnd"].Show();
 
-                        mw.Show();
-                        App.WindowList.Add(mw);
+                        Hide();
                     }));
                 }
                 else if (game.gameState == 1)
@@ -418,11 +434,20 @@ namespace CardGameClient
                                 this.Dispatcher.Invoke(new Action(delegate
                                 {
                                     findBtn.InProgress = false;
-                                    MainWindow mw = new MainWindow(this);
-                                    mw.Closing += OnGameEnd;
+
+                                    if (!App.WindowList.ContainsKey("MainWnd"))
+                                    {
+                                        MainWindow mw = new MainWindow();
+                                        App.WindowList.Add(mw.Name, mw);
+                                    }
+                                    else 
+                                        (App.WindowList["MainWnd"] as MainWindow).OnWindowShow();
+
                                     findBtn.Enabled = true;
-                                    mw.Show();
-                                    App.WindowList.Add(mw);
+                                    
+                                    App.WindowList["MainWnd"].Show();                                    
+
+                                    Hide();
                                 }));
                                 break;
                             }
@@ -504,7 +529,6 @@ namespace CardGameClient
 
         private void Window_ContentRendered_1(object sender, EventArgs e)
         { 
-            Owner.Hide();
         }
 
         private void AllCardPlace_MouseDoubleClick(object sender, MouseButtonEventArgs e)
@@ -562,8 +586,8 @@ namespace CardGameClient
 
             DialogWin dw = new DialogWin(this, "Все боевые слоты уже заняты\nЧтобы переместить туда эту карту необходимо освободить один...",
                 MessageBoxButton.OK);
-            App.WindowList.Add(dw);
-            dw.Show();
+            App.WindowList.Add(dw.Name, dw);
+            dw.ShowDialog();
 
         }
 
@@ -711,8 +735,9 @@ namespace CardGameClient
             //if (findBtn.InProgress) return;
 
             //App.isConnected = false;
-            App.loginScreen.Show();
 
+            App.WindowList["LoginWnd"].Show();
+            
             App.ForceClosing = false;
 
             Window_Closing(this, null);
@@ -766,7 +791,7 @@ namespace CardGameClient
             DialogWin dw = new DialogWin(this, "Внимание!\nПокупка карты будет стоить 1000 очков\nЖелаете продолжить?",
                         MessageBoxButton.YesNo);
 
-            App.WindowList.Add(dw);
+            App.WindowList.Add(dw.Name, dw);
             if (dw.ShowDialog() == true)
             {
                 new Action(delegate
@@ -808,8 +833,8 @@ namespace CardGameClient
                         {
                             DialogWin dw2 = new DialogWin(this, "Недостаточно средств.\nДля покупки необходимо не менее 1000 очков",
                                 MessageBoxButton.OK);
-                            App.WindowList.Add(dw2);
-                            dw2.Show();
+                            App.WindowList.Add(dw2.Name, dw2);
+                            dw2.ShowDialog();
                         }));
                     }
                     else
@@ -819,12 +844,29 @@ namespace CardGameClient
                             Rating.Text = "Очки: " + App.charInfo.score;
                             CardsScore.Text = "Очки: " + App.charInfo.score;
                             NewCardWindow ncw = new NewCardWindow(card/*, this*/);
-                            App.WindowList.Add(ncw);
+                            App.WindowList.Add(ncw.Name, ncw);
                             ncw.ShowDialog();
                         }));
                     }
                 }).BeginInvoke(new AsyncCallback(delegate(IAsyncResult ar) { }), null);
             }
-        }            
+        }
+
+        private void LobbyWnd_IsVisibleChanged(object sender, DependencyPropertyChangedEventArgs e)
+        {
+            if (Visibility == Visibility.Hidden)
+            {
+                findBtn.Enabled = true;
+                MainLobbyBackBtn.ToolTip = null;
+                AllCardsBtn.ToolTip = null;
+                MainLobbyBackBtn.Enabled = true;
+                AllCardsBtn.Enabled = true;
+            }
+           /* else if (Visibility == Visibility.Visible)
+            {
+                if (App.charInfo != null)
+                    Window_Loaded(this, null);
+            }*/
+        }                 
     }
 }

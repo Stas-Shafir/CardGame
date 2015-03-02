@@ -31,7 +31,7 @@ namespace CardGameClient
 
         private void Image_MouseUp(object sender, MouseButtonEventArgs e)
         {
-            App.WindowList.Remove(this);
+            App.WindowList.Remove(this.Name);
             Close();
         }
 

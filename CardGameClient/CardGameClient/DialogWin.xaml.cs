@@ -50,7 +50,7 @@ namespace CardGameClient
 
         private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
-            App.WindowList.Remove(this);
+            App.WindowList.Remove(this.Name);
         }
     }
 }

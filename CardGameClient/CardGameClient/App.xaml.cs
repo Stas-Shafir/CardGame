@@ -29,7 +29,7 @@ namespace CardGameClient
 
         public static bool isConnected = false;
 
-        public static List<Window> WindowList = new List<Window>();
+        public static Dictionary<string, Window> WindowList = new Dictionary<string, Window>();
 
         public static Dictionary<int, BitmapImage> cardImages = new Dictionary<int, BitmapImage>();
         public static Dictionary<int, BitmapImage> digitImages = new Dictionary<int, BitmapImage>();
@@ -79,12 +79,14 @@ namespace CardGameClient
             App.loginScreen.Dispatcher.Invoke(new Action(delegate
             {
                 App.isConnected = false;
-                foreach (Window window in App.WindowList)
+                foreach (Window window in App.WindowList.Values)
                 {
                     try
                     {
-                        App.ForceClosing = false;
+                        //App.ForceClosing = false;
+                        if (window.Name == "LoginWnd") continue;
                         //window.Close();
+                        window.Hide();
                     }
                     catch { }
                 }
@@ -102,7 +104,7 @@ namespace CardGameClient
                 if (!Directory.Exists(dir_name))
                     Directory.CreateDirectory(dir_name);
 
-                File.WriteAllText(dir_name + "/error_" + DateTime.Now.ToString("dd_MMM_HH_mm_ss") + ".log", exc.Message + "\n\n" + exc.StackTrace);
+                File.WriteAllText(dir_name + "/error_" + DateTime.Now.ToString("dd_MMM_HH_mm_ss") + ".log", exc.Message + "\r\n" + exc.StackTrace);
             }
             catch { }
         }
