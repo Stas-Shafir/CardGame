@@ -22,6 +22,7 @@ namespace CardGameServer
         public bool Init1 = true;
         public bool Init2 = true;
 
+
         public int Level { get; set; }
 
         [DataMember]
@@ -102,12 +103,12 @@ namespace CardGameServer
             {
                 reward.Exp = Rnd.Next(245, 255);
                 reward.Score = Rnd.Next(123, 133);
-                if (Rnd.Next(0, 100) <= 30) //drop card % winner
+                if (Rnd.Next(0, 3) <= 1) //drop card % winner
                 {
                     List<Card> clst = Program.cards.FindAll(ccc => ccc.type != 0);
                     if (clst.Count > 1)
                     {
-                        reward.NewCard = clst[Rnd.Next(0, clst.Count - 1)];
+                        reward.NewCard = clst[Rnd.Next(0, clst.Count)];
                     }
                 }
                 WinGamerReward = reward;
@@ -116,12 +117,12 @@ namespace CardGameServer
             {
                 reward.Exp = Rnd.Next(123, 133);
                 reward.Score = Rnd.Next(62, 72);
-                if (Rnd.Next(0, 100) <= 15) //drop card % looser
+                if (Rnd.Next(0, 6) <= 1) //drop card % looser
                 {
                     List<Card> clst = Program.cards.FindAll(ccc => ccc.type != 0);
                     if (clst.Count > 1)
                     {
-                        reward.NewCard = clst[Rnd.Next(0, clst.Count - 1)];
+                        reward.NewCard = clst[Rnd.Next(0, clst.Count)];
                     }
                 }
                 LooseGamerReward = reward;

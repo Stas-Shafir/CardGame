@@ -25,10 +25,14 @@ namespace CardGameClient
     {
         //login and password temp
         private string login, passw;
+        //LoadingScreen ldscreen;
 
         public LoginScreen()
         {
             InitializeComponent();
+
+            //ldscreen = new LoadingScreen();
+            //ldscreen.Show();
         }
 
 
@@ -204,7 +208,8 @@ namespace CardGameClient
         }
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
-        {           
+        {
+           // ldscreen.Owner = this;
             try
             {
                 App.WindowList.Add(this.Name, this);
@@ -233,6 +238,12 @@ namespace CardGameClient
                     App.digitImages.Add(Int32.Parse(System.IO.Path.GetFileNameWithoutExtension(item)), img);
                 }
 
+                App.rarityDictionary.Add(1, new Rarity("Обычное существо", Brushes.MintCream));
+                App.rarityDictionary.Add(2, new Rarity("Необычное существо", Brushes.LightBlue));
+                App.rarityDictionary.Add(3, new Rarity("Редкое существо", Brushes.DodgerBlue));
+                App.rarityDictionary.Add(4, new Rarity("Мистическое существо", Brushes.DarkMagenta));
+                App.rarityDictionary.Add(5, new Rarity("Легендарное существо", Brushes.DarkOrange));
+
                 App.loginScreen = this;
             }
             catch (Exception exc)
@@ -250,6 +261,11 @@ namespace CardGameClient
         private void Window_IsVisibleChanged(object sender, DependencyPropertyChangedEventArgs e)
         {
 
+        }
+
+        private void LoginWnd_ContentRendered(object sender, EventArgs e)
+        {
+            
         }
 
         

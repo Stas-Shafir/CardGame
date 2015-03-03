@@ -82,8 +82,6 @@ namespace CardGameClient
             App.WindowList["LoginWnd"].Show();
             Hide();
 
-            selectedCardPlace.selected = false;
-            selectedCardPlace = null;
 
             //Close();
         }
@@ -130,6 +128,9 @@ namespace CardGameClient
                             LobbyScreen ls = new LobbyScreen();
                             App.WindowList.Add(ls.Name, ls);
                         }
+                        else
+                            (App.WindowList["LobbyWnd"] as LobbyScreen).OnWindowShow();
+
                         App.WindowList["LobbyWnd"].Show();
 
                         /*selectedCardPlace.selected = false;
@@ -272,20 +273,13 @@ namespace CardGameClient
         {
             if (Visibility == Visibility.Hidden)
             {
-                selectedCardPlace.selected = false;
+                if (selectedCardPlace != null) selectedCardPlace.selected = false;
                 selectedCardPlace = null;
                 characterNameTextBox.Text = "";
                 CardIndex = -1;
                 errorText.Content = "Имя персонажа: Введите от 3 до 16 символов";
             }
-            else if (Visibility == Visibility.Visible)
-            {
-                if (templates != null)
-                {
-                    Window_Loaded(this, null);
-                }
-            }
-
+            
         }       
     }
 }

@@ -36,6 +36,8 @@ namespace CardGameClient
 
         public static CharInfo charInfo;
 
+        public static Dictionary<int, Rarity> rarityDictionary = new Dictionary<int, Rarity>();
+
 
         public static void iAmOnline()
         {

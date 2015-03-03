@@ -32,11 +32,16 @@ namespace CardGameServer
         [DataMember]
         public bool Enabled { get; set; }
 
+        [DataMember]
+        public int cardRarity { get; set; }
+
+        public bool Use = false;
+
         public Card()
         {
         }
 
-        public Card(int id, string cn, int t, int hp, int dmg, int def, int sl = -1)
+        public Card(int id, string cn, int t, int hp, int dmg, int def, int r, int sl = -1)
         {
             this.id = id;
             this.card_name = cn;
@@ -45,6 +50,7 @@ namespace CardGameServer
             this.dmg = dmg;
             this.def = def;
             this.slot = sl;
+            this.cardRarity = r;
             this.Enabled = true;
         }
     }

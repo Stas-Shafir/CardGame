@@ -264,7 +264,7 @@ namespace CardGameClient
                                 else
                                 {
                                     grw = new GameResultWindow("Поражение!", game.LooseGamerReward.NewLevel, game.LooseGamerReward.Exp,
-                                        game.LooseGamerReward.Score, null);
+                                        game.LooseGamerReward.Score, game.LooseGamerReward.NewCard);
                                 }
 
                                 App.WindowList.Add(grw.Name, grw);

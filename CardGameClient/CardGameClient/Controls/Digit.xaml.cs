@@ -39,20 +39,24 @@ namespace CardGameClient
 
                 OneDig.Visibility = TwoDigs1.Visibility = TwoDigs2.Visibility = Visibility.Hidden;
 
-
-                if (txt.Length == 2)
+                try
                 {
-                    TwoDigs1.Source = App.digitImages[Int32.Parse(txt[0].ToString())];
-                    TwoDigs2.Source = App.digitImages[Int32.Parse(txt[1].ToString())];
 
-                    TwoDigs1.Visibility = TwoDigs2.Visibility = Visibility.Visible;
-                }
-                else if (txt.Length == 1)
-                {
-                    OneDig.Source = App.digitImages[Int32.Parse(txt[0].ToString())];
+                    if (txt.Length == 2)
+                    {
+                        TwoDigs1.Source = App.digitImages[Int32.Parse(txt[0].ToString())];
+                        TwoDigs2.Source = App.digitImages[Int32.Parse(txt[1].ToString())];
 
-                    OneDig.Visibility = Visibility.Visible;
+                        TwoDigs1.Visibility = TwoDigs2.Visibility = Visibility.Visible;
+                    }
+                    else if (txt.Length == 1)
+                    {
+                        OneDig.Source = App.digitImages[Int32.Parse(txt[0].ToString())];
+
+                        OneDig.Visibility = Visibility.Visible;
+                    }
                 }
+                catch { }
 
             }
         }

@@ -176,7 +176,7 @@
                 <dc:StyledBtn x:Name="CardsExitBtn" Grid.Row="5" Width="130" Height="34" Margin="40,0,0,25" Text="Назад" HorizontalAlignment="Left" VerticalAlignment="Bottom" MouseUp="CardsExitBtn_MouseUp" />
 				
 				<dc:StyledTextBox x:Name="CardsScore" Grid.Row="5" Margin="0,0,0,30" Text="" Width="Auto" IsReadOnly="True" Height="Auto" HorizontalAlignment="Center" VerticalAlignment="Bottom" Focusable="False" IsUndoEnabled="False" SelectionBrush="{x:Null}" SelectionOpacity="0"/>
-				<dc:StyledBtn x:Name="CardsShopBtn" Grid.Row="5" Width="130" Height="34" Margin="0,0,40,25" Text="Купить" VerticalAlignment="Bottom" HorizontalAlignment="Right" MouseUp="CardsShopBtn_MouseUp" />
+				<dc:StyledBtn x:Name="CardsShopBtn" Grid.Row="5" Width="130" Height="34" Margin="0,0,40,25" Text="Магазин" VerticalAlignment="Bottom" HorizontalAlignment="Right" MouseUp="CardsShopBtn_MouseUp" />
 				
             </Grid>
         </Grid>

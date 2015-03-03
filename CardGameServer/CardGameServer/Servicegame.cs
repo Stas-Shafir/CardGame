@@ -323,7 +323,7 @@ namespace CardGameServer
                     character_level = (int)res["character_level"];
                     res.Close();
 
-                    cmd = new SqlCommand("SELECT card_id, slot FROM character_cards where char_id=" + char_id +
+                    cmd = new SqlCommand("SELECT card_id, slot, rare FROM character_cards where char_id=" + char_id +
                         " AND slot >= 0 AND slot <= 8", db_connection);
 
                     res = cmd.ExecuteReader();
@@ -342,7 +342,7 @@ namespace CardGameServer
                                 def_bust = character_level > 5 ? character_level / 2 - 2 : 0;
 
                             gamerCard.Add(new Card(currcard.id, currcard.card_name, currcard.type, currcard.hp + hp_bust,
-                                currcard.dmg + dmg_bust, currcard.def + def_bust, (int)res["slot"]));
+                                currcard.dmg + dmg_bust, currcard.def + def_bust, currcard.cardRarity, (int)res["slot"]));
                         }
                     }
                 }
@@ -547,11 +547,15 @@ namespace CardGameServer
 
                             dmg = myC.dmg - (enC.def / 2); //calc real damage
 
-                            if (dmg == 0) dmg = 1;
+                            if (dmg <= 0) dmg = 1;
 
                             int temp = enC.hp; //save curr hp                          
 
                             enC.hp = enC.hp - dmg;
+
+                            //test
+                            //enC.dmg = enC.dmg - dmg/2;
+                            //if (enC.dmg < 1) enC.dmg = 1;
 
                             if (enC.hp <= 0)
                             {
@@ -563,16 +567,31 @@ namespace CardGameServer
 
                             isWin = game.CheckWinner();
 
-                            if (!isWin && game.firstGamerCards.Find(cc => cc.Enabled == true) == null)
+                            //if (!isWin && game.firstGamerCards.Find(cc => cc.Enabled == true) == null)
+
+                            if (!isWin) //3 or < cards per turn... test
                             {
-                                foreach (var item in game.firstGamerCards)
+                                int cardsPerTurn = 3;
+
+                                if (game.firstGamerCards.FindAll(cc=> cc.hp > 0).Count >= 3)
+                                    cardsPerTurn = 3;
+                                else if (game.firstGamerCards.FindAll(cc => cc.hp > 0).Count == 2)
+                                    cardsPerTurn = 2;
+                                else if (game.firstGamerCards.FindAll(cc => cc.hp > 0).Count == 1)
+                                    cardsPerTurn = 1;
+
+
+                                if (game.firstGamerCards.FindAll(cc => cc.Enabled == false && cc.hp > 0).Count >= cardsPerTurn)
                                 {
-                                    if (item.hp > 0) item.Enabled = true;
+                                    foreach (var item in game.firstGamerCards)
+                                    {
+                                        if (item.hp > 0) item.Enabled = true;
+                                    }
+
+
+                                    game.currUsr = game.Gamers[1];
+                                    game.gameState = 3;
                                 }
-
-
-                                game.currUsr = game.Gamers[1];
-                                game.gameState = 3;
                             }
 
                             else if (isWin)
@@ -590,11 +609,15 @@ namespace CardGameServer
 
                             dmg = myC.dmg - (enC.def / 2); //calc real damage
 
-                            if (dmg == 0) dmg = 1;
+                            if (dmg <= 0) dmg = 1;
 
                             int temp = enC.hp; //save curr hp                          
 
                             enC.hp = enC.hp - dmg;
+
+                            //test
+                            //enC.dmg = enC.dmg - dmg/2;
+                            //if (enC.dmg < 1) enC.dmg = 1;
 
                             if (enC.hp <= 0)
                             {
@@ -605,15 +628,30 @@ namespace CardGameServer
 
                             isWin = game.CheckWinner();
 
-                            if (!isWin && game.twoGamerCards.Find(cc => cc.Enabled == true) == null)
-                            {
-                                foreach (var item in game.twoGamerCards)
-                                {
-                                    if (item.hp > 0) item.Enabled = true;
-                                }
+                            //if (!isWin && game.twoGamerCards.Find(cc => cc.Enabled == true) == null)
 
-                                game.currUsr = game.Gamers[0];
-                                game.gameState = 2;
+                            if (!isWin) //3 or < cards per turn... test
+                            {
+                                int cardsPerTurn = 3;
+
+                                if (game.twoGamerCards.FindAll(cc => cc.hp > 0).Count >= 3)
+                                    cardsPerTurn = 3;
+                                else if (game.twoGamerCards.FindAll(cc => cc.hp > 0).Count == 2)
+                                    cardsPerTurn = 2;
+                                else if (game.twoGamerCards.FindAll(cc => cc.hp > 0).Count == 1)
+                                    cardsPerTurn = 1;
+
+
+                                if (game.twoGamerCards.FindAll(cc => cc.Enabled == false && cc.hp > 0).Count >= cardsPerTurn)
+                                {
+                                    foreach (var item in game.twoGamerCards)
+                                    {
+                                        if (item.hp > 0) item.Enabled = true;
+                                    }
+
+                                    game.currUsr = game.Gamers[0];
+                                    game.gameState = 2;
+                                }
                             }
 
                             else if (isWin)
@@ -828,6 +866,7 @@ namespace CardGameServer
             if (sqlInjection.Words.Any(word => user.IndexOf(word, StringComparison.OrdinalIgnoreCase) >= 0)) return null;
 
             int char_id = -1;
+            int character_level = -1;
 
             const int cnt_perpage = 24;
 
@@ -838,13 +877,14 @@ namespace CardGameServer
             {
                 db_connection.Open();
 
-                SqlCommand cmd = new SqlCommand("SELECT id FROM characters where account='" + user + "'", db_connection);
+                SqlCommand cmd = new SqlCommand("SELECT id, character_level FROM characters where account='" + user + "'", db_connection);
 
                 SqlDataReader res = cmd.ExecuteReader();
 
                 if (res.Read())
                 {
                     char_id = (int)res["id"];
+                    character_level = (int)res["character_level"];
                     res.Close();
 
 
@@ -861,8 +901,17 @@ namespace CardGameServer
                         Card currcard = Program.cards.Find(ccc => ccc.id == (int)res["card_id"]);
 
                         if (currcard != null)
-                            gamerCard.Add(new Card(currcard.id, currcard.card_name, currcard.type, currcard.hp,
-                                currcard.dmg, currcard.def, (int)res["slot"]));
+                        {
+                            int hp_bust, dmg_bust, def_bust;
+
+                            //test boost
+                            hp_bust = character_level > 1 ? character_level / 2 : 0;
+                            dmg_bust = character_level > 4 ? character_level / 2 - 1 : 0;
+                            def_bust = character_level > 5 ? character_level / 2 - 2 : 0;
+
+                            gamerCard.Add(new Card(currcard.id, currcard.card_name, currcard.type, currcard.hp + hp_bust,
+                                currcard.dmg + dmg_bust, currcard.def + def_bust, currcard.cardRarity, (int)res["slot"]));
+                        }
                     }
 
                     res.Close();
@@ -878,8 +927,17 @@ namespace CardGameServer
                         Card currcard = Program.cards.Find(ccc => ccc.id == (int)res["card_id"]);
 
                         if (currcard != null)
-                            gamerCard.Add(new Card(currcard.id, currcard.card_name, currcard.type, currcard.hp,
-                                currcard.dmg, currcard.def, (int)res["slot"]));
+                        {
+                            int hp_bust, dmg_bust, def_bust;
+
+                            //test boost
+                            hp_bust = character_level > 1 ? character_level / 2 : 0;
+                            dmg_bust = character_level > 4 ? character_level / 2 - 1 : 0;
+                            def_bust = character_level > 5 ? character_level / 2 - 2 : 0;
+
+                            gamerCard.Add(new Card(currcard.id, currcard.card_name, currcard.type, currcard.hp + hp_bust,
+                                currcard.dmg + dmg_bust, currcard.def + def_bust, currcard.cardRarity, (int)res["slot"]));
+                        }
                     }
 
                 }
@@ -1041,7 +1099,7 @@ namespace CardGameServer
                         int slot = GetFreeSlotNumberAllCards(user);
 
                         List<Card> cclist = Program.cards.FindAll(c=>c.type != 0);
-                        result = cclist[Program.Rnd.Next(0, cclist.Count - 1)];
+                        result = cclist[Program.Rnd.Next(0, cclist.Count)];
                         int card_id = result.id;
 
                         score -= 1000;

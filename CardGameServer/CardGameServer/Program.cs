@@ -153,7 +153,8 @@ namespace CardGameServer
                         (int)res["type"],
                         (int)res["hp"], 
                         (int)res["dmg"], 
-                        (int)res["def"]
+                        (int)res["def"],
+                        (int)res["rare"]
                         ));
                 }
 

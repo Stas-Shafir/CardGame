@@ -29,6 +29,9 @@ namespace CardGameServer
 
         [DataMember]
         public bool Enabled { get; set; }
+
+        [DataMember]
+        public int cardRarity { get; set; }
     }
 }
 

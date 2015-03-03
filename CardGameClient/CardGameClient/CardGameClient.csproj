@@ -58,6 +58,9 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="CardInfo.xaml.cs">
+      <DependentUpon>CardInfo.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Controls\CharacterCard.xaml.cs">
       <DependentUpon>CharacterCard.xaml</DependentUpon>
     </Compile>
@@ -88,12 +91,16 @@
     <Compile Include="InGameMenuEscWindow.xaml.cs">
       <DependentUpon>InGameMenuEscWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="LoadingScreen.xaml.cs">
+      <DependentUpon>LoadingScreen.xaml</DependentUpon>
+    </Compile>
     <Compile Include="LobbyScreen.xaml.cs">
       <DependentUpon>LobbyScreen.xaml</DependentUpon>
     </Compile>
     <Compile Include="NewCardWindow.xaml.cs">
       <DependentUpon>NewCardWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Rarity.cs" />
     <Compile Include="Secirity\sqlInjection.cs" />
     <Compile Include="Service\Card.cs" />
     <Compile Include="Service\CharInfo.cs" />
@@ -101,6 +108,10 @@
     <Compile Include="Service\Gamer.cs" />
     <Compile Include="Service\Reward.cs" />
     <Compile Include="Service\Servicegame.cs" />
+    <Page Include="CardInfo.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Controls\CharacterCard.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -134,6 +145,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="InGameMenuEscWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="LoadingScreen.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

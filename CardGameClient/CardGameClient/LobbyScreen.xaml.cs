@@ -678,10 +678,12 @@ namespace CardGameClient
                     foreach (CardPlace item in AllCardsGrid.Children)
                     {
                         item.ContainsCard = false;
+                        item.ToolTip = null;
                     }
                     foreach (CardPlace item in SlotGrid.Children)
                     {
                         item.ContainsCard = false;
+                        item.ToolTip = null;
                     }
 
                     //fill
@@ -694,11 +696,37 @@ namespace CardGameClient
                             int index = curr_page == 1 ? item.slot - 10 : item.slot - ((curr_page - 1) * 24) - 10;
                             cp = AllCardsGrid.Children[index] as CardPlace;
                             cp.ThisCard = item;
+
+                            CardInfo ci = new CardInfo();
+                            ci.CardName.Content = item.card_name;
+                            ci.Rarity.Content = App.rarityDictionary[item.cardRarity].RarityName;
+                            ci.Rarity.Foreground = App.rarityDictionary[item.cardRarity].RarityColor;
+                            ci.Dmg.Content = "Атака: " + item.dmg;
+                            ci.Def.Content = "Защита: " + item.def;
+
+                            cp.ToolTip = new ToolTip()
+                            {
+                                Background = new SolidColorBrush(Color.FromArgb(230, 0, 0,0)),
+                                Content = ci
+                            };
                         }
                         else
                         {
                             cp = SlotGrid.Children[item.slot - 1] as CardPlace;
                             cp.ThisCard = item;
+
+                            CardInfo ci = new CardInfo();
+                            ci.CardName.Content = item.card_name;
+                            ci.Rarity.Content = App.rarityDictionary[item.cardRarity].RarityName;
+                            ci.Rarity.Foreground = App.rarityDictionary[item.cardRarity].RarityColor;
+                            ci.Dmg.Content = "Атака: " + item.dmg;
+                            ci.Def.Content = "Защита: " + item.def;
+
+                            cp.ToolTip = new ToolTip()
+                            {
+                                Background = new SolidColorBrush(Color.FromArgb(230, 0, 0, 0)),
+                                Content = ci
+                            };
                         }
                     }
                 }));
