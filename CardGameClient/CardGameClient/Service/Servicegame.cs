@@ -64,7 +64,10 @@ namespace CardGameServer
         int GetFreeSlotNumberAllCards(string user);
 
         [OperationContract]
-        Card BuyCard(string user);
+        List<Card> BuyCard(string user, int number);
+
+        [OperationContract]
+        bool SellCard(string user, int slot);
         
     }
 }

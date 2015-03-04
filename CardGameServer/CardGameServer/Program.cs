@@ -226,26 +226,30 @@ namespace CardGameServer
 
         public static void WriteGameLog(Game game)
         {
-            lock (fs)
+            try
             {
-                FileStream fileStream = new FileStream("game_" + DateTime.Now.ToString("dd_MMM_HH") + ".log", FileMode.OpenOrCreate,
-                    FileAccess.ReadWrite);
+                lock (fs)
+                {
+                    FileStream fileStream = new FileStream("game_" + DateTime.Now.ToString("dd_MMM_HH") + ".log", FileMode.OpenOrCreate,
+                        FileAccess.ReadWrite);
 
-                fileStream.Position = fileStream.Length;
+                    fileStream.Position = fileStream.Length;
 
-                StringBuilder sb = new StringBuilder();
-                sb.AppendLine("===================================");
-                sb.AppendLine("==========" + DateTime.Now.ToString("dd_MMM_HH_mm_ss") + "===========");
-                sb.AppendLine("===================================");
-                sb.AppendLine("Gamers Count: " + game.Gamers.Count);
-                sb.AppendLine("First Gamer: " + game.fGamer.nick);
-                sb.AppendLine("Two Gamer: " + game.tGamer.nick);
-                sb.AppendLine("CurrUsr: " + game.currUsr);
-                sb.AppendLine("===================================\r\n");
+                    StringBuilder sb = new StringBuilder();
+                    sb.AppendLine("===================================");
+                    sb.AppendLine("==========" + DateTime.Now.ToString("dd_MMM_HH_mm_ss") + "===========");
+                    sb.AppendLine("===================================");
+                    sb.AppendLine("Gamers Count: " + game.Gamers.Count);
+                    sb.AppendLine("First Gamer: " + game.fGamer.nick);
+                    sb.AppendLine("Two Gamer: " + game.tGamer.nick);
+                    sb.AppendLine("CurrUsr: " + game.currUsr);
+                    sb.AppendLine("===================================\r\n");
 
-                fileStream.Write(Encoding.UTF8.GetBytes(sb.ToString()), 0, Encoding.UTF8.GetBytes(sb.ToString()).Count());
-                fileStream.Close();
+                    fileStream.Write(Encoding.UTF8.GetBytes(sb.ToString()), 0, Encoding.UTF8.GetBytes(sb.ToString()).Count());
+                    fileStream.Close();
+                }
             }
+            catch { }
         }
     }
 }

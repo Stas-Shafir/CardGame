@@ -323,7 +323,7 @@ namespace CardGameServer
                     character_level = (int)res["character_level"];
                     res.Close();
 
-                    cmd = new SqlCommand("SELECT card_id, slot, rare FROM character_cards where char_id=" + char_id +
+                    cmd = new SqlCommand("SELECT card_id, slot FROM character_cards where char_id=" + char_id +
                         " AND slot >= 0 AND slot <= 8", db_connection);
 
                     res = cmd.ExecuteReader();
@@ -1072,12 +1072,12 @@ namespace CardGameServer
         }
 
         [OperationContract]
-        public Card BuyCard(string user)
+        public List<Card> BuyCard(string user, int number)
         {
             if (sqlInjection.Words.Any(word => user.IndexOf(word, StringComparison.OrdinalIgnoreCase) >= 0)) return null;
 
             int char_id = -1;
-            Card result = null;
+            List<Card> result = new List<Card>();
 
             SqlConnection db_connection = new SqlConnection(Program.connectionString);
             try
@@ -1094,29 +1094,164 @@ namespace CardGameServer
                     int score = (int)res["score"];
                     res.Close();
 
-                    if (score >= 1000)
+                    if ( (score >= 3000 && number == 1) || (score >= 5000 && number == 2) || (score >= 10000 && number == 3) )
                     {
                         int slot = GetFreeSlotNumberAllCards(user);
 
-                        List<Card> cclist = Program.cards.FindAll(c=>c.type != 0);
-                        result = cclist[Program.Rnd.Next(0, cclist.Count)];
-                        int card_id = result.id;
+                        List<Card> cclist;
 
-                        score -= 1000;
+                        int card_id1 = -1;
 
-                        cmd = new SqlCommand("UPDATE characters SET score=" + score + " WHERE id=" + char_id, db_connection);
+                        int card_id2 = -1;
 
-                        cmd.ExecuteNonQuery();
+                        int card_id3 = -1;
 
-                        cmd = new SqlCommand("INSERT INTO character_cards(char_id, card_id, slot) VALUES (" + char_id + ", " + 
-                            card_id + ", " + slot + ")", db_connection);
+                        bool find = false;
 
-                        cmd.ExecuteNonQuery();
+                        if (number == 1)
+                        {
+                            cclist = Program.cards.FindAll(c => c.type != 0);
+                            result.Add(cclist[Program.Rnd.Next(0, cclist.Count)]);
+                            result.Add(cclist[Program.Rnd.Next(0, cclist.Count)]);
+                            result.Add(cclist[Program.Rnd.Next(0, cclist.Count)]);
+
+                            card_id1 = result[0].id;
+                            card_id2 = result[1].id;
+                            card_id3 = result[2].id;
+
+                            score -= 3000;
+                        }
+                        else if (number == 2)
+                        {
+                            cclist = Program.cards.FindAll(c => c.type != 0);
+
+                            find = false;
+                            while (!find)
+                            {
+                                Card cc = cclist[Program.Rnd.Next(0, cclist.Count)];
+                                if (cc.cardRarity >= 2)
+                                {
+                                    result.Add(cc);
+                                    find = true;
+                                }
+                            }
+
+                            result.Add(cclist[Program.Rnd.Next(0, cclist.Count)]);
+                            result.Add(cclist[Program.Rnd.Next(0, cclist.Count)]);
+
+                            card_id1 = result[0].id;
+                            card_id2 = result[1].id;
+                            card_id3 = result[2].id;
+
+                            score -= 5000;
+                        }
+                        else if (number == 3)
+                        {
+                            cclist = Program.cards.FindAll(c => c.type != 0);
+
+                            find = false;
+                            while (!find)
+                            {
+                                Card cc = cclist[Program.Rnd.Next(0, cclist.Count)];
+                                if (cc.cardRarity >= 2)
+                                {
+                                    result.Add(cc);
+                                    find = true;
+                                }
+                            }
+
+                            find = false;
+                            while (!find)
+                            {
+                                Card cc = cclist[Program.Rnd.Next(0, cclist.Count)];
+                                if (cc.cardRarity >= 2)
+                                {
+                                    result.Add(cc);
+                                    find = true;
+                                }
+                            }
+
+                            result.Add(cclist[Program.Rnd.Next(0, cclist.Count)]);
+
+                            card_id1 = result[0].id;
+                            card_id2 = result[1].id;
+                            card_id3 = result[2].id;
+
+                            score -= 10000;
+                        }
+
+                        if (card_id1 != -1 && card_id2 != -1 && card_id3 != -1)
+                        {
+                            cmd = new SqlCommand("UPDATE characters SET score=" + score + " WHERE id=" + char_id, db_connection);
+                            cmd.ExecuteNonQuery();
+
+                            cmd = new SqlCommand("INSERT INTO character_cards(char_id, card_id, slot) VALUES (" + char_id + ", " +
+                                card_id1 + ", " + slot + ")", db_connection);
+                            cmd.ExecuteNonQuery();
+
+                            cmd = new SqlCommand("INSERT INTO character_cards(char_id, card_id, slot) VALUES (" + char_id + ", " +
+                                card_id2 + ", " + (slot + 1) + ")", db_connection);
+                            cmd.ExecuteNonQuery();
+
+                            cmd = new SqlCommand("INSERT INTO character_cards(char_id, card_id, slot) VALUES (" + char_id + ", " +
+                                card_id3 + ", " + (slot + 2) + ")", db_connection);
+                            cmd.ExecuteNonQuery();
+                        }
                     }
 
                 }
                 res.Close();
 
+            }
+            catch (Exception exc)
+            {
+                Console.WriteLine("ERROR: " + exc.Message + "\r\n" + exc.StackTrace);
+                Program.dumpException(exc);
+            }
+
+            db_connection.Close();
+
+            return result;
+        }
+
+
+        [OperationContract]
+        public bool SellCard(string user, int slot)
+        {
+            if (sqlInjection.Words.Any(word => user.IndexOf(word, StringComparison.OrdinalIgnoreCase) >= 0)) return false;
+
+            int char_id = -1;
+            int score = -1;
+            bool result = false;
+
+            SqlConnection db_connection = new SqlConnection(Program.connectionString);
+            try
+            {
+                db_connection.Open();
+
+                SqlCommand cmd = new SqlCommand("SELECT id, score FROM characters where account='" + user + "'", db_connection);
+
+                SqlDataReader res = cmd.ExecuteReader();
+
+                if (res.Read())
+                {
+                    char_id = (int)res["id"];
+                    score = (int)res["score"];
+                    res.Close();
+
+                    cmd = new SqlCommand("DELETE FROM character_cards where char_id=" + char_id + " AND slot=" + slot, db_connection);
+                    cmd.ExecuteNonQuery();
+
+                    score += 350;
+
+                    cmd = new SqlCommand("UPDATE characters SET score=" + score + " WHERE id=" + char_id, db_connection);
+                    cmd.ExecuteNonQuery();
+
+                    result = true;
+
+                }
+                else 
+                    res.Close();
             }
             catch (Exception exc)
             {

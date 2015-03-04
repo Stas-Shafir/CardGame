@@ -183,7 +183,6 @@ F:\Шаг\CardGameClient\CardGameClient\obj\x86\Debug\MainWindow.baml
 F:\Шаг\CardGameClient\CardGameClient\obj\x86\Debug\CardGameClient.g.resources
 F:\Шаг\CardGameClient\CardGameClient\obj\x86\Debug\CardGameClient.Properties.Resources.resources
 F:\Шаг\CardGameClient\CardGameClient\obj\x86\Debug\CardGameClient.csproj.GenerateResource.Cache
-D:\Шаг\CardGameClient\CardGameClient\obj\x86\Debug\CardGameClient.csprojResolveAssemblyReference.cache
 D:\CardsKurs\CardGameClient\CardGameClient\obj\x86\Debug\NewCardWindow.baml
 D:\CardsKurs\CardGameClient\CardGameClient\obj\x86\Debug\NewCardWindow.g.cs
 D:\CardsKurs\CardGameClient\CardGameClient\obj\x86\Debug\GameResultWindow.g.cs
@@ -231,3 +230,5 @@ D:\CardsKurs\CardGameClient\CardGameClient\obj\x86\Debug\LoadingScreen.baml
 D:\CardsKurs\CardGameClient\CardGameClient\obj\x86\Debug\LoadingScreen.g.cs
 D:\CardsKurs\CardGameClient\CardGameClient\obj\x86\Debug\CardInfo.baml
 D:\CardsKurs\CardGameClient\CardGameClient\obj\x86\Debug\CardInfo.g.cs
+D:\Шаг\CardGameClient\CardGameClient\obj\x86\Debug\CardInfo.baml
+D:\Шаг\CardGameClient\CardGameClient\obj\x86\Debug\CardInfo.g.cs

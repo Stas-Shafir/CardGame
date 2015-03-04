@@ -13,6 +13,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using CardGameServer;
 using System.Windows.Media.Animation;
+using System.ServiceModel;
 
 namespace CardGameClient
 {
@@ -258,6 +259,59 @@ namespace CardGameClient
             dmgLabel.Content = "";
 
             dmgLabel.Margin = new Thickness(0, 6, 6, 0);
+        }
+
+        private void CardContextMenuSellBtn_Click(object sender, RoutedEventArgs e)
+        {
+            DialogWin dw = new DialogWin(App.WindowList["LobbyWnd"], "Вы точно хотите продать эту карту за 350 очков?",
+                MessageBoxButton.YesNo);
+            App.WindowList.Add(dw.Name, dw);
+
+            if (dw.ShowDialog() == true)
+            {
+                bool res = false;
+
+                new Action(delegate
+                {
+                    bool isError = false;
+                    
+                    App.ProxyMutex.WaitOne();
+                    try
+                    {
+                        res = ServiceProxy.Proxy.SellCard(App.UserName, thisCard.slot);
+                    }
+                    catch (CommunicationException exc)
+                    {
+                        this.Dispatcher.Invoke(new Action(delegate
+                        {
+                            App.isConnected = false;
+                            App.loginScreen.loginBtn.IsEnabled = true;
+                            App.loginScreen.errorText.Content = "Связь с сервером неожиданно прервана...";
+                            App.loginScreen.Show();
+                        }));
+                        isError = true;
+                    }
+
+                    App.ProxyMutex.ReleaseMutex();
+
+                    if (isError)
+                    {
+                        App.OnConnectionError();
+                        return;
+                    }
+                }
+                ).Invoke();
+
+                if (res)
+                {
+                    selected = false;
+                    CardDeath();
+                    CardContextMenu.Visibility = Visibility.Hidden;
+                    (App.WindowList["LobbyWnd"] as LobbyScreen).GetAllCard();
+                    (App.WindowList["LobbyWnd"] as LobbyScreen).UpdateInfo();
+                }
+
+            }
         }
     }
 }

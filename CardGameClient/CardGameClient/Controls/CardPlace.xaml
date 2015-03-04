@@ -7,6 +7,11 @@
              mc:Ignorable="d"
              d:DesignHeight="127" d:DesignWidth="105" MouseDown="UserControl_MouseDown">
     <Grid Name="GridMain" Margin="0" Opacity="1" MouseEnter="Grid_MouseEnter" MouseLeave="GridMain_MouseLeave">
+        <Grid.ContextMenu>
+            <ContextMenu Name="CardContextMenu" Background="#BB000000" Visibility="Hidden" Cursor="/CardGameClient;component/Images/cursor.cur">
+                <MenuItem Header="Продать" BorderThickness="0" Foreground="WhiteSmoke" Name="CardContextMenuSellBtn" Click="CardContextMenuSellBtn_Click" />
+            </ContextMenu>
+        </Grid.ContextMenu>
         <Border Visibility="Hidden" Name="borderGrid" Margin="-7" BorderThickness="2" BorderBrush="#FFC1C1C1" CornerRadius="7">
            
         </Border>

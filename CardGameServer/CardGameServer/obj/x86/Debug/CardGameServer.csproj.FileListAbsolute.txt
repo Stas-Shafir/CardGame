@@ -18,4 +18,3 @@ F:\Шаг\CardGameServer\CardGameServer\obj\x86\Debug\CardGameServer.exe
 F:\Шаг\CardGameServer\CardGameServer\obj\x86\Debug\CardGameServer.pdb
 F:\Шаг\CardGameServer\CardGameServer\bin\Debug\CardGameServer.exe
 F:\Шаг\CardGameServer\CardGameServer\bin\Debug\CardGameServer.pdb
-D:\Шаг\CardGameServer\CardGameServer\obj\x86\Debug\CardGameServer.csprojResolveAssemblyReference.cache

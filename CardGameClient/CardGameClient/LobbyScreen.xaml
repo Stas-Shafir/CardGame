@@ -9,7 +9,7 @@
     </Window.Background>
     <Grid>
         <!-- Main Lobby -->
-        <Grid x:Name="MainLobbyGrid" Height="739" Width="985" HorizontalAlignment="Center" VerticalAlignment="Center" Visibility="Visible">
+        <Grid x:Name="MainLobbyGrid" Height="739" Width="985" HorizontalAlignment="Center" VerticalAlignment="Center">
             <Grid.Background>
                 <ImageBrush ImageSource="/CardGameClient;component/Images/lobby.png" />
             </Grid.Background>
@@ -104,7 +104,7 @@
                         <ColumnDefinition MaxWidth="105" MinWidth="105" Width="105" />
                         <ColumnDefinition Width="*" />
                     </Grid.ColumnDefinitions>
-
+                    
                     <dc:CardPlace IsMineCard="True" Grid.Column="1" Grid.Row="1" Margin="0, 2.5, 0, 2.5" Tag="17" MouseDoubleClick="AllCardPlace_MouseDoubleClick" MouseUp="CardPlace_MouseUp_1" inGame="False"/>
                     <dc:CardPlace IsMineCard="True" Grid.Column="3" Grid.Row="1" Margin="0, 2.5, 0, 2.5" Tag="18" MouseDoubleClick="AllCardPlace_MouseDoubleClick" MouseUp="CardPlace_MouseUp_1" inGame="False"/>
                     <dc:CardPlace IsMineCard="True" Grid.Column="5" Grid.Row="1" Margin="0, 2.5, 0, 2.5" Tag="19" MouseDoubleClick="AllCardPlace_MouseDoubleClick" MouseUp="CardPlace_MouseUp_1" inGame="False"/>
@@ -179,6 +179,26 @@
 				<dc:StyledBtn x:Name="CardsShopBtn" Grid.Row="5" Width="130" Height="34" Margin="0,0,40,25" Text="Магазин" VerticalAlignment="Bottom" HorizontalAlignment="Right" MouseUp="CardsShopBtn_MouseUp" />
 				
             </Grid>
+        </Grid>
+        
+        <!-- Shop -->
+        <Grid x:Name="ShopGrid" Background="#C6000000" Visibility="Hidden">           
+
+            <!--<dc:StyledBtn x:Name="ShopExitBtn" Width="130" Height="34" Margin="40,0,0,25" Text="Назад" HorizontalAlignment="Left" VerticalAlignment="Bottom" MouseUp="ShopExitBtn_MouseUp"/>-->
+
+            
+            <Border Height="370" HorizontalAlignment="Center" VerticalAlignment="Center" Width="557" BorderThickness="3" CornerRadius="5" BorderBrush="#FF584134" />
+            <Grid HorizontalAlignment="Center" VerticalAlignment="Center" Height="364" Width="552" Background="#000000">
+                <Image Source="/CardGameClient;component/Images/exit_btn.png" Height="22" Width="22" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0, 5, 5, 0" MouseUp="Image_MouseUp" />
+                <TextBlock Margin="15" Text="Набор 1. Содержит 3 случайные карты. Цена: 3000 очков" TextAlignment="Center" HorizontalAlignment="Center" VerticalAlignment="Top" Foreground="White"/>
+                <dc:StyledBtn Margin="0,59,0,0" x:Name="nabor1Btn" Text="Купить" Height="34" VerticalAlignment="Top" Width="130" HorizontalAlignment="Center" MouseUp="nabor1Btn_MouseUp"></dc:StyledBtn>
+
+                <TextBlock Margin="0, 120, 0, 0" Text="Набор 2. Содержит 3 случайные карты, одна из которых будет гарантированно необычной или лучше. Цена: 5000 очков" TextAlignment="Center" HorizontalAlignment="Center" VerticalAlignment="Top" Foreground="White" Height="47" Width="512" TextWrapping="Wrap"/>
+                <dc:StyledBtn Margin="0,167,0,0" x:Name="nabor2Btn" Text="Купить" Height="34" VerticalAlignment="Top" Width="130" HorizontalAlignment="Center" MouseUp="nabor2Btn_MouseUp"></dc:StyledBtn>
+
+                <TextBlock Margin="0, 220, 0, 0" Text="Набор 3. Содержит 3 случайные карты, две из которых будут гарантированно необычными или лучше. Цена: 10000 очков" TextAlignment="Center" HorizontalAlignment="Center" VerticalAlignment="Top" Foreground="White" Height="47" Width="512" TextWrapping="Wrap"/>
+                <dc:StyledBtn Margin="0,289,0,0" x:Name="nabor3Btn" Text="Купить" Height="34" VerticalAlignment="Top" Width="130" HorizontalAlignment="Center" MouseUp="nabor3Btn_MouseUp"></dc:StyledBtn>
+            </Grid>            
         </Grid>
     </Grid>
 </Window>

@@ -113,11 +113,13 @@ namespace CardGameClient
                 return;
             }
 
-            NickNameLevel.Text = App.charInfo.nickname + ", " + App.charInfo.heroname + " " + App.charInfo.character_level + "-го уровня";
+            NickNameLevel.Text = App.charInfo.nickname + ", " + App.charInfo.heroname + " " + App.charInfo.character_level
+                + "-го уровня";
             Exp.Text = "Опыт: " + App.charInfo.exp;
             Games.Text = "Кол-во Игр: " + App.charInfo.games;
             Wins.Text = "Кол-во Побед: " + App.charInfo.wins;
-            Rating.Text = "Очки: " + App.charInfo.score;
+            CardsScore.Text = Rating.Text = "Очки: " + App.charInfo.score;
+
 
             Thread updateRankingThread = new Thread(UpdateRanking) {IsBackground = true};
             updateRankingThread.Start();
@@ -679,6 +681,8 @@ namespace CardGameClient
                     {
                         item.ContainsCard = false;
                         item.ToolTip = null;
+
+                        item.CardContextMenu.Visibility = Visibility.Hidden;
                     }
                     foreach (CardPlace item in SlotGrid.Children)
                     {
@@ -707,8 +711,13 @@ namespace CardGameClient
                             cp.ToolTip = new ToolTip()
                             {
                                 Background = new SolidColorBrush(Color.FromArgb(230, 0, 0,0)),
+                                BorderThickness = new Thickness(0),
                                 Content = ci
                             };
+
+                            cp.CardContextMenu.Visibility = Visibility.Visible;
+                            //cp.CardContextMenuSellBtn.Click += new RoutedEventHandler(CardContextMenuSellBtn_Click);
+                           
                         }
                         else
                         {
@@ -725,6 +734,7 @@ namespace CardGameClient
                             cp.ToolTip = new ToolTip()
                             {
                                 Background = new SolidColorBrush(Color.FromArgb(230, 0, 0, 0)),
+                                BorderThickness = new Thickness(0),
                                 Content = ci
                             };
                         }
@@ -732,6 +742,38 @@ namespace CardGameClient
                 }));
             }
         }
+
+        //Context Menu Sell Click
+        /*void CardContextMenuSellBtn_Click(object sender, RoutedEventArgs e)
+        {
+            bool isError = false;
+            bool res = false;
+
+            App.ProxyMutex.WaitOne();
+            try
+            {
+                //res = ServiceProxy.Proxy.SellCard(App.UserName, sender as Card
+            }
+            catch (CommunicationException exc)
+            {
+                this.Dispatcher.Invoke(new Action(delegate
+                {
+                    App.isConnected = false;
+                    App.loginScreen.loginBtn.IsEnabled = true;
+                    App.loginScreen.errorText.Content = "Связь с сервером неожиданно прервана...";
+                    App.loginScreen.Show();
+                }));
+                isError = true;
+            }
+
+            App.ProxyMutex.ReleaseMutex();
+
+            if (isError)
+            {
+                App.OnConnectionError();
+                return;
+            }
+        }*/
 
         private void MyCardsGrid_IsVisibleChanged(object sender, DependencyPropertyChangedEventArgs e)
         {
@@ -816,7 +858,20 @@ namespace CardGameClient
 
         private void CardsShopBtn_MouseUp(object sender, MouseButtonEventArgs e)
         {
-            DialogWin dw = new DialogWin(this, "Внимание!\nПокупка карты будет стоить 1000 очков\nЖелаете продолжить?",
+            //MyCardsGrid.Visibility = Visibility.Hidden;
+            ShopGrid.Visibility = Visibility.Visible;
+        }
+
+
+        public void BuyCards(int number)
+        {
+            string price = string.Empty;
+
+            if (number == 1) price = "3000";
+            else if (number == 2) price = "5000";
+            else if (number == 3) price = "10000";
+
+            DialogWin dw = new DialogWin(this, "Внимание!\nПокупка карты будет стоить " + price  + " очков\nЖелаете продолжить?",
                         MessageBoxButton.YesNo);
 
             App.WindowList.Add(dw.Name, dw);
@@ -824,13 +879,13 @@ namespace CardGameClient
             {
                 new Action(delegate
                 {
-                    Card card = null;
+                    List<Card> card = null;
                     bool isError = false;
 
                     App.ProxyMutex.WaitOne();
                     try
                     {
-                        card = ServiceProxy.Proxy.BuyCard(App.UserName);
+                        card = ServiceProxy.Proxy.BuyCard(App.UserName, number);
                         App.charInfo = ServiceProxy.Proxy.EnterWorld(App.UserName);
                         GetAllCard();
 
@@ -855,11 +910,12 @@ namespace CardGameClient
                         return;
                     }
 
-                    if (card == null)
+                    if (card.Count == 0)
                     {
                         this.Dispatcher.Invoke(new Action(delegate
                         {
-                            DialogWin dw2 = new DialogWin(this, "Недостаточно средств.\nДля покупки необходимо не менее 1000 очков",
+                            DialogWin dw2 = new DialogWin(this, 
+                                "Недостаточно средств.\nДля покупки необходимо не менее " + price + " очков",
                                 MessageBoxButton.OK);
                             App.WindowList.Add(dw2.Name, dw2);
                             dw2.ShowDialog();
@@ -871,7 +927,15 @@ namespace CardGameClient
                         {
                             Rating.Text = "Очки: " + App.charInfo.score;
                             CardsScore.Text = "Очки: " + App.charInfo.score;
-                            NewCardWindow ncw = new NewCardWindow(card/*, this*/);
+                            NewCardWindow ncw = new NewCardWindow(card[0]);
+                            App.WindowList.Add(ncw.Name, ncw);
+                            ncw.ShowDialog();
+
+                            ncw = new NewCardWindow(card[1]);
+                            App.WindowList.Add(ncw.Name, ncw);
+                            ncw.ShowDialog();
+
+                            ncw = new NewCardWindow(card[2]);
                             App.WindowList.Add(ncw.Name, ncw);
                             ncw.ShowDialog();
                         }));
@@ -895,6 +959,32 @@ namespace CardGameClient
                 if (App.charInfo != null)
                     Window_Loaded(this, null);
             }*/
+        }
+
+        private void ShopExitBtn_MouseUp(object sender, MouseButtonEventArgs e)
+        {
+            MyCardsGrid.Visibility = Visibility.Visible;
+            ShopGrid.Visibility = Visibility.Hidden;
+        }
+
+        private void nabor1Btn_MouseUp(object sender, MouseButtonEventArgs e)
+        {
+            BuyCards(1);
+        }
+
+        private void nabor2Btn_MouseUp(object sender, MouseButtonEventArgs e)
+        {
+            BuyCards(2);
+        }
+
+        private void nabor3Btn_MouseUp(object sender, MouseButtonEventArgs e)
+        {
+            BuyCards(3);
+        }
+
+        private void Image_MouseUp(object sender, MouseButtonEventArgs e)
+        {
+            ShopGrid.Visibility = Visibility.Hidden;
         }                 
     }
 }

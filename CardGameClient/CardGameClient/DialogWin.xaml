@@ -7,7 +7,6 @@
         <Grid.Background>
             <ImageBrush ImageSource="/CardGameClient;component/Images/dialogwin.png" RenderOptions.BitmapScalingMode="Fant" />
         </Grid.Background>
-        <Image Source="/CardGameClient;component/Images/exit_btn.png" Height="22" Width="22" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,6,5,0" MouseUp="Image_MouseUp" />
         <TextBlock Name="TextInfo" Text="Новая карта обойдётся вам в 1000 очков. Желаете продолжить?" Padding="15, 5, 15, 5" Foreground="White" HorizontalAlignment="Center" UseLayoutRounding="True" SnapsToDevicePixels="True" VerticalAlignment="Top" Height="80" Width="350" Margin="0, 35, 0, 0" FontSize="16" FontFamily="Fonts/MyriadPro-Regular.otf#Myriad Pro" TextAlignment="Center" TextWrapping="Wrap">
             <TextBlock.Effect>
                 <DropShadowEffect BlurRadius="0" RenderingBias="Quality" Direction="330" ShadowDepth="3"/>
