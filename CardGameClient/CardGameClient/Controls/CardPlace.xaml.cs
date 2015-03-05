@@ -36,7 +36,7 @@ namespace CardGameClient
             set
             {
                 IsEnabled = value;
-                //Opacity = value ? 1 : 0.8;
+                //Opacity = value ? 1 : 0.6;
             }
         }
 
@@ -73,6 +73,7 @@ namespace CardGameClient
                     Health = thisCard.hp.ToString();
                     AttakDig.DigitValue = thisCard.dmg.ToString();
                     DefDig.DigitValue = thisCard.def.ToString();
+                    InjuryEffect.Visibility = thisCard.IsInjury ? Visibility.Visible : Visibility.Hidden;
                 }
 
             }
@@ -176,6 +177,7 @@ namespace CardGameClient
             animation.RepeatBehavior = RepeatBehavior.Forever;
             animation.AutoReverse = true;
             inGame = true;
+            InjuredToolTip.Content = "Тяжелая рана.\nПоказатель атаки снижен на 30%.";
         }
 
 
@@ -312,6 +314,6 @@ namespace CardGameClient
                 }
 
             }
-        }
+        }        
     }
 }

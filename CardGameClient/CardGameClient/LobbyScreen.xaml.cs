@@ -927,17 +927,13 @@ namespace CardGameClient
                         {
                             Rating.Text = "Очки: " + App.charInfo.score;
                             CardsScore.Text = "Очки: " + App.charInfo.score;
-                            NewCardWindow ncw = new NewCardWindow(card[0]);
-                            App.WindowList.Add(ncw.Name, ncw);
-                            ncw.ShowDialog();
 
-                            ncw = new NewCardWindow(card[1]);
-                            App.WindowList.Add(ncw.Name, ncw);
-                            ncw.ShowDialog();
+                            CardPackWindow cpw = new CardPackWindow(card);
+                            App.WindowList.Add(cpw.Name, cpw);
+                            ShopGrid.Visibility = Visibility.Hidden;
 
-                            ncw = new NewCardWindow(card[2]);
-                            App.WindowList.Add(ncw.Name, ncw);
-                            ncw.ShowDialog();
+                            cpw.ShowDialog();
+
                         }));
                     }
                 }).BeginInvoke(new AsyncCallback(delegate(IAsyncResult ar) { }), null);
@@ -953,6 +949,9 @@ namespace CardGameClient
                 AllCardsBtn.ToolTip = null;
                 MainLobbyBackBtn.Enabled = true;
                 AllCardsBtn.Enabled = true;
+                ShopGrid.Visibility = Visibility.Hidden;
+                MyCardsGrid.Visibility = Visibility.Hidden;
+                MainLobbyGrid.Visibility = Visibility.Visible;
             }
            /* else if (Visibility == Visibility.Visible)
             {

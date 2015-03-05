@@ -81,17 +81,33 @@ namespace CardGameClient
             App.loginScreen.Dispatcher.Invoke(new Action(delegate
             {
                 App.isConnected = false;
-                foreach (Window window in App.WindowList.Values)
+                for (int i = App.WindowList.Count - 1; i > 0; i--)
+                {
+                    Window window = App.WindowList.Values.ElementAt(i);
+
+                    if (window.Name == "LoginWnd") continue;
+                    else if (window.Name == "DialogWnd" || window.Name == "NewCardWnd"
+                        || window.Name == "GameResultWnd" || window.Name == "InGameMenuEscWnd" || window.Name == "CardPackWnd")
+                        window.Close();
+                    else
+                        window.Hide();
+                }
+
+
+                /*foreach (Window window in App.WindowList.Values)
                 {
                     try
                     {
                         //App.ForceClosing = false;
                         if (window.Name == "LoginWnd") continue;
-                        //window.Close();
-                        window.Hide();
+                        else if (window.Name == "DialogWnd" || window.Name == "NewCardWnd"
+                            || window.Name == "GameResultWnd" || window.Name == "InGameMenuEscWnd" || window.Name == "CardPackWnd")
+                            window.Close();
+                        else
+                            window.Hide();
                     }
                     catch { }
-                }
+                }*/
             }));
         }
 

@@ -103,9 +103,9 @@ namespace CardGameServer
             {
                 reward.Exp = Rnd.Next(245, 255);
                 reward.Score = Rnd.Next(123, 133);
-                if (Rnd.Next(0, 3) <= 1) //drop card % winner
+                if (Rnd.Next(0, 3) == 1) //drop card % winner
                 {
-                    List<Card> clst = Program.cards.FindAll(ccc => ccc.type != 0);
+                    List<Card> clst = Card.GetAllavailableCardsByNickName(nickname);
                     if (clst.Count > 1)
                     {
                         reward.NewCard = clst[Rnd.Next(0, clst.Count)];
@@ -117,9 +117,9 @@ namespace CardGameServer
             {
                 reward.Exp = Rnd.Next(123, 133);
                 reward.Score = Rnd.Next(62, 72);
-                if (Rnd.Next(0, 6) <= 1) //drop card % looser
+                if (Rnd.Next(0, 6) == 1) //drop card % looser
                 {
-                    List<Card> clst = Program.cards.FindAll(ccc => ccc.type != 0);
+                    List<Card> clst = Card.GetAllavailableCardsByNickName(nickname);
                     if (clst.Count > 1)
                     {
                         reward.NewCard = clst[Rnd.Next(0, clst.Count)];

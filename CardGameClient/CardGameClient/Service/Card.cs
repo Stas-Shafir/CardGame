@@ -32,6 +32,9 @@ namespace CardGameServer
 
         [DataMember]
         public int cardRarity { get; set; }
+
+        [DataMember]
+        public bool IsInjury { get; set; }
     }
 }
 

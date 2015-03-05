@@ -563,6 +563,7 @@ namespace CardGameServer
                                 enC.hp = 0;
                                 enC.Enabled = false;
                             }
+                            else enC.TryEnjured();
 
 
                             isWin = game.CheckWinner();
@@ -625,6 +626,7 @@ namespace CardGameServer
                                 enC.hp = 0;
                                 enC.Enabled = false;
                             }
+                            else enC.TryEnjured();
 
                             isWin = game.CheckWinner();
 
@@ -1108,94 +1110,94 @@ namespace CardGameServer
 
                         bool find = false;
 
-                        if (number == 1)
+                        cclist = Card.GetAllavailableCards(user);
+
+                        if (cclist.Count > 0)
                         {
-                            cclist = Program.cards.FindAll(c => c.type != 0);
-                            result.Add(cclist[Program.Rnd.Next(0, cclist.Count)]);
-                            result.Add(cclist[Program.Rnd.Next(0, cclist.Count)]);
-                            result.Add(cclist[Program.Rnd.Next(0, cclist.Count)]);
-
-                            card_id1 = result[0].id;
-                            card_id2 = result[1].id;
-                            card_id3 = result[2].id;
-
-                            score -= 3000;
-                        }
-                        else if (number == 2)
-                        {
-                            cclist = Program.cards.FindAll(c => c.type != 0);
-
-                            find = false;
-                            while (!find)
+                            if (number == 1)
                             {
-                                Card cc = cclist[Program.Rnd.Next(0, cclist.Count)];
-                                if (cc.cardRarity >= 2)
+                                result.Add(cclist[Program.Rnd.Next(0, cclist.Count)]);
+                                result.Add(cclist[Program.Rnd.Next(0, cclist.Count)]);
+                                result.Add(cclist[Program.Rnd.Next(0, cclist.Count)]);
+
+                                card_id1 = result[0].id;
+                                card_id2 = result[1].id;
+                                card_id3 = result[2].id;
+
+                                score -= 3000;
+                            }
+                            else if (number == 2)
+                            {
+                                find = false;
+                                while (!find)
                                 {
-                                    result.Add(cc);
-                                    find = true;
+                                    Card cc = cclist[Program.Rnd.Next(0, cclist.Count)];
+                                    if (cc.cardRarity >= 2)
+                                    {
+                                        result.Add(cc);
+                                        find = true;
+                                    }
                                 }
+
+                                result.Add(cclist[Program.Rnd.Next(0, cclist.Count)]);
+                                result.Add(cclist[Program.Rnd.Next(0, cclist.Count)]);
+
+                                card_id1 = result[0].id;
+                                card_id2 = result[1].id;
+                                card_id3 = result[2].id;
+
+                                score -= 5000;
+                            }
+                            else if (number == 3)
+                            {
+                                find = false;
+                                while (!find)
+                                {
+                                    Card cc = cclist[Program.Rnd.Next(0, cclist.Count)];
+                                    if (cc.cardRarity >= 2)
+                                    {
+                                        result.Add(cc);
+                                        find = true;
+                                    }
+                                }
+
+                                find = false;
+                                while (!find)
+                                {
+                                    Card cc = cclist[Program.Rnd.Next(0, cclist.Count)];
+                                    if (cc.cardRarity >= 2)
+                                    {
+                                        result.Add(cc);
+                                        find = true;
+                                    }
+                                }
+
+                                result.Add(cclist[Program.Rnd.Next(0, cclist.Count)]);
+
+                                card_id1 = result[0].id;
+                                card_id2 = result[1].id;
+                                card_id3 = result[2].id;
+
+                                score -= 10000;
                             }
 
-                            result.Add(cclist[Program.Rnd.Next(0, cclist.Count)]);
-                            result.Add(cclist[Program.Rnd.Next(0, cclist.Count)]);
-
-                            card_id1 = result[0].id;
-                            card_id2 = result[1].id;
-                            card_id3 = result[2].id;
-
-                            score -= 5000;
-                        }
-                        else if (number == 3)
-                        {
-                            cclist = Program.cards.FindAll(c => c.type != 0);
-
-                            find = false;
-                            while (!find)
+                            if (card_id1 != -1 && card_id2 != -1 && card_id3 != -1)
                             {
-                                Card cc = cclist[Program.Rnd.Next(0, cclist.Count)];
-                                if (cc.cardRarity >= 2)
-                                {
-                                    result.Add(cc);
-                                    find = true;
-                                }
+                                cmd = new SqlCommand("UPDATE characters SET score=" + score + " WHERE id=" + char_id, db_connection);
+                                cmd.ExecuteNonQuery();
+
+                                cmd = new SqlCommand("INSERT INTO character_cards(char_id, card_id, slot) VALUES (" + char_id + ", " +
+                                    card_id1 + ", " + slot + ")", db_connection);
+                                cmd.ExecuteNonQuery();
+
+                                cmd = new SqlCommand("INSERT INTO character_cards(char_id, card_id, slot) VALUES (" + char_id + ", " +
+                                    card_id2 + ", " + (slot + 1) + ")", db_connection);
+                                cmd.ExecuteNonQuery();
+
+                                cmd = new SqlCommand("INSERT INTO character_cards(char_id, card_id, slot) VALUES (" + char_id + ", " +
+                                    card_id3 + ", " + (slot + 2) + ")", db_connection);
+                                cmd.ExecuteNonQuery();
                             }
-
-                            find = false;
-                            while (!find)
-                            {
-                                Card cc = cclist[Program.Rnd.Next(0, cclist.Count)];
-                                if (cc.cardRarity >= 2)
-                                {
-                                    result.Add(cc);
-                                    find = true;
-                                }
-                            }
-
-                            result.Add(cclist[Program.Rnd.Next(0, cclist.Count)]);
-
-                            card_id1 = result[0].id;
-                            card_id2 = result[1].id;
-                            card_id3 = result[2].id;
-
-                            score -= 10000;
-                        }
-
-                        if (card_id1 != -1 && card_id2 != -1 && card_id3 != -1)
-                        {
-                            cmd = new SqlCommand("UPDATE characters SET score=" + score + " WHERE id=" + char_id, db_connection);
-                            cmd.ExecuteNonQuery();
-
-                            cmd = new SqlCommand("INSERT INTO character_cards(char_id, card_id, slot) VALUES (" + char_id + ", " +
-                                card_id1 + ", " + slot + ")", db_connection);
-                            cmd.ExecuteNonQuery();
-
-                            cmd = new SqlCommand("INSERT INTO character_cards(char_id, card_id, slot) VALUES (" + char_id + ", " +
-                                card_id2 + ", " + (slot + 1) + ")", db_connection);
-                            cmd.ExecuteNonQuery();
-
-                            cmd = new SqlCommand("INSERT INTO character_cards(char_id, card_id, slot) VALUES (" + char_id + ", " +
-                                card_id3 + ", " + (slot + 2) + ")", db_connection);
-                            cmd.ExecuteNonQuery();
                         }
                     }
 

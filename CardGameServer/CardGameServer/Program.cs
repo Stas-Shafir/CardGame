@@ -147,15 +147,17 @@ namespace CardGameServer
 
                 while (res.Read())
                 {
-                    cards.Add(new Card(
-                        (int)res["id"], 
-                        res["card_name"].ToString(), 
+                    Card ccc = new Card(
+                        (int)res["id"],
+                        res["card_name"].ToString(),
                         (int)res["type"],
-                        (int)res["hp"], 
-                        (int)res["dmg"], 
+                        (int)res["hp"],
+                        (int)res["dmg"],
                         (int)res["def"],
                         (int)res["rare"]
-                        ));
+                        );
+                    ccc.min_level = (int)res["min_level"];
+                    cards.Add(ccc);
                 }
 
                 db_connection.Close();

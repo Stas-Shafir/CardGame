@@ -61,6 +61,9 @@
     <Compile Include="CardInfo.xaml.cs">
       <DependentUpon>CardInfo.xaml</DependentUpon>
     </Compile>
+    <Compile Include="CardPackWindow.xaml.cs">
+      <DependentUpon>CardPackWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Controls\CharacterCard.xaml.cs">
       <DependentUpon>CharacterCard.xaml</DependentUpon>
     </Compile>
@@ -109,6 +112,10 @@
     <Compile Include="Service\Reward.cs" />
     <Compile Include="Service\Servicegame.cs" />
     <Page Include="CardInfo.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="CardPackWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -462,6 +469,12 @@
     <None Include="Images\Cards\12.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\newCardWnd_wide.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\Effects\injury.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

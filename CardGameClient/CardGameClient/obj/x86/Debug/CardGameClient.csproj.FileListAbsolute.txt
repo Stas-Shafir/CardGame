@@ -232,3 +232,6 @@ D:\CardsKurs\CardGameClient\CardGameClient\obj\x86\Debug\CardInfo.baml
 D:\CardsKurs\CardGameClient\CardGameClient\obj\x86\Debug\CardInfo.g.cs
 D:\Шаг\CardGameClient\CardGameClient\obj\x86\Debug\CardInfo.baml
 D:\Шаг\CardGameClient\CardGameClient\obj\x86\Debug\CardInfo.g.cs
+D:\Шаг\CardGameClient\CardGameClient\obj\x86\Debug\CardGameClient.csprojResolveAssemblyReference.cache
+D:\CardsKurs\CardGameClient\CardGameClient\obj\x86\Debug\CardPackWindow.g.cs
+D:\CardsKurs\CardGameClient\CardGameClient\obj\x86\Debug\CardPackWindow.baml

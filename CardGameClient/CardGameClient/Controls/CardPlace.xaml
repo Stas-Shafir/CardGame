@@ -8,16 +8,18 @@
              d:DesignHeight="127" d:DesignWidth="105" MouseDown="UserControl_MouseDown">
     <Grid Name="GridMain" Margin="0" Opacity="1" MouseEnter="Grid_MouseEnter" MouseLeave="GridMain_MouseLeave">
         <Grid.ContextMenu>
-            <ContextMenu Name="CardContextMenu" Background="#BB000000" Visibility="Hidden" Cursor="/CardGameClient;component/Images/cursor.cur">
-                <MenuItem Header="Продать" BorderThickness="0" Foreground="WhiteSmoke" Name="CardContextMenuSellBtn" Click="CardContextMenuSellBtn_Click" />
+            <ContextMenu Name="CardContextMenu" Background="#BB000000" BorderThickness="0" Visibility="Hidden" Cursor="/CardGameClient;component/Images/cursor.cur" BorderBrush="{x:Null}">
+                <MenuItem Header="Продать" IsCheckable="False" BorderThickness="0" Foreground="WhiteSmoke" Name="CardContextMenuSellBtn" Click="CardContextMenuSellBtn_Click" />
             </ContextMenu>
         </Grid.ContextMenu>
         <Border Visibility="Hidden" Name="borderGrid" Margin="-7" BorderThickness="2" BorderBrush="#FFC1C1C1" CornerRadius="7">
            
         </Border>
-        <Grid Name="CardCrid" Visibility="Hidden" ClipToBounds="False">
-            <Image RenderOptions.BitmapScalingMode="Fant" Name="Portrait" Stretch="Fill" Visibility="Visible" Panel.ZIndex="0"></Image>
-            <Image Margin="-0.5" Name="borderImg" Source="pack://application:,,,/CardGameClient;component/Images/cardmin_my_border.png" Stretch="Fill" ></Image>
+        <Grid Name="CardCrid" Visibility="Hidden" ClipToBounds="False">            
+                       
+            <Image RenderOptions.BitmapScalingMode="Fant" Name="Portrait" Stretch="Fill" Visibility="Visible" Panel.ZIndex="0"/>
+
+            <Image Margin="-0.5" Name="borderImg" Source="pack://application:,,,/CardGameClient;component/Images/cardmin_my_border.png" Stretch="Fill" />
 
             <Grid HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="10,0,0,60">
                 <Image Name="AttackBar" Source="pack://application:,,,/CardGameClient;component/Images/attackIkon.png" RenderOptions.BitmapScalingMode="Fant" Stretch="Fill" HorizontalAlignment="Left" Height="19" Width="20" VerticalAlignment="Center" Visibility="Visible" />
@@ -40,6 +42,12 @@
                     <ImageBrush ImageSource="/CardGameClient;component/Images/dmg_label_back.png" Stretch="Fill" />
                 </Label.Background>
             </Label>
+
+            <Image Name="InjuryEffect" Visibility="Hidden" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="7, 7, 0, 0" Height="25" Width="25" Source="/CardGameClient;component/Images/Effects/injury.png">
+                <Image.ToolTip>
+                    <ToolTip Name="InjuredToolTip" Padding="2" HorizontalContentAlignment="Center" Background="#DD000000" Foreground="White" BorderThickness="0" BorderBrush="Black"/>
+                </Image.ToolTip>
+            </Image>
         </Grid>
         <Grid.Background>
             <ImageBrush ImageSource="/CardGameClient;component/Images/cardmin_my_bg.png" />
