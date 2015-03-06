@@ -15,11 +15,11 @@
         <Border Visibility="Hidden" Name="borderGrid" Margin="-7" BorderThickness="2" BorderBrush="#FFC1C1C1" CornerRadius="7">
            
         </Border>
-        <Grid Name="CardCrid" Visibility="Hidden" ClipToBounds="False">            
+        <Grid Name="CardCrid" Visibility="Hidden" ClipToBounds="False" Panel.ZIndex="0">            
                        
             <Image RenderOptions.BitmapScalingMode="Fant" Name="Portrait" Stretch="Fill" Visibility="Visible" Panel.ZIndex="0"/>
 
-            <Image Margin="-0.5" Name="borderImg" Source="pack://application:,,,/CardGameClient;component/Images/cardmin_my_border.png" Stretch="Fill" />
+            <Image Margin="-0.5" Name="borderImg" Source="pack://application:,,,/CardGameClient;component/Images/cardmin_my_border.png" Stretch="Fill"/>
 
             <Grid HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="10,0,0,60">
                 <Image Name="AttackBar" Source="pack://application:,,,/CardGameClient;component/Images/attackIkon.png" RenderOptions.BitmapScalingMode="Fant" Stretch="Fill" HorizontalAlignment="Left" Height="19" Width="20" VerticalAlignment="Center" Visibility="Visible" />
@@ -42,6 +42,8 @@
                     <ImageBrush ImageSource="/CardGameClient;component/Images/dmg_label_back.png" Stretch="Fill" />
                 </Label.Background>
             </Label>
+
+            <Image Name="dmgImgEffect" Source="/CardGameClient;component/Images/Effects/dmg.png" Width="80" HorizontalAlignment="Center" VerticalAlignment="Center" Opacity="0"/>
 
             <Image Name="InjuryEffect" Visibility="Hidden" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="7, 7, 0, 0" Height="25" Width="25" Source="/CardGameClient;component/Images/Effects/injury.png">
                 <Image.ToolTip>

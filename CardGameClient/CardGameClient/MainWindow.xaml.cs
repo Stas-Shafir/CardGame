@@ -25,6 +25,11 @@ namespace CardGameClient
     {
         CardPlace mySelectedCardPlace;
         CardPlace enemySelectedCardPlace;
+
+        int lasthitCard = -1;
+
+        bool known = false;
+
         public Game game;
 
         Dictionary<int, CardPlace> myCardPlases = new Dictionary<int, CardPlace>();
@@ -43,7 +48,6 @@ namespace CardGameClient
                 mySelectedCardPlace.selected = false;
 
             mySelectedCardPlace = cp;
-
 
             foreach (var item in enemyCardPlases.Values)
             {
@@ -102,7 +106,11 @@ namespace CardGameClient
                 }
 
                 //if success
-                if (dmg != -1) enemySelectedCardPlace.AnimateDmg(dmg.ToString());
+                if (dmg != -1)
+                {
+                    enemySelectedCardPlace.AnimateDmg(dmg.ToString());
+                    mySelectedCardPlace.AnimateTurn();
+                }
 
                 enemySelectedCardPlace.selected = mySelectedCardPlace.selected = false;
 
@@ -170,6 +178,13 @@ namespace CardGameClient
                                 {
                                     if (game.fGamer.nick == App.NickName)
                                     {
+                                        if (myCardPlases[item.slot].ThisCard != null &&
+                                            myCardPlases[item.slot].ThisCard.hp > item.hp && lasthitCard != game.lastHitCardSlot)
+                                        {
+                                            enemyCardPlases[game.lastHitCardSlot].AnimateTurn(true);
+                                            lasthitCard = game.lastHitCardSlot;
+                                        }
+
                                         myCardPlases[item.slot].ThisCard = item;
                                         myCardPlases[item.slot].Enabled = item.Enabled;
                                     }
@@ -184,6 +199,13 @@ namespace CardGameClient
                                 {
                                     if (game.fGamer.nick != App.NickName)
                                     {
+                                        if (myCardPlases[item.slot].ThisCard != null &&
+                                            myCardPlases[item.slot].ThisCard.hp > item.hp && lasthitCard != game.lastHitCardSlot)
+                                        {
+                                            enemyCardPlases[game.lastHitCardSlot].AnimateTurn(true);
+                                            lasthitCard = game.lastHitCardSlot;
+                                        }
+
                                         myCardPlases[item.slot].ThisCard = item;
                                         myCardPlases[item.slot].Enabled = item.Enabled;
                                     }
@@ -210,6 +232,12 @@ namespace CardGameClient
                                 {
                                     menuTop.btnText = "Ход\nсоперника";
 
+                                   /* if (!known)
+                                    {
+                                        lasthitCard = -1;
+                                        known = true;
+                                    }*/
+
                                     boardGrid.IsEnabled = false;
 
                                     foreach (var item in myCardPlases.Values)
@@ -227,6 +255,13 @@ namespace CardGameClient
                                 {
                                     if (game.fGamer.nick == App.NickName)
                                     {
+                                        if (myCardPlases[item.slot].ThisCard != null &&
+                                            myCardPlases[item.slot].ThisCard.hp > item.hp && lasthitCard != game.lastHitCardSlot)
+                                        {
+                                            enemyCardPlases[game.lastHitCardSlot].AnimateTurn(true);
+                                            lasthitCard = game.lastHitCardSlot;
+                                        }
+
                                         myCardPlases[item.slot].ThisCard = item;
                                         myCardPlases[item.slot].Enabled = item.Enabled;
                                     }
@@ -241,6 +276,13 @@ namespace CardGameClient
                                 {
                                     if (game.fGamer.nick != App.NickName)
                                     {
+                                        if (myCardPlases[item.slot].ThisCard != null &&
+                                            myCardPlases[item.slot].ThisCard.hp > item.hp && lasthitCard != game.lastHitCardSlot)
+                                        {
+                                            enemyCardPlases[game.lastHitCardSlot].AnimateTurn(true);
+                                            lasthitCard = game.lastHitCardSlot;
+                                        }
+
                                         myCardPlases[item.slot].ThisCard = item;
                                         myCardPlases[item.slot].Enabled = item.Enabled;
                                     }

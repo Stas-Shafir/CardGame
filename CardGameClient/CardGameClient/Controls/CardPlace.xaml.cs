@@ -243,7 +243,13 @@ namespace CardGameClient
         {
             dmgLabel.Content = dmg;
 
-            dmgLabel.Opacity = 1;
+            //dmgLabel.Opacity = 1;
+
+            DoubleAnimation db = new DoubleAnimation(0, 1, TimeSpan.FromMilliseconds(250));
+            //db.BeginTime = TimeSpan.FromMilliseconds(100);
+            db.FillBehavior = FillBehavior.Stop;
+            db.AutoReverse = true;
+            dmgImgEffect.BeginAnimation(OpacityProperty, db);
 
             ThicknessAnimation th = new ThicknessAnimation();
             th.From = dmgLabel.Margin;
@@ -251,14 +257,32 @@ namespace CardGameClient
             th.To = new Thickness(dmgLabel.Margin.Left, dmgLabel.Margin.Top - 70, dmgLabel.Margin.Right, dmgLabel.Margin.Bottom);
             th.Duration = TimeSpan.FromMilliseconds(500);
             th.Completed += new EventHandler(th_Completed);
-            //th.BeginTime = TimeSpan.FromMilliseconds(200);
+            //th.BeginTime = TimeSpan.FromMilliseconds(250);
             dmgLabel.BeginAnimation(MarginProperty, th);
+        }
+
+        public void AnimateTurn(bool enemy = false)
+        {           
+            ThicknessAnimation th = new ThicknessAnimation();
+            th.From = CardCrid.Margin;
+            th.FillBehavior = FillBehavior.Stop;
+
+            if (!enemy)
+                th.To = new Thickness(20, 0, -20, 0);
+            else
+                th.To = new Thickness(-20, 0, 20, 0);
+
+
+            th.Duration = TimeSpan.FromMilliseconds(250);
+            th.AutoReverse = true;
+            CardCrid.BeginAnimation(MarginProperty, th);
         }
 
         void th_Completed(object sender, EventArgs e)
         {
             dmgLabel.Opacity = 0;
             dmgLabel.Content = "";
+
 
             dmgLabel.Margin = new Thickness(0, 6, 6, 0);
         }
