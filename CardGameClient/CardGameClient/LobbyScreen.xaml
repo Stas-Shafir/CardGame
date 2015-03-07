@@ -188,7 +188,7 @@
 
             
             <Border Height="370" HorizontalAlignment="Center" VerticalAlignment="Center" Width="557" BorderThickness="3" CornerRadius="5" BorderBrush="#FF584134" />
-            <Grid HorizontalAlignment="Center" VerticalAlignment="Center" Height="364" Width="552" Background="#000000">
+            <Grid HorizontalAlignment="Center" VerticalAlignment="Center" Height="364" Width="552" Background="#CC000000">
                 <Image Source="/CardGameClient;component/Images/exit_btn.png" Height="22" Width="22" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0, 5, 5, 0" MouseUp="Image_MouseUp" />
                 <TextBlock Margin="15" Text="Набор 1. Содержит 3 случайные карты. Цена: 3000 очков" TextAlignment="Center" HorizontalAlignment="Center" VerticalAlignment="Top" Foreground="White"/>
                 <dc:StyledBtn Margin="0,59,0,0" x:Name="nabor1Btn" Text="Купить" Height="34" VerticalAlignment="Top" Width="130" HorizontalAlignment="Center" MouseUp="nabor1Btn_MouseUp"></dc:StyledBtn>

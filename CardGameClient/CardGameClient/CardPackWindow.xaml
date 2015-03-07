@@ -3,7 +3,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:dc="clr-namespace:CardGameClient"
         Title="Avalon: Battles for Glory" Name="CardPackWnd" ResizeMode="NoResize" ShowInTaskbar="False" WindowStartupLocation="CenterScreen" MinHeight="768" MinWidth="1024" Height="768" Width="1024" Cursor="/CardGameClient;component/Images/cursor.cur"  WindowStyle="None" WindowState="Maximized" AllowsTransparency="True" Background="#C6000000" ContentRendered="Window_ContentRendered">
-    <Grid MinHeight="311" MinWidth="588" Height="311" Width="588" MaxHeight="311" MaxWidth="588">
+    <Grid MinHeight="311" MinWidth="588" Height="311" Width="588" MaxHeight="311" MaxWidth="588" UseLayoutRounding="True" SnapsToDevicePixels="True">
         <Grid.Background>
             <ImageBrush ImageSource="/CardGameClient;component/Images/newCardWnd_wide.png" RenderOptions.BitmapScalingMode="Fant" />
         </Grid.Background>

@@ -153,7 +153,7 @@ namespace CardGameClient
             set
             {
                 GridMain.Background = (isMineCard = value) ? myCardBg : enemyCardBg;
-                borderImg.Source = isMineCard ? myCardBorder : enemyCardBorder;
+                borderImg.Source = isMineCard ? myCardBorder : enemyCardBorder;                
             }
         }
 
@@ -193,6 +193,7 @@ namespace CardGameClient
             da.From = 1;
             da.To = 0;
             da.Duration = TimeSpan.FromMilliseconds(500);
+            da.BeginTime = TimeSpan.FromMilliseconds(250);
             da.FillBehavior = FillBehavior.Stop;
             da.Completed += delegate(object sender, EventArgs e)
             {
@@ -243,7 +244,7 @@ namespace CardGameClient
         {
             dmgLabel.Content = dmg;
 
-            //dmgLabel.Opacity = 1;
+            dmgLabel.Opacity = 1;
 
             DoubleAnimation db = new DoubleAnimation(0, 1, TimeSpan.FromMilliseconds(250));
             //db.BeginTime = TimeSpan.FromMilliseconds(100);

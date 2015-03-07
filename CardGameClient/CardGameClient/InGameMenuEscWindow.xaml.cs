@@ -27,6 +27,7 @@ namespace CardGameClient
 
         private void CancelBtn_MouseUp(object sender, MouseButtonEventArgs e)
         {
+            App.WindowList.Remove(this.Name);
             Close();
         }
 

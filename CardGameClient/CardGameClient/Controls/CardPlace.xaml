@@ -15,8 +15,8 @@
         <Border Visibility="Hidden" Name="borderGrid" Margin="-7" BorderThickness="2" BorderBrush="#FFC1C1C1" CornerRadius="7">
            
         </Border>
-        <Grid Name="CardCrid" Visibility="Hidden" ClipToBounds="False" Panel.ZIndex="0">            
-                       
+        <Grid Name="CardCrid" Visibility="Hidden" ClipToBounds="False" Panel.ZIndex="0" >
+            
             <Image RenderOptions.BitmapScalingMode="Fant" Name="Portrait" Stretch="Fill" Visibility="Visible" Panel.ZIndex="0"/>
 
             <Image Margin="-0.5" Name="borderImg" Source="pack://application:,,,/CardGameClient;component/Images/cardmin_my_border.png" Stretch="Fill"/>
