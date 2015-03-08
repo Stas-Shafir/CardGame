@@ -48,6 +48,7 @@
   <ItemGroup>
     <Compile Include="Card.cs" />
     <Compile Include="CharInfo.cs" />
+    <Compile Include="Formulas.cs" />
     <Compile Include="Game.cs" />
     <Compile Include="Gamer.cs" />
     <Compile Include="Program.cs" />

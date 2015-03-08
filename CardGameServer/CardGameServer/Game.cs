@@ -10,6 +10,9 @@ namespace CardGameServer
     public class Game
     {
         [DataMember]
+        public int lastHitCardSlot;
+
+        [DataMember]
         public Gamer fGamer = null;
 
         [DataMember]
@@ -64,13 +67,42 @@ namespace CardGameServer
             Gamers.Add(user);
             currUsr = user;
             firstGamerCards = new List<Card>(fgc);
+
+            Program.UserThreadLock.EnterReadLock();
+            fGamer = Program.OnlineUsers.Find(u => u.nick == user);
+            Program.UserThreadLock.ExitReadLock();
+
+            lastHitCardSlot = -1;
             gameState = 1;
         }
 
         public void AddSecondUser(string user, List<Card> tgc)
         {
-            Gamers.Add(user);
-            twoGamerCards = new List<Card>(tgc);
+            Program.UserThreadLock.EnterReadLock();
+            Gamer gamer = Program.OnlineUsers.Find(u => u.nick == user);
+            Program.UserThreadLock.ExitReadLock();
+
+
+            int dmg1 = firstGamerCards.Sum(ccc => ccc.dmg);
+            int dmg2 = tgc.Sum(ccc => ccc.dmg);
+
+
+            if (dmg2 < dmg1)
+            {
+                Gamers.Insert(0, user);
+                twoGamerCards = firstGamerCards;
+                firstGamerCards = new List<Card>(tgc);
+                currUsr = user;
+                tGamer = fGamer;
+                fGamer = gamer;
+            }
+            else
+            {
+                Gamers.Add(user);
+                twoGamerCards = new List<Card>(tgc);
+                tGamer = gamer;
+            }
+
             gameState = 2;
         }
 

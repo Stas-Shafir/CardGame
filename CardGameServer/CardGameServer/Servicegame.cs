@@ -337,9 +337,9 @@ namespace CardGameServer
                             int hp_bust, dmg_bust, def_bust;
 
                             //test boost
-                                hp_bust = character_level > 1 ? character_level / 2 : 0;
-                                dmg_bust = character_level > 4 ? character_level / 2 - 1 : 0;
-                                def_bust = character_level > 5 ? character_level / 2 - 2 : 0;
+                            hp_bust = currcard.type == 0 ? (character_level > 1 ? character_level / 2 : 0) : 0;
+                            dmg_bust = currcard.type == 0 ? (character_level > 4 ? character_level / 2 - 1 : 0) : 0;
+                            def_bust = currcard.type == 0 ? (character_level > 5 ? character_level / 2 - 2 : 0) : 0;
 
                             gamerCard.Add(new Card(currcard.id, currcard.card_name, currcard.type, currcard.hp + hp_bust,
                                 currcard.dmg + dmg_bust, currcard.def + def_bust, currcard.cardRarity, (int)res["slot"]));
@@ -358,8 +358,12 @@ namespace CardGameServer
                 {
                     Program.GameThreadLock.EnterReadLock();
 
-                    //game = Program.OnlineGames.Find(g => g.gameState == 1 && g.Level >= (character_level -1) &&
-                        //g.Level <= (character_level + 1));
+                    // Интеллектуальный подбор игры
+                    // state == 1
+                    // level -= 1
+                    // кол-во карт равное
+                    /*game = Program.OnlineGames.Find(g => g.gameState == 1 && g.Level >= (character_level -1) &&
+                        g.Level <= (character_level + 1) && g.firstGamerCards.Count == gamerCard.Count);*/
 
                     game = Program.OnlineGames.Find(g => g.gameState == 1); 
 
@@ -371,36 +375,23 @@ namespace CardGameServer
                         {
                             if (game.gameState != 1) continue;
 
-                            game.AddSecondUser(nickname, gamerCard);
-
-                            Program.UserThreadLock.EnterReadLock();
-                            Gamer gamer2 = Program.OnlineUsers.Find(u => u.nick == nickname);
-                            Program.UserThreadLock.ExitReadLock();
-                            if (gamer2 != null)
-                                game.tGamer = gamer2;
-
+                            game.AddSecondUser(nickname, gamerCard);                            
                             return game;
                         }
                     }
                     else find = true;
                 }
 
-                Program.UserThreadLock.EnterReadLock();
-                Gamer gamer1 = Program.OnlineUsers.Find(u => u.nick == nickname);
-                Program.UserThreadLock.ExitReadLock();
-
+                
                 game = new Game(nickname, gamerCard);
                 game.Level = character_level;
-                if (gamer1 != null)
-                {
-                    game.fGamer = gamer1;
+               
 
-                    Program.GameThreadLock.EnterWriteLock();
+                Program.GameThreadLock.EnterWriteLock();
+                Program.OnlineGames.Add(game);
 
-                    Program.OnlineGames.Add(game);
+                Program.GameThreadLock.ExitWriteLock();
 
-                    Program.GameThreadLock.ExitWriteLock();
-                }
             }
 
             catch (Exception exc)
@@ -543,11 +534,16 @@ namespace CardGameServer
                             Card myC = game.firstGamerCards.Find(cc => cc.slot == myslot);
                             Card enC = game.twoGamerCards.Find(cc => cc.slot == enslot);
 
-                            myC.Enabled = false;
+                            //myC.Enabled = false;
 
-                            dmg = myC.dmg - (enC.def / 2); //calc real damage
+                            //calc real damage
+                            dmg = Formulas.CalculateDamage(myC.dmg, enC.def);
 
                             if (dmg <= 0) dmg = 1;
+                            else if (Program.Rnd.Next(0, 6) == 1) //crit damage
+                            {
+                                dmg = Formulas.CalculateCritDamage(dmg);
+                            }
 
                             int temp = enC.hp; //save curr hp                          
 
@@ -566,13 +562,15 @@ namespace CardGameServer
                             else enC.TryEnjured();
 
 
+                            game.lastHitCardSlot = myslot;
+
                             isWin = game.CheckWinner();
 
                             //if (!isWin && game.firstGamerCards.Find(cc => cc.Enabled == true) == null)
 
                             if (!isWin) //3 or < cards per turn... test
                             {
-                                int cardsPerTurn = 3;
+                               /* int cardsPerTurn = 3;
 
                                 if (game.firstGamerCards.FindAll(cc=> cc.hp > 0).Count >= 3)
                                     cardsPerTurn = 3;
@@ -588,11 +586,11 @@ namespace CardGameServer
                                     {
                                         if (item.hp > 0) item.Enabled = true;
                                     }
-
+                                */
 
                                     game.currUsr = game.Gamers[1];
                                     game.gameState = 3;
-                                }
+                                //}
                             }
 
                             else if (isWin)
@@ -606,11 +604,16 @@ namespace CardGameServer
                             Card myC = game.twoGamerCards.Find(cc => cc.slot == myslot);
                             Card enC = game.firstGamerCards.Find(cc => cc.slot == enslot);
 
-                            myC.Enabled = false;
+                            //myC.Enabled = false;
 
-                            dmg = myC.dmg - (enC.def / 2); //calc real damage
+                            //calc real damage
+                            dmg = Formulas.CalculateDamage(myC.dmg, enC.def);
 
                             if (dmg <= 0) dmg = 1;
+                            else if (Program.Rnd.Next(0, 6) == 1) //crit damage
+                            {
+                                dmg = Formulas.CalculateCritDamage(dmg);
+                            }
 
                             int temp = enC.hp; //save curr hp                          
 
@@ -628,13 +631,15 @@ namespace CardGameServer
                             }
                             else enC.TryEnjured();
 
+                            game.lastHitCardSlot = myslot;
+
                             isWin = game.CheckWinner();
 
                             //if (!isWin && game.twoGamerCards.Find(cc => cc.Enabled == true) == null)
 
                             if (!isWin) //3 or < cards per turn... test
                             {
-                                int cardsPerTurn = 3;
+                                /*int cardsPerTurn = 3;
 
                                 if (game.twoGamerCards.FindAll(cc => cc.hp > 0).Count >= 3)
                                     cardsPerTurn = 3;
@@ -650,10 +655,10 @@ namespace CardGameServer
                                     {
                                         if (item.hp > 0) item.Enabled = true;
                                     }
-
+                                */
                                     game.currUsr = game.Gamers[0];
                                     game.gameState = 2;
-                                }
+                               // }
                             }
 
                             else if (isWin)
@@ -904,15 +909,9 @@ namespace CardGameServer
 
                         if (currcard != null)
                         {
-                            int hp_bust, dmg_bust, def_bust;
 
-                            //test boost
-                            hp_bust = character_level > 1 ? character_level / 2 : 0;
-                            dmg_bust = character_level > 4 ? character_level / 2 - 1 : 0;
-                            def_bust = character_level > 5 ? character_level / 2 - 2 : 0;
-
-                            gamerCard.Add(new Card(currcard.id, currcard.card_name, currcard.type, currcard.hp + hp_bust,
-                                currcard.dmg + dmg_bust, currcard.def + def_bust, currcard.cardRarity, (int)res["slot"]));
+                            gamerCard.Add(new Card(currcard.id, currcard.card_name, currcard.type, currcard.hp,
+                                currcard.dmg, currcard.def, currcard.cardRarity, (int)res["slot"]));
                         }
                     }
 
@@ -927,18 +926,10 @@ namespace CardGameServer
                     while (res.Read())
                     {
                         Card currcard = Program.cards.Find(ccc => ccc.id == (int)res["card_id"]);
-
                         if (currcard != null)
                         {
-                            int hp_bust, dmg_bust, def_bust;
-
-                            //test boost
-                            hp_bust = character_level > 1 ? character_level / 2 : 0;
-                            dmg_bust = character_level > 4 ? character_level / 2 - 1 : 0;
-                            def_bust = character_level > 5 ? character_level / 2 - 2 : 0;
-
-                            gamerCard.Add(new Card(currcard.id, currcard.card_name, currcard.type, currcard.hp + hp_bust,
-                                currcard.dmg + dmg_bust, currcard.def + def_bust, currcard.cardRarity, (int)res["slot"]));
+                            gamerCard.Add(new Card(currcard.id, currcard.card_name, currcard.type, currcard.hp,
+                                 currcard.dmg, currcard.def, currcard.cardRarity, (int)res["slot"]));
                         }
                     }
 

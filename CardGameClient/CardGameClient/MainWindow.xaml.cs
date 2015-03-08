@@ -179,7 +179,7 @@ namespace CardGameClient
                                     if (game.fGamer.nick == App.NickName)
                                     {
                                         if (myCardPlases[item.slot].ThisCard != null &&
-                                            myCardPlases[item.slot].ThisCard.hp > item.hp && lasthitCard != game.lastHitCardSlot)
+                                            myCardPlases[item.slot].ThisCard.hp > item.hp/* && lasthitCard != game.lastHitCardSlot*/)
                                         {
                                             enemyCardPlases[game.lastHitCardSlot].AnimateTurn(true);
                                             lasthitCard = game.lastHitCardSlot;
@@ -200,7 +200,7 @@ namespace CardGameClient
                                     if (game.fGamer.nick != App.NickName)
                                     {
                                         if (myCardPlases[item.slot].ThisCard != null &&
-                                            myCardPlases[item.slot].ThisCard.hp > item.hp && lasthitCard != game.lastHitCardSlot)
+                                            myCardPlases[item.slot].ThisCard.hp > item.hp /*&& lasthitCard != game.lastHitCardSlot*/)
                                         {
                                             enemyCardPlases[game.lastHitCardSlot].AnimateTurn(true);
                                             lasthitCard = game.lastHitCardSlot;
@@ -256,7 +256,7 @@ namespace CardGameClient
                                     if (game.fGamer.nick == App.NickName)
                                     {
                                         if (myCardPlases[item.slot].ThisCard != null &&
-                                            myCardPlases[item.slot].ThisCard.hp > item.hp && lasthitCard != game.lastHitCardSlot)
+                                            myCardPlases[item.slot].ThisCard.hp > item.hp/* && lasthitCard != game.lastHitCardSlot*/)
                                         {
                                             enemyCardPlases[game.lastHitCardSlot].AnimateTurn(true);
                                             lasthitCard = game.lastHitCardSlot;
@@ -277,7 +277,7 @@ namespace CardGameClient
                                     if (game.fGamer.nick != App.NickName)
                                     {
                                         if (myCardPlases[item.slot].ThisCard != null &&
-                                            myCardPlases[item.slot].ThisCard.hp > item.hp && lasthitCard != game.lastHitCardSlot)
+                                            myCardPlases[item.slot].ThisCard.hp > item.hp/* && lasthitCard != game.lastHitCardSlot*/)
                                         {
                                             enemyCardPlases[game.lastHitCardSlot].AnimateTurn(true);
                                             lasthitCard = game.lastHitCardSlot;
