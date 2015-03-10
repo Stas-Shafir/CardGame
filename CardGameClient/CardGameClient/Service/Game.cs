@@ -13,7 +13,7 @@ namespace CardGameServer
         public List<string> Gamers;
 
         [DataMember]
-        public int lastHitCardSlot;
+        public LastHitInfo lastHitInfo { get; set; }
 
         [DataMember]
         public Gamer fGamer;

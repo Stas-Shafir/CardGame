@@ -9,8 +9,10 @@ namespace CardGameServer
     [DataContract]
     public class Gamer
     {
-
         [DataMember]
         public string nick { get; set; }
+
+        [DataMember]
+        public int level { get; set; }
     }
 }

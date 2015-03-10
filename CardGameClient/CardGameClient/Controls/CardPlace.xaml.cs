@@ -61,8 +61,8 @@ namespace CardGameClient
                 }
                 
                 
-                if (thisCard != null && value.hp < thisCard.hp && isMineCard && inGame)
-                    AnimateDmg((thisCard.hp - value.hp).ToString());
+                /*if (thisCard != null && value.hp < thisCard.hp && isMineCard && inGame)
+                    AnimateDmg((thisCard.hp - value.hp).ToString());*/
                 
                 thisCard = value;
                 
@@ -247,7 +247,6 @@ namespace CardGameClient
             dmgLabel.Opacity = 1;
 
             DoubleAnimation db = new DoubleAnimation(0, 1, TimeSpan.FromMilliseconds(250));
-            //db.BeginTime = TimeSpan.FromMilliseconds(100);
             db.FillBehavior = FillBehavior.Stop;
             db.AutoReverse = true;
             dmgImgEffect.BeginAnimation(OpacityProperty, db);
@@ -258,8 +257,55 @@ namespace CardGameClient
             th.To = new Thickness(dmgLabel.Margin.Left, dmgLabel.Margin.Top - 70, dmgLabel.Margin.Right, dmgLabel.Margin.Bottom);
             th.Duration = TimeSpan.FromMilliseconds(500);
             th.Completed += new EventHandler(th_Completed);
-            //th.BeginTime = TimeSpan.FromMilliseconds(250);
-            dmgLabel.BeginAnimation(MarginProperty, th);
+            dmgLabel.BeginAnimation(MarginProperty, th);           
+        }
+
+        public void AnimateDmgAdtnl(LastHitInfo lhi)
+        {
+            if (lhi.IsCritical)
+            {
+                dmgLabeladtnl.Content = "Крит!";
+                dmgLabel.Foreground = Brushes.DarkBlue;
+
+                dmgLabeladtnl.Opacity = 1;
+            }
+
+            if (lhi.isMissed)
+            {
+                dmgLabeladtnl.Content = "Промах!";
+                dmgLabeladtnl.Foreground = Brushes.DimGray;
+
+                dmgLabeladtnl.Opacity = 1;
+            }
+
+            if (!lhi.isMissed)
+            {
+                dmgLabel.Content = lhi.dmg;
+                dmgLabel.Opacity = 1;
+
+
+                DoubleAnimation db = new DoubleAnimation(0, 1, TimeSpan.FromMilliseconds(250));
+                db.FillBehavior = FillBehavior.Stop;
+                db.AutoReverse = true;
+                dmgImgEffect.BeginAnimation(OpacityProperty, db);
+
+                ThicknessAnimation th = new ThicknessAnimation();
+                th.From = dmgLabel.Margin;
+                th.FillBehavior = FillBehavior.Stop;
+                th.To = new Thickness(dmgLabel.Margin.Left, dmgLabel.Margin.Top - 70, dmgLabel.Margin.Right, dmgLabel.Margin.Bottom);
+                th.Duration = TimeSpan.FromMilliseconds(500);
+                th.Completed += new EventHandler(th_Completed);
+                dmgLabel.BeginAnimation(MarginProperty, th);
+            }
+
+            ThicknessAnimation tha = new ThicknessAnimation();
+            tha.From = dmgLabeladtnl.Margin;
+            tha.FillBehavior = FillBehavior.Stop;
+            tha.To = new Thickness(dmgLabeladtnl.Margin.Left, dmgLabeladtnl.Margin.Top - 70, dmgLabeladtnl.Margin.Right,
+                dmgLabeladtnl.Margin.Bottom);
+            tha.Duration = TimeSpan.FromMilliseconds(500);
+            tha.Completed += new EventHandler(tha_Completed);
+            dmgLabeladtnl.BeginAnimation(MarginProperty, tha);
         }
 
         public void AnimateTurn(bool enemy = false)
@@ -283,9 +329,17 @@ namespace CardGameClient
         {
             dmgLabel.Opacity = 0;
             dmgLabel.Content = "";
-
-
             dmgLabel.Margin = new Thickness(0, 6, 6, 0);
+            dmgLabel.Foreground = Brushes.Red;
+        }
+
+
+        void tha_Completed(object sender, EventArgs e)
+        {
+            dmgLabeladtnl.Opacity = 0;
+            dmgLabeladtnl.Content = "";
+            dmgLabeladtnl.Margin = new Thickness(0, 35, -40, 0);
+            dmgLabeladtnl.Foreground = Brushes.Red;
         }
 
         private void CardContextMenuSellBtn_Click(object sender, RoutedEventArgs e)

@@ -79,11 +79,11 @@ namespace CardGameClient
 
                 //attack
                 bool isError = false;
-                int dmg = -1;
+                LastHitInfo lhi = null;
                 App.ProxyMutex.WaitOne();
                 try
                 {
-                    dmg = ServiceProxy.Proxy.DoAttack(App.NickName, mySelectedCardPlace.ThisCard.slot,
+                    lhi = ServiceProxy.Proxy.DoAttack(App.NickName, mySelectedCardPlace.ThisCard.slot,
                         enemySelectedCardPlace.ThisCard.slot);
                 }
                 catch
@@ -106,9 +106,9 @@ namespace CardGameClient
                 }
 
                 //if success
-                if (dmg != -1)
+                if (lhi != null)
                 {
-                    enemySelectedCardPlace.AnimateDmg(dmg.ToString());
+                    enemySelectedCardPlace.AnimateDmgAdtnl(lhi);
                     mySelectedCardPlace.AnimateTurn();
                 }
 
@@ -178,11 +178,12 @@ namespace CardGameClient
                                 {
                                     if (game.fGamer.nick == App.NickName)
                                     {
-                                        if (myCardPlases[item.slot].ThisCard != null &&
-                                            myCardPlases[item.slot].ThisCard.hp > item.hp/* && lasthitCard != game.lastHitCardSlot*/)
+                                        if (myCardPlases[item.slot].ThisCard != null && item.IsAttacked 
+                                            && !myCardPlases[item.slot].ThisCard.IsAttacked)
                                         {
-                                            enemyCardPlases[game.lastHitCardSlot].AnimateTurn(true);
-                                            lasthitCard = game.lastHitCardSlot;
+                                            enemyCardPlases[game.lastHitInfo.slot].AnimateTurn(true);
+                                            lasthitCard = game.lastHitInfo.slot;
+                                            myCardPlases[item.slot].AnimateDmgAdtnl(game.lastHitInfo);
                                         }
 
                                         myCardPlases[item.slot].ThisCard = item;
@@ -199,11 +200,12 @@ namespace CardGameClient
                                 {
                                     if (game.fGamer.nick != App.NickName)
                                     {
-                                        if (myCardPlases[item.slot].ThisCard != null &&
-                                            myCardPlases[item.slot].ThisCard.hp > item.hp /*&& lasthitCard != game.lastHitCardSlot*/)
+                                        if (myCardPlases[item.slot].ThisCard != null && item.IsAttacked
+                                            && !myCardPlases[item.slot].ThisCard.IsAttacked)
                                         {
-                                            enemyCardPlases[game.lastHitCardSlot].AnimateTurn(true);
-                                            lasthitCard = game.lastHitCardSlot;
+                                            enemyCardPlases[game.lastHitInfo.slot].AnimateTurn(true);
+                                            lasthitCard = game.lastHitInfo.slot;
+                                            myCardPlases[item.slot].AnimateDmgAdtnl(game.lastHitInfo);
                                         }
 
                                         myCardPlases[item.slot].ThisCard = item;
@@ -255,11 +257,12 @@ namespace CardGameClient
                                 {
                                     if (game.fGamer.nick == App.NickName)
                                     {
-                                        if (myCardPlases[item.slot].ThisCard != null &&
-                                            myCardPlases[item.slot].ThisCard.hp > item.hp/* && lasthitCard != game.lastHitCardSlot*/)
+                                        if (myCardPlases[item.slot].ThisCard != null && item.IsAttacked
+                                            && !myCardPlases[item.slot].ThisCard.IsAttacked)
                                         {
-                                            enemyCardPlases[game.lastHitCardSlot].AnimateTurn(true);
-                                            lasthitCard = game.lastHitCardSlot;
+                                            enemyCardPlases[game.lastHitInfo.slot].AnimateTurn(true);
+                                            lasthitCard = game.lastHitInfo.slot;
+                                            myCardPlases[item.slot].AnimateDmgAdtnl(game.lastHitInfo);
                                         }
 
                                         myCardPlases[item.slot].ThisCard = item;
@@ -276,11 +279,12 @@ namespace CardGameClient
                                 {
                                     if (game.fGamer.nick != App.NickName)
                                     {
-                                        if (myCardPlases[item.slot].ThisCard != null &&
-                                            myCardPlases[item.slot].ThisCard.hp > item.hp/* && lasthitCard != game.lastHitCardSlot*/)
+                                        if (myCardPlases[item.slot].ThisCard != null && item.IsAttacked 
+                                            && !myCardPlases[item.slot].ThisCard.IsAttacked)
                                         {
-                                            enemyCardPlases[game.lastHitCardSlot].AnimateTurn(true);
-                                            lasthitCard = game.lastHitCardSlot;
+                                            enemyCardPlases[game.lastHitInfo.slot].AnimateTurn(true);
+                                            lasthitCard = game.lastHitInfo.slot;
+                                            myCardPlases[item.slot].AnimateDmgAdtnl(game.lastHitInfo);
                                         }
 
                                         myCardPlases[item.slot].ThisCard = item;
@@ -444,11 +448,15 @@ namespace CardGameClient
                 {
                     menuTop.firstUserNickname = App.NickName;
                     menuTop.twoUserNickname = game.tGamer.nick;
+                    menuTop.firstUserLevel = game.fGamer.level.ToString();
+                    menuTop.twoUserLevel = game.tGamer.level.ToString();
                 }
                 else
                 {
                     menuTop.firstUserNickname = App.NickName;
                     menuTop.twoUserNickname = game.fGamer.nick;
+                    menuTop.firstUserLevel = game.tGamer.level.ToString();
+                    menuTop.twoUserLevel = game.fGamer.level.ToString();
                 }
 
                 Thread gameThread = new Thread(DoGame) { IsBackground = true };

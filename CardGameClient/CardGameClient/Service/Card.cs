@@ -35,6 +35,10 @@ namespace CardGameServer
 
         [DataMember]
         public bool IsInjury { get; set; }
+
+        [DataMember]
+        public bool IsAttacked { get; set; }
+
     }
 }
 

@@ -1,8 +1,3 @@
-D:\CardsKurs\CardGameServer\CardGameServer\bin\Debug\CardGameServer.exe.config
-D:\CardsKurs\CardGameServer\CardGameServer\bin\Debug\CardGameServer.exe
-D:\CardsKurs\CardGameServer\CardGameServer\bin\Debug\CardGameServer.pdb
-D:\CardsKurs\CardGameServer\CardGameServer\obj\x86\Debug\CardGameServer.exe
-D:\CardsKurs\CardGameServer\CardGameServer\obj\x86\Debug\CardGameServer.pdb
 D:\Шаг\CardGameServer\CardGameServer\bin\Debug\CardGameServer.exe.config
 D:\Шаг\CardGameServer\CardGameServer\obj\x86\Debug\CardGameServer.exe
 D:\Шаг\CardGameServer\CardGameServer\obj\x86\Debug\CardGameServer.pdb
@@ -18,4 +13,8 @@ F:\Шаг\CardGameServer\CardGameServer\obj\x86\Debug\CardGameServer.exe
 F:\Шаг\CardGameServer\CardGameServer\obj\x86\Debug\CardGameServer.pdb
 F:\Шаг\CardGameServer\CardGameServer\bin\Debug\CardGameServer.exe
 F:\Шаг\CardGameServer\CardGameServer\bin\Debug\CardGameServer.pdb
-D:\Шаг\CardGameServer\CardGameServer\obj\x86\Debug\CardGameServer.csprojResolveAssemblyReference.cache
+D:\CardsKurs\CardGameServer\CardGameServer\bin\Debug\CardGameServer.exe.config
+D:\CardsKurs\CardGameServer\CardGameServer\bin\Debug\CardGameServer.exe
+D:\CardsKurs\CardGameServer\CardGameServer\bin\Debug\CardGameServer.pdb
+D:\CardsKurs\CardGameServer\CardGameServer\obj\x86\Debug\CardGameServer.exe
+D:\CardsKurs\CardGameServer\CardGameServer\obj\x86\Debug\CardGameServer.pdb

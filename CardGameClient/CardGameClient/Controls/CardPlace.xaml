@@ -43,6 +43,12 @@
                 </Label.Background>
             </Label>
 
+            <Label Content="Крит!" Margin="0,35,-15,0" Name="dmgLabeladtnl" VerticalAlignment="Top" Foreground="Red" FontSize="16" FontWeight="Normal" HorizontalAlignment="Right" FlowDirection="LeftToRight" FontFamily="Verdana" Opacity="0">
+                <Label.Background>
+                    <ImageBrush ImageSource="/CardGameClient;component/Images/dmg_label_back.png" Stretch="Fill" />
+                </Label.Background>
+            </Label>
+
             <Image Name="dmgImgEffect" Source="/CardGameClient;component/Images/Effects/dmg.png" Width="80" HorizontalAlignment="Center" VerticalAlignment="Center" Opacity="0"/>
 
             <Image Name="InjuryEffect" Visibility="Hidden" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="7, 7, 0, 0" Height="25" Width="25" Source="/CardGameClient;component/Images/Effects/injury.png">

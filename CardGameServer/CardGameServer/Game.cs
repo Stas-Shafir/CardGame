@@ -10,16 +10,13 @@ namespace CardGameServer
     public class Game
     {
         [DataMember]
-        public int lastHitCardSlot;
+        public LastHitInfo lastHitInfo { get; set; }
 
         [DataMember]
         public Gamer fGamer = null;
 
         [DataMember]
         public Gamer tGamer = null;
-
-        Random Rnd;
-        
 
         //debug
         public bool Init1 = true;
@@ -63,7 +60,10 @@ namespace CardGameServer
 
         public Game(string user, List<Card> fgc)
         {
-            Rnd = new Random();
+            //Rnd = new Random();
+
+            lastHitInfo = new LastHitInfo();
+
             Gamers.Add(user);
             currUsr = user;
             firstGamerCards = new List<Card>(fgc);
@@ -72,7 +72,6 @@ namespace CardGameServer
             fGamer = Program.OnlineUsers.Find(u => u.nick == user);
             Program.UserThreadLock.ExitReadLock();
 
-            lastHitCardSlot = -1;
             gameState = 1;
         }
 
@@ -133,28 +132,28 @@ namespace CardGameServer
 
             if (isWinner)
             {
-                reward.Exp = Rnd.Next(245, 255);
-                reward.Score = Rnd.Next(123, 133);
-                if (Rnd.Next(0, 3) == 1) //drop card % winner
+                reward.Exp = Program.Rnd.Next(245, 255);
+                reward.Score = Program.Rnd.Next(123, 133);
+                if (Program.Rnd.Next(0, 3) == 1) //drop card % winner
                 {
                     List<Card> clst = Card.GetAllavailableCardsByNickName(nickname);
                     if (clst.Count > 1)
                     {
-                        reward.NewCard = clst[Rnd.Next(0, clst.Count)];
+                        reward.NewCard = clst[Program.Rnd.Next(0, clst.Count)];
                     }
                 }
                 WinGamerReward = reward;
             }
             else
             {
-                reward.Exp = Rnd.Next(123, 133);
-                reward.Score = Rnd.Next(62, 72);
-                if (Rnd.Next(0, 6) == 1) //drop card % looser
+                reward.Exp = Program.Rnd.Next(123, 133);
+                reward.Score = Program.Rnd.Next(62, 72);
+                if (Program.Rnd.Next(0, 6) == 1) //drop card % looser
                 {
                     List<Card> clst = Card.GetAllavailableCardsByNickName(nickname);
                     if (clst.Count > 1)
                     {
-                        reward.NewCard = clst[Rnd.Next(0, clst.Count)];
+                        reward.NewCard = clst[Program.Rnd.Next(0, clst.Count)];
                     }
                 }
                 LooseGamerReward = reward;

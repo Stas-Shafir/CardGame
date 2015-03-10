@@ -14,6 +14,8 @@ namespace CardGameServer
         [DataMember]
         public string nick { get; set; }
 
+        [DataMember]
+        public int level = 1;
 
         public int lastAcc { get; set; }
 

@@ -39,6 +39,9 @@ namespace CardGameServer
         [DataMember]
         public bool IsInjury { get; set; } //effect
 
+        [DataMember]
+        public bool IsAttacked { get; set; }
+
         public bool Use = false;
 
         public int min_level = 1;
@@ -59,16 +62,20 @@ namespace CardGameServer
             this.cardRarity = r;
             this.Enabled = true;
             this.IsInjury = false;
+            this.IsAttacked = false;
         }
 
         public void TryEnjured()
         {
-            if (!IsInjury && Program.Rnd.Next(0, 3) == 1) //Injury effect
-            {
+            if (!IsInjury/* && Program.Rnd.Next(0, 3) >= 1*/) //Injury effect
+            {                
+                //test
                 IsInjury = true;
                 double tmp = dmg * 0.3;
                 dmg -= (int)(tmp);
                 if ((tmp % 1) >= 0.5) dmg -= 1;
+
+                if (dmg < 1) dmg = 1;
             }
         }
         

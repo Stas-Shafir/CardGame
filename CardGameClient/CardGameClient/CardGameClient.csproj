@@ -109,6 +109,7 @@
     <Compile Include="Service\CharInfo.cs" />
     <Compile Include="Service\Game.cs" />
     <Compile Include="Service\Gamer.cs" />
+    <Compile Include="Service\LastHitInfo.cs" />
     <Compile Include="Service\Reward.cs" />
     <Compile Include="Service\Servicegame.cs" />
     <Page Include="CardInfo.xaml">

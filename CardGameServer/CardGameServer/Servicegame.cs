@@ -235,7 +235,11 @@ namespace CardGameServer
                 Program.UserThreadLock.EnterReadLock();
                 Gamer gamer = Program.OnlineUsers.Find(u => u.login == user);
                 Program.UserThreadLock.ExitReadLock();
-                if (gamer != null) gamer.nick = chInfo.nickname;
+                if (gamer != null)
+                {
+                    gamer.level = chInfo.character_level;
+                    gamer.nick = chInfo.nickname;
+                }
 
             }
             catch (Exception exc)
@@ -430,7 +434,7 @@ namespace CardGameServer
                         if (nickname == game.Gamers[0])
                             game.fGamer.lastAcc = 0;
                         else game.tGamer.lastAcc = 0;
-
+                                                                      
 
                         if (game.gameState == 4 || game.gameState == 5 || game.gameState == 7)
                         {
@@ -453,6 +457,7 @@ namespace CardGameServer
                             }
                             catch { }
                         }
+
                     }
 
                     if (remove)
@@ -512,9 +517,10 @@ namespace CardGameServer
 
 
         [OperationContract]
-        public int DoAttack(string nickname, int myslot, int enslot)
+        public LastHitInfo DoAttack(string nickname, int myslot, int enslot)
         {            
             int dmg = -1;
+            LastHitInfo lhi = null;
             try
             {
                 Program.GameThreadLock.EnterReadLock();
@@ -527,7 +533,21 @@ namespace CardGameServer
                 {
                     lock (game)
                     {
-                        if (game.currUsr != nickname) return dmg;
+                        if (game.currUsr != nickname) return lhi;
+
+                        foreach (var item in game.firstGamerCards)
+                        {
+                            item.IsAttacked = false;
+                        }
+
+                        foreach (var item in game.twoGamerCards)
+                        {
+                            item.IsAttacked = false;
+                        }
+
+                        game.lastHitInfo.isMissed = false;
+                        game.lastHitInfo.IsCritical = false;
+                        
 
                         if (game.gameState == 2)
                         {
@@ -536,33 +556,48 @@ namespace CardGameServer
 
                             //myC.Enabled = false;
 
-                            //calc real damage
-                            dmg = Formulas.CalculateDamage(myC.dmg, enC.def);
-
-                            if (dmg <= 0) dmg = 1;
-                            else if (Program.Rnd.Next(0, 6) == 1) //crit damage
+                            if (Program.Rnd.NextDouble() <= 0.85) //miss?
                             {
-                                dmg = Formulas.CalculateCritDamage(dmg);
+                                //calc real damage
+                                dmg = Formulas.CalculateDamage(myC.dmg, enC.def);
+
+                                if (dmg <= 0) dmg = 1;
+                                else
+                                {
+                                    if (Program.Rnd.Next(0, 6) == 1) //crit damage
+                                    {
+                                        dmg = Formulas.CalculateCritDamage(dmg);
+                                        game.lastHitInfo.IsCritical = true;
+                                    }
+                                }
+
+
+                                int temp = enC.hp; //save curr hp                          
+
+                                enC.hp = enC.hp - dmg;
+
+                                //test
+                                //enC.dmg = enC.dmg - dmg/2;
+                                //if (enC.dmg < 1) enC.dmg = 1;
+
+                                if (enC.hp <= 0)
+                                {
+                                    if (enC.hp < 0) dmg = temp; //if overhit -> change hp
+                                    enC.hp = 0;
+                                    enC.Enabled = false;
+                                }
+                                else if ((double)dmg >= ((double)temp / 3)) enC.TryEnjured();
                             }
-
-                            int temp = enC.hp; //save curr hp                          
-
-                            enC.hp = enC.hp - dmg;
-
-                            //test
-                            //enC.dmg = enC.dmg - dmg/2;
-                            //if (enC.dmg < 1) enC.dmg = 1;
-
-                            if (enC.hp <= 0)
-                            {
-                                if (enC.hp < 0) dmg = temp; //if overhit -> change hp
-                                enC.hp = 0;
-                                enC.Enabled = false;
-                            }
-                            else enC.TryEnjured();
+                            else game.lastHitInfo.isMissed = true;
 
 
-                            game.lastHitCardSlot = myslot;
+                            game.lastHitInfo.slot = myslot;
+                            game.lastHitInfo.dmg = dmg;
+
+                            lhi = game.lastHitInfo;
+
+                            enC.IsAttacked = true;
+                            
 
                             isWin = game.CheckWinner();
 
@@ -606,32 +641,45 @@ namespace CardGameServer
 
                             //myC.Enabled = false;
 
-                            //calc real damage
-                            dmg = Formulas.CalculateDamage(myC.dmg, enC.def);
-
-                            if (dmg <= 0) dmg = 1;
-                            else if (Program.Rnd.Next(0, 6) == 1) //crit damage
+                            if (Program.Rnd.NextDouble() <= 0.85) //miss?
                             {
-                                dmg = Formulas.CalculateCritDamage(dmg);
+                                //calc real damage
+                                dmg = Formulas.CalculateDamage(myC.dmg, enC.def);
+
+                                if (dmg <= 0) dmg = 1;
+                                else
+                                {
+                                    if (Program.Rnd.Next(0, 6) == 1) //crit damage
+                                    {
+                                        dmg = Formulas.CalculateCritDamage(dmg);
+                                        game.lastHitInfo.IsCritical = true;
+                                    }
+                                }
+
+                                int temp = enC.hp; //save curr hp                          
+
+                                enC.hp = enC.hp - dmg;
+
+                                //test
+                                //enC.dmg = enC.dmg - dmg/2;
+                                //if (enC.dmg < 1) enC.dmg = 1;
+
+                                if (enC.hp <= 0)
+                                {
+                                    if (enC.hp < 0) dmg = temp; //if overhit -> change hp
+                                    enC.hp = 0;
+                                    enC.Enabled = false;
+                                }
+                                else if ((double)dmg >= ((double)temp / 3)) enC.TryEnjured();
                             }
+                            else game.lastHitInfo.isMissed = true;
 
-                            int temp = enC.hp; //save curr hp                          
+                            game.lastHitInfo.slot = myslot;
+                            game.lastHitInfo.dmg = dmg;
 
-                            enC.hp = enC.hp - dmg;
+                            lhi = game.lastHitInfo;
 
-                            //test
-                            //enC.dmg = enC.dmg - dmg/2;
-                            //if (enC.dmg < 1) enC.dmg = 1;
-
-                            if (enC.hp <= 0)
-                            {
-                                if (enC.hp < 0) dmg = temp; //if overhit -> change hp
-                                enC.hp = 0;
-                                enC.Enabled = false;
-                            }
-                            else enC.TryEnjured();
-
-                            game.lastHitCardSlot = myslot;
+                            enC.IsAttacked = true;
 
                             isWin = game.CheckWinner();
 
@@ -675,7 +723,7 @@ namespace CardGameServer
                 Console.WriteLine("ERROR: " + exc.Message + "\r\n" + exc.StackTrace);
                 Program.dumpException(exc);
             }
-            return dmg;
+            return lhi;
         }
 
         [OperationContract]
