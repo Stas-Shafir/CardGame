@@ -707,6 +707,9 @@ namespace CardGameClient
                             ci.Rarity.Foreground = App.rarityDictionary[item.cardRarity].RarityColor;
                             ci.Dmg.Content = "Атака: " + item.dmg;
                             ci.Def.Content = "Защита: " + item.def;
+                            ci.Hp.Content = "Здоровье: " + item.hp;
+                            ci.Iniciative.Content = "Инициатива: " + item.Initiative;
+                            ci.Level.Content = "Уровень: " + item.min_level;
 
                             cp.ToolTip = new ToolTip()
                             {
@@ -730,6 +733,9 @@ namespace CardGameClient
                             ci.Rarity.Foreground = App.rarityDictionary[item.cardRarity].RarityColor;
                             ci.Dmg.Content = "Атака: " + item.dmg;
                             ci.Def.Content = "Защита: " + item.def;
+                            ci.Hp.Content = "Здоровье: " + item.hp;
+                            ci.Iniciative.Content = "Инициатива: " + item.Initiative;
+                            ci.Level.Content = "Уровень: " + item.min_level;
 
                             cp.ToolTip = new ToolTip()
                             {

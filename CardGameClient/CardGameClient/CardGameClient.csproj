@@ -480,6 +480,74 @@
   <ItemGroup>
     <Resource Include="Images\Effects\dmg.png" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="Images\Cards\13.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Images\Cards\14.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Images\Cards\15.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Images\Cards\16.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Images\Cards\17.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Images\Cards\18.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Images\Cards\19.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Images\Cards\20.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Images\Cards\21.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Images\Cards\22.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Images\Cards\23.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Images\Cards\24.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Images\Cards\25.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\Cards\Copy of 13.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\Cards\Copy of 19.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\Cards\Copy of 14.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\Cards\Copy of 15.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\Cards\Copy of 16.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\Cards\Copy of 17.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\Cards\Copy of 18.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\Cards\Copy of 20.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\Cards\Copy of 21.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

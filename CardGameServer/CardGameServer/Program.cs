@@ -27,7 +27,7 @@ namespace CardGameServer
         public static ReaderWriterLockSlim GameThreadLock = new ReaderWriterLockSlim();
         public static ReaderWriterLockSlim UserThreadLock = new ReaderWriterLockSlim();
 
-        public static Random Rnd = new Random();
+        public static Random Rnd = Formulas.Rnd;
 
         public static object fs = new object();
 
@@ -157,6 +157,7 @@ namespace CardGameServer
                         (int)res["rare"]
                         );
                     ccc.min_level = (int)res["min_level"];
+                    ccc.Initiative = (int)res["initiative"];
                     cards.Add(ccc);
                 }
 

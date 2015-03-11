@@ -235,3 +235,16 @@ D:\Шаг\CardGameClient\CardGameClient\obj\x86\Debug\CardInfo.g.cs
 D:\Шаг\CardGameClient\CardGameClient\obj\x86\Debug\CardGameClient.csprojResolveAssemblyReference.cache
 D:\CardsKurs\CardGameClient\CardGameClient\obj\x86\Debug\CardPackWindow.g.cs
 D:\CardsKurs\CardGameClient\CardGameClient\obj\x86\Debug\CardPackWindow.baml
+D:\CardsKurs\CardGameClient\CardGameClient\bin\Debug\Images\Cards\13.png
+D:\CardsKurs\CardGameClient\CardGameClient\bin\Debug\Images\Cards\14.png
+D:\CardsKurs\CardGameClient\CardGameClient\bin\Debug\Images\Cards\15.png
+D:\CardsKurs\CardGameClient\CardGameClient\bin\Debug\Images\Cards\16.png
+D:\CardsKurs\CardGameClient\CardGameClient\bin\Debug\Images\Cards\17.png
+D:\CardsKurs\CardGameClient\CardGameClient\bin\Debug\Images\Cards\18.png
+D:\CardsKurs\CardGameClient\CardGameClient\bin\Debug\Images\Cards\19.png
+D:\CardsKurs\CardGameClient\CardGameClient\bin\Debug\Images\Cards\20.png
+D:\CardsKurs\CardGameClient\CardGameClient\bin\Debug\Images\Cards\21.png
+D:\CardsKurs\CardGameClient\CardGameClient\bin\Debug\Images\Cards\22.png
+D:\CardsKurs\CardGameClient\CardGameClient\bin\Debug\Images\Cards\23.png
+D:\CardsKurs\CardGameClient\CardGameClient\bin\Debug\Images\Cards\24.png
+D:\CardsKurs\CardGameClient\CardGameClient\bin\Debug\Images\Cards\25.png

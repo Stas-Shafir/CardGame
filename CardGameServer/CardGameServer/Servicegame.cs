@@ -274,7 +274,8 @@ namespace CardGameServer
             {
                 db_connection.Open();
 
-                SqlCommand cmd = new SqlCommand("SELECT TOP 10 * FROM characters ORDER BY character_level DESC, wins, games", db_connection);
+                SqlCommand cmd = new SqlCommand("SELECT TOP 10 * FROM characters ORDER BY character_level DESC, wins DESC, games DESC",
+                    db_connection);
 
                 SqlDataReader res = cmd.ExecuteReader();
 
@@ -346,7 +347,11 @@ namespace CardGameServer
                             def_bust = currcard.type == 0 ? (character_level > 5 ? character_level / 2 - 2 : 0) : 0;
 
                             gamerCard.Add(new Card(currcard.id, currcard.card_name, currcard.type, currcard.hp + hp_bust,
-                                currcard.dmg + dmg_bust, currcard.def + def_bust, currcard.cardRarity, (int)res["slot"]));
+                                currcard.dmg + dmg_bust, currcard.def + def_bust, currcard.cardRarity, (int)res["slot"])
+                            {
+                                Initiative = currcard.Initiative,
+                                min_level = currcard.min_level
+                            });
                         }
                     }
                 }
@@ -556,7 +561,7 @@ namespace CardGameServer
 
                             //myC.Enabled = false;
 
-                            if (Program.Rnd.NextDouble() <= 0.85) //miss?
+                            if (!Formulas.IsMiss()) //miss?
                             {
                                 //calc real damage
                                 dmg = Formulas.CalculateDamage(myC.dmg, enC.def);
@@ -564,7 +569,7 @@ namespace CardGameServer
                                 if (dmg <= 0) dmg = 1;
                                 else
                                 {
-                                    if (Program.Rnd.Next(0, 6) == 1) //crit damage
+                                    if (Formulas.IsCrit()) //crit damage
                                     {
                                         dmg = Formulas.CalculateCritDamage(dmg);
                                         game.lastHitInfo.IsCritical = true;
@@ -586,7 +591,7 @@ namespace CardGameServer
                                     enC.hp = 0;
                                     enC.Enabled = false;
                                 }
-                                else if ((double)dmg >= ((double)temp / 3)) enC.TryEnjured();
+                                else enC.TryEnjured((double)dmg, (double)temp);
                             }
                             else game.lastHitInfo.isMissed = true;
 
@@ -641,7 +646,7 @@ namespace CardGameServer
 
                             //myC.Enabled = false;
 
-                            if (Program.Rnd.NextDouble() <= 0.85) //miss?
+                            if (!Formulas.IsMiss()) //miss?
                             {
                                 //calc real damage
                                 dmg = Formulas.CalculateDamage(myC.dmg, enC.def);
@@ -649,7 +654,7 @@ namespace CardGameServer
                                 if (dmg <= 0) dmg = 1;
                                 else
                                 {
-                                    if (Program.Rnd.Next(0, 6) == 1) //crit damage
+                                    if (Formulas.IsCrit()) //crit damage
                                     {
                                         dmg = Formulas.CalculateCritDamage(dmg);
                                         game.lastHitInfo.IsCritical = true;
@@ -670,7 +675,7 @@ namespace CardGameServer
                                     enC.hp = 0;
                                     enC.Enabled = false;
                                 }
-                                else if ((double)dmg >= ((double)temp / 3)) enC.TryEnjured();
+                                else enC.TryEnjured((double)dmg, (double)temp);
                             }
                             else game.lastHitInfo.isMissed = true;
 
@@ -959,7 +964,11 @@ namespace CardGameServer
                         {
 
                             gamerCard.Add(new Card(currcard.id, currcard.card_name, currcard.type, currcard.hp,
-                                currcard.dmg, currcard.def, currcard.cardRarity, (int)res["slot"]));
+                                currcard.dmg, currcard.def, currcard.cardRarity, (int)res["slot"])
+                                {
+                                    Initiative = currcard.Initiative,
+                                    min_level = currcard.min_level
+                                });
                         }
                     }
 
@@ -977,7 +986,11 @@ namespace CardGameServer
                         if (currcard != null)
                         {
                             gamerCard.Add(new Card(currcard.id, currcard.card_name, currcard.type, currcard.hp,
-                                 currcard.dmg, currcard.def, currcard.cardRarity, (int)res["slot"]));
+                                 currcard.dmg, currcard.def, currcard.cardRarity, (int)res["slot"])
+                            {
+                                Initiative = currcard.Initiative,
+                                min_level = currcard.min_level
+                            });
                         }
                     }
 

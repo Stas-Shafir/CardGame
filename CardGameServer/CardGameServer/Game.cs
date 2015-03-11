@@ -82,11 +82,34 @@ namespace CardGameServer
             Program.UserThreadLock.ExitReadLock();
 
 
-            int dmg1 = firstGamerCards.Sum(ccc => ccc.dmg);
+            /*int dmg1 = firstGamerCards.Sum(ccc => ccc.dmg);
             int dmg2 = tgc.Sum(ccc => ccc.dmg);
 
 
-            if (dmg2 < dmg1)
+            int def1 = firstGamerCards.Sum(ccc => ccc.def);
+            int def2 = tgc.Sum(ccc => ccc.def);
+
+
+            int hp1 = firstGamerCards.Sum(ccc => ccc.hp);
+            int hp2 = tgc.Sum(ccc => ccc.hp);
+
+
+
+            if (dmg2 < dmg1 && def2 < def1 && hp2 < hp1)
+            {
+                Gamers.Insert(0, user);
+                twoGamerCards = firstGamerCards;
+                firstGamerCards = new List<Card>(tgc);
+                currUsr = user;
+                tGamer = fGamer;
+                fGamer = gamer;
+            }*/
+
+            int initatv1 = firstGamerCards.Sum(ccc => ccc.Initiative);
+            int initatv2 = tgc.Sum(ccc => ccc.Initiative);
+
+
+            if (initatv2 > initatv1)
             {
                 Gamers.Insert(0, user);
                 twoGamerCards = firstGamerCards;
