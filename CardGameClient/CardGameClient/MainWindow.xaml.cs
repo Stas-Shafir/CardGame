@@ -433,6 +433,40 @@ namespace CardGameClient
 
             if (game != null)
             {
+                if (game.fGamer == null || game.tGamer == null || game.Gamers == null || game.Gamers.Count < 2)
+                {
+                    Thread.Sleep(1000);
+                    new Action(delegate
+                    {
+                        bool isError = false;
+
+                        App.ProxyMutex.WaitOne();
+                        try
+                        {
+                            game = ServiceProxy.Proxy.getGame(App.NickName);
+                        }
+                        catch
+                        {
+                            this.Dispatcher.Invoke(new Action(delegate
+                            {
+                                App.isConnected = false;
+                                App.loginScreen.loginBtn.IsEnabled = true;
+                                App.loginScreen.errorText.Content = "Связь с сервером неожиданно прервана...";
+                                App.loginScreen.Show();
+                            }));
+                            isError = true;
+                        }
+                        App.ProxyMutex.ReleaseMutex();
+
+                        if (isError)
+                        {
+                            game = null;
+                            App.OnConnectionError();
+                            return;
+                        }
+                    }).Invoke();
+                }
+
                 foreach (var item in myCardPlases.Values)
                 {
                     item.inGame = true;

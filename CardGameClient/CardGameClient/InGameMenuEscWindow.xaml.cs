@@ -62,6 +62,8 @@ namespace CardGameClient
                 return;
             }
 
+            App.InGame = false;
+
 
             //App.ForceClosing = false;
             App.WindowList.Remove(this.Name);

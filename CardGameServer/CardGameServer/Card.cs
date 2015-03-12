@@ -76,10 +76,10 @@ namespace CardGameServer
                 //test
                 IsInjury = true;
                 double tmp = dmg * 0.3;
-                dmg -= (int)(tmp);
-                if ((tmp % 1) >= 0.5) dmg -= 1;
+                this.dmg -= (int)(tmp);
+                if ((tmp % 1) >= 0.5) this.dmg -= 1;
 
-                if (dmg < 1) dmg = 1;
+                if (this.dmg < 1) this.dmg = 1;
             }
         }
         

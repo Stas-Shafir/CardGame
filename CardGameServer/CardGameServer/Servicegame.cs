@@ -751,6 +751,8 @@ namespace CardGameServer
                             game.Gamers.Remove(nickname);
                             game.gameState = 5;
 
+                            if (game.fGamer.nick == nickname)
+                                game.fGamer = game.tGamer;
 
                             game.getReward(nickname);
                             game.getReward(game.Gamers[0], true);
@@ -759,7 +761,6 @@ namespace CardGameServer
                             setReward(nickname, game.LooseGamerReward, game, false);
 
 
-                            game.Gamers.Remove(nickname);
                             if (game.Gamers.Count == 0)
                             {
                                 remove = true;
@@ -1168,9 +1169,9 @@ namespace CardGameServer
                         {
                             if (number == 1)
                             {
-                                result.Add(cclist[Program.Rnd.Next(0, cclist.Count)]);
-                                result.Add(cclist[Program.Rnd.Next(0, cclist.Count)]);
-                                result.Add(cclist[Program.Rnd.Next(0, cclist.Count)]);
+                                result.Add(cclist[Formulas.RndNext(0, cclist.Count)]);
+                                result.Add(cclist[Formulas.RndNext(0, cclist.Count)]);
+                                result.Add(cclist[Formulas.RndNext(0, cclist.Count)]);
 
                                 card_id1 = result[0].id;
                                 card_id2 = result[1].id;
@@ -1183,7 +1184,7 @@ namespace CardGameServer
                                 find = false;
                                 while (!find)
                                 {
-                                    Card cc = cclist[Program.Rnd.Next(0, cclist.Count)];
+                                    Card cc = cclist[Formulas.RndNext(0, cclist.Count)];
                                     if (cc.cardRarity >= 2)
                                     {
                                         result.Add(cc);
@@ -1191,8 +1192,8 @@ namespace CardGameServer
                                     }
                                 }
 
-                                result.Add(cclist[Program.Rnd.Next(0, cclist.Count)]);
-                                result.Add(cclist[Program.Rnd.Next(0, cclist.Count)]);
+                                result.Add(cclist[Formulas.RndNext(0, cclist.Count)]);
+                                result.Add(cclist[Formulas.RndNext(0, cclist.Count)]);
 
                                 card_id1 = result[0].id;
                                 card_id2 = result[1].id;
@@ -1205,7 +1206,7 @@ namespace CardGameServer
                                 find = false;
                                 while (!find)
                                 {
-                                    Card cc = cclist[Program.Rnd.Next(0, cclist.Count)];
+                                    Card cc = cclist[Formulas.RndNext(0, cclist.Count)];
                                     if (cc.cardRarity >= 2)
                                     {
                                         result.Add(cc);
@@ -1216,7 +1217,7 @@ namespace CardGameServer
                                 find = false;
                                 while (!find)
                                 {
-                                    Card cc = cclist[Program.Rnd.Next(0, cclist.Count)];
+                                    Card cc = cclist[Formulas.RndNext(0, cclist.Count)];
                                     if (cc.cardRarity >= 2)
                                     {
                                         result.Add(cc);
@@ -1224,7 +1225,7 @@ namespace CardGameServer
                                     }
                                 }
 
-                                result.Add(cclist[Program.Rnd.Next(0, cclist.Count)]);
+                                result.Add(cclist[Formulas.RndNext(0, cclist.Count)]);
 
                                 card_id1 = result[0].id;
                                 card_id2 = result[1].id;

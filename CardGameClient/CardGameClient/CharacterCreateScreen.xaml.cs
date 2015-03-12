@@ -250,9 +250,27 @@ namespace CardGameClient
 
                 for (int i = 0; i < templates.Count; i++)
                 {
+                    Card item = templates[i];
                     cp = gridHeroes.Children[i] as CardPlace;
-                    cp.ThisCard = templates[i];
+                    cp.ThisCard = item;
                     cp.IsEnabled = true;
+
+                    CardInfo ci = new CardInfo();
+                    ci.CardName.Content = item.card_name;
+                    ci.Rarity.Content = App.rarityDictionary[item.cardRarity].RarityName;
+                    ci.Rarity.Foreground = App.rarityDictionary[item.cardRarity].RarityColor;
+                    ci.Dmg.Content = "Атака: " + item.dmg;
+                    ci.Def.Content = "Защита: " + item.def;
+                    ci.Hp.Content = "Здоровье: " + item.hp;
+                    ci.Iniciative.Content = "Инициатива: " + item.Initiative;
+                    ci.Level.Content = "Уровень: " + item.min_level;
+
+                    cp.ToolTip = new ToolTip()
+                    {
+                        Background = new SolidColorBrush(Color.FromArgb(230, 0, 0, 0)),
+                        BorderThickness = new Thickness(0),
+                        Content = ci
+                    };
                 }
             }
         }

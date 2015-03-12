@@ -133,20 +133,33 @@ namespace CardGameClient
                 else if (res == 1)
                 {
                     this.Dispatcher.Invoke(new Action(() =>
-                       errorText.Content = "Неправельный логин или пароль!"
+                       LoginErrorInfo.Content = "Неправельный логин или пароль!"
                    ));
                 }
                 else if (res == 2)
                 {
                     this.Dispatcher.Invoke(new Action(() =>
-                        errorText.Content = "Кто-то другой использует ваш аккаунт! Если это не вы, смените пароль и обратитесь к администрации"
+                        LoginErrorInfo.Content = "Кто-то другой использует ваш аккаунт!"
                     ));
                 }
                 else if (res == 3)
                 {
                     this.Dispatcher.Invoke(new Action(() =>
-                       errorText.Content = "Поля заполнены некорректено!"
+                       LoginErrorInfo.Content = "Поля заполнены некорректено!"
                    ));
+                }
+
+
+                if (!App.isConnected)
+                {
+                    this.Dispatcher.Invoke(new Action(delegate
+                    {
+                        DoubleAnimation da = new DoubleAnimation(1, 0, TimeSpan.FromMilliseconds(100));
+                        da.BeginTime = TimeSpan.FromMilliseconds(2000);
+                        da.FillBehavior = FillBehavior.Stop;
+                        da.Completed += new EventHandler(da_Completed);
+                        LoginErrorInfo.BeginAnimation(OpacityProperty, da);
+                    }));
                 }
             }
             catch (CommunicationException)
@@ -170,6 +183,12 @@ namespace CardGameClient
             }
         }
 
+        void da_Completed(object sender, EventArgs e)
+        {
+            LoginErrorInfo.Content = "";
+            LoginErrorInfo.Opacity = 1;
+        }
+
         private void loginBtn_MouseUp(object sender, MouseButtonEventArgs e)
         {
             try
@@ -181,7 +200,7 @@ namespace CardGameClient
                     || sqlInjection.Words.Any(word => login.IndexOf(word, StringComparison.OrdinalIgnoreCase) >= 0
                     || passw.IndexOf(word, StringComparison.OrdinalIgnoreCase) >= 0))
                 {
-                    errorText.Content = "Поля заполнены некорректно";
+                    LoginErrorInfo.Content = "Поля заполнены некорректно";
                     return;
                 }
 
@@ -238,6 +257,7 @@ namespace CardGameClient
                     App.digitImages.Add(Int32.Parse(System.IO.Path.GetFileNameWithoutExtension(item)), img);
                 }
 
+                App.rarityDictionary.Add(0, new Rarity("Герой", Brushes.PaleGoldenrod));
                 App.rarityDictionary.Add(1, new Rarity("Обычное существо", Brushes.MintCream));
                 App.rarityDictionary.Add(2, new Rarity("Необычное существо", Brushes.LightBlue));
                 App.rarityDictionary.Add(3, new Rarity("Редкое существо", Brushes.DodgerBlue));

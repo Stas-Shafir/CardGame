@@ -951,6 +951,7 @@ namespace CardGameClient
             if (Visibility == Visibility.Hidden)
             {
                 findBtn.Enabled = true;
+                findBtn.InProgress = false;
                 MainLobbyBackBtn.ToolTip = null;
                 AllCardsBtn.ToolTip = null;
                 MainLobbyBackBtn.Enabled = true;

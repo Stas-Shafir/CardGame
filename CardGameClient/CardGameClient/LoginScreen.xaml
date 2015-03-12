@@ -11,12 +11,15 @@
             <Grid.Background>
                 <ImageBrush ImageSource="/CardGameClient;component/Images/login_form.png" />
             </Grid.Background>
-            <TextBox HorizontalAlignment="Left" Cursor="/CardGameClient;component/Images/cursor.cur" Text="stas51447d" Padding="5, 3, 3, 5" Margin="166,56,0,148" Name="loginTextBox" Width="150" Foreground="White" TabIndex="0" BorderThickness="0" SnapsToDevicePixels="True" FontSize="13" TextAlignment="Justify" FontFamily="Tahoma" CaretBrush="WhiteSmoke">
+
+            <Label Name="LoginErrorInfo" HorizontalAlignment="Center" Margin="0, 20, 0, 0" VerticalAlignment="Top" Foreground="Red" Content=""/>
+            
+            <TextBox HorizontalAlignment="Left" Text="bill" Padding="5, 3, 3, 5" Margin="166,56,0,148" Name="loginTextBox" Width="150" Foreground="White" TabIndex="0" BorderThickness="0" SnapsToDevicePixels="True" FontSize="13" TextAlignment="Justify" FontFamily="Tahoma" CaretBrush="WhiteSmoke">
                 <TextBox.Background>
                     <ImageBrush ImageSource="/CardGameClient;component/Images/textbox.png"  />
                 </TextBox.Background>
             </TextBox>
-            <PasswordBox Height="26" HorizontalAlignment="Left" Cursor="/CardGameClient;component/Images/cursor.cur" Padding="5, 7, 7, 5" Margin="166,96,0,0" Name="passwordTextBox" VerticalAlignment="Top" Width="150" Foreground="White" TabIndex="1" BorderThickness="0" FontSize="13" FontFamily="Tahoma" Password="123456" PasswordChar="*" CaretBrush="WhiteSmoke">
+            <PasswordBox Height="26" HorizontalAlignment="Left" Padding="5, 7, 7, 5" Margin="166,96,0,0" Name="passwordTextBox" VerticalAlignment="Top" Width="150" Foreground="White" TabIndex="1" BorderThickness="0" FontSize="13" FontFamily="Tahoma" Password="12345" PasswordChar="*" CaretBrush="WhiteSmoke">
                 <PasswordBox.Background>
                     <ImageBrush ImageSource="/CardGameClient;component/Images/textbox.png"/>
                 </PasswordBox.Background>
