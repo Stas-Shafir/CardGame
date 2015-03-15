@@ -1,0 +1,14 @@
+﻿<UserControl x:Class="CardGameClient.PopupInfo"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             mc:Ignorable="d" BorderThickness="0" Background="#DD000000" UseLayoutRounding="True" SnapsToDevicePixels="True" MinHeight="768" MinWidth="1024" Cursor="/CardGameClient;component/Images/cursor.cur">
+    <Grid>
+        <Image Source="/CardGameClient;component/Images/polosa.png" Width="600" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="0, -150, 0, 0"/>
+        <Grid Height="120" Width="400" Background="#00000000">
+            <TextBlock Name="TextInfo" FontSize="15" HorizontalAlignment="Center" Text="Неправильный пароль!" TextAlignment="Center" VerticalAlignment="Center" Foreground="White" TextWrapping="Wrap" Width="300"/>
+        </Grid>
+        <Image Source="/CardGameClient;component/Images/polosa.png" Width="600" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="0, 150, 0, 0"/>
+    </Grid>
+</UserControl>

@@ -79,6 +79,9 @@
     <Compile Include="Controls\inGameTopInfo.xaml.cs">
       <DependentUpon>inGameTopInfo.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Controls\PopupInfo.xaml.cs">
+      <DependentUpon>PopupInfo.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Controls\StyledBtn.xaml.cs">
       <DependentUpon>StyledBtn.xaml</DependentUpon>
     </Compile>
@@ -141,6 +144,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Controls\inGameTopInfo.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\PopupInfo.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -241,6 +248,7 @@
     <None Include="App.config">
       <SubType>Designer</SubType>
     </None>
+    <Resource Include="Fonts\Bradley Hand ITC.TTF" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -523,6 +531,9 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Images\text_cur.cur" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\polosa.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

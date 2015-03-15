@@ -33,5 +33,8 @@
         <Grid Height="38" HorizontalAlignment="Stretch" Name="grid2" VerticalAlignment="Bottom" Background="#C5000000">
             <Label Name="errorText" Content="Avalon: Battles for Glory. Сopyright (c) Шафир Станислав, 2015г " Height="Auto" HorizontalAlignment="Center" Margin="317,8,317,6" VerticalAlignment="Center" Foreground="#FFFCFCFC" />
         </Grid>
+        
+        
+        <dc:PopupInfo x:Name="errorPopupInfo" Opacity="0" Visibility="Hidden" />
     </Grid>
 </Window>

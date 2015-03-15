@@ -262,3 +262,8 @@ D:\Шаг\CardGameClient\CardGameClient\obj\x86\Debug\CardGameClient.Properties.
 D:\Шаг\CardGameClient\CardGameClient\obj\x86\Debug\CardGameClient.csproj.GenerateResource.Cache
 D:\Шаг\CardGameClient\CardGameClient\obj\x86\Debug\CardGameClient.exe
 D:\Шаг\CardGameClient\CardGameClient\obj\x86\Debug\CardGameClient.pdb
+D:\Шаг\CardGameClient\CardGameClient\obj\x86\Debug\CardGameClient.csprojResolveAssemblyReference.cache
+D:\Шаг\CardGameClient\CardGameClient\obj\x86\Debug\Controls\PopupInfo.baml
+D:\Шаг\CardGameClient\CardGameClient\obj\x86\Debug\Controls\PopupInfo.g.cs
+D:\CardsKurs\CardGameClient\CardGameClient\obj\x86\Debug\Controls\PopupInfo.baml
+D:\CardsKurs\CardGameClient\CardGameClient\obj\x86\Debug\Controls\PopupInfo.g.cs

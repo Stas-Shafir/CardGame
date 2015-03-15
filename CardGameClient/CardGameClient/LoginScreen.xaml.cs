@@ -133,19 +133,22 @@ namespace CardGameClient
                 else if (res == 1)
                 {
                     this.Dispatcher.Invoke(new Action(() =>
-                       LoginErrorInfo.Content = "Неправельный логин или пароль!"
+                       //LoginErrorInfo.Content = "Неправельный логин или пароль!"
+                       errorPopupInfo.ShowError("Неправильный логин или пароль!")
                    ));
                 }
                 else if (res == 2)
                 {
                     this.Dispatcher.Invoke(new Action(() =>
-                        LoginErrorInfo.Content = "Кто-то другой использует ваш аккаунт!"
+                        //LoginErrorInfo.Content = "Кто-то другой использует ваш аккаунт!"
+                        errorPopupInfo.ShowError("Кто-то другой использует ваш аккаунт!")
                     ));
                 }
                 else if (res == 3)
                 {
                     this.Dispatcher.Invoke(new Action(() =>
-                       LoginErrorInfo.Content = "Поля заполнены некорректено!"
+                       //LoginErrorInfo.Content = "Поля заполнены некорректено!"
+                       errorPopupInfo.ShowError("Поля заполнены некорректено!")
                    ));
                 }
 
@@ -200,7 +203,7 @@ namespace CardGameClient
                     || sqlInjection.Words.Any(word => login.IndexOf(word, StringComparison.OrdinalIgnoreCase) >= 0
                     || passw.IndexOf(word, StringComparison.OrdinalIgnoreCase) >= 0))
                 {
-                    LoginErrorInfo.Content = "Поля заполнены некорректно";
+                    errorPopupInfo.ShowError("Поля заполнены некорректено!");
                     return;
                 }
 

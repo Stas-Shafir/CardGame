@@ -157,28 +157,28 @@ namespace CardGameServer
             {
                 reward.Exp = Formulas.RndNext(245, 255);
                 reward.Score = Formulas.RndNext(123, 133);
-               // if (Formulas.RndNext(0, 3) == 1) //drop card % winner
-                //{
+                if (Formulas.RndNext(0, 3) == 1) //drop card % winner
+                {
                     List<Card> clst = Card.GetAllavailableCardsByNickName(nickname);
                     if (clst.Count > 1)
                     {
                         reward.NewCard = clst[Formulas.RndNext(0, clst.Count)];
                     }
-               // }
+                }
                 WinGamerReward = reward;
             }
             else
             {
                 reward.Exp = Formulas.RndNext(123, 133);
                 reward.Score = Formulas.RndNext(62, 72);
-                //if (Formulas.RndNext(0, 6) == 1) //drop card % looser
-                //{
+                if (Formulas.RndNext(0, 6) == 1) //drop card % looser
+                {
                     List<Card> clst = Card.GetAllavailableCardsByNickName(nickname);
                     if (clst.Count > 1)
                     {
                         reward.NewCard = clst[Formulas.RndNext(0, clst.Count)];
                     }
-               //}
+               }
                 LooseGamerReward = reward;
             }
         }
