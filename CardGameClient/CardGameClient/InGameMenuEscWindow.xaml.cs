@@ -11,6 +11,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using CardGameServer;
+using System.Threading;
 
 namespace CardGameClient
 {
@@ -44,13 +45,7 @@ namespace CardGameClient
                 }
                 catch
                 {
-                    this.Dispatcher.Invoke(new Action(delegate
-                    {
-                        App.isConnected = false;
-                        App.loginScreen.loginBtn.IsEnabled = true;
-                        App.loginScreen.errorText.Content = "Связь с сервером неожиданно прервана...";
-                        App.loginScreen.Show();
-                    }));
+                    App.OnException();
                     isError = true;
                 }
                 App.ProxyMutex.ReleaseMutex();
@@ -65,11 +60,22 @@ namespace CardGameClient
             App.InGame = false;
 
 
-            //App.ForceClosing = false;
-            App.WindowList.Remove(this.Name);
-            Owner.Hide();
-            App.WindowList["LobbyWnd"].Show();
-            Close();
+            App.WindowList["LobbyWnd"].Show();           
+
+
+            new Action(delegate
+            {
+                Thread.Sleep(1000);
+
+                this.Dispatcher.Invoke(new Action(delegate
+                {
+                    //App.ForceClosing = false;
+                    Owner.Hide();
+                    App.WindowList.Remove(this.Name);
+                    Close();
+                }));
+
+            }).BeginInvoke(new AsyncCallback(delegate(IAsyncResult ar) { }), null);
         }
 
         private void ExitBtn_MouseUp(object sender, MouseButtonEventArgs e)

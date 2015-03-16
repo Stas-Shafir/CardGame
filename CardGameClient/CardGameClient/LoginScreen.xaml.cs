@@ -52,7 +52,12 @@ namespace CardGameClient
 
                 int res = ServiceProxy.Proxy.Login(login, passw);
 
-                this.Dispatcher.Invoke(new Action(() => loginBtn.IsEnabled = true));
+                Thread.Sleep(2000); //emulate conntion procc
+
+                this.Dispatcher.Invoke(new Action(delegate 
+                {
+                    loginBtn.IsEnabled = true;
+                }));
 
                 if (res == 0)
                 {
@@ -73,12 +78,7 @@ namespace CardGameClient
                     }
                     catch
                     {
-                        this.Dispatcher.Invoke(new Action(delegate
-                        {
-                            App.isConnected = false;
-                            loginBtn.IsEnabled = true;
-                            errorText.Content = "Связь с сервером неожиданно прервана...";
-                        }));
+                        App.OnException();
                         isError = true;
                     }
 
@@ -102,7 +102,6 @@ namespace CardGameClient
                             App.WindowList["CharacterCreateWnd"].Show();
                             //loginTextBox.Text = "";
                             passwordTextBox.Password = "";
-                            Hide();
                         }));
                     }
                     else
@@ -117,39 +116,37 @@ namespace CardGameClient
                             else
                                 (App.WindowList["LobbyWnd"] as LobbyScreen).OnWindowShow();
 
-                            App.WindowList["LobbyWnd"].Show();
+                            App.WindowList["LobbyWnd"].Show();                            
                             //loginTextBox.Text = "";
                             passwordTextBox.Password = "";
-                            Hide();
-                        }));
-
-                        //Thread.Sleep(3000);
-
-                        //this.Dispatcher.Invoke(new Action(() =>
-                        //    Hide()
-                        //));
+                        }));                        
                     }
+
+                    Thread.Sleep(1000); 
+
+                    this.Dispatcher.Invoke(new Action(delegate
+                    {
+                        errorPopupInfo.HideWaitInfo();
+                        Hide();
+                    }));
                 }
                 else if (res == 1)
                 {
-                    this.Dispatcher.Invoke(new Action(() =>
-                       //LoginErrorInfo.Content = "Неправельный логин или пароль!"
-                       errorPopupInfo.ShowError("Неправильный логин или пароль!")
-                   ));
+                    this.Dispatcher.Invoke(new Action(delegate {
+                       errorPopupInfo.HideWaitInfoAndShowError("Неправильный логин или пароль!");
+                    }));
                 }
                 else if (res == 2)
                 {
-                    this.Dispatcher.Invoke(new Action(() =>
-                        //LoginErrorInfo.Content = "Кто-то другой использует ваш аккаунт!"
-                        errorPopupInfo.ShowError("Кто-то другой использует ваш аккаунт!")
-                    ));
+                    this.Dispatcher.Invoke(new Action(delegate {
+                        errorPopupInfo.HideWaitInfoAndShowError("Кто-то другой использует ваш аккаунт!");
+                    }));
                 }
                 else if (res == 3)
                 {
-                    this.Dispatcher.Invoke(new Action(() =>
-                       //LoginErrorInfo.Content = "Поля заполнены некорректено!"
-                       errorPopupInfo.ShowError("Поля заполнены некорректено!")
-                   ));
+                    this.Dispatcher.Invoke(new Action(delegate {
+                       errorPopupInfo.HideWaitInfoAndShowError("Поля заполнены некорректено!");
+                    }));
                 }
 
 
@@ -171,7 +168,9 @@ namespace CardGameClient
                 {
                     App.isConnected = false;
                     loginBtn.IsEnabled = true;
-                    errorText.Content = "Подключение невозможно. Сервер выключен или недоступен. Попробуйте повторить попытку позже...";
+                    errorPopupInfo.HideWaitInfoAndShowError(
+                        "Ошибка подключения!\r\nПопробуйте повторить попытку позже..."
+                        );
                 }));
             }
             catch (Exception exc)
@@ -208,6 +207,7 @@ namespace CardGameClient
                 }
 
                 loginBtn.IsEnabled = false;
+                errorPopupInfo.ShowWaitInfo("Попытка авторизации. Ожидайте...");
 
                 Thread loginThread = new Thread(Login);
                 loginThread.Start();
@@ -283,7 +283,10 @@ namespace CardGameClient
 
         private void Window_IsVisibleChanged(object sender, DependencyPropertyChangedEventArgs e)
         {
-
+            if (Visibility == Visibility.Visible)
+            {
+                var lolo = "fgfg";
+            }
         }
 
         private void LoginWnd_ContentRendered(object sender, EventArgs e)

@@ -86,12 +86,13 @@
             <dc:CardPlace IsMineCard="True" Grid.Column="13" Grid.Row="5" Margin="0, 2.5, 0, 2.5" Tag="23" MouseUp="CardPlace_MouseUp" IsEnabled="False"></dc:CardPlace>
             <dc:CardPlace IsMineCard="True" Grid.Column="15" Grid.Row="5" Margin="0, 2.5, 0, 2.5" Tag="24" MouseUp="CardPlace_MouseUp" IsEnabled="False"></dc:CardPlace>
 
-            <Label Grid.Row="0" Grid.ColumnSpan="17" Content="Выберите героя:" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="18.667" FontFamily="/CardGameClient;component/Fonts/#Myriad Pro" Background="#00000000">
+            <Label Grid.Row="0" Grid.ColumnSpan="17" Content="Выберите героя:" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="0, 0, 0, 15" FontSize="17" FontFamily="/CardGameClient;component/Fonts/#Myriad Pro" Background="#00000000">
                 <Label.Effect>
                     <DropShadowEffect BlurRadius="0" ShadowDepth="2" RenderingBias="Quality" Direction="297"/>
                 </Label.Effect>
             </Label>
 
         </Grid>
+        <dc:PopupInfo Grid.ColumnSpan="3" Grid.RowSpan="2" x:Name="errorPopupInfo" Visibility="Hidden" />
     </Grid>
 </Window>

@@ -363,13 +363,7 @@ namespace CardGameClient
                     }
                     catch (CommunicationException exc)
                     {
-                        this.Dispatcher.Invoke(new Action(delegate
-                        {
-                            App.isConnected = false;
-                            App.loginScreen.loginBtn.IsEnabled = true;
-                            App.loginScreen.errorText.Content = "Связь с сервером неожиданно прервана...";
-                            App.loginScreen.Show();
-                        }));
+                        App.OnException();
                         isError = true;
                     }
 

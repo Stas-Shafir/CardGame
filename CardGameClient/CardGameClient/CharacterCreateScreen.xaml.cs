@@ -29,6 +29,7 @@ namespace CardGameClient
         public CharacterCreateScreen()
         {
             InitializeComponent();
+            errorPopupInfo.grid1.Margin = new Thickness(0, -25, 0, 25);
         }
 
         private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
@@ -44,13 +45,7 @@ namespace CardGameClient
                 }
                 catch
                 {
-                    this.Dispatcher.Invoke(new Action(delegate
-                    {
-                        App.isConnected = false;
-                        App.loginScreen.loginBtn.IsEnabled = true;
-                        App.loginScreen.errorText.Content = "Связь с сервером неожиданно прервана...";
-                        App.loginScreen.Show();
-                    }));
+                    App.OnException();
                     isError = true;
                 }
                 App.ProxyMutex.ReleaseMutex();
@@ -80,7 +75,17 @@ namespace CardGameClient
 
             //show loginWnd
             App.WindowList["LoginWnd"].Show();
-            Hide();
+
+            new Action(delegate {
+
+                Thread.Sleep(1000);
+
+                this.Dispatcher.Invoke(new Action(delegate
+                {
+                    Hide();
+                }));
+
+            }).BeginInvoke(new AsyncCallback(delegate(IAsyncResult ar) { }), null);
 
 
             //Close();
@@ -100,13 +105,7 @@ namespace CardGameClient
                 }
                 catch
                 {
-                    this.Dispatcher.Invoke(new Action(delegate
-                    {
-                        App.isConnected = false;
-                        App.loginScreen.loginBtn.IsEnabled = true;
-                        App.loginScreen.errorText.Content = "Связь с сервером неожиданно прервана...";
-                        App.loginScreen.Show();
-                    }));
+                    App.OnException();
                     isError = true;
                 }
 
@@ -121,6 +120,13 @@ namespace CardGameClient
 
                 if (result)
                 {
+                    this.Dispatcher.Invoke(new Action(delegate
+                    {
+                        App.WindowList["LoadingWnd"].Show();
+                    }));
+
+                    Thread.Sleep(2000);
+
                     this.Dispatcher.Invoke(new Action(delegate 
                     {
                         if (!App.WindowList.ContainsKey("LobbyWnd"))
@@ -140,12 +146,14 @@ namespace CardGameClient
 
                         Hide();
                     }));
+
+                    Thread.Sleep(2000);
                 }
 
                 else
                 {
                     this.Dispatcher.Invoke(new Action( () =>
-                        errorText.Content = "Ошибка при создании персонажа. Персонаж с таким именем уже существует..." 
+                        errorPopupInfo.ShowError("Ошибка при создании персонажа. Персонаж с таким именем уже существует...")
                     ));
                 }
             }
@@ -166,19 +174,19 @@ namespace CardGameClient
 
             if (charName == "" || sqlInjection.Words.Any(word => charName.IndexOf(word, StringComparison.OrdinalIgnoreCase) >= 0))
             {
-                errorText.Content = "Поле заполнено некорректно";
+                errorPopupInfo.ShowError("Поле заполнено некорректно");
                 return;
             }
 
             if (charName.Length <= 2 || charName.Length > 16)
             {
-                errorText.Content = "Ошибка: Введите от 3 до 16 символов";
+                errorPopupInfo.ShowError("Ошибка: Введите от 3 до 16 символов");
                 return;
             }
 
             if (CardIndex == -1)
             {
-                errorText.Content = "Вы забыли выбрать героя...";
+                errorPopupInfo.ShowError("Вы забыли выбрать героя...");
                 return;
             }
 
@@ -225,13 +233,7 @@ namespace CardGameClient
                 }
                 catch
                 {
-                    this.Dispatcher.Invoke(new Action(delegate
-                    {
-                        App.isConnected = false;
-                        App.loginScreen.loginBtn.IsEnabled = true;
-                        App.loginScreen.errorText.Content = "Связь с сервером неожиданно прервана...";
-                        App.loginScreen.Show();
-                    }));
+                    App.OnException();
                     isError = true;
                 }
 
@@ -285,6 +287,7 @@ namespace CardGameClient
 
         private void Window_ContentRendered(object sender, EventArgs e)
         {
+            
         }
 
         private void CharacterCreateWnd_IsVisibleChanged(object sender, DependencyPropertyChangedEventArgs e)

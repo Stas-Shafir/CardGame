@@ -88,13 +88,7 @@ namespace CardGameClient
                 }
                 catch
                 {
-                    this.Dispatcher.Invoke(new Action(delegate
-                    {
-                        App.isConnected = false;
-                        App.loginScreen.loginBtn.IsEnabled = true;
-                        App.loginScreen.errorText.Content = "Связь с сервером неожиданно прервана...";
-                        App.loginScreen.Show();
-                    }));
+                    App.OnException();
                     isError = true;
                 }
                 App.ProxyMutex.ReleaseMutex();
@@ -150,13 +144,7 @@ namespace CardGameClient
                     }
                     catch
                     {
-                        this.Dispatcher.Invoke(new Action(delegate
-                        {
-                            App.isConnected = false;
-                            App.loginScreen.loginBtn.IsEnabled = true;
-                            App.loginScreen.errorText.Content = "Связь с сервером неожиданно прервана...";
-                            App.loginScreen.Show();
-                        }));
+                        App.OnException();
                         isError = true;
                     }
                     App.ProxyMutex.ReleaseMutex();
@@ -319,8 +307,15 @@ namespace CardGameClient
 
                                 App.WindowList["LobbyWnd"].Show();
                                 (App.WindowList["LobbyWnd"] as LobbyScreen).OnGameEnd();
-                                Hide();
+                                //Hide();
                                 //Close();
+                            }));
+
+                            Thread.Sleep(1000);
+
+                            this.Dispatcher.Invoke(new Action(delegate
+                            {
+                                Hide();
                             }));
 
                             return;
@@ -339,8 +334,15 @@ namespace CardGameClient
 
                                 App.WindowList["LobbyWnd"].Show();
                                 (App.WindowList["LobbyWnd"] as LobbyScreen).OnGameEnd();
-                                Hide();
+                                //Hide();
                                 //Close();
+                            }));
+
+                            Thread.Sleep(1000);
+
+                            this.Dispatcher.Invoke(new Action(delegate
+                            {
+                                Hide();
                             }));
 
                             return;
@@ -412,13 +414,7 @@ namespace CardGameClient
                 }
                 catch
                 {
-                    this.Dispatcher.Invoke(new Action(delegate
-                    {
-                        App.isConnected = false;
-                        App.loginScreen.loginBtn.IsEnabled = true;
-                        App.loginScreen.errorText.Content = "Связь с сервером неожиданно прервана...";
-                        App.loginScreen.Show();
-                    }));
+                    App.OnException();
                     isError = true;
                 }
                 App.ProxyMutex.ReleaseMutex();
@@ -447,13 +443,7 @@ namespace CardGameClient
                         }
                         catch
                         {
-                            this.Dispatcher.Invoke(new Action(delegate
-                            {
-                                App.isConnected = false;
-                                App.loginScreen.loginBtn.IsEnabled = true;
-                                App.loginScreen.errorText.Content = "Связь с сервером неожиданно прервана...";
-                                App.loginScreen.Show();
-                            }));
+                            App.OnException();
                             isError = true;
                         }
                         App.ProxyMutex.ReleaseMutex();
@@ -515,13 +505,7 @@ namespace CardGameClient
                 }
                 catch
                 {
-                    this.Dispatcher.Invoke(new Action(delegate
-                    {
-                        App.isConnected = false;
-                        App.loginScreen.loginBtn.IsEnabled = true;
-                        App.loginScreen.errorText.Content = "Связь с сервером неожиданно прервана...";
-                        App.loginScreen.Show();
-                    }));
+                    App.OnException();
                     isError = true;
                 }
                 App.ProxyMutex.ReleaseMutex();

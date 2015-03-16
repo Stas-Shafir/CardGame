@@ -97,9 +97,6 @@
     <Compile Include="InGameMenuEscWindow.xaml.cs">
       <DependentUpon>InGameMenuEscWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="LoadingScreen.xaml.cs">
-      <DependentUpon>LoadingScreen.xaml</DependentUpon>
-    </Compile>
     <Compile Include="LobbyScreen.xaml.cs">
       <DependentUpon>LobbyScreen.xaml</DependentUpon>
     </Compile>
@@ -160,10 +157,6 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="InGameMenuEscWindow.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="LoadingScreen.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -534,6 +527,14 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Images\polosa.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\popup_bg.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\Background\bg02.jpg" />
+    <Resource Include="Images\Background\bg03.jpg" />
+    <Resource Include="Images\Background\ruin_zamok01.jpg" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

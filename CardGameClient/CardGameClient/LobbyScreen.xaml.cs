@@ -14,6 +14,7 @@ using System.Windows.Shapes;
 using System.Windows.Threading;
 using System.Threading;
 using System.ServiceModel;
+using System.Windows.Media.Animation;
 
 namespace CardGameClient
 {
@@ -50,13 +51,7 @@ namespace CardGameClient
                 }
                 catch
                 {
-                    this.Dispatcher.Invoke(new Action(delegate
-                    {
-                        App.isConnected = false;
-                        App.loginScreen.loginBtn.IsEnabled = true;
-                        App.loginScreen.errorText.Content = "Связь с сервером неожиданно прервана...";
-                        App.loginScreen.Show();
-                    }));
+                    App.OnException();
                     isError = true;
                 }
                 App.ProxyMutex.ReleaseMutex();
@@ -79,6 +74,7 @@ namespace CardGameClient
         private void exitBtn_MouseUp(object sender, MouseButtonEventArgs e)
         {
             //App.ForceClosing = false;
+
             App.WindowList["LoginWnd"].Show();
             Hide();
             //Close();
@@ -95,13 +91,7 @@ namespace CardGameClient
             }
             catch
             {
-                this.Dispatcher.Invoke(new Action(delegate
-                {
-                    App.isConnected = false;
-                    App.loginScreen.loginBtn.IsEnabled = true;
-                    App.loginScreen.errorText.Content = "Связь с сервером неожиданно прервана...";
-                    App.loginScreen.Show();
-                }));
+                App.OnException();
                 isError = true;
             }
 
@@ -141,13 +131,7 @@ namespace CardGameClient
             }
             catch
             {
-                this.Dispatcher.Invoke(new Action(delegate
-                {
-                    App.isConnected = false;
-                    App.loginScreen.loginBtn.IsEnabled = true;
-                    App.loginScreen.errorText.Content = "Связь с сервером неожиданно прервана...";
-                    App.loginScreen.Show();
-                }));
+                App.OnException();
                 isError = true;
             }
 
@@ -263,13 +247,7 @@ namespace CardGameClient
                 }
                 catch
                 {
-                    this.Dispatcher.Invoke(new Action(delegate
-                    {
-                        App.isConnected = false;
-                        App.loginScreen.loginBtn.IsEnabled = true;
-                        App.loginScreen.errorText.Content = "Связь с сервером неожиданно прервана...";
-                        App.loginScreen.Show();
-                    }));
+                    App.OnException();
                     isError = true;
                 }
 
@@ -323,13 +301,7 @@ namespace CardGameClient
                 }
                 catch
                 {
-                    this.Dispatcher.Invoke(new Action(delegate
-                    {
-                        App.isConnected = false;
-                        App.loginScreen.loginBtn.IsEnabled = true;
-                        App.loginScreen.errorText.Content = "Связь с сервером неожиданно прервана...";
-                        App.loginScreen.Show();
-                    }));
+                    App.OnException();
                     isError = true;
                 }
 
@@ -385,8 +357,13 @@ namespace CardGameClient
                             (App.WindowList["MainWnd"] as MainWindow).OnWindowShow();
                         
                         findBtn.Enabled = true;
-                        App.WindowList["MainWnd"].Show();
+                        App.WindowList["MainWnd"].Show();                       
+                    }));
 
+                    Thread.Sleep(1000);
+
+                    this.Dispatcher.Invoke(new Action(delegate
+                    {
                         Hide();
                     }));
                 }
@@ -403,13 +380,7 @@ namespace CardGameClient
                         }
                         catch
                         {
-                            this.Dispatcher.Invoke(new Action(delegate
-                            {
-                                App.isConnected = false;
-                                App.loginScreen.loginBtn.IsEnabled = true;
-                                App.loginScreen.errorText.Content = "Связь с сервером неожиданно прервана...";
-                                App.loginScreen.Show();
-                            }));
+                            App.OnException();
                             isError = true;
                         }
 
@@ -447,8 +418,13 @@ namespace CardGameClient
 
                                     findBtn.Enabled = true;
                                     
-                                    App.WindowList["MainWnd"].Show();                                    
+                                    App.WindowList["MainWnd"].Show(); 
+                                }));
 
+                                Thread.Sleep(1000);
+
+                                this.Dispatcher.Invoke(new Action(delegate
+                                {
                                     Hide();
                                 }));
                                 break;
@@ -490,13 +466,7 @@ namespace CardGameClient
                 }
                 catch
                 {
-                    this.Dispatcher.Invoke(new Action(delegate
-                    {
-                        App.isConnected = false;
-                        App.loginScreen.loginBtn.IsEnabled = true;
-                        App.loginScreen.errorText.Content = "Связь с сервером неожиданно прервана...";
-                        App.loginScreen.Show();
-                    }));
+                    App.OnException();
                     isError = true;
                 }
 
@@ -530,7 +500,7 @@ namespace CardGameClient
         }
 
         private void Window_ContentRendered_1(object sender, EventArgs e)
-        { 
+        {
         }
 
         private void AllCardPlace_MouseDoubleClick(object sender, MouseButtonEventArgs e)
@@ -556,13 +526,7 @@ namespace CardGameClient
                 }
                 catch (CommunicationException exc)
                 {
-                    this.Dispatcher.Invoke(new Action(delegate
-                    {
-                        App.isConnected = false;
-                        App.loginScreen.loginBtn.IsEnabled = true;
-                        App.loginScreen.errorText.Content = "Связь с сервером неожиданно прервана...";
-                        App.loginScreen.Show();
-                    }));
+                    App.OnException();
                     isError = true;
                 }
 
@@ -612,13 +576,7 @@ namespace CardGameClient
                 }
                 catch (CommunicationException exc)
                 {
-                    this.Dispatcher.Invoke(new Action(delegate
-                    {
-                        App.isConnected = false;
-                        App.loginScreen.loginBtn.IsEnabled = true;
-                        App.loginScreen.errorText.Content = "Связь с сервером неожиданно прервана...";
-                        App.loginScreen.Show();
-                    }));
+                    App.OnException();
                     isError = true;
                 }
 
@@ -654,13 +612,7 @@ namespace CardGameClient
             }
             catch (CommunicationException exc)
             {
-                this.Dispatcher.Invoke(new Action(delegate
-                {
-                    App.isConnected = false;
-                    App.loginScreen.loginBtn.IsEnabled = true;
-                    App.loginScreen.errorText.Content = "Связь с сервером неожиданно прервана...";
-                    App.loginScreen.Show();
-                }));
+                App.OnException();
                 isError = true;
             }
 
@@ -762,13 +714,7 @@ namespace CardGameClient
             }
             catch (CommunicationException exc)
             {
-                this.Dispatcher.Invoke(new Action(delegate
-                {
-                    App.isConnected = false;
-                    App.loginScreen.loginBtn.IsEnabled = true;
-                    App.loginScreen.errorText.Content = "Связь с сервером неожиданно прервана...";
-                    App.loginScreen.Show();
-                }));
+                App.OnException();
                 isError = true;
             }
 
@@ -812,13 +758,23 @@ namespace CardGameClient
 
             //App.isConnected = false;
 
-            App.WindowList["LoginWnd"].Show();
-            
             App.ForceClosing = false;
-
             Window_Closing(this, null);
             Window_Closed(this, null);
-            Hide();
+
+            App.WindowList["LoginWnd"].Show();
+
+            new Action(delegate
+            {
+
+                Thread.Sleep(1000);
+
+                this.Dispatcher.Invoke(new Action(delegate
+                {
+                    Hide();
+                }));
+
+            }).BeginInvoke(new AsyncCallback(delegate(IAsyncResult ar) { }), null);
         }
 
         private void CardPlace_MouseUp_1(object sender, MouseButtonEventArgs e)
@@ -873,6 +829,15 @@ namespace CardGameClient
         {
             string price = string.Empty;
 
+            DoubleAnimation da = new DoubleAnimation(1, 0, TimeSpan.FromMilliseconds(250));
+            da.FillBehavior = FillBehavior.Stop;
+            da.Completed += new EventHandler(delegate(object sender, EventArgs e)
+                {
+                    ShopGrid.Visibility = Visibility.Hidden;
+                });
+            ShopGrid.BeginAnimation(OpacityProperty, da);
+
+
             if (number == 1) price = "3000";
             else if (number == 2) price = "5000";
             else if (number == 3) price = "10000";
@@ -898,13 +863,7 @@ namespace CardGameClient
                     }
                     catch (CommunicationException exc)
                     {
-                        this.Dispatcher.Invoke(new Action(delegate
-                        {
-                            App.isConnected = false;
-                            App.loginScreen.loginBtn.IsEnabled = true;
-                            App.loginScreen.errorText.Content = "Связь с сервером неожиданно прервана...";
-                            App.loginScreen.Show();
-                        }));
+                        App.OnException();
                         isError = true;
                     }
 

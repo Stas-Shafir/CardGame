@@ -161,8 +161,6 @@ F:\Шаг\CardGameClient\CardGameClient\obj\x86\Debug\InGameMenuEscWindow.baml
 F:\Шаг\CardGameClient\CardGameClient\obj\x86\Debug\NewCardWindow.baml
 F:\Шаг\CardGameClient\CardGameClient\obj\x86\Debug\LoadingScreen.baml
 F:\Шаг\CardGameClient\CardGameClient\obj\x86\Debug\LoadingScreen.g.cs
-D:\CardsKurs\CardGameClient\CardGameClient\obj\x86\Debug\LoadingScreen.baml
-D:\CardsKurs\CardGameClient\CardGameClient\obj\x86\Debug\LoadingScreen.g.cs
 D:\CardsKurs\CardGameClient\CardGameClient\obj\x86\Debug\CardInfo.baml
 D:\CardsKurs\CardGameClient\CardGameClient\obj\x86\Debug\CardInfo.g.cs
 D:\CardsKurs\CardGameClient\CardGameClient\obj\x86\Debug\CardPackWindow.g.cs
@@ -267,3 +265,86 @@ D:\Шаг\CardGameClient\CardGameClient\obj\x86\Debug\Controls\PopupInfo.baml
 D:\Шаг\CardGameClient\CardGameClient\obj\x86\Debug\Controls\PopupInfo.g.cs
 D:\CardsKurs\CardGameClient\CardGameClient\obj\x86\Debug\Controls\PopupInfo.baml
 D:\CardsKurs\CardGameClient\CardGameClient\obj\x86\Debug\Controls\PopupInfo.g.cs
+C:\Users\Студент\Documents\Visual Studio 2012\Projects\Шафир сп2111\Cursach\CardGameClient\CardGameClient\bin\Debug\CardGameClient.exe.config
+C:\Users\Студент\Documents\Visual Studio 2012\Projects\Шафир сп2111\Cursach\CardGameClient\CardGameClient\obj\x86\Debug\CardGameClient.pdb
+C:\Users\Студент\Documents\Visual Studio 2012\Projects\Шафир сп2111\Cursach\CardGameClient\CardGameClient\bin\Debug\Images\Numeric\5.png
+C:\Users\Студент\Documents\Visual Studio 2012\Projects\Шафир сп2111\Cursach\CardGameClient\CardGameClient\bin\Debug\Images\Numeric\0.png
+C:\Users\Студент\Documents\Visual Studio 2012\Projects\Шафир сп2111\Cursach\CardGameClient\CardGameClient\bin\Debug\Images\Numeric\1.png
+C:\Users\Студент\Documents\Visual Studio 2012\Projects\Шафир сп2111\Cursach\CardGameClient\CardGameClient\bin\Debug\Images\Numeric\2.png
+C:\Users\Студент\Documents\Visual Studio 2012\Projects\Шафир сп2111\Cursach\CardGameClient\CardGameClient\bin\Debug\Images\Numeric\3.png
+C:\Users\Студент\Documents\Visual Studio 2012\Projects\Шафир сп2111\Cursach\CardGameClient\CardGameClient\bin\Debug\Images\Numeric\4.png
+C:\Users\Студент\Documents\Visual Studio 2012\Projects\Шафир сп2111\Cursach\CardGameClient\CardGameClient\bin\Debug\Images\Numeric\6.png
+C:\Users\Студент\Documents\Visual Studio 2012\Projects\Шафир сп2111\Cursach\CardGameClient\CardGameClient\bin\Debug\Images\Numeric\7.png
+C:\Users\Студент\Documents\Visual Studio 2012\Projects\Шафир сп2111\Cursach\CardGameClient\CardGameClient\bin\Debug\Images\Numeric\8.png
+C:\Users\Студент\Documents\Visual Studio 2012\Projects\Шафир сп2111\Cursach\CardGameClient\CardGameClient\bin\Debug\Images\Numeric\9.png
+C:\Users\Студент\Documents\Visual Studio 2012\Projects\Шафир сп2111\Cursach\CardGameClient\CardGameClient\bin\Debug\Images\Cards\3.png
+C:\Users\Студент\Documents\Visual Studio 2012\Projects\Шафир сп2111\Cursach\CardGameClient\CardGameClient\bin\Debug\Images\Cards\4.png
+C:\Users\Студент\Documents\Visual Studio 2012\Projects\Шафир сп2111\Cursach\CardGameClient\CardGameClient\bin\Debug\Images\Cards\1.png
+C:\Users\Студент\Documents\Visual Studio 2012\Projects\Шафир сп2111\Cursach\CardGameClient\CardGameClient\bin\Debug\Images\Cards\2.png
+C:\Users\Студент\Documents\Visual Studio 2012\Projects\Шафир сп2111\Cursach\CardGameClient\CardGameClient\bin\Debug\Images\Cards\5.png
+C:\Users\Студент\Documents\Visual Studio 2012\Projects\Шафир сп2111\Cursach\CardGameClient\CardGameClient\bin\Debug\Images\Cards\6.png
+C:\Users\Студент\Documents\Visual Studio 2012\Projects\Шафир сп2111\Cursach\CardGameClient\CardGameClient\bin\Debug\Images\Cards\7.png
+C:\Users\Студент\Documents\Visual Studio 2012\Projects\Шафир сп2111\Cursach\CardGameClient\CardGameClient\bin\Debug\Images\Cards\10.png
+C:\Users\Студент\Documents\Visual Studio 2012\Projects\Шафир сп2111\Cursach\CardGameClient\CardGameClient\bin\Debug\Images\Cards\11.png
+C:\Users\Студент\Documents\Visual Studio 2012\Projects\Шафир сп2111\Cursach\CardGameClient\CardGameClient\bin\Debug\Images\Cards\8.png
+C:\Users\Студент\Documents\Visual Studio 2012\Projects\Шафир сп2111\Cursach\CardGameClient\CardGameClient\bin\Debug\Images\Cards\9.png
+C:\Users\Студент\Documents\Visual Studio 2012\Projects\Шафир сп2111\Cursach\CardGameClient\CardGameClient\bin\Debug\Images\Cards\12.png
+C:\Users\Студент\Documents\Visual Studio 2012\Projects\Шафир сп2111\Cursach\CardGameClient\CardGameClient\bin\Debug\Images\Cards\13.png
+C:\Users\Студент\Documents\Visual Studio 2012\Projects\Шафир сп2111\Cursach\CardGameClient\CardGameClient\bin\Debug\Images\Cards\14.png
+C:\Users\Студент\Documents\Visual Studio 2012\Projects\Шафир сп2111\Cursach\CardGameClient\CardGameClient\bin\Debug\Images\Cards\15.png
+C:\Users\Студент\Documents\Visual Studio 2012\Projects\Шафир сп2111\Cursach\CardGameClient\CardGameClient\bin\Debug\Images\Cards\16.png
+C:\Users\Студент\Documents\Visual Studio 2012\Projects\Шафир сп2111\Cursach\CardGameClient\CardGameClient\bin\Debug\Images\Cards\17.png
+C:\Users\Студент\Documents\Visual Studio 2012\Projects\Шафир сп2111\Cursach\CardGameClient\CardGameClient\bin\Debug\Images\Cards\18.png
+C:\Users\Студент\Documents\Visual Studio 2012\Projects\Шафир сп2111\Cursach\CardGameClient\CardGameClient\bin\Debug\Images\Cards\19.png
+C:\Users\Студент\Documents\Visual Studio 2012\Projects\Шафир сп2111\Cursach\CardGameClient\CardGameClient\bin\Debug\Images\Cards\20.png
+C:\Users\Студент\Documents\Visual Studio 2012\Projects\Шафир сп2111\Cursach\CardGameClient\CardGameClient\bin\Debug\Images\Cards\21.png
+C:\Users\Студент\Documents\Visual Studio 2012\Projects\Шафир сп2111\Cursach\CardGameClient\CardGameClient\bin\Debug\Images\Cards\22.png
+C:\Users\Студент\Documents\Visual Studio 2012\Projects\Шафир сп2111\Cursach\CardGameClient\CardGameClient\bin\Debug\Images\Cards\23.png
+C:\Users\Студент\Documents\Visual Studio 2012\Projects\Шафир сп2111\Cursach\CardGameClient\CardGameClient\bin\Debug\Images\Cards\24.png
+C:\Users\Студент\Documents\Visual Studio 2012\Projects\Шафир сп2111\Cursach\CardGameClient\CardGameClient\bin\Debug\Images\Cards\25.png
+C:\Users\Студент\Documents\Visual Studio 2012\Projects\Шафир сп2111\Cursach\CardGameClient\CardGameClient\bin\Debug\CardGameClient.exe
+C:\Users\Студент\Documents\Visual Studio 2012\Projects\Шафир сп2111\Cursach\CardGameClient\CardGameClient\bin\Debug\CardGameClient.pdb
+C:\Users\Студент\Documents\Visual Studio 2012\Projects\Шафир сп2111\Cursach\CardGameClient\CardGameClient\obj\x86\Debug\CardInfo.baml
+C:\Users\Студент\Documents\Visual Studio 2012\Projects\Шафир сп2111\Cursach\CardGameClient\CardGameClient\obj\x86\Debug\Controls\CharacterCard.baml
+C:\Users\Студент\Documents\Visual Studio 2012\Projects\Шафир сп2111\Cursach\CardGameClient\CardGameClient\obj\x86\Debug\Controls\Digit.baml
+C:\Users\Студент\Documents\Visual Studio 2012\Projects\Шафир сп2111\Cursach\CardGameClient\CardGameClient\obj\x86\Debug\Controls\PopupInfo.baml
+C:\Users\Студент\Documents\Visual Studio 2012\Projects\Шафир сп2111\Cursach\CardGameClient\CardGameClient\obj\x86\Debug\Controls\StyledBtn.baml
+C:\Users\Студент\Documents\Visual Studio 2012\Projects\Шафир сп2111\Cursach\CardGameClient\CardGameClient\obj\x86\Debug\Controls\StyledTextBox.baml
+C:\Users\Студент\Documents\Visual Studio 2012\Projects\Шафир сп2111\Cursach\CardGameClient\CardGameClient\obj\x86\Debug\CardInfo.g.cs
+C:\Users\Студент\Documents\Visual Studio 2012\Projects\Шафир сп2111\Cursach\CardGameClient\CardGameClient\obj\x86\Debug\CardPackWindow.g.cs
+C:\Users\Студент\Documents\Visual Studio 2012\Projects\Шафир сп2111\Cursach\CardGameClient\CardGameClient\obj\x86\Debug\Controls\CharacterCard.g.cs
+C:\Users\Студент\Documents\Visual Studio 2012\Projects\Шафир сп2111\Cursach\CardGameClient\CardGameClient\obj\x86\Debug\Controls\CardPlace.g.cs
+C:\Users\Студент\Documents\Visual Studio 2012\Projects\Шафир сп2111\Cursach\CardGameClient\CardGameClient\obj\x86\Debug\CharacterCreateScreen.g.cs
+C:\Users\Студент\Documents\Visual Studio 2012\Projects\Шафир сп2111\Cursach\CardGameClient\CardGameClient\obj\x86\Debug\Controls\Digit.g.cs
+C:\Users\Студент\Documents\Visual Studio 2012\Projects\Шафир сп2111\Cursach\CardGameClient\CardGameClient\obj\x86\Debug\Controls\FindButton.g.cs
+C:\Users\Студент\Documents\Visual Studio 2012\Projects\Шафир сп2111\Cursach\CardGameClient\CardGameClient\obj\x86\Debug\Controls\inGameTopInfo.g.cs
+C:\Users\Студент\Documents\Visual Studio 2012\Projects\Шафир сп2111\Cursach\CardGameClient\CardGameClient\obj\x86\Debug\Controls\PopupInfo.g.cs
+C:\Users\Студент\Documents\Visual Studio 2012\Projects\Шафир сп2111\Cursach\CardGameClient\CardGameClient\obj\x86\Debug\DialogWin.g.cs
+C:\Users\Студент\Documents\Visual Studio 2012\Projects\Шафир сп2111\Cursach\CardGameClient\CardGameClient\obj\x86\Debug\GameResultWindow.g.cs
+C:\Users\Студент\Documents\Visual Studio 2012\Projects\Шафир сп2111\Cursach\CardGameClient\CardGameClient\obj\x86\Debug\InGameMenuEscWindow.g.cs
+C:\Users\Студент\Documents\Visual Studio 2012\Projects\Шафир сп2111\Cursach\CardGameClient\CardGameClient\obj\x86\Debug\LobbyScreen.g.cs
+C:\Users\Студент\Documents\Visual Studio 2012\Projects\Шафир сп2111\Cursach\CardGameClient\CardGameClient\obj\x86\Debug\LoginScreen.g.cs
+C:\Users\Студент\Documents\Visual Studio 2012\Projects\Шафир сп2111\Cursach\CardGameClient\CardGameClient\obj\x86\Debug\MainWindow.g.cs
+C:\Users\Студент\Documents\Visual Studio 2012\Projects\Шафир сп2111\Cursach\CardGameClient\CardGameClient\obj\x86\Debug\Controls\StyledBtn.g.cs
+C:\Users\Студент\Documents\Visual Studio 2012\Projects\Шафир сп2111\Cursach\CardGameClient\CardGameClient\obj\x86\Debug\Controls\StyledTextBox.g.cs
+C:\Users\Студент\Documents\Visual Studio 2012\Projects\Шафир сп2111\Cursach\CardGameClient\CardGameClient\obj\x86\Debug\NewCardWindow.g.cs
+C:\Users\Студент\Documents\Visual Studio 2012\Projects\Шафир сп2111\Cursach\CardGameClient\CardGameClient\obj\x86\Debug\App.g.cs
+C:\Users\Студент\Documents\Visual Studio 2012\Projects\Шафир сп2111\Cursach\CardGameClient\CardGameClient\obj\x86\Debug\GeneratedInternalTypeHelper.g.cs
+C:\Users\Студент\Documents\Visual Studio 2012\Projects\Шафир сп2111\Cursach\CardGameClient\CardGameClient\obj\x86\Debug\CardGameClient_MarkupCompile.cache
+C:\Users\Студент\Documents\Visual Studio 2012\Projects\Шафир сп2111\Cursach\CardGameClient\CardGameClient\obj\x86\Debug\CardGameClient_MarkupCompile.lref
+C:\Users\Студент\Documents\Visual Studio 2012\Projects\Шафир сп2111\Cursach\CardGameClient\CardGameClient\obj\x86\Debug\CardPackWindow.baml
+C:\Users\Студент\Documents\Visual Studio 2012\Projects\Шафир сп2111\Cursach\CardGameClient\CardGameClient\obj\x86\Debug\Controls\CardPlace.baml
+C:\Users\Студент\Documents\Visual Studio 2012\Projects\Шафир сп2111\Cursach\CardGameClient\CardGameClient\obj\x86\Debug\CharacterCreateScreen.baml
+C:\Users\Студент\Documents\Visual Studio 2012\Projects\Шафир сп2111\Cursach\CardGameClient\CardGameClient\obj\x86\Debug\Controls\FindButton.baml
+C:\Users\Студент\Documents\Visual Studio 2012\Projects\Шафир сп2111\Cursach\CardGameClient\CardGameClient\obj\x86\Debug\Controls\inGameTopInfo.baml
+C:\Users\Студент\Documents\Visual Studio 2012\Projects\Шафир сп2111\Cursach\CardGameClient\CardGameClient\obj\x86\Debug\DialogWin.baml
+C:\Users\Студент\Documents\Visual Studio 2012\Projects\Шафир сп2111\Cursach\CardGameClient\CardGameClient\obj\x86\Debug\GameResultWindow.baml
+C:\Users\Студент\Documents\Visual Studio 2012\Projects\Шафир сп2111\Cursach\CardGameClient\CardGameClient\obj\x86\Debug\InGameMenuEscWindow.baml
+C:\Users\Студент\Documents\Visual Studio 2012\Projects\Шафир сп2111\Cursach\CardGameClient\CardGameClient\obj\x86\Debug\LobbyScreen.baml
+C:\Users\Студент\Documents\Visual Studio 2012\Projects\Шафир сп2111\Cursach\CardGameClient\CardGameClient\obj\x86\Debug\LoginScreen.baml
+C:\Users\Студент\Documents\Visual Studio 2012\Projects\Шафир сп2111\Cursach\CardGameClient\CardGameClient\obj\x86\Debug\MainWindow.baml
+C:\Users\Студент\Documents\Visual Studio 2012\Projects\Шафир сп2111\Cursach\CardGameClient\CardGameClient\obj\x86\Debug\NewCardWindow.baml
+C:\Users\Студент\Documents\Visual Studio 2012\Projects\Шафир сп2111\Cursach\CardGameClient\CardGameClient\obj\x86\Debug\CardGameClient.g.resources
+C:\Users\Студент\Documents\Visual Studio 2012\Projects\Шафир сп2111\Cursach\CardGameClient\CardGameClient\obj\x86\Debug\CardGameClient.Properties.Resources.resources
+C:\Users\Студент\Documents\Visual Studio 2012\Projects\Шафир сп2111\Cursach\CardGameClient\CardGameClient\obj\x86\Debug\CardGameClient.csproj.GenerateResource.Cache
+C:\Users\Студент\Documents\Visual Studio 2012\Projects\Шафир сп2111\Cursach\CardGameClient\CardGameClient\obj\x86\Debug\CardGameClient.exe

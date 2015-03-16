@@ -5,7 +5,7 @@
         Title="Avalon: Battles for Glory" Name="LoginWnd" MinHeight="768" MinWidth="1024" Height="768" Width="1024" Cursor="/CardGameClient;component/Images/cursor.cur"  WindowStyle="None" WindowStartupLocation="CenterScreen" ResizeMode="NoResize" WindowState="Maximized" Closing="Window_Closing" Loaded="Window_Loaded" IsVisibleChanged="Window_IsVisibleChanged" ContentRendered="LoginWnd_ContentRendered">
     <Grid RenderOptions.BitmapScalingMode="Fant">
         <Grid.Background>
-            <ImageBrush ImageSource="/CardGameClient;component/Images/loginsc1.jpg" Stretch="UniformToFill" />
+            <ImageBrush ImageSource="/CardGameClient;component/Images/Background/bg03.jpg" Stretch="UniformToFill" />
         </Grid.Background>
         <Grid Height="230" HorizontalAlignment="Center" Name="grid1" VerticalAlignment="Center" Width="395">
             <Grid.Background>
@@ -35,6 +35,6 @@
         </Grid>
         
         
-        <dc:PopupInfo x:Name="errorPopupInfo" Opacity="0" Visibility="Hidden" />
+        <dc:PopupInfo x:Name="errorPopupInfo" Opacity="1" Visibility="Hidden"/>
     </Grid>
 </Window>

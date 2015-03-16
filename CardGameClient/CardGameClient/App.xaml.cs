@@ -55,13 +55,7 @@ namespace CardGameClient
                     catch (Exception exc)
                     {
                         isError = true;
-                        App.loginScreen.Dispatcher.Invoke(new Action(delegate
-                        {
-                            App.isConnected = false;
-                            App.loginScreen.loginBtn.IsEnabled = true;
-                            App.loginScreen.errorText.Content = "Связь с сервером неожиданно прервана...";
-                            App.loginScreen.Show();
-                        }));
+                        App.OnException();
                     }
                     App.ProxyMutex.ReleaseMutex();
 
@@ -73,6 +67,17 @@ namespace CardGameClient
                 }
                 Thread.Sleep(1000);
             }
+        }
+
+        public static void OnException()
+        {
+            App.loginScreen.Dispatcher.Invoke(new Action(delegate
+            {
+                App.isConnected = false;
+                App.loginScreen.loginBtn.IsEnabled = true;
+                App.loginScreen.errorPopupInfo.ShowError("Связь с сервером неожиданно прервана...");
+                App.loginScreen.Show();
+            }));
         }
 
         public static void OnConnectionError()

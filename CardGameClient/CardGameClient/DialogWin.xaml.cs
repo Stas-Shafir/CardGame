@@ -10,6 +10,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using System.Windows.Media.Animation;
 
 namespace CardGameClient
 {
@@ -21,6 +22,7 @@ namespace CardGameClient
         public DialogWin(Window own, string txt, MessageBoxButton btns)
         {
             InitializeComponent();
+            Opacity = 0;
             Owner = own;
             TextInfo.Text = txt;
 
@@ -51,6 +53,17 @@ namespace CardGameClient
         private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
             App.WindowList.Remove(this.Name);
+        }
+
+        private void DialogWnd_ContentRendered(object sender, EventArgs e)
+        {
+            DoubleAnimation da = new DoubleAnimation();
+            da.From = 0;
+            da.To = 1;
+            da.Duration = TimeSpan.FromMilliseconds(300);
+            //da.FillBehavior = FillBehavior.Stop;
+            da.BeginTime = TimeSpan.FromMilliseconds(100);
+            BeginAnimation(OpacityProperty, da);
         }
     }
 }
