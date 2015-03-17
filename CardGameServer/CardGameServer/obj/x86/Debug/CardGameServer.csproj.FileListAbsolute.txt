@@ -25,3 +25,4 @@ C:\Users\Студент\Documents\Visual Studio 2012\Projects\Шафир сп211
 C:\Users\Студент\Documents\Visual Studio 2012\Projects\Шафир сп2111\Cursach\CardGameServer\CardGameServer\bin\Debug\CardGameServer.pdb
 C:\Users\Студент\Documents\Visual Studio 2012\Projects\Шафир сп2111\Cursach\CardGameServer\CardGameServer\obj\x86\Debug\CardGameServer.csprojResolveAssemblyReference.cache
 D:\Шаг\CardGameServer\CardGameServer\obj\x86\Debug\CardGameServer.csprojResolveAssemblyReference.cache
+D:\CardsKurs\CardGameServer\CardGameServer\obj\x86\Debug\CardGameServer.csprojResolveAssemblyReference.cache
