@@ -265,7 +265,7 @@ namespace CardGameClient
             if (lhi.IsCritical)
             {
                 dmgLabeladtnl.Content = "Крит!";
-                dmgLabel.Foreground = Brushes.DarkBlue;
+                dmgLabel.Foreground = Brushes.CornflowerBlue;
 
                 dmgLabeladtnl.Opacity = 1;
             }
@@ -284,7 +284,7 @@ namespace CardGameClient
                 dmgLabel.Opacity = 1;
 
 
-                DoubleAnimation db = new DoubleAnimation(0, 1, TimeSpan.FromMilliseconds(250));
+                DoubleAnimation db = new DoubleAnimation(0, 1, TimeSpan.FromMilliseconds(350));
                 db.FillBehavior = FillBehavior.Stop;
                 db.AutoReverse = true;
                 dmgImgEffect.BeginAnimation(OpacityProperty, db);
@@ -293,7 +293,7 @@ namespace CardGameClient
                 th.From = dmgLabel.Margin;
                 th.FillBehavior = FillBehavior.Stop;
                 th.To = new Thickness(dmgLabel.Margin.Left, dmgLabel.Margin.Top - 70, dmgLabel.Margin.Right, dmgLabel.Margin.Bottom);
-                th.Duration = TimeSpan.FromMilliseconds(500);
+                th.Duration = TimeSpan.FromMilliseconds(700);
                 th.Completed += new EventHandler(th_Completed);
                 dmgLabel.BeginAnimation(MarginProperty, th);
             }
@@ -303,7 +303,7 @@ namespace CardGameClient
             tha.FillBehavior = FillBehavior.Stop;
             tha.To = new Thickness(dmgLabeladtnl.Margin.Left, dmgLabeladtnl.Margin.Top - 70, dmgLabeladtnl.Margin.Right,
                 dmgLabeladtnl.Margin.Bottom);
-            tha.Duration = TimeSpan.FromMilliseconds(500);
+            tha.Duration = TimeSpan.FromMilliseconds(700);
             tha.Completed += new EventHandler(tha_Completed);
             dmgLabeladtnl.BeginAnimation(MarginProperty, tha);
         }
