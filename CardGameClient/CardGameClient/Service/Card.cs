@@ -40,9 +40,6 @@ namespace CardGameServer
         public bool IsAttacked { get; set; }
 
         [DataMember]
-        public int Initiative { get; set; }
-
-        [DataMember]
         public int min_level { get; set; }
 
     }

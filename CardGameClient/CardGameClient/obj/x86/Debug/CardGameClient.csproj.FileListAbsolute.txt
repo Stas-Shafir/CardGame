@@ -1,71 +1,4 @@
-D:\CardsKurs\CardGameClient\CardGameClient\obj\x86\Debug\MainWindow.g.cs
-D:\CardsKurs\CardGameClient\CardGameClient\obj\x86\Debug\App.g.cs
-D:\CardsKurs\CardGameClient\CardGameClient\obj\x86\Debug\GeneratedInternalTypeHelper.g.cs
-D:\CardsKurs\CardGameClient\CardGameClient\obj\x86\Debug\CardGameClient_MarkupCompile.cache
-D:\CardsKurs\CardGameClient\CardGameClient\obj\x86\Debug\CardGameClient_MarkupCompile.lref
-D:\CardsKurs\CardGameClient\CardGameClient\obj\x86\Debug\CardGameClient.exe
-D:\CardsKurs\CardGameClient\CardGameClient\obj\x86\Debug\CardGameClient.pdb
-D:\CardsKurs\CardGameClient\CardGameClient\bin\Debug\CardGameClient.exe
-D:\CardsKurs\CardGameClient\CardGameClient\bin\Debug\CardGameClient.pdb
-D:\CardsKurs\CardGameClient\CardGameClient\obj\x86\Debug\MainWindow.baml
-D:\CardsKurs\CardGameClient\CardGameClient\obj\x86\Debug\CardGameClient.g.resources
-D:\CardsKurs\CardGameClient\CardGameClient\obj\x86\Debug\CardGameClient.Properties.Resources.resources
-D:\CardsKurs\CardGameClient\CardGameClient\obj\x86\Debug\CardGameClient.csproj.GenerateResource.Cache
-D:\CardsKurs\CardGameClient\CardGameClient\obj\x86\Debug\LoginScreen.baml
-D:\CardsKurs\CardGameClient\CardGameClient\obj\x86\Debug\LoginScreen.g.cs
-D:\CardsKurs\CardGameClient\CardGameClient\obj\x86\Debug\CharacterCreateScreen.baml
-D:\CardsKurs\CardGameClient\CardGameClient\obj\x86\Debug\CharacterCreateScreen.g.cs
-D:\CardsKurs\CardGameClient\CardGameClient\obj\x86\Debug\Controls\StyledBtn.baml
-D:\CardsKurs\CardGameClient\CardGameClient\obj\x86\Debug\Controls\StyledTextBox.baml
-D:\CardsKurs\CardGameClient\CardGameClient\obj\x86\Debug\Controls\StyledBtn.g.cs
-D:\CardsKurs\CardGameClient\CardGameClient\obj\x86\Debug\Controls\StyledTextBox.g.cs
-D:\CardsKurs\CardGameClient\CardGameClient\obj\x86\Debug\Controls\CardPlace.baml
-D:\CardsKurs\CardGameClient\CardGameClient\obj\x86\Debug\Controls\CardPlace.g.cs
-D:\CardsKurs\CardGameClient\CardGameClient\obj\x86\Debug\Controls\CharacterCard.baml
-D:\CardsKurs\CardGameClient\CardGameClient\obj\x86\Debug\Controls\CharacterCard.g.cs
 D:\CardsKurs\CardGameClient\CardGameClient\bin\Debug\CardGameClient.exe.config
-D:\CardsKurs\CardGameClient\CardGameClient\bin\Debug\Images\Cards\1.png
-D:\CardsKurs\CardGameClient\CardGameClient\bin\Debug\Images\Cards\2.png
-D:\CardsKurs\CardGameClient\CardGameClient\bin\Debug\Images\Cards\3.png
-D:\CardsKurs\CardGameClient\CardGameClient\bin\Debug\Images\Cards\4.png
-D:\CardsKurs\CardGameClient\CardGameClient\obj\x86\Debug\LobbyScreen.baml
-D:\CardsKurs\CardGameClient\CardGameClient\obj\x86\Debug\LobbyScreen.g.cs
-D:\CardsKurs\new\CardGameClient\CardGameClient\bin\Debug\CardGameClient.exe.config
-D:\CardsKurs\new\CardGameClient\CardGameClient\obj\x86\Debug\CardGameClient.exe
-D:\CardsKurs\new\CardGameClient\CardGameClient\obj\x86\Debug\CardGameClient.pdb
-D:\CardsKurs\new\CardGameClient\CardGameClient\bin\Debug\Images\Cards\3.png
-D:\CardsKurs\new\CardGameClient\CardGameClient\bin\Debug\Images\Cards\4.png
-D:\CardsKurs\new\CardGameClient\CardGameClient\bin\Debug\Images\Cards\1.png
-D:\CardsKurs\new\CardGameClient\CardGameClient\bin\Debug\Images\Cards\2.png
-D:\CardsKurs\new\CardGameClient\CardGameClient\bin\Debug\CardGameClient.exe
-D:\CardsKurs\new\CardGameClient\CardGameClient\bin\Debug\CardGameClient.pdb
-D:\CardsKurs\new\CardGameClient\CardGameClient\obj\x86\Debug\Controls\CharacterCard.baml
-D:\CardsKurs\new\CardGameClient\CardGameClient\obj\x86\Debug\Controls\CardPlace.baml
-D:\CardsKurs\new\CardGameClient\CardGameClient\obj\x86\Debug\Controls\StyledBtn.baml
-D:\CardsKurs\new\CardGameClient\CardGameClient\obj\x86\Debug\Controls\StyledTextBox.baml
-D:\CardsKurs\new\CardGameClient\CardGameClient\obj\x86\Debug\Controls\CharacterCard.g.cs
-D:\CardsKurs\new\CardGameClient\CardGameClient\obj\x86\Debug\Controls\CardPlace.g.cs
-D:\CardsKurs\new\CardGameClient\CardGameClient\obj\x86\Debug\CharacterCreateScreen.g.cs
-D:\CardsKurs\new\CardGameClient\CardGameClient\obj\x86\Debug\LobbyScreen.g.cs
-D:\CardsKurs\new\CardGameClient\CardGameClient\obj\x86\Debug\LoginScreen.g.cs
-D:\CardsKurs\new\CardGameClient\CardGameClient\obj\x86\Debug\MainWindow.g.cs
-D:\CardsKurs\new\CardGameClient\CardGameClient\obj\x86\Debug\Controls\StyledBtn.g.cs
-D:\CardsKurs\new\CardGameClient\CardGameClient\obj\x86\Debug\Controls\StyledTextBox.g.cs
-D:\CardsKurs\new\CardGameClient\CardGameClient\obj\x86\Debug\App.g.cs
-D:\CardsKurs\new\CardGameClient\CardGameClient\obj\x86\Debug\GeneratedInternalTypeHelper.g.cs
-D:\CardsKurs\new\CardGameClient\CardGameClient\obj\x86\Debug\CardGameClient_MarkupCompile.cache
-D:\CardsKurs\new\CardGameClient\CardGameClient\obj\x86\Debug\CardGameClient_MarkupCompile.lref
-D:\CardsKurs\new\CardGameClient\CardGameClient\obj\x86\Debug\CharacterCreateScreen.baml
-D:\CardsKurs\new\CardGameClient\CardGameClient\obj\x86\Debug\LobbyScreen.baml
-D:\CardsKurs\new\CardGameClient\CardGameClient\obj\x86\Debug\LoginScreen.baml
-D:\CardsKurs\new\CardGameClient\CardGameClient\obj\x86\Debug\MainWindow.baml
-D:\CardsKurs\new\CardGameClient\CardGameClient\obj\x86\Debug\CardGameClient.g.resources
-D:\CardsKurs\new\CardGameClient\CardGameClient\obj\x86\Debug\CardGameClient.Properties.Resources.resources
-D:\CardsKurs\new\CardGameClient\CardGameClient\obj\x86\Debug\CardGameClient.csproj.GenerateResource.Cache
-D:\CardsKurs\CardGameClient\CardGameClient\obj\x86\Debug\Controls\FindButton.baml
-D:\CardsKurs\CardGameClient\CardGameClient\obj\x86\Debug\Controls\FindButton.g.cs
-D:\CardsKurs\CardGameClient\CardGameClient\obj\x86\Debug\Controls\Digit.baml
-D:\CardsKurs\CardGameClient\CardGameClient\obj\x86\Debug\Controls\Digit.g.cs
 D:\CardsKurs\CardGameClient\CardGameClient\bin\Debug\Images\Numeric\5.png
 D:\CardsKurs\CardGameClient\CardGameClient\bin\Debug\Images\Numeric\0.png
 D:\CardsKurs\CardGameClient\CardGameClient\bin\Debug\Images\Numeric\1.png
@@ -76,95 +9,18 @@ D:\CardsKurs\CardGameClient\CardGameClient\bin\Debug\Images\Numeric\6.png
 D:\CardsKurs\CardGameClient\CardGameClient\bin\Debug\Images\Numeric\7.png
 D:\CardsKurs\CardGameClient\CardGameClient\bin\Debug\Images\Numeric\8.png
 D:\CardsKurs\CardGameClient\CardGameClient\bin\Debug\Images\Numeric\9.png
-D:\Шаг\CardGameClient\CardGameClient\bin\Debug\CardGameClient.exe
+D:\CardsKurs\CardGameClient\CardGameClient\bin\Debug\Images\Cards\3.png
+D:\CardsKurs\CardGameClient\CardGameClient\bin\Debug\Images\Cards\4.png
+D:\CardsKurs\CardGameClient\CardGameClient\bin\Debug\Images\Cards\1.png
+D:\CardsKurs\CardGameClient\CardGameClient\bin\Debug\Images\Cards\2.png
 D:\CardsKurs\CardGameClient\CardGameClient\bin\Debug\Images\Cards\5.png
 D:\CardsKurs\CardGameClient\CardGameClient\bin\Debug\Images\Cards\6.png
 D:\CardsKurs\CardGameClient\CardGameClient\bin\Debug\Images\Cards\7.png
-D:\CardsKurs\CardGameClient\CardGameClient\obj\x86\Debug\Controls\inGameTopInfo.g.cs
-D:\CardsKurs\CardGameClient\CardGameClient\obj\x86\Debug\Controls\inGameTopInfo.baml
-F:\Шаг\CardGameClient\CardGameClient\bin\Debug\CardGameClient.exe.config
-F:\Шаг\CardGameClient\CardGameClient\obj\x86\Debug\CardGameClient.exe
-F:\Шаг\CardGameClient\CardGameClient\obj\x86\Debug\CardGameClient.pdb
-F:\Шаг\CardGameClient\CardGameClient\bin\Debug\Images\Numeric\5.png
-F:\Шаг\CardGameClient\CardGameClient\bin\Debug\Images\Numeric\0.png
-F:\Шаг\CardGameClient\CardGameClient\bin\Debug\Images\Numeric\1.png
-F:\Шаг\CardGameClient\CardGameClient\bin\Debug\Images\Numeric\2.png
-F:\Шаг\CardGameClient\CardGameClient\bin\Debug\Images\Numeric\3.png
-F:\Шаг\CardGameClient\CardGameClient\bin\Debug\Images\Numeric\4.png
-F:\Шаг\CardGameClient\CardGameClient\bin\Debug\Images\Numeric\6.png
-F:\Шаг\CardGameClient\CardGameClient\bin\Debug\Images\Numeric\7.png
-F:\Шаг\CardGameClient\CardGameClient\bin\Debug\Images\Numeric\8.png
-F:\Шаг\CardGameClient\CardGameClient\bin\Debug\Images\Numeric\9.png
-F:\Шаг\CardGameClient\CardGameClient\bin\Debug\Images\Cards\3.png
-F:\Шаг\CardGameClient\CardGameClient\bin\Debug\Images\Cards\4.png
-F:\Шаг\CardGameClient\CardGameClient\bin\Debug\Images\Cards\1.png
-F:\Шаг\CardGameClient\CardGameClient\bin\Debug\Images\Cards\2.png
-F:\Шаг\CardGameClient\CardGameClient\bin\Debug\Images\Cards\5.png
-F:\Шаг\CardGameClient\CardGameClient\bin\Debug\Images\Cards\6.png
-F:\Шаг\CardGameClient\CardGameClient\bin\Debug\Images\Cards\7.png
-F:\Шаг\CardGameClient\CardGameClient\bin\Debug\CardGameClient.exe
-F:\Шаг\CardGameClient\CardGameClient\bin\Debug\CardGameClient.pdb
-F:\Шаг\CardGameClient\CardGameClient\obj\x86\Debug\Controls\CharacterCard.baml
-F:\Шаг\CardGameClient\CardGameClient\obj\x86\Debug\Controls\Digit.baml
-F:\Шаг\CardGameClient\CardGameClient\obj\x86\Debug\Controls\StyledBtn.baml
-F:\Шаг\CardGameClient\CardGameClient\obj\x86\Debug\Controls\StyledTextBox.baml
-F:\Шаг\CardGameClient\CardGameClient\obj\x86\Debug\Controls\CharacterCard.g.cs
-F:\Шаг\CardGameClient\CardGameClient\obj\x86\Debug\Controls\CardPlace.g.cs
-F:\Шаг\CardGameClient\CardGameClient\obj\x86\Debug\CharacterCreateScreen.g.cs
-F:\Шаг\CardGameClient\CardGameClient\obj\x86\Debug\Controls\Digit.g.cs
-F:\Шаг\CardGameClient\CardGameClient\obj\x86\Debug\Controls\FindButton.g.cs
-F:\Шаг\CardGameClient\CardGameClient\obj\x86\Debug\Controls\inGameTopInfo.g.cs
-F:\Шаг\CardGameClient\CardGameClient\obj\x86\Debug\LobbyScreen.g.cs
-F:\Шаг\CardGameClient\CardGameClient\obj\x86\Debug\LoginScreen.g.cs
-F:\Шаг\CardGameClient\CardGameClient\obj\x86\Debug\MainWindow.g.cs
-F:\Шаг\CardGameClient\CardGameClient\obj\x86\Debug\Controls\StyledBtn.g.cs
-F:\Шаг\CardGameClient\CardGameClient\obj\x86\Debug\Controls\StyledTextBox.g.cs
-F:\Шаг\CardGameClient\CardGameClient\obj\x86\Debug\App.g.cs
-F:\Шаг\CardGameClient\CardGameClient\obj\x86\Debug\GeneratedInternalTypeHelper.g.cs
-F:\Шаг\CardGameClient\CardGameClient\obj\x86\Debug\CardGameClient_MarkupCompile.cache
-F:\Шаг\CardGameClient\CardGameClient\obj\x86\Debug\CardGameClient_MarkupCompile.lref
-F:\Шаг\CardGameClient\CardGameClient\obj\x86\Debug\Controls\CardPlace.baml
-F:\Шаг\CardGameClient\CardGameClient\obj\x86\Debug\CharacterCreateScreen.baml
-F:\Шаг\CardGameClient\CardGameClient\obj\x86\Debug\Controls\FindButton.baml
-F:\Шаг\CardGameClient\CardGameClient\obj\x86\Debug\Controls\inGameTopInfo.baml
-F:\Шаг\CardGameClient\CardGameClient\obj\x86\Debug\LobbyScreen.baml
-F:\Шаг\CardGameClient\CardGameClient\obj\x86\Debug\LoginScreen.baml
-F:\Шаг\CardGameClient\CardGameClient\obj\x86\Debug\MainWindow.baml
-F:\Шаг\CardGameClient\CardGameClient\obj\x86\Debug\CardGameClient.g.resources
-F:\Шаг\CardGameClient\CardGameClient\obj\x86\Debug\CardGameClient.Properties.Resources.resources
-F:\Шаг\CardGameClient\CardGameClient\obj\x86\Debug\CardGameClient.csproj.GenerateResource.Cache
-D:\CardsKurs\CardGameClient\CardGameClient\obj\x86\Debug\NewCardWindow.baml
-D:\CardsKurs\CardGameClient\CardGameClient\obj\x86\Debug\NewCardWindow.g.cs
-D:\CardsKurs\CardGameClient\CardGameClient\obj\x86\Debug\GameResultWindow.g.cs
-D:\CardsKurs\CardGameClient\CardGameClient\obj\x86\Debug\GameResultWindow.baml
-D:\CardsKurs\CardGameClient\CardGameClient\obj\x86\Debug\DialogWin.g.cs
-D:\CardsKurs\CardGameClient\CardGameClient\obj\x86\Debug\DialogWin.baml
-D:\CardsKurs\CardGameClient\CardGameClient\obj\x86\Debug\InGameMenuEscWindow.baml
-D:\CardsKurs\CardGameClient\CardGameClient\obj\x86\Debug\InGameMenuEscWindow.g.cs
 D:\CardsKurs\CardGameClient\CardGameClient\bin\Debug\Images\Cards\10.png
 D:\CardsKurs\CardGameClient\CardGameClient\bin\Debug\Images\Cards\11.png
 D:\CardsKurs\CardGameClient\CardGameClient\bin\Debug\Images\Cards\8.png
 D:\CardsKurs\CardGameClient\CardGameClient\bin\Debug\Images\Cards\9.png
 D:\CardsKurs\CardGameClient\CardGameClient\bin\Debug\Images\Cards\12.png
-F:\Шаг\CardGameClient\CardGameClient\bin\Debug\Images\Cards\10.png
-F:\Шаг\CardGameClient\CardGameClient\bin\Debug\Images\Cards\11.png
-F:\Шаг\CardGameClient\CardGameClient\bin\Debug\Images\Cards\8.png
-F:\Шаг\CardGameClient\CardGameClient\bin\Debug\Images\Cards\9.png
-F:\Шаг\CardGameClient\CardGameClient\bin\Debug\Images\Cards\12.png
-F:\Шаг\CardGameClient\CardGameClient\obj\x86\Debug\DialogWin.g.cs
-F:\Шаг\CardGameClient\CardGameClient\obj\x86\Debug\GameResultWindow.g.cs
-F:\Шаг\CardGameClient\CardGameClient\obj\x86\Debug\InGameMenuEscWindow.g.cs
-F:\Шаг\CardGameClient\CardGameClient\obj\x86\Debug\NewCardWindow.g.cs
-F:\Шаг\CardGameClient\CardGameClient\obj\x86\Debug\DialogWin.baml
-F:\Шаг\CardGameClient\CardGameClient\obj\x86\Debug\GameResultWindow.baml
-F:\Шаг\CardGameClient\CardGameClient\obj\x86\Debug\InGameMenuEscWindow.baml
-F:\Шаг\CardGameClient\CardGameClient\obj\x86\Debug\NewCardWindow.baml
-F:\Шаг\CardGameClient\CardGameClient\obj\x86\Debug\LoadingScreen.baml
-F:\Шаг\CardGameClient\CardGameClient\obj\x86\Debug\LoadingScreen.g.cs
-D:\CardsKurs\CardGameClient\CardGameClient\obj\x86\Debug\CardInfo.baml
-D:\CardsKurs\CardGameClient\CardGameClient\obj\x86\Debug\CardInfo.g.cs
-D:\CardsKurs\CardGameClient\CardGameClient\obj\x86\Debug\CardPackWindow.g.cs
-D:\CardsKurs\CardGameClient\CardGameClient\obj\x86\Debug\CardPackWindow.baml
 D:\CardsKurs\CardGameClient\CardGameClient\bin\Debug\Images\Cards\13.png
 D:\CardsKurs\CardGameClient\CardGameClient\bin\Debug\Images\Cards\14.png
 D:\CardsKurs\CardGameClient\CardGameClient\bin\Debug\Images\Cards\15.png
@@ -178,173 +34,50 @@ D:\CardsKurs\CardGameClient\CardGameClient\bin\Debug\Images\Cards\22.png
 D:\CardsKurs\CardGameClient\CardGameClient\bin\Debug\Images\Cards\23.png
 D:\CardsKurs\CardGameClient\CardGameClient\bin\Debug\Images\Cards\24.png
 D:\CardsKurs\CardGameClient\CardGameClient\bin\Debug\Images\Cards\25.png
-D:\Шаг\CardGameClient\CardGameClient\bin\Debug\Images\Numeric\5.png
-D:\Шаг\CardGameClient\CardGameClient\bin\Debug\Images\Numeric\0.png
-D:\Шаг\CardGameClient\CardGameClient\bin\Debug\Images\Numeric\1.png
-D:\Шаг\CardGameClient\CardGameClient\bin\Debug\Images\Numeric\2.png
-D:\Шаг\CardGameClient\CardGameClient\bin\Debug\Images\Numeric\3.png
-D:\Шаг\CardGameClient\CardGameClient\bin\Debug\Images\Numeric\4.png
-D:\Шаг\CardGameClient\CardGameClient\bin\Debug\Images\Numeric\6.png
-D:\Шаг\CardGameClient\CardGameClient\bin\Debug\Images\Numeric\7.png
-D:\Шаг\CardGameClient\CardGameClient\bin\Debug\Images\Numeric\8.png
-D:\Шаг\CardGameClient\CardGameClient\bin\Debug\Images\Numeric\9.png
-D:\Шаг\CardGameClient\CardGameClient\bin\Debug\Images\Cards\3.png
-D:\Шаг\CardGameClient\CardGameClient\bin\Debug\Images\Cards\4.png
-D:\Шаг\CardGameClient\CardGameClient\bin\Debug\Images\Cards\1.png
-D:\Шаг\CardGameClient\CardGameClient\bin\Debug\Images\Cards\2.png
-D:\Шаг\CardGameClient\CardGameClient\bin\Debug\Images\Cards\5.png
-D:\Шаг\CardGameClient\CardGameClient\bin\Debug\Images\Cards\6.png
-D:\Шаг\CardGameClient\CardGameClient\bin\Debug\Images\Cards\7.png
-D:\Шаг\CardGameClient\CardGameClient\bin\Debug\Images\Cards\10.png
-D:\Шаг\CardGameClient\CardGameClient\bin\Debug\Images\Cards\11.png
-D:\Шаг\CardGameClient\CardGameClient\bin\Debug\Images\Cards\8.png
-D:\Шаг\CardGameClient\CardGameClient\bin\Debug\Images\Cards\9.png
-D:\Шаг\CardGameClient\CardGameClient\bin\Debug\Images\Cards\12.png
-D:\Шаг\CardGameClient\CardGameClient\bin\Debug\Images\Cards\13.png
-D:\Шаг\CardGameClient\CardGameClient\bin\Debug\Images\Cards\14.png
-D:\Шаг\CardGameClient\CardGameClient\bin\Debug\Images\Cards\15.png
-D:\Шаг\CardGameClient\CardGameClient\bin\Debug\Images\Cards\16.png
-D:\Шаг\CardGameClient\CardGameClient\bin\Debug\Images\Cards\17.png
-D:\Шаг\CardGameClient\CardGameClient\bin\Debug\Images\Cards\18.png
-D:\Шаг\CardGameClient\CardGameClient\bin\Debug\Images\Cards\19.png
-D:\Шаг\CardGameClient\CardGameClient\bin\Debug\Images\Cards\20.png
-D:\Шаг\CardGameClient\CardGameClient\bin\Debug\Images\Cards\21.png
-D:\Шаг\CardGameClient\CardGameClient\bin\Debug\Images\Cards\22.png
-D:\Шаг\CardGameClient\CardGameClient\bin\Debug\Images\Cards\23.png
-D:\Шаг\CardGameClient\CardGameClient\bin\Debug\Images\Cards\24.png
-D:\Шаг\CardGameClient\CardGameClient\bin\Debug\Images\Cards\25.png
-D:\Шаг\CardGameClient\CardGameClient\bin\Debug\CardGameClient.exe.config
-D:\Шаг\CardGameClient\CardGameClient\bin\Debug\CardGameClient.pdb
-D:\Шаг\CardGameClient\CardGameClient\obj\x86\Debug\CardInfo.baml
-D:\Шаг\CardGameClient\CardGameClient\obj\x86\Debug\Controls\CharacterCard.baml
-D:\Шаг\CardGameClient\CardGameClient\obj\x86\Debug\Controls\Digit.baml
-D:\Шаг\CardGameClient\CardGameClient\obj\x86\Debug\LoadingScreen.baml
-D:\Шаг\CardGameClient\CardGameClient\obj\x86\Debug\Controls\StyledBtn.baml
-D:\Шаг\CardGameClient\CardGameClient\obj\x86\Debug\Controls\StyledTextBox.baml
-D:\Шаг\CardGameClient\CardGameClient\obj\x86\Debug\CardInfo.g.cs
-D:\Шаг\CardGameClient\CardGameClient\obj\x86\Debug\CardPackWindow.g.cs
-D:\Шаг\CardGameClient\CardGameClient\obj\x86\Debug\Controls\CharacterCard.g.cs
-D:\Шаг\CardGameClient\CardGameClient\obj\x86\Debug\Controls\CardPlace.g.cs
-D:\Шаг\CardGameClient\CardGameClient\obj\x86\Debug\CharacterCreateScreen.g.cs
-D:\Шаг\CardGameClient\CardGameClient\obj\x86\Debug\Controls\Digit.g.cs
-D:\Шаг\CardGameClient\CardGameClient\obj\x86\Debug\Controls\FindButton.g.cs
-D:\Шаг\CardGameClient\CardGameClient\obj\x86\Debug\Controls\inGameTopInfo.g.cs
-D:\Шаг\CardGameClient\CardGameClient\obj\x86\Debug\DialogWin.g.cs
-D:\Шаг\CardGameClient\CardGameClient\obj\x86\Debug\GameResultWindow.g.cs
-D:\Шаг\CardGameClient\CardGameClient\obj\x86\Debug\InGameMenuEscWindow.g.cs
-D:\Шаг\CardGameClient\CardGameClient\obj\x86\Debug\LoadingScreen.g.cs
-D:\Шаг\CardGameClient\CardGameClient\obj\x86\Debug\LobbyScreen.g.cs
-D:\Шаг\CardGameClient\CardGameClient\obj\x86\Debug\LoginScreen.g.cs
-D:\Шаг\CardGameClient\CardGameClient\obj\x86\Debug\MainWindow.g.cs
-D:\Шаг\CardGameClient\CardGameClient\obj\x86\Debug\Controls\StyledBtn.g.cs
-D:\Шаг\CardGameClient\CardGameClient\obj\x86\Debug\Controls\StyledTextBox.g.cs
-D:\Шаг\CardGameClient\CardGameClient\obj\x86\Debug\NewCardWindow.g.cs
-D:\Шаг\CardGameClient\CardGameClient\obj\x86\Debug\App.g.cs
-D:\Шаг\CardGameClient\CardGameClient\obj\x86\Debug\GeneratedInternalTypeHelper.g.cs
-D:\Шаг\CardGameClient\CardGameClient\obj\x86\Debug\CardGameClient_MarkupCompile.cache
-D:\Шаг\CardGameClient\CardGameClient\obj\x86\Debug\CardGameClient_MarkupCompile.lref
-D:\Шаг\CardGameClient\CardGameClient\obj\x86\Debug\CardPackWindow.baml
-D:\Шаг\CardGameClient\CardGameClient\obj\x86\Debug\Controls\CardPlace.baml
-D:\Шаг\CardGameClient\CardGameClient\obj\x86\Debug\CharacterCreateScreen.baml
-D:\Шаг\CardGameClient\CardGameClient\obj\x86\Debug\Controls\FindButton.baml
-D:\Шаг\CardGameClient\CardGameClient\obj\x86\Debug\Controls\inGameTopInfo.baml
-D:\Шаг\CardGameClient\CardGameClient\obj\x86\Debug\DialogWin.baml
-D:\Шаг\CardGameClient\CardGameClient\obj\x86\Debug\GameResultWindow.baml
-D:\Шаг\CardGameClient\CardGameClient\obj\x86\Debug\InGameMenuEscWindow.baml
-D:\Шаг\CardGameClient\CardGameClient\obj\x86\Debug\LobbyScreen.baml
-D:\Шаг\CardGameClient\CardGameClient\obj\x86\Debug\LoginScreen.baml
-D:\Шаг\CardGameClient\CardGameClient\obj\x86\Debug\MainWindow.baml
-D:\Шаг\CardGameClient\CardGameClient\obj\x86\Debug\NewCardWindow.baml
-D:\Шаг\CardGameClient\CardGameClient\obj\x86\Debug\CardGameClient.g.resources
-D:\Шаг\CardGameClient\CardGameClient\obj\x86\Debug\CardGameClient.Properties.Resources.resources
-D:\Шаг\CardGameClient\CardGameClient\obj\x86\Debug\CardGameClient.csproj.GenerateResource.Cache
-D:\Шаг\CardGameClient\CardGameClient\obj\x86\Debug\CardGameClient.exe
-D:\Шаг\CardGameClient\CardGameClient\obj\x86\Debug\CardGameClient.pdb
-D:\Шаг\CardGameClient\CardGameClient\obj\x86\Debug\CardGameClient.csprojResolveAssemblyReference.cache
-D:\Шаг\CardGameClient\CardGameClient\obj\x86\Debug\Controls\PopupInfo.baml
-D:\Шаг\CardGameClient\CardGameClient\obj\x86\Debug\Controls\PopupInfo.g.cs
-D:\CardsKurs\CardGameClient\CardGameClient\obj\x86\Debug\Controls\PopupInfo.baml
+D:\CardsKurs\CardGameClient\CardGameClient\bin\Debug\CardGameClient.exe
+D:\CardsKurs\CardGameClient\CardGameClient\bin\Debug\CardGameClient.pdb
+D:\CardsKurs\CardGameClient\CardGameClient\obj\x86\Debug\CardInfo.baml
+D:\CardsKurs\CardGameClient\CardGameClient\obj\x86\Debug\Controls\CharacterCard.baml
+D:\CardsKurs\CardGameClient\CardGameClient\obj\x86\Debug\Controls\Digit.baml
+D:\CardsKurs\CardGameClient\CardGameClient\obj\x86\Debug\Controls\StyledBtn.baml
+D:\CardsKurs\CardGameClient\CardGameClient\obj\x86\Debug\Controls\StyledTextBox.baml
+D:\CardsKurs\CardGameClient\CardGameClient\obj\x86\Debug\CardInfo.g.cs
+D:\CardsKurs\CardGameClient\CardGameClient\obj\x86\Debug\CardPackWindow.g.cs
+D:\CardsKurs\CardGameClient\CardGameClient\obj\x86\Debug\Controls\CharacterCard.g.cs
+D:\CardsKurs\CardGameClient\CardGameClient\obj\x86\Debug\Controls\CardPlace.g.cs
+D:\CardsKurs\CardGameClient\CardGameClient\obj\x86\Debug\CharacterCreateScreen.g.cs
+D:\CardsKurs\CardGameClient\CardGameClient\obj\x86\Debug\Controls\Digit.g.cs
+D:\CardsKurs\CardGameClient\CardGameClient\obj\x86\Debug\Controls\FindButton.g.cs
+D:\CardsKurs\CardGameClient\CardGameClient\obj\x86\Debug\Controls\inGameTopInfo.g.cs
 D:\CardsKurs\CardGameClient\CardGameClient\obj\x86\Debug\Controls\PopupInfo.g.cs
-C:\Users\Студент\Documents\Visual Studio 2012\Projects\Шафир сп2111\Cursach\CardGameClient\CardGameClient\bin\Debug\CardGameClient.exe.config
-C:\Users\Студент\Documents\Visual Studio 2012\Projects\Шафир сп2111\Cursach\CardGameClient\CardGameClient\obj\x86\Debug\CardGameClient.pdb
-C:\Users\Студент\Documents\Visual Studio 2012\Projects\Шафир сп2111\Cursach\CardGameClient\CardGameClient\bin\Debug\Images\Numeric\5.png
-C:\Users\Студент\Documents\Visual Studio 2012\Projects\Шафир сп2111\Cursach\CardGameClient\CardGameClient\bin\Debug\Images\Numeric\0.png
-C:\Users\Студент\Documents\Visual Studio 2012\Projects\Шафир сп2111\Cursach\CardGameClient\CardGameClient\bin\Debug\Images\Numeric\1.png
-C:\Users\Студент\Documents\Visual Studio 2012\Projects\Шафир сп2111\Cursach\CardGameClient\CardGameClient\bin\Debug\Images\Numeric\2.png
-C:\Users\Студент\Documents\Visual Studio 2012\Projects\Шафир сп2111\Cursach\CardGameClient\CardGameClient\bin\Debug\Images\Numeric\3.png
-C:\Users\Студент\Documents\Visual Studio 2012\Projects\Шафир сп2111\Cursach\CardGameClient\CardGameClient\bin\Debug\Images\Numeric\4.png
-C:\Users\Студент\Documents\Visual Studio 2012\Projects\Шафир сп2111\Cursach\CardGameClient\CardGameClient\bin\Debug\Images\Numeric\6.png
-C:\Users\Студент\Documents\Visual Studio 2012\Projects\Шафир сп2111\Cursach\CardGameClient\CardGameClient\bin\Debug\Images\Numeric\7.png
-C:\Users\Студент\Documents\Visual Studio 2012\Projects\Шафир сп2111\Cursach\CardGameClient\CardGameClient\bin\Debug\Images\Numeric\8.png
-C:\Users\Студент\Documents\Visual Studio 2012\Projects\Шафир сп2111\Cursach\CardGameClient\CardGameClient\bin\Debug\Images\Numeric\9.png
-C:\Users\Студент\Documents\Visual Studio 2012\Projects\Шафир сп2111\Cursach\CardGameClient\CardGameClient\bin\Debug\Images\Cards\3.png
-C:\Users\Студент\Documents\Visual Studio 2012\Projects\Шафир сп2111\Cursach\CardGameClient\CardGameClient\bin\Debug\Images\Cards\4.png
-C:\Users\Студент\Documents\Visual Studio 2012\Projects\Шафир сп2111\Cursach\CardGameClient\CardGameClient\bin\Debug\Images\Cards\1.png
-C:\Users\Студент\Documents\Visual Studio 2012\Projects\Шафир сп2111\Cursach\CardGameClient\CardGameClient\bin\Debug\Images\Cards\2.png
-C:\Users\Студент\Documents\Visual Studio 2012\Projects\Шафир сп2111\Cursach\CardGameClient\CardGameClient\bin\Debug\Images\Cards\5.png
-C:\Users\Студент\Documents\Visual Studio 2012\Projects\Шафир сп2111\Cursach\CardGameClient\CardGameClient\bin\Debug\Images\Cards\6.png
-C:\Users\Студент\Documents\Visual Studio 2012\Projects\Шафир сп2111\Cursach\CardGameClient\CardGameClient\bin\Debug\Images\Cards\7.png
-C:\Users\Студент\Documents\Visual Studio 2012\Projects\Шафир сп2111\Cursach\CardGameClient\CardGameClient\bin\Debug\Images\Cards\10.png
-C:\Users\Студент\Documents\Visual Studio 2012\Projects\Шафир сп2111\Cursach\CardGameClient\CardGameClient\bin\Debug\Images\Cards\11.png
-C:\Users\Студент\Documents\Visual Studio 2012\Projects\Шафир сп2111\Cursach\CardGameClient\CardGameClient\bin\Debug\Images\Cards\8.png
-C:\Users\Студент\Documents\Visual Studio 2012\Projects\Шафир сп2111\Cursach\CardGameClient\CardGameClient\bin\Debug\Images\Cards\9.png
-C:\Users\Студент\Documents\Visual Studio 2012\Projects\Шафир сп2111\Cursach\CardGameClient\CardGameClient\bin\Debug\Images\Cards\12.png
-C:\Users\Студент\Documents\Visual Studio 2012\Projects\Шафир сп2111\Cursach\CardGameClient\CardGameClient\bin\Debug\Images\Cards\13.png
-C:\Users\Студент\Documents\Visual Studio 2012\Projects\Шафир сп2111\Cursach\CardGameClient\CardGameClient\bin\Debug\Images\Cards\14.png
-C:\Users\Студент\Documents\Visual Studio 2012\Projects\Шафир сп2111\Cursach\CardGameClient\CardGameClient\bin\Debug\Images\Cards\15.png
-C:\Users\Студент\Documents\Visual Studio 2012\Projects\Шафир сп2111\Cursach\CardGameClient\CardGameClient\bin\Debug\Images\Cards\16.png
-C:\Users\Студент\Documents\Visual Studio 2012\Projects\Шафир сп2111\Cursach\CardGameClient\CardGameClient\bin\Debug\Images\Cards\17.png
-C:\Users\Студент\Documents\Visual Studio 2012\Projects\Шафир сп2111\Cursach\CardGameClient\CardGameClient\bin\Debug\Images\Cards\18.png
-C:\Users\Студент\Documents\Visual Studio 2012\Projects\Шафир сп2111\Cursach\CardGameClient\CardGameClient\bin\Debug\Images\Cards\19.png
-C:\Users\Студент\Documents\Visual Studio 2012\Projects\Шафир сп2111\Cursach\CardGameClient\CardGameClient\bin\Debug\Images\Cards\20.png
-C:\Users\Студент\Documents\Visual Studio 2012\Projects\Шафир сп2111\Cursach\CardGameClient\CardGameClient\bin\Debug\Images\Cards\21.png
-C:\Users\Студент\Documents\Visual Studio 2012\Projects\Шафир сп2111\Cursach\CardGameClient\CardGameClient\bin\Debug\Images\Cards\22.png
-C:\Users\Студент\Documents\Visual Studio 2012\Projects\Шафир сп2111\Cursach\CardGameClient\CardGameClient\bin\Debug\Images\Cards\23.png
-C:\Users\Студент\Documents\Visual Studio 2012\Projects\Шафир сп2111\Cursach\CardGameClient\CardGameClient\bin\Debug\Images\Cards\24.png
-C:\Users\Студент\Documents\Visual Studio 2012\Projects\Шафир сп2111\Cursach\CardGameClient\CardGameClient\bin\Debug\Images\Cards\25.png
-C:\Users\Студент\Documents\Visual Studio 2012\Projects\Шафир сп2111\Cursach\CardGameClient\CardGameClient\bin\Debug\CardGameClient.exe
-C:\Users\Студент\Documents\Visual Studio 2012\Projects\Шафир сп2111\Cursach\CardGameClient\CardGameClient\bin\Debug\CardGameClient.pdb
-C:\Users\Студент\Documents\Visual Studio 2012\Projects\Шафир сп2111\Cursach\CardGameClient\CardGameClient\obj\x86\Debug\CardInfo.baml
-C:\Users\Студент\Documents\Visual Studio 2012\Projects\Шафир сп2111\Cursach\CardGameClient\CardGameClient\obj\x86\Debug\Controls\CharacterCard.baml
-C:\Users\Студент\Documents\Visual Studio 2012\Projects\Шафир сп2111\Cursach\CardGameClient\CardGameClient\obj\x86\Debug\Controls\Digit.baml
-C:\Users\Студент\Documents\Visual Studio 2012\Projects\Шафир сп2111\Cursach\CardGameClient\CardGameClient\obj\x86\Debug\Controls\PopupInfo.baml
-C:\Users\Студент\Documents\Visual Studio 2012\Projects\Шафир сп2111\Cursach\CardGameClient\CardGameClient\obj\x86\Debug\Controls\StyledBtn.baml
-C:\Users\Студент\Documents\Visual Studio 2012\Projects\Шафир сп2111\Cursach\CardGameClient\CardGameClient\obj\x86\Debug\Controls\StyledTextBox.baml
-C:\Users\Студент\Documents\Visual Studio 2012\Projects\Шафир сп2111\Cursach\CardGameClient\CardGameClient\obj\x86\Debug\CardInfo.g.cs
-C:\Users\Студент\Documents\Visual Studio 2012\Projects\Шафир сп2111\Cursach\CardGameClient\CardGameClient\obj\x86\Debug\CardPackWindow.g.cs
-C:\Users\Студент\Documents\Visual Studio 2012\Projects\Шафир сп2111\Cursach\CardGameClient\CardGameClient\obj\x86\Debug\Controls\CharacterCard.g.cs
-C:\Users\Студент\Documents\Visual Studio 2012\Projects\Шафир сп2111\Cursach\CardGameClient\CardGameClient\obj\x86\Debug\Controls\CardPlace.g.cs
-C:\Users\Студент\Documents\Visual Studio 2012\Projects\Шафир сп2111\Cursach\CardGameClient\CardGameClient\obj\x86\Debug\CharacterCreateScreen.g.cs
-C:\Users\Студент\Documents\Visual Studio 2012\Projects\Шафир сп2111\Cursach\CardGameClient\CardGameClient\obj\x86\Debug\Controls\Digit.g.cs
-C:\Users\Студент\Documents\Visual Studio 2012\Projects\Шафир сп2111\Cursach\CardGameClient\CardGameClient\obj\x86\Debug\Controls\FindButton.g.cs
-C:\Users\Студент\Documents\Visual Studio 2012\Projects\Шафир сп2111\Cursach\CardGameClient\CardGameClient\obj\x86\Debug\Controls\inGameTopInfo.g.cs
-C:\Users\Студент\Documents\Visual Studio 2012\Projects\Шафир сп2111\Cursach\CardGameClient\CardGameClient\obj\x86\Debug\Controls\PopupInfo.g.cs
-C:\Users\Студент\Documents\Visual Studio 2012\Projects\Шафир сп2111\Cursach\CardGameClient\CardGameClient\obj\x86\Debug\DialogWin.g.cs
-C:\Users\Студент\Documents\Visual Studio 2012\Projects\Шафир сп2111\Cursach\CardGameClient\CardGameClient\obj\x86\Debug\GameResultWindow.g.cs
-C:\Users\Студент\Documents\Visual Studio 2012\Projects\Шафир сп2111\Cursach\CardGameClient\CardGameClient\obj\x86\Debug\InGameMenuEscWindow.g.cs
-C:\Users\Студент\Documents\Visual Studio 2012\Projects\Шафир сп2111\Cursach\CardGameClient\CardGameClient\obj\x86\Debug\LobbyScreen.g.cs
-C:\Users\Студент\Documents\Visual Studio 2012\Projects\Шафир сп2111\Cursach\CardGameClient\CardGameClient\obj\x86\Debug\LoginScreen.g.cs
-C:\Users\Студент\Documents\Visual Studio 2012\Projects\Шафир сп2111\Cursach\CardGameClient\CardGameClient\obj\x86\Debug\MainWindow.g.cs
-C:\Users\Студент\Documents\Visual Studio 2012\Projects\Шафир сп2111\Cursach\CardGameClient\CardGameClient\obj\x86\Debug\Controls\StyledBtn.g.cs
-C:\Users\Студент\Documents\Visual Studio 2012\Projects\Шафир сп2111\Cursach\CardGameClient\CardGameClient\obj\x86\Debug\Controls\StyledTextBox.g.cs
-C:\Users\Студент\Documents\Visual Studio 2012\Projects\Шафир сп2111\Cursach\CardGameClient\CardGameClient\obj\x86\Debug\NewCardWindow.g.cs
-C:\Users\Студент\Documents\Visual Studio 2012\Projects\Шафир сп2111\Cursach\CardGameClient\CardGameClient\obj\x86\Debug\App.g.cs
-C:\Users\Студент\Documents\Visual Studio 2012\Projects\Шафир сп2111\Cursach\CardGameClient\CardGameClient\obj\x86\Debug\GeneratedInternalTypeHelper.g.cs
-C:\Users\Студент\Documents\Visual Studio 2012\Projects\Шафир сп2111\Cursach\CardGameClient\CardGameClient\obj\x86\Debug\CardGameClient_MarkupCompile.cache
-C:\Users\Студент\Documents\Visual Studio 2012\Projects\Шафир сп2111\Cursach\CardGameClient\CardGameClient\obj\x86\Debug\CardGameClient_MarkupCompile.lref
-C:\Users\Студент\Documents\Visual Studio 2012\Projects\Шафир сп2111\Cursach\CardGameClient\CardGameClient\obj\x86\Debug\CardPackWindow.baml
-C:\Users\Студент\Documents\Visual Studio 2012\Projects\Шафир сп2111\Cursach\CardGameClient\CardGameClient\obj\x86\Debug\Controls\CardPlace.baml
-C:\Users\Студент\Documents\Visual Studio 2012\Projects\Шафир сп2111\Cursach\CardGameClient\CardGameClient\obj\x86\Debug\CharacterCreateScreen.baml
-C:\Users\Студент\Documents\Visual Studio 2012\Projects\Шафир сп2111\Cursach\CardGameClient\CardGameClient\obj\x86\Debug\Controls\FindButton.baml
-C:\Users\Студент\Documents\Visual Studio 2012\Projects\Шафир сп2111\Cursach\CardGameClient\CardGameClient\obj\x86\Debug\Controls\inGameTopInfo.baml
-C:\Users\Студент\Documents\Visual Studio 2012\Projects\Шафир сп2111\Cursach\CardGameClient\CardGameClient\obj\x86\Debug\DialogWin.baml
-C:\Users\Студент\Documents\Visual Studio 2012\Projects\Шафир сп2111\Cursach\CardGameClient\CardGameClient\obj\x86\Debug\GameResultWindow.baml
-C:\Users\Студент\Documents\Visual Studio 2012\Projects\Шафир сп2111\Cursach\CardGameClient\CardGameClient\obj\x86\Debug\InGameMenuEscWindow.baml
-C:\Users\Студент\Documents\Visual Studio 2012\Projects\Шафир сп2111\Cursach\CardGameClient\CardGameClient\obj\x86\Debug\LobbyScreen.baml
-C:\Users\Студент\Documents\Visual Studio 2012\Projects\Шафир сп2111\Cursach\CardGameClient\CardGameClient\obj\x86\Debug\LoginScreen.baml
-C:\Users\Студент\Documents\Visual Studio 2012\Projects\Шафир сп2111\Cursach\CardGameClient\CardGameClient\obj\x86\Debug\MainWindow.baml
-C:\Users\Студент\Documents\Visual Studio 2012\Projects\Шафир сп2111\Cursach\CardGameClient\CardGameClient\obj\x86\Debug\NewCardWindow.baml
-C:\Users\Студент\Documents\Visual Studio 2012\Projects\Шафир сп2111\Cursach\CardGameClient\CardGameClient\obj\x86\Debug\CardGameClient.g.resources
-C:\Users\Студент\Documents\Visual Studio 2012\Projects\Шафир сп2111\Cursach\CardGameClient\CardGameClient\obj\x86\Debug\CardGameClient.Properties.Resources.resources
-C:\Users\Студент\Documents\Visual Studio 2012\Projects\Шафир сп2111\Cursach\CardGameClient\CardGameClient\obj\x86\Debug\CardGameClient.csproj.GenerateResource.Cache
-C:\Users\Студент\Documents\Visual Studio 2012\Projects\Шафир сп2111\Cursach\CardGameClient\CardGameClient\obj\x86\Debug\CardGameClient.exe
+D:\CardsKurs\CardGameClient\CardGameClient\obj\x86\Debug\DialogWin.g.cs
+D:\CardsKurs\CardGameClient\CardGameClient\obj\x86\Debug\GameResultWindow.g.cs
+D:\CardsKurs\CardGameClient\CardGameClient\obj\x86\Debug\InGameMenuEscWindow.g.cs
+D:\CardsKurs\CardGameClient\CardGameClient\obj\x86\Debug\LobbyScreen.g.cs
+D:\CardsKurs\CardGameClient\CardGameClient\obj\x86\Debug\LoginScreen.g.cs
+D:\CardsKurs\CardGameClient\CardGameClient\obj\x86\Debug\MainWindow.g.cs
+D:\CardsKurs\CardGameClient\CardGameClient\obj\x86\Debug\Controls\StyledBtn.g.cs
+D:\CardsKurs\CardGameClient\CardGameClient\obj\x86\Debug\Controls\StyledTextBox.g.cs
+D:\CardsKurs\CardGameClient\CardGameClient\obj\x86\Debug\NewCardWindow.g.cs
+D:\CardsKurs\CardGameClient\CardGameClient\obj\x86\Debug\App.g.cs
+D:\CardsKurs\CardGameClient\CardGameClient\obj\x86\Debug\GeneratedInternalTypeHelper.g.cs
+D:\CardsKurs\CardGameClient\CardGameClient\obj\x86\Debug\CardGameClient_MarkupCompile.cache
+D:\CardsKurs\CardGameClient\CardGameClient\obj\x86\Debug\CardGameClient_MarkupCompile.lref
+D:\CardsKurs\CardGameClient\CardGameClient\obj\x86\Debug\CardPackWindow.baml
+D:\CardsKurs\CardGameClient\CardGameClient\obj\x86\Debug\Controls\CardPlace.baml
+D:\CardsKurs\CardGameClient\CardGameClient\obj\x86\Debug\CharacterCreateScreen.baml
+D:\CardsKurs\CardGameClient\CardGameClient\obj\x86\Debug\Controls\FindButton.baml
+D:\CardsKurs\CardGameClient\CardGameClient\obj\x86\Debug\Controls\inGameTopInfo.baml
+D:\CardsKurs\CardGameClient\CardGameClient\obj\x86\Debug\Controls\PopupInfo.baml
+D:\CardsKurs\CardGameClient\CardGameClient\obj\x86\Debug\DialogWin.baml
+D:\CardsKurs\CardGameClient\CardGameClient\obj\x86\Debug\GameResultWindow.baml
+D:\CardsKurs\CardGameClient\CardGameClient\obj\x86\Debug\InGameMenuEscWindow.baml
+D:\CardsKurs\CardGameClient\CardGameClient\obj\x86\Debug\LobbyScreen.baml
+D:\CardsKurs\CardGameClient\CardGameClient\obj\x86\Debug\LoginScreen.baml
+D:\CardsKurs\CardGameClient\CardGameClient\obj\x86\Debug\MainWindow.baml
+D:\CardsKurs\CardGameClient\CardGameClient\obj\x86\Debug\NewCardWindow.baml
+D:\CardsKurs\CardGameClient\CardGameClient\obj\x86\Debug\CardGameClient.g.resources
+D:\CardsKurs\CardGameClient\CardGameClient\obj\x86\Debug\CardGameClient.Properties.Resources.resources
+D:\CardsKurs\CardGameClient\CardGameClient\obj\x86\Debug\CardGameClient.csproj.GenerateResource.Cache
+D:\CardsKurs\CardGameClient\CardGameClient\obj\x86\Debug\CardGameClient.exe
+D:\CardsKurs\CardGameClient\CardGameClient\obj\x86\Debug\CardGameClient.pdb

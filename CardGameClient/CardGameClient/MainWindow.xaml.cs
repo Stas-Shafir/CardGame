@@ -305,10 +305,17 @@ namespace CardGameClient
 
                                 grw.ShowDialog();
 
-                                App.WindowList["LobbyWnd"].Show();
                                 (App.WindowList["LobbyWnd"] as LobbyScreen).OnGameEnd();
+                               
                                 //Hide();
                                 //Close();
+                            }));
+
+                            Thread.Sleep(200);
+
+                            this.Dispatcher.Invoke(new Action(delegate
+                            {
+                                App.WindowList["LobbyWnd"].Show();
                             }));
 
                             Thread.Sleep(1000);
@@ -332,10 +339,17 @@ namespace CardGameClient
 
                                 grw.ShowDialog();
 
-                                App.WindowList["LobbyWnd"].Show();
                                 (App.WindowList["LobbyWnd"] as LobbyScreen).OnGameEnd();
+                                
                                 //Hide();
                                 //Close();
+                            }));
+
+                            Thread.Sleep(200);
+
+                            this.Dispatcher.Invoke(new Action(delegate
+                            {
+                                App.WindowList["LobbyWnd"].Show();
                             }));
 
                             Thread.Sleep(1000);

@@ -44,12 +44,5 @@
                 <DropShadowEffect BlurRadius="0" ShadowDepth="2" RenderingBias="Quality" Direction="297"/>
             </Label.Effect>
         </Label>
-
-        <Label Name="Iniciative" Content="Инициатива: 55" Margin="150,130,0,0" Foreground="#FFCBCBCB" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="13">
-            <Label.Effect>
-                <DropShadowEffect BlurRadius="0" ShadowDepth="2" RenderingBias="Quality" Direction="297"/>
-            </Label.Effect>
-        </Label>
-
     </Grid>
 </UserControl>

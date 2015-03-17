@@ -6,13 +6,10 @@
              xmlns:dc="clr-namespace:CardGameClient"
              mc:Ignorable="d" BorderThickness="0" Background="#AA000000" UseLayoutRounding="True" SnapsToDevicePixels="True" MinHeight="768" MinWidth="1024" Cursor="/CardGameClient;component/Images/cursor.cur">
     <Grid>
-        <Grid Name="grid1" Height="190" Width="600" Margin="0">
-            <TextBlock Name="TextInfo" FontSize="15" Margin="0, 0, 0, 20" HorizontalAlignment="Center" Text="Попытка авторизации. Ожидайте..." TextAlignment="Center" VerticalAlignment="Center" Foreground="White" TextWrapping="Wrap">
-                <TextBlock.Effect>
-                    <DropShadowEffect BlurRadius="0" RenderingBias="Quality" Direction="330" ShadowDepth="3"/>
-                </TextBlock.Effect>
+        <Grid Name="grid1" Height="230" Width="600" Margin="0">
+            <TextBlock Name="TextInfo" FontSize="14" FontFamily="Verdana" Margin="0, 0, 0, 35" HorizontalAlignment="Center" Text="Попытка авторизации. Ожидайте..." TextAlignment="Center" VerticalAlignment="Center" Foreground="White" TextWrapping="Wrap">
             </TextBlock>
-            <Image Name="waitAnim" RenderOptions.BitmapScalingMode="Fant" Height="22" HorizontalAlignment="Left" Margin="145,0,0,20" Stretch="Fill" VerticalAlignment="Center" Width="22" Source="/CardGameClient;component/Images/wait_krug.png" Visibility="Hidden">
+            <Image Name="waitAnim" RenderOptions.BitmapScalingMode="Fant" Height="22" HorizontalAlignment="Left" Margin="140,0,0,35" Stretch="Fill" VerticalAlignment="Center" Width="22" Source="/CardGameClient;component/Images/wait_krug.png" Visibility="Hidden">
                 <Image.RenderTransform>
                     <RotateTransform CenterX="11" CenterY="11"/>
                 </Image.RenderTransform>
@@ -26,7 +23,7 @@
                     </EventTrigger>
                 </Image.Triggers>
             </Image>
-            <dc:StyledBtn Height="34" HorizontalAlignment="Center" Text="Ок" VerticalAlignment="Bottom" Width="130" Margin="0, 0, 0, 20" x:Name="OkBtn" Visibility="Hidden" MouseUp="OkBtn_MouseUp" />
+            <dc:StyledBtn Height="34" HorizontalAlignment="Center" Text="Ок" VerticalAlignment="Bottom" Width="130" Margin="0, 0, 0, 35" x:Name="OkBtn" Visibility="Hidden" MouseUp="OkBtn_MouseUp" />
             <Grid.Background>
                 <ImageBrush ImageSource="/CardGameClient;component/Images/popup_bg.png" />
             </Grid.Background>

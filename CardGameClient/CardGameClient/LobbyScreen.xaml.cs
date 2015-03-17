@@ -660,7 +660,6 @@ namespace CardGameClient
                             ci.Dmg.Content = "Атака: " + item.dmg;
                             ci.Def.Content = "Защита: " + item.def;
                             ci.Hp.Content = "Здоровье: " + item.hp;
-                            ci.Iniciative.Content = "Инициатива: " + item.Initiative;
                             ci.Level.Content = "Уровень: " + item.min_level;
 
                             cp.ToolTip = new ToolTip()
@@ -686,7 +685,6 @@ namespace CardGameClient
                             ci.Dmg.Content = "Атака: " + item.dmg;
                             ci.Def.Content = "Защита: " + item.def;
                             ci.Hp.Content = "Здоровье: " + item.hp;
-                            ci.Iniciative.Content = "Инициатива: " + item.Initiative;
                             ci.Level.Content = "Уровень: " + item.min_level;
 
                             cp.ToolTip = new ToolTip()
@@ -918,11 +916,21 @@ namespace CardGameClient
                 ShopGrid.Visibility = Visibility.Hidden;
                 MyCardsGrid.Visibility = Visibility.Hidden;
                 MainLobbyGrid.Visibility = Visibility.Visible;
+                //Opacity = 0;
             }
-           /* else if (Visibility == Visibility.Visible)
+            /*else if (Visibility == Visibility.Visible)
             {
-                if (App.charInfo != null)
-                    Window_Loaded(this, null);
+                DoubleAnimation da = new DoubleAnimation();
+                da.From = 0;
+                da.To = 1;
+                da.Duration = TimeSpan.FromMilliseconds(250);
+                da.FillBehavior = FillBehavior.Stop;
+                da.BeginTime = TimeSpan.FromMilliseconds(100);
+                da.Completed += delegate(object s, EventArgs se)
+                {
+                    Opacity = 1;
+                };
+                BeginAnimation(OpacityProperty, da);
             }*/
         }
 

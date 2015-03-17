@@ -349,7 +349,6 @@ namespace CardGameServer
                             gamerCard.Add(new Card(currcard.id, currcard.card_name, currcard.type, currcard.hp + hp_bust,
                                 currcard.dmg + dmg_bust, currcard.def + def_bust, currcard.cardRarity, (int)res["slot"])
                             {
-                                Initiative = currcard.Initiative,
                                 min_level = currcard.min_level
                             });
                         }
@@ -967,7 +966,6 @@ namespace CardGameServer
                             gamerCard.Add(new Card(currcard.id, currcard.card_name, currcard.type, currcard.hp,
                                 currcard.dmg, currcard.def, currcard.cardRarity, (int)res["slot"])
                                 {
-                                    Initiative = currcard.Initiative,
                                     min_level = currcard.min_level
                                 });
                         }
@@ -989,7 +987,6 @@ namespace CardGameServer
                             gamerCard.Add(new Card(currcard.id, currcard.card_name, currcard.type, currcard.hp,
                                  currcard.dmg, currcard.def, currcard.cardRarity, (int)res["slot"])
                             {
-                                Initiative = currcard.Initiative,
                                 min_level = currcard.min_level
                             });
                         }
@@ -1132,6 +1129,7 @@ namespace CardGameServer
             if (sqlInjection.Words.Any(word => user.IndexOf(word, StringComparison.OrdinalIgnoreCase) >= 0)) return null;
 
             int char_id = -1;
+            bool udovlet = true;
             List<Card> result = new List<Card>();
 
             SqlConnection db_connection = new SqlConnection(Program.connectionString);
@@ -1139,7 +1137,7 @@ namespace CardGameServer
             {
                 db_connection.Open();
 
-                SqlCommand cmd = new SqlCommand("SELECT id, score FROM characters where account='" + user + "'", db_connection);
+                SqlCommand cmd = new SqlCommand("SELECT id, character_level, score FROM characters where account='" + user + "'", db_connection);
 
                 SqlDataReader res = cmd.ExecuteReader();
 
@@ -1147,9 +1145,15 @@ namespace CardGameServer
                 {
                     char_id = (int)res["id"];
                     int score = (int)res["score"];
+                    int char_level = (int)res["character_level"];
                     res.Close();
 
-                    if ( (score >= 3000 && number == 1) || (score >= 5000 && number == 2) || (score >= 10000 && number == 3) )
+                    if (char_level < 3 && number > 1)
+                        udovlet = false;
+
+
+
+                    if (udovlet && ( (score >= 3000 && number == 1) || (score >= 5000 && number == 2) || (score >= 10000 && number == 3) ) )
                     {
                         int slot = GetFreeSlotNumberAllCards(user);
 

@@ -29,7 +29,7 @@ namespace CardGameClient
         public CharacterCreateScreen()
         {
             InitializeComponent();
-            errorPopupInfo.grid1.Margin = new Thickness(0, -25, 0, 25);
+            errorPopupInfo.grid1.Margin = new Thickness(0, -35, 0, 35);
         }
 
         private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
@@ -264,7 +264,6 @@ namespace CardGameClient
                     ci.Dmg.Content = "Атака: " + item.dmg;
                     ci.Def.Content = "Защита: " + item.def;
                     ci.Hp.Content = "Здоровье: " + item.hp;
-                    ci.Iniciative.Content = "Инициатива: " + item.Initiative;
                     ci.Level.Content = "Уровень: " + item.min_level;
 
                     cp.ToolTip = new ToolTip()

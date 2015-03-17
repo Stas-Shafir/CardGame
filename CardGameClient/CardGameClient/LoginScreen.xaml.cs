@@ -283,10 +283,6 @@ namespace CardGameClient
 
         private void Window_IsVisibleChanged(object sender, DependencyPropertyChangedEventArgs e)
         {
-            if (Visibility == Visibility.Visible)
-            {
-                var lolo = "fgfg";
-            }
         }
 
         private void LoginWnd_ContentRendered(object sender, EventArgs e)

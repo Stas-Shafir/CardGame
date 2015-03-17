@@ -157,7 +157,6 @@ namespace CardGameServer
                         (int)res["rare"]
                         );
                     ccc.min_level = (int)res["min_level"];
-                    ccc.Initiative = (int)res["initiative"];
                     cards.Add(ccc);
                 }
 

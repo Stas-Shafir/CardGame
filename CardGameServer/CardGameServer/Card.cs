@@ -42,9 +42,6 @@ namespace CardGameServer
         [DataMember]
         public bool IsAttacked { get; set; }
 
-        [DataMember]
-        public int Initiative { get; set; }
-
         public bool Use = false;
 
         [DataMember]
@@ -103,7 +100,15 @@ namespace CardGameServer
                     char_level = (int)res["character_level"];
                     res.Close();
 
-                    tmp = Program.cards.FindAll(ccc => ccc.type != 0 && ccc.min_level <= char_level);
+                    if (char_level < 3)
+                        tmp = Program.cards.FindAll(ccc => ccc.type != 0 && ccc.min_level <= char_level);
+                    else
+                    {
+                        tmp = Program.cards.FindAll(ccc => ccc.type != 0 &&
+                            (ccc.min_level >= (char_level - 2) &&
+                                ccc.min_level <= char_level)
+                        );
+                    }
 
                 }
                 else res.Close();
@@ -141,7 +146,15 @@ namespace CardGameServer
                     char_level = (int)res["character_level"];
                     res.Close();
 
-                    tmp = Program.cards.FindAll(ccc => ccc.type != 0 && ccc.min_level <= char_level);
+                    if (char_level < 3)
+                        tmp = Program.cards.FindAll(ccc => ccc.type != 0 && ccc.min_level <= char_level);
+                    else
+                    {
+                        tmp = Program.cards.FindAll(ccc => ccc.type != 0 &&
+                            (ccc.min_level >= (char_level - 2) &&
+                                ccc.min_level <= char_level)
+                        );
+                    }
 
                 }
                 else res.Close();
