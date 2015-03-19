@@ -6,12 +6,8 @@
              xmlns:dc="clr-namespace:CardGameClient"
              mc:Ignorable="d"
              d:DesignHeight="127" d:DesignWidth="105" MouseDown="UserControl_MouseDown">
-    <Grid Name="GridMain" Margin="0" Opacity="1" MouseEnter="Grid_MouseEnter" MouseLeave="GridMain_MouseLeave">
-        <Grid.ContextMenu>
-            <ContextMenu Name="CardContextMenu" Background="#BB000000" BorderThickness="0" Visibility="Hidden" Cursor="/CardGameClient;component/Images/cursor.cur" BorderBrush="{x:Null}">
-                <MenuItem Header="Продать" IsCheckable="False" BorderThickness="0" Foreground="WhiteSmoke" Name="CardContextMenuSellBtn" Click="CardContextMenuSellBtn_Click" />
-            </ContextMenu>
-        </Grid.ContextMenu>
+    <Grid Name="GridMain" Margin="0" Opacity="1" MouseEnter="Grid_MouseEnter" MouseLeave="GridMain_MouseLeave" MouseRightButtonUp="GridMain_MouseRightButtonUp">
+        
         <Border Visibility="Hidden" Name="borderGrid" Margin="-7" BorderThickness="2" BorderBrush="#FFC1C1C1" CornerRadius="7">
            
         </Border>
@@ -57,6 +53,9 @@
                 </Image.ToolTip>
             </Image>
         </Grid>
+        
+        <dc:sellmenu x:Name="sellBtn" HorizontalAlignment="Center" VerticalAlignment="Center"  Margin="15, 0, 0, 0" Visibility="Hidden" IsEnabled="False" MouseUp="sellBtn_MouseUp_1"/>
+        
         <Grid.Background>
             <ImageBrush ImageSource="/CardGameClient;component/Images/cardmin_my_bg.png" />
         </Grid.Background>

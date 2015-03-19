@@ -82,6 +82,9 @@
     <Compile Include="Controls\PopupInfo.xaml.cs">
       <DependentUpon>PopupInfo.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Controls\sellmenu.xaml.cs">
+      <DependentUpon>sellmenu.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Controls\StyledBtn.xaml.cs">
       <DependentUpon>StyledBtn.xaml</DependentUpon>
     </Compile>
@@ -145,6 +148,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Controls\PopupInfo.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\sellmenu.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

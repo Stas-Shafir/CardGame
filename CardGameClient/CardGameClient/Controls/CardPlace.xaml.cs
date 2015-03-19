@@ -108,6 +108,7 @@ namespace CardGameClient
 
                 if (!isSelected)
                 {
+                    sellBtn.Visibility = Visibility.Hidden;
                     borderGrid.Visibility = Visibility.Hidden;
                     animation.BeginTime = null;
                     borderGrid.BeginAnimation(MarginProperty, animation);
@@ -342,7 +343,7 @@ namespace CardGameClient
             dmgLabeladtnl.Foreground = Brushes.Red;
         }
 
-        private void CardContextMenuSellBtn_Click(object sender, RoutedEventArgs e)
+        private void sellBtn_MouseUp_1(object sender, MouseButtonEventArgs e)
         {
             DialogWin dw = new DialogWin(App.WindowList["LobbyWnd"], "Вы точно хотите продать эту карту за 350 очков?",
                 MessageBoxButton.YesNo);
@@ -381,12 +382,20 @@ namespace CardGameClient
                 {
                     selected = false;
                     CardDeath();
-                    CardContextMenu.Visibility = Visibility.Hidden;
+                    //CardContextMenu.Visibility = Visibility.Hidden;
                     (App.WindowList["LobbyWnd"] as LobbyScreen).GetAllCard();
                     (App.WindowList["LobbyWnd"] as LobbyScreen).UpdateInfo();
                 }
 
             }
-        }        
+            sellBtn.Visibility = Visibility.Hidden;
+        }
+
+        private void GridMain_MouseRightButtonUp(object sender, MouseButtonEventArgs e)
+        {
+            if (!inGame && sellBtn.IsEnabled)
+                sellBtn.Visibility = Visibility.Visible;
+        }
+     
     }
 }

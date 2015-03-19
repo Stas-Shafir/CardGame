@@ -15,7 +15,7 @@ namespace CardGameServer
     {
         public static string connectionString;
 
-        static bool useRemoteSQLConnetion = false;
+        static bool useRemoteSQLConnetion = true;
 
         public static Dictionary<int, int> character_templates = new Dictionary<int,int>();
         public static List<Card> cards = new List<Card>();

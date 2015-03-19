@@ -634,7 +634,9 @@ namespace CardGameClient
                         item.ContainsCard = false;
                         item.ToolTip = null;
 
-                        item.CardContextMenu.Visibility = Visibility.Hidden;
+                        item.sellBtn.IsEnabled = false;
+
+                        //item.CardContextMenu.Visibility = Visibility.Hidden;
                     }
                     foreach (CardPlace item in SlotGrid.Children)
                     {
@@ -669,7 +671,9 @@ namespace CardGameClient
                                 Content = ci
                             };
 
-                            cp.CardContextMenu.Visibility = Visibility.Visible;
+                            cp.sellBtn.IsEnabled = true;
+
+                            //cp.CardContextMenu.Visibility = Visibility.Visible;
                             //cp.CardContextMenuSellBtn.Click += new RoutedEventHandler(CardContextMenuSellBtn_Click);
                            
                         }
@@ -836,9 +840,9 @@ namespace CardGameClient
             ShopGrid.BeginAnimation(OpacityProperty, da);
 
 
-            if (number == 1) price = "3000";
-            else if (number == 2) price = "5000";
-            else if (number == 3) price = "10000";
+            if (number == 1) price = "2000";
+            else if (number == 2) price = "4000";
+            else if (number == 3) price = "8000";
 
             DialogWin dw = new DialogWin(this, "Внимание!\nПокупка карты будет стоить " + price  + " очков\nЖелаете продолжить?",
                         MessageBoxButton.YesNo);

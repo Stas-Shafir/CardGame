@@ -28,8 +28,6 @@ namespace CardGameClient
 
         int lasthitCard = -1;
 
-        bool known = false;
-
         public Game game;
 
         Dictionary<int, CardPlace> myCardPlases = new Dictionary<int, CardPlace>();
@@ -286,7 +284,6 @@ namespace CardGameClient
                             this.Dispatcher.Invoke(new Action(delegate
                             {
                                 App.InGame = false;
-                                string text = "";
 
                                 GameResultWindow grw = null;
 

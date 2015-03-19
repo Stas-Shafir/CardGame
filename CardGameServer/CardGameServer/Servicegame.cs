@@ -368,7 +368,7 @@ namespace CardGameServer
 
                     // Интеллектуальный подбор игры
                     // state == 1
-                    // level -= 1
+                    // level +- 1
                     // кол-во карт равное
                     /*game = Program.OnlineGames.Find(g => g.gameState == 1 && g.Level >= (character_level -1) &&
                         g.Level <= (character_level + 1) && g.firstGamerCards.Count == gamerCard.Count);*/
@@ -1153,7 +1153,7 @@ namespace CardGameServer
 
 
 
-                    if (udovlet && ( (score >= 3000 && number == 1) || (score >= 5000 && number == 2) || (score >= 10000 && number == 3) ) )
+                    if (udovlet && ( (score >= 2000 && number == 1) || (score >= 4000 && number == 2) || (score >= 8000 && number == 3) ) )
                     {
                         int slot = GetFreeSlotNumberAllCards(user);
 
@@ -1181,7 +1181,7 @@ namespace CardGameServer
                                 card_id2 = result[1].id;
                                 card_id3 = result[2].id;
 
-                                score -= 3000;
+                                score -= 2000;
                             }
                             else if (number == 2)
                             {
@@ -1203,7 +1203,7 @@ namespace CardGameServer
                                 card_id2 = result[1].id;
                                 card_id3 = result[2].id;
 
-                                score -= 5000;
+                                score -= 4000;
                             }
                             else if (number == 3)
                             {
@@ -1235,7 +1235,7 @@ namespace CardGameServer
                                 card_id2 = result[1].id;
                                 card_id3 = result[2].id;
 
-                                score -= 10000;
+                                score -= 8000;
                             }
 
                             if (card_id1 != -1 && card_id2 != -1 && card_id3 != -1)
