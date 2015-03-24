@@ -59,32 +59,32 @@
             </Grid.ColumnDefinitions>
 
 
-            <dc:CardPlace IsMineCard="True" Grid.Row="1" Grid.Column="1" Margin="0, 2.5, 0, 2.5" Tag="1" MouseUp="CardPlace_MouseUp" IsEnabled="False"/>
-            <dc:CardPlace IsMineCard="True" Grid.Column="3" Grid.Row="1" Margin="0, 2.5, 0, 2.5" Tag="2" MouseUp="CardPlace_MouseUp" IsEnabled="False"></dc:CardPlace>
-            <dc:CardPlace IsMineCard="True" Grid.Column="5" Grid.Row="1" Margin="0, 2.5, 0, 2.5" Tag="3" MouseUp="CardPlace_MouseUp" IsEnabled="False"></dc:CardPlace>
-            <dc:CardPlace IsMineCard="True" Grid.Column="7" Grid.Row="1" Margin="0, 2.5, 0, 2.5" Tag="4" MouseUp="CardPlace_MouseUp" IsEnabled="False"></dc:CardPlace>
-            <dc:CardPlace IsMineCard="True" Grid.Column="9" Grid.Row="1" Margin="0, 2.5, 0, 2.5" Tag="5" MouseUp="CardPlace_MouseUp" IsEnabled="False"></dc:CardPlace>
-            <dc:CardPlace IsMineCard="True" Grid.Column="11" Grid.Row="1" Margin="0, 2.5, 0, 2.5" Tag="6" MouseUp="CardPlace_MouseUp" IsEnabled="False"></dc:CardPlace>
-            <dc:CardPlace IsMineCard="True" Grid.Column="13" Grid.Row="1" Margin="0, 2.5, 0, 2.5" Tag="7" MouseUp="CardPlace_MouseUp" IsEnabled="False"></dc:CardPlace>
-            <dc:CardPlace IsMineCard="True" Grid.Column="15" Grid.Row="1" Margin="0, 2.5, 0, 2.5" Tag="8" MouseUp="CardPlace_MouseUp" IsEnabled="False"></dc:CardPlace>
+            <dc:CardPlace IsMineCard="True" Grid.Row="1" Grid.Column="1" Margin="0, 2.5, 0, 2.5" Tag="1" MouseUp="CardPlace_MouseUp" IsEnabled="False" inGame="False" />
+            <dc:CardPlace IsMineCard="True" Grid.Column="3" Grid.Row="1" Margin="0, 2.5, 0, 2.5" Tag="2" MouseUp="CardPlace_MouseUp" IsEnabled="False" inGame="False"></dc:CardPlace>
+            <dc:CardPlace IsMineCard="True" Grid.Column="5" Grid.Row="1" Margin="0, 2.5, 0, 2.5" Tag="3" MouseUp="CardPlace_MouseUp" IsEnabled="False" inGame="False"></dc:CardPlace>
+            <dc:CardPlace IsMineCard="True" Grid.Column="7" Grid.Row="1" Margin="0, 2.5, 0, 2.5" Tag="4" MouseUp="CardPlace_MouseUp" IsEnabled="False" inGame="False"></dc:CardPlace>
+            <dc:CardPlace IsMineCard="True" Grid.Column="9" Grid.Row="1" Margin="0, 2.5, 0, 2.5" Tag="5" MouseUp="CardPlace_MouseUp" IsEnabled="False" inGame="False"></dc:CardPlace>
+            <dc:CardPlace IsMineCard="True" Grid.Column="11" Grid.Row="1" Margin="0, 2.5, 0, 2.5" Tag="6" MouseUp="CardPlace_MouseUp" IsEnabled="False" inGame="False"></dc:CardPlace>
+            <dc:CardPlace IsMineCard="True" Grid.Column="13" Grid.Row="1" Margin="0, 2.5, 0, 2.5" Tag="7" MouseUp="CardPlace_MouseUp" IsEnabled="False" inGame="False"></dc:CardPlace>
+            <dc:CardPlace IsMineCard="True" Grid.Column="15" Grid.Row="1" Margin="0, 2.5, 0, 2.5" Tag="8" MouseUp="CardPlace_MouseUp" IsEnabled="False" inGame="False"></dc:CardPlace>
 
-            <dc:CardPlace IsMineCard="True" Grid.Column="1" Grid.Row="3" Margin="0, 2.5, 0, 2.5" Tag="9" MouseUp="CardPlace_MouseUp" IsEnabled="False"></dc:CardPlace>
-            <dc:CardPlace IsMineCard="True" Grid.Column="3" Grid.Row="3" Margin="0, 2.5, 0, 2.5" Tag="10" MouseUp="CardPlace_MouseUp" IsEnabled="False"></dc:CardPlace>
-            <dc:CardPlace IsMineCard="True" Grid.Column="5" Grid.Row="3" Margin="0, 2.5, 0, 2.5" Tag="11" MouseUp="CardPlace_MouseUp" IsEnabled="False"></dc:CardPlace>
-            <dc:CardPlace IsMineCard="True" Grid.Column="7" Grid.Row="3" Margin="0, 2.5, 0, 2.5" Tag="12" MouseUp="CardPlace_MouseUp" IsEnabled="False"></dc:CardPlace>
-            <dc:CardPlace IsMineCard="True" Grid.Column="9" Grid.Row="3" Margin="0, 2.5, 0, 2.5" Tag="13" MouseUp="CardPlace_MouseUp" IsEnabled="False"></dc:CardPlace>
-            <dc:CardPlace IsMineCard="True" Grid.Column="11" Grid.Row="3" Margin="0, 2.5, 0, 2.5" Tag="14" MouseUp="CardPlace_MouseUp" IsEnabled="False"></dc:CardPlace>
-            <dc:CardPlace IsMineCard="True" Grid.Column="13" Grid.Row="3" Margin="0, 2.5, 0, 2.5" Tag="15" MouseUp="CardPlace_MouseUp" IsEnabled="False"></dc:CardPlace>
-            <dc:CardPlace IsMineCard="True" Grid.Column="15" Grid.Row="3" Margin="0, 2.5, 0, 2.5" Tag="16" MouseUp="CardPlace_MouseUp" IsEnabled="False"></dc:CardPlace>
+            <dc:CardPlace IsMineCard="True" Grid.Column="1" Grid.Row="3" Margin="0, 2.5, 0, 2.5" Tag="9" MouseUp="CardPlace_MouseUp" IsEnabled="False" inGame="False"></dc:CardPlace>
+            <dc:CardPlace IsMineCard="True" Grid.Column="3" Grid.Row="3" Margin="0, 2.5, 0, 2.5" Tag="10" MouseUp="CardPlace_MouseUp" IsEnabled="False" inGame="False"></dc:CardPlace>
+            <dc:CardPlace IsMineCard="True" Grid.Column="5" Grid.Row="3" Margin="0, 2.5, 0, 2.5" Tag="11" MouseUp="CardPlace_MouseUp" IsEnabled="False" inGame="False"></dc:CardPlace>
+            <dc:CardPlace IsMineCard="True" Grid.Column="7" Grid.Row="3" Margin="0, 2.5, 0, 2.5" Tag="12" MouseUp="CardPlace_MouseUp" IsEnabled="False" inGame="False"></dc:CardPlace>
+            <dc:CardPlace IsMineCard="True" Grid.Column="9" Grid.Row="3" Margin="0, 2.5, 0, 2.5" Tag="13" MouseUp="CardPlace_MouseUp" IsEnabled="False" inGame="False"></dc:CardPlace>
+            <dc:CardPlace IsMineCard="True" Grid.Column="11" Grid.Row="3" Margin="0, 2.5, 0, 2.5" Tag="14" MouseUp="CardPlace_MouseUp" IsEnabled="False" inGame="False"></dc:CardPlace>
+            <dc:CardPlace IsMineCard="True" Grid.Column="13" Grid.Row="3" Margin="0, 2.5, 0, 2.5" Tag="15" MouseUp="CardPlace_MouseUp" IsEnabled="False" inGame="False"></dc:CardPlace>
+            <dc:CardPlace IsMineCard="True" Grid.Column="15" Grid.Row="3" Margin="0, 2.5, 0, 2.5" Tag="16" MouseUp="CardPlace_MouseUp" IsEnabled="False" inGame="False"></dc:CardPlace>
 
-            <dc:CardPlace IsMineCard="True" Grid.Column="1" Grid.Row="5" Margin="0, 2.5, 0, 2.5" Tag="17" MouseUp="CardPlace_MouseUp" IsEnabled="False"></dc:CardPlace>
-            <dc:CardPlace IsMineCard="True" Grid.Column="3" Grid.Row="5" Margin="0, 2.5, 0, 2.5" Tag="18" MouseUp="CardPlace_MouseUp" IsEnabled="False"></dc:CardPlace>
-            <dc:CardPlace IsMineCard="True" Grid.Column="5" Grid.Row="5" Margin="0, 2.5, 0, 2.5" Tag="19" MouseUp="CardPlace_MouseUp" IsEnabled="False"></dc:CardPlace>
-            <dc:CardPlace IsMineCard="True" Grid.Column="7" Grid.Row="5" Margin="0, 2.5, 0, 2.5" Tag="20" MouseUp="CardPlace_MouseUp" IsEnabled="False"></dc:CardPlace>
-            <dc:CardPlace IsMineCard="True" Grid.Column="9" Grid.Row="5" Margin="0, 2.5, 0, 2.5" Tag="21" MouseUp="CardPlace_MouseUp" IsEnabled="False"></dc:CardPlace>
-            <dc:CardPlace IsMineCard="True" Grid.Column="11" Grid.Row="5" Margin="0, 2.5, 0, 2.5" Tag="22" MouseUp="CardPlace_MouseUp" IsEnabled="False"></dc:CardPlace>
-            <dc:CardPlace IsMineCard="True" Grid.Column="13" Grid.Row="5" Margin="0, 2.5, 0, 2.5" Tag="23" MouseUp="CardPlace_MouseUp" IsEnabled="False"></dc:CardPlace>
-            <dc:CardPlace IsMineCard="True" Grid.Column="15" Grid.Row="5" Margin="0, 2.5, 0, 2.5" Tag="24" MouseUp="CardPlace_MouseUp" IsEnabled="False"></dc:CardPlace>
+            <dc:CardPlace IsMineCard="True" Grid.Column="1" Grid.Row="5" Margin="0, 2.5, 0, 2.5" Tag="17" MouseUp="CardPlace_MouseUp" IsEnabled="False" inGame="False"></dc:CardPlace>
+            <dc:CardPlace IsMineCard="True" Grid.Column="3" Grid.Row="5" Margin="0, 2.5, 0, 2.5" Tag="18" MouseUp="CardPlace_MouseUp" IsEnabled="False" inGame="False"></dc:CardPlace>
+            <dc:CardPlace IsMineCard="True" Grid.Column="5" Grid.Row="5" Margin="0, 2.5, 0, 2.5" Tag="19" MouseUp="CardPlace_MouseUp" IsEnabled="False" inGame="False"></dc:CardPlace>
+            <dc:CardPlace IsMineCard="True" Grid.Column="7" Grid.Row="5" Margin="0, 2.5, 0, 2.5" Tag="20" MouseUp="CardPlace_MouseUp" IsEnabled="False" inGame="False"></dc:CardPlace>
+            <dc:CardPlace IsMineCard="True" Grid.Column="9" Grid.Row="5" Margin="0, 2.5, 0, 2.5" Tag="21" MouseUp="CardPlace_MouseUp" IsEnabled="False" inGame="False"></dc:CardPlace>
+            <dc:CardPlace IsMineCard="True" Grid.Column="11" Grid.Row="5" Margin="0, 2.5, 0, 2.5" Tag="22" MouseUp="CardPlace_MouseUp" IsEnabled="False" inGame="False"></dc:CardPlace>
+            <dc:CardPlace IsMineCard="True" Grid.Column="13" Grid.Row="5" Margin="0, 2.5, 0, 2.5" Tag="23" MouseUp="CardPlace_MouseUp" IsEnabled="False" inGame="False"></dc:CardPlace>
+            <dc:CardPlace IsMineCard="True" Grid.Column="15" Grid.Row="5" Margin="0, 2.5, 0, 2.5" Tag="24" MouseUp="CardPlace_MouseUp" IsEnabled="False" inGame="False"></dc:CardPlace>
 
             <Label Grid.Row="0" Grid.ColumnSpan="17" Content="Выберите героя:" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="0, 0, 0, 15" FontSize="17" FontFamily="/CardGameClient;component/Fonts/#Myriad Pro" Background="#00000000">
                 <Label.Effect>

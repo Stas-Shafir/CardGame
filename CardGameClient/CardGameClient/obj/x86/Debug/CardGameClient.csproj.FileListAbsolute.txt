@@ -166,3 +166,5 @@ D:\Шаг\CardGameClient\CardGameClient\obj\x86\Debug\CardGameClient.Properties.
 D:\Шаг\CardGameClient\CardGameClient\obj\x86\Debug\CardGameClient.csproj.GenerateResource.Cache
 D:\Шаг\CardGameClient\CardGameClient\obj\x86\Debug\Controls\sellmenu.baml
 D:\Шаг\CardGameClient\CardGameClient\obj\x86\Debug\Controls\sellmenu.g.cs
+D:\CardsKurs\CardGameClient\CardGameClient\obj\x86\Debug\Controls\sellmenu.baml
+D:\CardsKurs\CardGameClient\CardGameClient\obj\x86\Debug\Controls\sellmenu.g.cs

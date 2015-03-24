@@ -120,13 +120,6 @@ namespace CardGameClient
 
                 if (result)
                 {
-                    this.Dispatcher.Invoke(new Action(delegate
-                    {
-                        App.WindowList["LoadingWnd"].Show();
-                    }));
-
-                    Thread.Sleep(2000);
-
                     this.Dispatcher.Invoke(new Action(delegate 
                     {
                         if (!App.WindowList.ContainsKey("LobbyWnd"))
